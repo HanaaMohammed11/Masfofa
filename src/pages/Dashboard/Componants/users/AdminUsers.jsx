@@ -51,7 +51,7 @@ export default function AdminUsers() {
         <div
           className="text-lg font-bold mx-5 text-white lg:mb-0 md:mb-7 sm:mb-7 xs:mb-9 m-auto "
           style={{
-            backgroundImage: `url("./src/assets/WhatsApp_Image_2024-10-01_at_8.39.17_AM-removebg-preview.png")`,
+            backgroundImage: `url("./src/assets/btn.png")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             height: "79px",

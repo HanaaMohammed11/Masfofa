@@ -21,7 +21,7 @@ export default function SubjectList() {
         <div
           className="text-lg font-bold mx-5 text-white "
           style={{
-            backgroundImage: `url("./src/assets/WhatsApp_Image_2024-10-01_at_8.39.17_AM-removebg-preview.png")`,
+            backgroundImage: `url("./src/assets/btn.png")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             height: "79px",
