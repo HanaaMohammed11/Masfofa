@@ -47,13 +47,12 @@ export default function MatrixList() {
               className="xs:w-72 sm:w-96 rounded-full text-right"
               placeholder={t("matrixForm.search")}
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
+              onChange={(e) => setSearchQuery(e.target.value)} 
             />
           </div>
         </div>
       </div>
 
-      {/* Show the form or matrix card */}
       {showMatrixForm ? (
         <MatrixForm />
       ) : (

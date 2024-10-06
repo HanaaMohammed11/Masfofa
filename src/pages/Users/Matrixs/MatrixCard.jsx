@@ -13,7 +13,12 @@ export function MatrixCard(props) {
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const navigate = useNavigate();
-
+  if (props.matrices.length === 0) {
+    return (
+      <div className="text-center text-gray-500 mt-44">
+        {t("matrixCardDashboard.noMatrix")}
+      </div>
+    )}
   return (
     <div className="flex flex-wrap justify-center gap-9 p-9">
       {props.matrices.map((item) => (

@@ -4,13 +4,13 @@ import db, { auth } from "../../../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import Planet from "../planet/Planet";
-import { TranslateContext } from "../../../../TranslateContext/TransContext"; 
+import { TranslateContext } from "../../../../TranslateContext/TransContext";
 import { useTranslation } from "react-i18next";
 
 export default function Topbanner() {
   const [topBannerUrl, setTopBannerUrl] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
-  const { handleChangeLanguage } = useContext(TranslateContext); 
+  const { handleChangeLanguage } = useContext(TranslateContext);
   const { t } = useTranslation("global");
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Topbanner() {
     try {
       localStorage.removeItem("id");
       await signOut(auth);
-      navigate("/", { replace: true });
+      navigate("/login", { replace: true });
     } catch (error) {
       console.error("Error logging out: ", error);
     }
@@ -55,25 +55,23 @@ export default function Topbanner() {
           className="ml-8 font-semibold text-xl flex items-center justify-center text-white text-center"
           onClick={handleLogout}
           style={{
-        
-            
             backgroundSize: "cover",
             backgroundPosition: "center",
-      
+
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             color: "white",
             marginTop: 20,
-            cursor: 'pointer',
+            cursor: "pointer",
             backgroundImage: "url(./src/assets/logout.png)",
-      marginRight:30,
+            marginRight: 30,
             width: "90px",
-            height: "90px", 
-            marginBottom: '10px', 
+            height: "90px",
+            marginBottom: "10px",
           }}
         >
-          {t("logout.Logout")} 
+          {t("logout.Logout")}
         </div>
 
         <div className="w-80 pr-9 pt-9 logo flex">
@@ -82,14 +80,14 @@ export default function Topbanner() {
             <select
               onChange={(e) => handleChangeLanguage(e.target.value)}
               className="p-2 rounded-md bg-slate-400"
-              defaultValue={localStorage.getItem("lang") || "ar"} 
+              defaultValue={localStorage.getItem("lang") || "ar"}
             >
               <option value="en">English</option>
               <option value="ar">اللغة العربية</option>
             </select>
           </div>
           <Link to="/">
-            <img src={logoUrl} alt="Logo" /> 
+            <img src={logoUrl} alt="Logo" />
           </Link>
         </div>
       </div>

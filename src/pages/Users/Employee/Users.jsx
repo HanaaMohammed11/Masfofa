@@ -47,7 +47,8 @@ export default function Users() {
         <input
           type="text"
           placeholder={t("search.searchEmployees")}
-          className="xs:w-72 sm:w-96 rounded-full text-right"
+          className="xs:w-72 sm:w-96 rounded-full "
+          dir={direction}
           value={searchTerm} 
           onChange={(e) => setSearchTerm(e.target.value)} 
         />
@@ -55,9 +56,13 @@ export default function Users() {
 
       {/* User Cards section */}
       <div className="flex flex-wrap justify-center">
-        {filteredUsers.map((user) => (
+      {filteredUsers.length > 0 ? (
+        filteredUsers.map((user) => (
           <UserCard key={user.id} user={user} />
-        ))}
+        ))) : (
+          <p className="text-center text-gray-500 mt-44">{t("EmpCard.noEmp")}</p>
+        )}
+        
       </div>
 
       <div className='mt-auto'>

@@ -59,9 +59,10 @@ export default function MatrixForm() {
       className="flex flex-col items-center p-4"
       style={{ fontFamily: "cursive" }}
     >
-      <div className="w-full max-w-5xl p-4 md:p-8">
+      <div className="w-full max-w-5xl p-4 md:p-8" >
         <h1
-          className="text-right text-2xl md:text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl"
+        dir={direction}
+          className=" text-2xl md:text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl"
           style={{ fontFamily: "cursive" }}
         >
           {t("matrixForm.addNewMatrix")}
@@ -69,7 +70,7 @@ export default function MatrixForm() {
 
         {/* قسم تفاصيل المصفوفة */}
         <div className="bg-white p-4 md:p-8 rounded-lg shadow-md">
-          <div className="text-right grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2" dir={direction}>
             {/* الجهة المنشئة */}
             <div className="xs:col-span-2 md:col-span-1 w-full">
               <Label
@@ -174,7 +175,8 @@ export default function MatrixForm() {
 
         {/* قسم التعريفات */}
         <h2
-          className="text-right text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
+        dir={direction}
+          className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
           style={{ fontFamily: "cursive" }}
         >
           {t("matrixForm.definitions")}
@@ -184,7 +186,8 @@ export default function MatrixForm() {
           {definitions.map((definition, index) => (
             <div
               key={index}
-              className="text-right grid grid-cols-1 gap-4 mb-4 w-full"
+              className=" grid grid-cols-1 gap-4 mb-4 w-full"
+              dir={direction}
             >
               {/* المصطلح */}
               <div className="col-span-2 w-full">
@@ -231,7 +234,7 @@ export default function MatrixForm() {
           ))}
 
           {/* زر لإضافة تعريف جديد */}
-          <div className="mt-4 text-right">
+          <div className="mt-4 " dir={direction}>
             <Button onClick={handleAddDefinition} className="bg-gray-700">
               {t("matrixForm.addNewDef")}
             </Button>
@@ -239,7 +242,7 @@ export default function MatrixForm() {
         </div>
 
         {/* زر حفظ */}
-        <div className="mt-8 text-right justify-center flex">
+        <div className="mt-8 justify-center flex" dir={direction}>
           <div
             onClick={handleSave}
             className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"

@@ -103,14 +103,14 @@ export default function SubjectEditForm() {
 
   return (
     <div className="flex" style={{ fontFamily: "cursive" }} dir={direction}>
-      <div className="mx-auto p-8 w-full max-w-5xl">
-        <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
+      <div className="mx-auto p-8 w-full max-w-5xl" >
+        <h1 className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl" dir={direction}>
           {t("subjectEditForm.editSubject")}
         </h1>
 
         {/* Form Section */}
         <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="text-right grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir={direction}>
             {/* Subject Field */}
             <div className="xs:col-span-2 md:col-span-1">
               <Label
@@ -197,7 +197,7 @@ export default function SubjectEditForm() {
           </div>
 
           {/* Related Matrix */}
-          <div className="text-right col-span-2 pt-8">
+          <div className=" col-span-2 pt-8" dir={direction}>
             <Label
               htmlFor="relatedMatrix"
               value={t("subjectEditForm.relatedMatrix")}
@@ -226,7 +226,7 @@ export default function SubjectEditForm() {
           </div>
 
           {/* Assigned Employee */}
-          <div className="text-right col-span-2 pt-8">
+          <div className=" col-span-2 pt-8" dir={direction}>
             <Label
               htmlFor="emp1"
               value={t("subjectEditForm.hiredEmp")}
@@ -271,7 +271,7 @@ export default function SubjectEditForm() {
           </div>
 
           {/* Shared Employees */}
-          <div className="text-right col-span-2 pt-8">
+          <div className=" col-span-2 pt-8" dir={direction}>
             <Label
               value={t("subjectEditForm.sharedEmployees")}
               className="text-xl font-semibold"

@@ -205,11 +205,11 @@ export default function AddAccounts() {
         </Modal.Body>
       </Modal>
 
-      <div className=" bg-gray-100 flex flex-col items-center">
-        <div className="w-[90%] mx-auto h-auto bg-white p-4 rounded-lg shadow-lg mt-10 xs:overflow-x-auto sm:overflow-x-visible">
-          <table className="table-auto w-full max-w-full text-right border-collapse">
-            <thead>
-              <tr className="bg-gray-200">
+      <div className=" bg-gray-100 flex flex-col items-center" dir={direction} >
+        <div dir={direction} className="w-[90%] mx-auto h-auto bg-white p-4 rounded-lg shadow-lg mt-10 xs:overflow-x-auto sm:overflow-x-visible">
+          <table dir={direction}  className="table-auto w-full max-w-full  border-collapse">
+            <thead dir={direction} >
+              <tr className="bg-gray-200" dir={direction} >
                 <th className="px-4 py-2">{t("addaccount.firstName")}</th>
                 <th className="px-4 py-2">{t("addaccount.email")}</th>
                 <th className="px-4 py-2">{t("addaccount.password")}</th>
@@ -226,7 +226,7 @@ export default function AddAccounts() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" className="px-4 py-2 text-center">
+                  <td colSpan="3" className="px-4 py-10 text-center  ">
                     {t("addaccount.noUsers")}
                   </td>
                 </tr>

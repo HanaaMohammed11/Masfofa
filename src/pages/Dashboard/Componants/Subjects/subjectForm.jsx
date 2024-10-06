@@ -367,13 +367,13 @@ export default function SubjectForm() {
   return (
     <div className="flex" style={{ fontFamily: "cursive" }}>
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
-        <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
+        <h1     dir={direction} className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
           {t("subjectEditForm.addSubject")}
         </h1>
 
         {/* Form Section */}
         <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="text-right grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className=" grid grid-cols-1 md:grid-cols-2 gap-6" dir={direction}>
             {/* Subject Field */}
             <div className="xs:col-span-2 md:col-span-1">
               <Label
@@ -460,7 +460,7 @@ export default function SubjectForm() {
             </div>
           </div>
 
-          <div className="text-right grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-6" dir={direction}>
             {/* Related Matrix */}
             <div className="col-span-2 pt-8">
               <Label

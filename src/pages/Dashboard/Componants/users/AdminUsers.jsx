@@ -92,7 +92,7 @@ export default function AdminUsers() {
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => <AdminUserCard key={user.id} user={user} />)
             ) : (
-              <p className="text-center text-gray-500">{t("search.noResults")}</p>
+              <p className="text-center text-gray-500">{t("EmpCard.noEmp")}</p>
             )}
           </>
         )}

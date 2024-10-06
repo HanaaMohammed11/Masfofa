@@ -148,8 +148,9 @@ export default function MatrixLists() {
 
         <input
           type="text"
-          placeholder="بحث عن مصفوفة"
-          className="xs:w-72 sm:w-96 rounded-full text-right ml-4"
+          placeholder=    {t("matrix.searchButton")} 
+          className="xs:w-72 sm:w-96 rounded-full ml-4"
+          dir={direction}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           disabled={!searchBy} 

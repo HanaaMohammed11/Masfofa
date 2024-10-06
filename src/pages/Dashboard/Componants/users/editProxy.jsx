@@ -105,7 +105,7 @@ export default function EditProxyrForm() {
   return (
     <div>
       <Topbanner/>
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen" >
     <div className="bg-white p-8 rounded-lg shadow-md  w-full max-w-5xl ">
       <form onSubmit={handleSave}>
       <div className="flex flex-col items-center mb-6 ">

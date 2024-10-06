@@ -11,6 +11,14 @@ function UserCardItem({ user }) {
     navigate('/userinfo', { state: { user } });
   };
 
+  if (!user) {
+    return (
+      <p className="text-center text-gray-500">
+        {t("EmpCard.noEmp")} 
+      </p>
+    );
+  }
+
   return (
     <div className="flex flex-wrap gap-9 xs:py-5 sm:p-10">
       <Card className="w-80 cursor-pointer">

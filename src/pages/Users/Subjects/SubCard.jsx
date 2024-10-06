@@ -49,7 +49,7 @@ export function SubCard({ searchTerm }) {
 
   if (filteredSubjects.length === 0) {
     return (
-      <div className={`flex justify-center items-center h-full ${direction}`}>
+      <div className={`flex justify-center  mt-44 items-center h-full ${direction}`}>
         <p className="text-xl text-gray-500">{t("articels.noResults")}</p>
       </div>
     );

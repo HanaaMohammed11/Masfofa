@@ -63,12 +63,12 @@ export default function MatrixEditForm() {
       dir={direction}
       style={{ fontFamily: "cursive" }}
     >
-      <div className="mx-auto p-8 w-full max-w-5xl">
-        <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
+      <div className="mx-auto p-8 w-full max-w-5xl" >
+        <h1 dir={direction} className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
           {t("matrixEditForm.updateMatrix")}
         </h1>
         <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="text-right grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className=" grid grid-cols-1 md:grid-cols-2 gap-6" dir={direction}>
             <div className="xs:col-span-2 md:col-span-1">
               <Label htmlFor="issuer" value={t("matrixEditForm.companyName")} />
               <TextInput
@@ -135,7 +135,7 @@ export default function MatrixEditForm() {
           </div>
 
           {/* Definitions Section */}
-          <h2 className="text-right text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9">
+          <h2 dir={direction} className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9">
             {t("matrixEditForm.definitions")}
           </h2>
 
@@ -143,7 +143,7 @@ export default function MatrixEditForm() {
             {matrixData.definitions.map((definition, index) => (
               <div
                 key={index}
-                className="text-right grid grid-cols-1 gap-4 mb-4 w-full"
+                className=" grid grid-cols-1 gap-4 mb-4 w-full" dir={direction}
               >
                 <div className="col-span-2 w-full">
                   <Label
@@ -188,7 +188,7 @@ export default function MatrixEditForm() {
           </div>
         </div>
 
-        <div className="mt-8 text-right flex justify-center">
+        <div className="mt-8  flex justify-center" dir={direction}>
           <div
             onClick={handleSave}
             className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"

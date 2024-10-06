@@ -6,8 +6,12 @@ import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import db from "../../../config/firebase";
+import { useTranslation } from "react-i18next";
 
 export default function SubjectInfo() {
+  const { t, i18n } = useTranslation("global");
+
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -15,7 +19,6 @@ export default function SubjectInfo() {
   const [employees, setEmployees] = useState([]);
   const clickedSubject = location.state?.subject;
 
-  // جلب بيانات المادة
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +27,6 @@ export default function SubjectInfo() {
           return;
         }
 
-        // جلب بيانات الموظفين
         const employeesSnapshot = await getDocs(collection(db, "employees"));
         const employeesList = employeesSnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -33,7 +35,6 @@ export default function SubjectInfo() {
 
         setEmployees(employeesList);
 
-        // هنا يمكنك القيام بأي جلب آخر للبيانات إذا كان لديك حقول إضافية
         setSubject(clickedSubject);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -43,11 +44,6 @@ export default function SubjectInfo() {
     fetchData();
   }, [clickedSubject]);
 
-  if (!subject || employees.length === 0) {
-    return <div>جاري التحميل...</div>; // يمكنك وضع رسالة تحميل مؤقتة حتى جلب البيانات
-  }
-
-  // العثور على الموظفين من مجموعة employees بناءً على الـ employeeId من subject
   const emp1 = employees.find(
     (emp) => emp.employeeId === clickedSubject.emp1Id
   );
@@ -64,52 +60,58 @@ export default function SubjectInfo() {
           <div className="flex flex-col items-center pb-10">
             {/* الجدول */}
             <div className="mt-4 w-full">
-              <table className="min-w-full text-right border-collapse table-fixed">
+              <table
+                className="min-w-full  border-collapse table-fixed"
+                dir={direction}
+              >
                 <tbody className="text-gray-700">
                   <tr>
-                    <td className="px-4 py-2 break-words w-1/2">
-                      {subject.subjectNum || "غير متاح"}
+                    <td className="px-4 py-2 font-bold w-1/2">
+                      {t("subjectEditForm.subjectNum")}
                     </td>
-                    <td className="px-4 py-2 font-bold w-1/2">: رقم المادة</td>
+                    <td className="px-4 py-2 break-words w-1/2">
+                      {clickedSubject.subjectNum}
+                    </td>
                   </tr>
                   <tr className="bg-gray-100">
-                    <td className="px-4 py-2 break-words w-1/2">
-                      {subject.subjectTitle || "غير متاح"}
-                    </td>
                     <td className="px-4 py-2 font-bold w-1/2">
-                      : موضوع المادة
+                      {t("subjectEditForm.subjectTitle")}
+                    </td>
+                    <td className="px-4 py-2 break-words w-1/2">
+                      {clickedSubject.subjectTitle}
                     </td>
                   </tr>
                   <tr>
+                    <td className="px-4 py-2 font-bold w-1/2">
+                      {t("subjectEditForm.subjectContent")}
+                    </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {subject.subjectContent || "غير متاح"}
+                      {clickedSubject.subjectContent}
                     </td>
-                    <td className="px-4 py-2 font-bold w-1/2">: نص المادة</td>
                   </tr>
                   <tr className="bg-gray-100">
-                    <td className="px-4 py-2 break-words w-1/2">
-                      {subject.emp1.employeeName || "غير متاح"} -{" "}
-                      {subject.emp1.jobTitle || "غير متاح"}{" "}
-                    </td>
                     <td className="px-4 py-2 font-bold w-1/2">
-                      : الموظف المفوض - المسمى الوظيفي
+                      {t("subjectInfo.authorizedEmployee")}
+                    </td>
+                    <td className="px-4 py-2 break-words w-1/2">
+                      {clickedSubject.emp1.employeeName} -{" "}
+                      {clickedSubject.emp1.jobTitle}{" "}
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 break-words w-1/2">
-                      {/* {emp2?.employeeName || "غير متاح"} -{" "}
-                      {emp2?.role || "غير متاح"} */}
-                    </td>
                     <td className="px-4 py-2 font-bold w-1/2">
-                      :الموظفين المشتركين - نوع الاشتراك
+                      {t("subjectInfo.sharedEmployees")}
+                    </td>
+                    <td className="px-4 py-2 break-words w-1/2">
+                      {emp2?.employeeName} - {emp2?.role}
                     </td>
                   </tr>
-                  {subject.sharedEmployees.length > 0 ? (
-                    subject.sharedEmployees.map((emp) => {
+                  {clickedSubject.sharedEmployees.length > 0 ? (
+                    clickedSubject.sharedEmployees.map((emp) => {
                       const user = employees.find(
-                        (empl) => empl.employeeId === emp.empId
+                        (empl) => empl.id === emp.empId
                       );
-                      console.log("Found user:", user); // Add this to see if it finds the employee
+                      console.log("Found user:", user);
                       return (
                         <tr
                           className="cursor-pointer hover:bg-gray-100"
@@ -139,23 +141,25 @@ export default function SubjectInfo() {
                   ) : (
                     <tr>
                       <td colSpan={2} className="px-4 py-2 text-center">
-                        لا توجد مواد مرتبطة
+                        {t("subjectInfo.noRelatedSubjects")}
                       </td>
                     </tr>
                   )}
                   <tr className="bg-gray-100">
-                    <td className="px-4 py-2 break-words w-1/2">
-                      {subject.negotiationLimit}
-                    </td>
                     <td className="px-4 py-2 font-bold w-1/2">
-                      : حدود التفاوض
+                      {t("subjectEditForm.negotiationLimit")}
+                    </td>
+                    <td className="px-4 py-2 break-words w-1/2">
+                      {clickedSubject.negotiationLimit}
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {subject.notes || "غير متاح"}
+                    <td className="px-4 py-2 font-bold w-1/2">
+                      {t("subjectInfo.notes")}
                     </td>
-                    <td className="px-4 py-2 font-bold w-1/2">: ملاحظات</td>
+                    <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
+                      {clickedSubject.notes}
+                    </td>
                   </tr>
                 </tbody>
               </table>

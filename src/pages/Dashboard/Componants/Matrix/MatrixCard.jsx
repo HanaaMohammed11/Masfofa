@@ -210,8 +210,8 @@ export default function MatrixCard({ searchQuery }) {
             </motion.div>
           ))
         ) : (
-          <div className="p-4 text-center text-neutral-600 dark:text-neutral-400">
-            {t("matrixCardDashboard.nosubjects")}
+          <div className="p-4 text-center text-neutral-600 dark:text-neutral-400 mt-44">
+            {t("matrixCardDashboard.noMatrix")}
           </div>
         )}
       </ul>

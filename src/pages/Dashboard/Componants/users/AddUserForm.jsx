@@ -97,7 +97,7 @@ export default function UserForm() {
   return (
     <div className="flex w-full" style={{ fontFamily: "cursive" }}>
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
-        <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
+        <h1 className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"     dir={direction}>
  {t("userform.adduser")}
         </h1>
 
@@ -149,7 +149,7 @@ export default function UserForm() {
         </div>
 
         {/* Proxy Employee Section */}
-        <h2 className="text-right text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl mt-9">
+        <h2 className=" text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl mt-9"     dir={direction}>
        {t("userform.title")}
         </h2>
 
@@ -187,7 +187,7 @@ export default function UserForm() {
             </div>
 
             {/* Proxy Employee Form Fields */}
-            <div className="text-right grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div     dir={direction} className=" grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField label={t("userform.proxyEmployeeName")} id={`proxy-employee-name-${index}`} />
 <FormField label={t("userform.proxyEmployeeId")} id={`proxy-employee-id-${index}`} />
 <FormField label={t("userform.proxyHireDate")} id={`proxy-hire-date-${index}`} type="date" />

@@ -1,68 +1,4 @@
 {
-    "text": {
-      "DashBoard": "لوحة التحكم",
-      "Employees": "الموظفين",
-      "Articles": "المواد",
-      "Matrices": "المصفوفات",
-      "masfofa": "مصفوفتي"
-    },
-    
-        "login": {
-          "email": "البريد الإلكتروني",
-          "password": "كلمة المرور",
-          "loginButton": "تسجيل",
-          "invalidEmail": "بريد إلكتروني غير صالح",
-          "requiredEmail": "البريد الإلكتروني مطلوب",
-          "invalidPassword": "يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل",
-          "requiredPassword": "كلمة المرور مطلوبة",
-          "loginError": "فشل تسجيل الدخول: "
-        },
-        
-            "logout": {
-              "Logout": "تسجيل الخروج"
-            },
-            "EmpCard": {
-              "details": "التفاصيل"
-            },
-            "search": {
-              "searchEmployees": "بحث عن موظفين"
-            },
-            "employees": {
-              "title": "الموظفين"
-            },
-            "job": {
-              "jobTitle": "المسمى الوظيفي",
-              "employeeId": "الرقم الوظيفي",
-              "phoneNumber": "الهاتف"
-            },
-            "userInfo": {
-                "employeeName":   "اسم الموظف : ",
-                "employeeId": "الرقم الوظيفي: ",
-                "hireDate": "تاريخ التعيين  : ",
-                "jobGrade": "الدرجة الوظيفية  : ",
-                "department": "الإدارة/القسم : ",
-                "officeNumber": "رقم المكتب  : ",
-                "jobTitle": "المسمى الوظيفي  : ",
-                "phoneNumber": "رقم الهاتف  : ",
-                "email" :" البريد الالكتروني :",
-                "currentOffice": "المكتب الحالي  : ",
-                "proxyEmployeeTitle": "الموظف الذي ينوب عنه : ",
-                "proxyEmployeeName": "اسم الموظف البديل  : ",
-                "proxyPhoneNumber": "رقم الهاتف   : ",
-                "noProxyEmployees": "لا يوجد موظفين  لهذا المستخدم.",
-                "permissionsTitle": "الصلاحيات  : ",
-                "subjectTitle": "عنوان المادة  : ",
-                "noRelatedSubjects": "لا توجد مواد مرتبطة.",
-                "edituser":"تعديل",
-                "delete":"حذف"
-              },
-              "articels": {
-                "title": " المواد",
-                "searchPlaceholder": "ابحث عن مادة",
-                "noResults": "لم يتم العثور على مقالات.",
-                     "details": "التفاصيل"
-              }
-          ,"subjectInfo": {
   "text": {
     "DashBoard": "لوحة التحكم",
     "Employees": "الموظفين",
@@ -70,7 +6,6 @@
     "Matrices": "المصفوفات",
     "masfofa": "مصفوفتي"
   },
-
   "login": {
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
@@ -81,15 +16,15 @@
     "requiredPassword": "كلمة المرور مطلوبة",
     "loginError": "فشل تسجيل الدخول: "
   },
-
   "logout": {
     "Logout": "تسجيل الخروج"
   },
   "EmpCard": {
     "details": "التفاصيل"
+    ,    "noEmp":"لا يوجد موظفين"
   },
   "search": {
-    "searchEmployees": "بحث عن موظفين"
+    "searchEmployees": "بحث  "
   },
   "employees": {
     "title": "الموظفين"
@@ -110,29 +45,31 @@
     "phoneNumber": "رقم الهاتف  : ",
     "email": " البريد الالكتروني :",
     "currentOffice": "المكتب الحالي  : ",
-    "proxyEmployeeTitle": "الموظفين البدلاء  : ",
+    "proxyEmployeeTitle": "الموظف الذي ينوب عنه : ",
     "proxyEmployeeName": "اسم الموظف البديل  : ",
-    "proxyPhoneNumber": "رقم الهاتف البديل  : ",
-    "noProxyEmployees": "لا يوجد موظفين بدلاء لهذا المستخدم.",
+    "proxyPhoneNumber": "رقم الهاتف   : ",
+    "noProxyEmployees": "لا يوجد موظفين  لهذا المستخدم.",
     "permissionsTitle": "الصلاحيات  : ",
     "subjectTitle": "عنوان المادة  : ",
-    "noRelatedSubjects": "لا توجد مواد مرتبطة."
+    "noRelatedSubjects": "لا توجد مواد مرتبطة.",
+    "edituser": "تعديل",
+    "delete": "حذف"
   },
   "articels": {
-    "title": " المواد",
-    "searchPlaceholder": "ابحث عن مادة",
-    "noResults": "لم يتم العثور على مقالات.",
+    "title": "المواد",
+    "searchPlaceholder": "بحث",
+    "noResults": "لم يتم العثور على مواد.",
     "details": "التفاصيل"
   },
   "subjectInfo": {
-    "subjectNumber": " رقم المادة :",
-    "subjectTitle": " موضوع المادة :",
-    "subjectContent": " نص المادة :",
-    "authorizedEmployee": " الموظف المفوض - المسمى الوظيفي :",
-    "sharedEmployees": " الموظفين المشتركين - نوع الاشتراك :",
+    "subjectNumber": "رقم المادة :",
+    "subjectTitle": "موضوع المادة :",
+    "subjectContent": "نص المادة :",
+    "authorizedEmployee": "الموظف المفوض - المسمى الوظيفي :",
+    "sharedEmployees": "الموظفين المشتركين - نوع الاشتراك :",
     "noRelatedSubjects": "لا توجد مواد مرتبطة",
-    "negotiationLimit": " حدود التفاوض :",
-    "notes": " ملاحظات :"
+    "negotiationLimit": "حدود التفاوض :",
+    "notes": "ملاحظات :"
   },
   "matrix": {
     "title": "المصفوفات",
@@ -154,14 +91,13 @@
     "updateDate": "تاريخ التعديل :",
     "publisher": "الجهة التي أصدرتها :",
     "introduction": "مقدمة :",
-    "definitionsHeader": "التعريفات المستخدمة في المصفوفة :",
+    "definitionsHeader": "التعريفات :",
     "definitions": "التعريفات :",
     "permissions": "الصلاحيات التابعة لها :",
     "subjectTitle": "عنوان المادة :",
     "noRelatedSubjects": "لا توجد مواد مرتبطة",
     "notes": "ملاحظات :"
   },
-
   "sidebar": {
     "dashboard": "المصفوفات",
     "permissions": "المواد",
@@ -211,9 +147,7 @@
     "proxyPhoneNumber": "رقم الهاتف",
     "proxyCurrentOffice": "المبني والمكتب المتواجد به",
     "proxyEmail": "البريد الالكتروني",
-
     "title": "الموظف الذي ينوب عنه",
-
     "appproxy": "اضافة موظف بديل",
     "save": "حفظ",
     "edittitle": "تعديل بيانات الموظف"
@@ -221,7 +155,7 @@
   "matrixCardDashboard": {
     "update": "تعديل",
     "delete": "حذف",
-    "noSubjects": "لا يوجد مصفوفات"
+    "noMatrix": "لا يوجد مصفوفات"
   },
   "matrixEditForm": {
     "updateMatrix": "تعديل المصفوفة",
@@ -251,7 +185,7 @@
     "interpretation": "التفسير",
     "addNewDef": "إضافة تعريف جديد",
     "save": "حفظ",
-    "search": "بحث عن مصفوفه"
+    "search": "بحث  "
   },
   "subjectCardDashboard": {
     "subjectNum": "رقم المادة",
@@ -268,16 +202,8 @@
     "subjectTitle": "موضوع المادة",
     "subjectContent": "نص المادة",
     "negotiationLimit": "حدود التفاوض",
-    "relatedMatrix": "المصفوفة المتعلقة",
-    "hiredEmp": "الموظف المعين",
-    "chooseEmp": "اختر موظفًا",
-    "notes": "ملاحظات",
-    "sharedEmployees": "موظفون مشتركين",
-    "chooseRole": "اختر دورًا",
-    "single": "منفردين",
-    "grouped": "مجتمعين",
-    "delete": "حذف",
-    "addNewEmp": "إضافة موظف جديد",
+    "relatedMatrix": "المصفوفات المرتبطة",
+    "subjectNotes": "الملاحظات",
     "save": "حفظ"
   }
 }
