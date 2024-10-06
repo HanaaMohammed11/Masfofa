@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import SubjectForm from "./subjectForm";
 import { SubjctCard } from "./SubjectCard";
+import { useTranslation } from "react-i18next";
 
 export default function SubjectList() {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const { t, i18n } = useTranslation("global");
 
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const handleClick = () => {
     setShowMatrixForm(!showMatrixForm);
   };
@@ -31,11 +34,13 @@ export default function SubjectList() {
             textAlign: "center",
           }}
           onClick={handleClick}
-        >اضافة مادة </div>
-        <div className='search flex justify-center mt-9'>
+        >
+          {t("subjectEditForm.addSubject")}
+        </div>
+        <div className="search flex justify-center mt-9">
           <input
             type="text"
-            placeholder='بحث عن مادة'
+            placeholder={t("subjectEditForm.search")}
             className="xs:w-72 sm:w-96 rounded-full text-right"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} // Update search term state on change

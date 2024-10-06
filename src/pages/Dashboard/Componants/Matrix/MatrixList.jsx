@@ -1,12 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { IoMdAdd } from "react-icons/io";
 import MatrixForm from "./MatrixForm";
 import MatrixCard from "./MatrixCard";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function MatrixList() {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [searchQuery, setSearchQuery] = useState("");
+  const { t, i18n } = useTranslation("global");
 
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const handleClick = () => {
     setShowMatrixForm(!showMatrixForm);
   };
@@ -18,7 +22,8 @@ export default function MatrixList() {
           <div
             className="text-lg font-bold mx-5 text-white "
             style={{
-              backgroundImage:' url("./src/assets/WhatsApp_Image_2024-10-01_at_8.39.17_AM-removebg-preview.png")',
+              backgroundImage:
+                ' url("./src/assets/WhatsApp_Image_2024-10-01_at_8.39.17_AM-removebg-preview.png")',
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               height: "79px",
@@ -31,20 +36,20 @@ export default function MatrixList() {
               textAlign: "center",
             }}
             onClick={handleClick}
-          >اضافة مصفوفة </div>
+          >
+            {t("matrixForm.addNewMatrix")}{" "}
+          </div>
 
           {/* Search Input */}
-          <div className='search flex justify-center mt-9'>
+          <div className="search flex justify-center mt-9">
             <input
               type="text"
               className="xs:w-72 sm:w-96 rounded-full text-right"
-              placeholder="بحث عن مصفوفه"
+              placeholder={t("matrixForm.search")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
             />
           </div>
-
-
         </div>
       </div>
 

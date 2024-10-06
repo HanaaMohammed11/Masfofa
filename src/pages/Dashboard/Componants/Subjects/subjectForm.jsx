@@ -270,6 +270,7 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 export default function SubjectForm() {
   const navigate = useNavigate();
@@ -286,6 +287,9 @@ export default function SubjectForm() {
     { empId: "", role: "" },
   ]);
   const [negotiationLimit, setNegotiationLimit] = useState("");
+  const { t, i18n } = useTranslation("global");
+
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
   const handleSave = async () => {
     const data = {
@@ -302,7 +306,7 @@ export default function SubjectForm() {
 
     try {
       const subjectRef = await addDoc(collection(db, "subjects"), data);
-      alert("تم حفظ البيانات بنجاح");
+      alert(t("matrixForm.alert"));
 
       const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
 
@@ -364,7 +368,7 @@ export default function SubjectForm() {
     <div className="flex" style={{ fontFamily: "cursive" }}>
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
         <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
-          إضافة مادة جديدة
+          {t("subjectEditForm.addSubject")}
         </h1>
 
         {/* Form Section */}
@@ -374,7 +378,7 @@ export default function SubjectForm() {
             <div className="xs:col-span-2 md:col-span-1">
               <Label
                 htmlFor="subjectField"
-                value="الحقل"
+                value={t("subjectEditForm.field")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -391,7 +395,7 @@ export default function SubjectForm() {
             <div className="xs:col-span-2 md:col-span-1">
               <Label
                 htmlFor="subjectNum"
-                value="رقم المادة"
+                value={t("subjectEditForm.subjectNum")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -408,7 +412,7 @@ export default function SubjectForm() {
             <div className="col-span-2">
               <Label
                 htmlFor="subjectTitle"
-                value="موضوع المادة"
+                value={t("subjectEditForm.subjectTitle")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -425,7 +429,7 @@ export default function SubjectForm() {
             <div className="col-span-2">
               <Label
                 htmlFor="subjectContent"
-                value="نص المادة"
+                value={t("subjectEditForm.subjectContent")}
                 className="text-xl font-semibold"
               />
               <Textarea
@@ -442,7 +446,7 @@ export default function SubjectForm() {
             <div className="col-span-2 pt-8">
               <Label
                 htmlFor="negotiationLimit"
-                value="حدود التفاوض"
+                value={t("subjectEditForm.negotiationLimit")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -461,7 +465,7 @@ export default function SubjectForm() {
             <div className="col-span-2 pt-8">
               <Label
                 htmlFor="relatedMatrix"
-                value="المصفوفة التابعة لها"
+                value={t("subjectEditForm.relatedMatrix")}
                 className="text-xl font-semibold"
               />
               <Select
@@ -489,7 +493,7 @@ export default function SubjectForm() {
             <div className="col-span-2 pt-8">
               <Label
                 htmlFor="emp1"
-                value="الموظف المعين"
+                value={t("subjectEditForm.hiredEmp")}
                 className="text-xl font-semibold"
               />
               <Select
@@ -506,7 +510,7 @@ export default function SubjectForm() {
                 }}
               >
                 <option value="" disabled>
-                  اختر موظفًا
+                  {t("subjectEditForm.chooseEmp")}
                 </option>{" "}
                 {/* إضافة خيار افتراضي */}
                 {employees.map((item) => (
@@ -521,7 +525,7 @@ export default function SubjectForm() {
             <div className="col-span-2 pt-8">
               <Label
                 htmlFor="notes"
-                value="ملاحظات"
+                value={t("subjectEditForm.notes")}
                 className="text-xl font-semibold"
               />
               <Textarea
@@ -535,7 +539,10 @@ export default function SubjectForm() {
 
             {/* Shared Employees */}
             <div className="col-span-2 pt-8">
-              <Label value="موظفون مشتركين" className="text-xl font-semibold" />
+              <Label
+                value={t("subjectEditForm.sharedEmployees")}
+                className="text-xl font-semibold"
+              />
               {sharedEmployees.map((sharedEmployee, index) => (
                 <div key={index} className="flex gap-4 mt-2">
                   <Select
@@ -546,11 +553,15 @@ export default function SubjectForm() {
                     }
                   >
                     <option value="" disabled>
-                      اختر الدور
+                      {t("subjectEditForm.chooseRole")}
                     </option>{" "}
                     {/* خيار افتراضي */}
-                    <option value="مجتمعين">مجتمعين</option>
-                    <option value="منفردين">منفردين</option>
+                    <option value="مجتمعين">
+                      {t("subjectEditForm.single")}
+                    </option>
+                    <option value="منفردين">
+                      {t("subjectEditForm.grouped")}
+                    </option>
                   </Select>
 
                   <Select
@@ -573,30 +584,27 @@ export default function SubjectForm() {
                 onClick={handleAddSharedEmployee}
                 className="mt-4"
               >
-                إضافة موظف مشترك
+                {t("subjectEditForm.addNewEmp")}
               </Button>
             </div>
 
             {/* Save Button */}
             <div className="col-span-2 pt-8">
-            <div 
-           
-           onClick={handleSave} 
-           className='p-5 w-36  flex items-center text-center mx-auto justify-center text-white' 
-           style={{ 
-             backgroundImage: 'url("./src/assets/save.png")', 
-             backgroundSize: 'cover', 
-             backgroundPosition: 'center', 
-             borderRadius: '5px', 
-             height: '75px', 
-             marginTop:30,
-             cursor: 'pointer',
-             
-         
-           }}
-         >
-       حفظ
-         </div>
+              <div
+                onClick={handleSave}
+                className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
+                style={{
+                  backgroundImage: 'url("./src/assets/save.png")',
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  borderRadius: "5px",
+                  height: "75px",
+                  marginTop: 30,
+                  cursor: "pointer",
+                }}
+              >
+                {t("subjectEditForm.save")}
+              </div>
             </div>
           </div>
         </div>

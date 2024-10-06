@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 import { Button, Label, TextInput, Textarea } from "flowbite-react";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../../config/firebase";
+import { useTranslation } from "react-i18next";
 
 export default function MatrixEditForm() {
   const location = useLocation();
   const navigate = useNavigate();
   const matrix = location.state?.matrix;
+  const { t, i18n } = useTranslation("global");
+
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
   const [matrixData, setMatrixData] = useState({
     title: matrix.title || "",
@@ -25,14 +29,12 @@ export default function MatrixEditForm() {
     setMatrixData({ ...matrixData, [id]: value });
   };
 
-
   const handleDefinitionChange = (index, field, value) => {
     const updatedDefinitions = matrixData.definitions.map((def, i) =>
       i === index ? { ...def, [field]: value } : def
     );
     setMatrixData({ ...matrixData, definitions: updatedDefinitions });
   };
-
 
   const handleAddDefinition = () => {
     setMatrixData({
@@ -58,16 +60,17 @@ export default function MatrixEditForm() {
   return (
     <div
       className="flex h-full bg-slate-100 "
+      dir={direction}
       style={{ fontFamily: "cursive" }}
     >
       <div className="mx-auto p-8 w-full max-w-5xl">
         <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
-          تعديل المصفوفة
+          {t("matrixEditForm.updateMatrix")}
         </h1>
         <div className="bg-white p-8 rounded-lg shadow-md">
           <div className="text-right grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="xs:col-span-2 md:col-span-1">
-              <Label htmlFor="issuer" value="الجهة المُنشئة" />
+              <Label htmlFor="issuer" value={t("matrixEditForm.companyName")} />
               <TextInput
                 id="companyName"
                 type="text"
@@ -76,7 +79,7 @@ export default function MatrixEditForm() {
               />
             </div>
             <div className="xs:col-span-2 md:col-span-1">
-              <Label htmlFor="title" value="اسم المصفوفة" />
+              <Label htmlFor="title" value={t("matrixEditForm.matrixName")} />
               <TextInput
                 id="title"
                 type="text"
@@ -85,7 +88,10 @@ export default function MatrixEditForm() {
               />
             </div>
             <div className="xs:col-span-2 md:col-span-1">
-              <Label htmlFor="modificationDate" value="تاريخ التعديل" />
+              <Label
+                htmlFor="modificationDate"
+                value={t("matrixEditForm.updateDate")}
+              />
               <TextInput
                 id="updateDate"
                 type="date"
@@ -94,7 +100,10 @@ export default function MatrixEditForm() {
               />
             </div>
             <div className="xs:col-span-2 md:col-span-1">
-              <Label htmlFor="releaseDate" value="تاريخ الإصدار" />
+              <Label
+                htmlFor="releaseDate"
+                value={t("matrixEditForm.releaseDate")}
+              />
               <TextInput
                 id="releaseDate"
                 type="date"
@@ -103,7 +112,10 @@ export default function MatrixEditForm() {
               />
             </div>
             <div className="col-span-2">
-              <Label htmlFor="introduction" value="المقدمة" />
+              <Label
+                htmlFor="introduction"
+                value={t("matrixEditForm.Introduction")}
+              />
               <TextInput
                 id="intro"
                 type="text"
@@ -112,7 +124,7 @@ export default function MatrixEditForm() {
               />
             </div>
             <div className="col-span-2">
-              <Label htmlFor="notes" value="ملاحظات" />
+              <Label htmlFor="notes" value={t("matrixEditForm.notes")} />
               <TextInput
                 id="notes"
                 type="text"
@@ -124,7 +136,7 @@ export default function MatrixEditForm() {
 
           {/* Definitions Section */}
           <h2 className="text-right text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9">
-            التعريفات
+            {t("matrixEditForm.definitions")}
           </h2>
 
           <div className="bg-white p-4 md:p-8 rounded-lg shadow-md">
@@ -134,7 +146,10 @@ export default function MatrixEditForm() {
                 className="text-right grid grid-cols-1 gap-4 mb-4 w-full"
               >
                 <div className="col-span-2 w-full">
-                  <Label htmlFor={`term-${index}`} value="المصطلح" />
+                  <Label
+                    htmlFor={`term-${index}`}
+                    value={t("matrixEditForm.term")}
+                  />
                   <TextInput
                     id={`term-${index}`}
                     type="text"
@@ -145,7 +160,10 @@ export default function MatrixEditForm() {
                   />
                 </div>
                 <div className="col-span-2 w-full">
-                  <Label htmlFor={`interpretation-${index}`} value="التفسير" />
+                  <Label
+                    htmlFor={`interpretation-${index}`}
+                    value={t("matrixEditForm.interpretation")}
+                  />
                   <Textarea
                     id={`interpretation-${index}`}
                     rows={4}
@@ -164,31 +182,28 @@ export default function MatrixEditForm() {
 
             <div className="mt-4 text-right">
               <Button onClick={handleAddDefinition} className="bg-gray-700">
-                إضافة تعريف جديد
+                {t("matrixEditForm.addNewDef")}
               </Button>
             </div>
           </div>
         </div>
 
         <div className="mt-8 text-right flex justify-center">
-        <div 
-           
-           onClick={handleSave} 
-           className='p-5 w-36  flex items-center text-center mx-auto justify-center text-white' 
-           style={{ 
-             backgroundImage: 'url("./src/assets/save.png")', 
-             backgroundSize: 'cover', 
-             backgroundPosition: 'center', 
-             borderRadius: '5px', 
-             height: '75px', 
-             marginTop:30,
-             cursor: 'pointer',
-             
-         
-           }}
-         >
-        حفظ
-         </div>
+          <div
+            onClick={handleSave}
+            className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
+            style={{
+              backgroundImage: 'url("./src/assets/save.png")',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              borderRadius: "5px",
+              height: "75px",
+              marginTop: 30,
+              cursor: "pointer",
+            }}
+          >
+            {t("matrixEditForm.save")}
+          </div>
         </div>
       </div>
     </div>

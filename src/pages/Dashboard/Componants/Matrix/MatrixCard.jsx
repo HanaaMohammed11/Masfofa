@@ -7,9 +7,14 @@ import { useOutsideClick } from "./use-outside-click";
 import { useNavigate } from "react-router-dom";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import db from "../../../../config/firebase";
+import { useTranslation } from "react-i18next";
+
 export default function MatrixCard({ searchQuery }) {
   const [active, setActive] = useState(null);
   const [matrix, setMatrix] = useState([]);
+  const { t, i18n } = useTranslation("global");
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
+
   // const [filteredMatrix, setFilteredMatrix] = useState([]);
   const ref = useRef(null);
   const id = useId();
@@ -139,14 +144,14 @@ export default function MatrixCard({ searchQuery }) {
                         Edit(active);
                       }}
                     >
-                      تعديل
+                      {t("matrixCardDashboard.update")}
                     </motion.button>
                     <motion.button
                       layoutId={`delete-${active.title}-${id}`}
                       className="px-4 py-2 text-sm rounded-full font-bold bg-red-500 text-white"
                       onClick={() => deleteMatrix(active.id)}
                     >
-                      حذف
+                      {t("matrixCardDashboard.delete")}
                     </motion.button>
                   </div>
                 </div>
@@ -206,7 +211,7 @@ export default function MatrixCard({ searchQuery }) {
           ))
         ) : (
           <div className="p-4 text-center text-neutral-600 dark:text-neutral-400">
-            لا يوجد مصفوفات
+            {t("matrixCardDashboard.nosubjects")}
           </div>
         )}
       </ul>
@@ -246,46 +251,3 @@ export const CloseIcon = () => {
     </motion.svg>
   );
 };
-
-const cards = [
-  {
-    description: "الجهه التي اصدرتها",
-    title: "عنوان المصفوفه1",
-    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
-    content: () => {
-      return <p>تاريخ المصفوفه ملاحظات</p>;
-    },
-  },
-  {
-    description: "الجهه التي اصدرتها",
-    title: "عنوان المصفوفه2",
-    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
-    content: () => {
-      return <p>تاريخ المصفوفه ملاحظات</p>;
-    },
-  },
-  {
-    description: "الجهه التي اصدرتها",
-    title: "عنوان المصفوفه3",
-    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
-    content: () => {
-      return <p>تاريخ المصفوفه ملاحظات</p>;
-    },
-  },
-  {
-    description: "الجهه التي اصدرتها",
-    title: "عنوان المصفوفه4",
-    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
-    content: () => {
-      return <p>تاريخ المصفوفه ملاحظات</p>;
-    },
-  },
-  {
-    description: "الجهه التي اصدرتها",
-    title: "عنوان المصفوفه5",
-    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
-    content: () => {
-      return <p>تاريخ المصفوفه ملاحظات</p>;
-    },
-  },
-];

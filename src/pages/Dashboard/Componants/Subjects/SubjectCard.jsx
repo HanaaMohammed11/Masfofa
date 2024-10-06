@@ -14,12 +14,15 @@ import {
 import db from "../../../../config/firebase";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export function SubjctCard() {
   const navigation = useNavigate();
 
   const [subjects, setSubjects] = useState([]);
+  const { t, i18n } = useTranslation("global");
 
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const deleteSubject = async (subjectId, subjectTitle) => {
     // Log the subjectId and subjectTitle to ensure they are passed correctly
     console.log("Subject ID: ", subjectId);
@@ -127,7 +130,7 @@ export function SubjctCard() {
               {subject.subjectTitle} ({subject.subjectField})
             </h5>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              رقم المادة: {subject.subjectNum}
+              {t("subjectCardDashboard.subjectNum")}: {subject.subjectNum}
             </p>
             <div className="flex space-x-3">
               <Button
@@ -136,21 +139,21 @@ export function SubjctCard() {
                 }}
                 className="inline-flex items-center rounded-lg bg-slate-500 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
               >
-                تعديل
+                {t("subjectCardDashboard.update")}
               </Button>
 
               <Button
                 onClick={() => deleteSubject(subject.id, subject.subjectTitle)} 
                 className="inline-flex items-center rounded-lg bg-red-700 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
               >
-                حذف
+                {t("subjectCardDashboard.delete")}
               </Button>
             </div>
           </Card>
         ))
       ) : (
         <div className="p-4 text-center text-neutral-600 dark:text-neutral-400">
-          لا توجد مواد
+          {t("subjectCardDashboard.nosubjects")}
         </div>
       )}
     </div>

@@ -4,6 +4,7 @@ import { Button, Label, Textarea, TextInput, Select } from "flowbite-react"; // 
 import { useNavigate, useLocation } from "react-router-dom";
 import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import db from "../../../../config/firebase";
+import { useTranslation } from "react-i18next";
 
 export default function SubjectEditForm() {
   const navigate = useNavigate();
@@ -12,6 +13,9 @@ export default function SubjectEditForm() {
 
   const [matrix, setMatrix] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const { t, i18n } = useTranslation("global");
+
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
   // State for subject data (includes shared employees and other fields)
   const [subjectData, setSubjectData] = useState({
@@ -98,10 +102,10 @@ export default function SubjectEditForm() {
   }, []);
 
   return (
-    <div className="flex" style={{ fontFamily: "cursive" }}>
+    <div className="flex" style={{ fontFamily: "cursive" }} dir={direction}>
       <div className="mx-auto p-8 w-full max-w-5xl">
         <h1 className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
-          تعديل المادة
+          {t("subjectEditForm.editSubject")}
         </h1>
 
         {/* Form Section */}
@@ -111,7 +115,7 @@ export default function SubjectEditForm() {
             <div className="xs:col-span-2 md:col-span-1">
               <Label
                 htmlFor="subjectField"
-                value="الحقل"
+                value={t("subjectEditForm.field")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -128,7 +132,7 @@ export default function SubjectEditForm() {
             <div className="xs:col-span-2 md:col-span-1">
               <Label
                 htmlFor="subjectNum"
-                value="رقم المادة"
+                value={t("subjectEditForm.subjectNum")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -145,7 +149,7 @@ export default function SubjectEditForm() {
             <div className="col-span-2">
               <Label
                 htmlFor="subjectTitle"
-                value="موضوع المادة"
+                value={t("subjectEditForm.subjectTitle")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -162,7 +166,7 @@ export default function SubjectEditForm() {
             <div className="col-span-2">
               <Label
                 htmlFor="subjectContent"
-                value="نص المادة"
+                value={t("subjectEditForm.subjectContent")}
                 className="text-xl font-semibold"
               />
               <Textarea
@@ -179,7 +183,7 @@ export default function SubjectEditForm() {
             <div className="col-span-2">
               <Label
                 htmlFor="negotiationLimit"
-                value="حدود التفاوض"
+                value={t("subjectEditForm.negotiationLimit")}
                 className="text-xl font-semibold"
               />
               <TextInput
@@ -196,7 +200,7 @@ export default function SubjectEditForm() {
           <div className="text-right col-span-2 pt-8">
             <Label
               htmlFor="relatedMatrix"
-              value="المصفوفة المتعلقة"
+              value={t("subjectEditForm.relatedMatrix")}
               className="text-xl font-semibold"
             />
             <Select
@@ -225,7 +229,7 @@ export default function SubjectEditForm() {
           <div className="text-right col-span-2 pt-8">
             <Label
               htmlFor="emp1"
-              value="الموظف المعين"
+              value={t("subjectEditForm.hiredEmp")}
               className="text-xl font-semibold"
             />
             <Select
@@ -240,7 +244,7 @@ export default function SubjectEditForm() {
               }}
             >
               <option value="" disabled>
-                اختر موظفًا
+                {t("subjectEditForm.chooseEmp")}
               </option>
               {employees.map((item) => (
                 <option key={item.id} value={item.employeeName}>
@@ -254,7 +258,7 @@ export default function SubjectEditForm() {
           <div className="text-right col-span-2 pt-8">
             <Label
               htmlFor="notes"
-              value="ملاحظات"
+              value={t("subjectEditForm.notes")}
               className="text-xl font-semibold"
             />
             <Textarea
@@ -268,9 +272,15 @@ export default function SubjectEditForm() {
 
           {/* Shared Employees */}
           <div className="text-right col-span-2 pt-8">
-            <Label value="موظفون مشتركين" className="text-xl font-semibold" />
+            <Label
+              value={t("subjectEditForm.sharedEmployees")}
+              className="text-xl font-semibold"
+            />
             {subjectData.sharedEmployees.map((sharedEmployee, index) => (
-              <div key={index} className="flex gap-4 mt-2 xs:flex-col sm:flex-row xs:items-center">
+              <div
+                key={index}
+                className="flex gap-4 mt-2 xs:flex-col sm:flex-row xs:items-center"
+              >
                 <Select
                   className="w-1/2"
                   value={sharedEmployee.role}
@@ -279,10 +289,12 @@ export default function SubjectEditForm() {
                   }
                 >
                   <option value="" disabled>
-                    اختر دورًا
+                    {t("subjectEditForm.chooseRole")}
                   </option>
-                  <option value="منفردين">منفردين</option>
-                  <option value="مجتمعين">مجتمعين</option>
+                  <option value="منفردين">{t("subjectEditForm.single")}</option>
+                  <option value="مجتمعين">
+                    {t("subjectEditForm.grouped")}
+                  </option>
                 </Select>
 
                 <Select
@@ -293,7 +305,7 @@ export default function SubjectEditForm() {
                   }
                 >
                   <option value="" disabled>
-                    اختر موظفًا
+                    {t("subjectEditForm.chooseEmp")}
                   </option>
                   {employees.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -307,37 +319,35 @@ export default function SubjectEditForm() {
                   color="failure"
                   onClick={() => handleRemoveSharedEmployee(index)}
                 >
-                  حذف
+                  {t("subjectEditForm.delete")}
                 </Button>
               </div>
             ))}
 
             {/* Add New Employee Button */}
             <Button className="mt-4" onClick={handleAddSharedEmployee}>
-              إضافة موظف جديد
+              {t("subjectEditForm.addNewEmp")}
             </Button>
           </div>
 
           {/* Save Button */}
           <div className="mt-6">
-          <div 
-           
-           onClick={handleSave} 
-           className='p-5 w-36  flex items-center text-center mx-auto justify-center text-white' 
-           style={{ 
-             backgroundImage: 'url("./src/assets/save.png")', 
-             backgroundSize: 'cover', 
-             backgroundPosition: 'center', 
-             borderRadius: '5px', 
-             height: '75px', 
-             marginTop:30,
-             cursor: 'pointer',
-             
-         
-           }}
-         >
-       حفظ
-         </div>          </div>
+            <div
+              onClick={handleSave}
+              className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
+              style={{
+                backgroundImage: 'url("./src/assets/save.png")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "5px",
+                height: "75px",
+                marginTop: 30,
+                cursor: "pointer",
+              }}
+            >
+              {t("subjectEditForm.save")}
+            </div>{" "}
+          </div>
         </div>
       </div>
     </div>

@@ -1,50 +1,50 @@
 {
-   "text": {
-     "DashBoard": "Dashboard",
-     "Employees": "Employees",
-     "Articles": "Articles",
-     "Matrices": "Matrices",
-     "masfofa": "Masfofa"
-   },
-   "login": {
-      "email": "Email",
-      "password": "Password",
-      "loginButton": "Login",
-      "invalidEmail": "Invalid email address",
-      "requiredEmail": "Email is required",
-      "invalidPassword": "Password must be at least 6 characters",
-      "requiredPassword": "Password is required",
-      "loginError": "Failed to sign in: "
-    },
-    
-      "logout": {
-        "Logout": "Logout"
-      },
-      "EmpCard": {
-        "details": "Details"
-      },
-      "search": {
-        "searchEmployees": "Search for Employees"
-      },
-      "employees": {
-        "title": "Employees"
-      },
-      "job": {
-        "jobTitle": "Job Title",
-        "employeeId": "Employee ID",
-        "phoneNumber": "Phone Number"
-      }
-    
-    ,    "userInfo":{
-      "employeeName": "Employee Name :",
-      "employeeId": "Employee ID : ",
-      "hireDate": "Hire Date : ",
-      "jobGrade": "Job Grade : ",
-      "department": "Department : ",
-      "officeNumber": "Office Number : ",
-      "jobTitle": "Job Title : ",
-      "phoneNumber": "Phone Number : ",
-      "email" :" Email :",
+  "text": {
+    "DashBoard": "Dashboard",
+    "Employees": "Employees",
+    "Articles": "Articles",
+    "Matrices": "Matrices",
+    "masfofa": "Masfofa"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "invalidEmail": "Invalid email address",
+    "requiredEmail": "Email is required",
+    "invalidPassword": "Password must be at least 6 characters",
+    "requiredPassword": "Password is required",
+    "loginError": "Failed to sign in: "
+  },
+
+  "logout": {
+    "Logout": "Logout"
+  },
+  "EmpCard": {
+    "details": "Details"
+  },
+  "search": {
+    "searchEmployees": "Search for Employees"
+  },
+  "employees": {
+    "title": "Employees"
+  },
+  "job": {
+    "jobTitle": "Job Title",
+    "employeeId": "Employee ID",
+    "phoneNumber": "Phone Number"
+  },
+
+  "userInfo": {
+    "employeeName": "Employee Name :",
+    "employeeId": "Employee ID : ",
+    "hireDate": "Hire Date : ",
+    "jobGrade": "Job Grade : ",
+    "department": "Department : ",
+    "officeNumber": "Office Number : ",
+    "jobTitle": "Job Title : ",
+    "phoneNumber": "Phone Number : ",
+    "email": " Email :",
 
       "currentOffice": "Current Office : ",
       "proxyEmployeeTitle": "Proxy Employees : ",
@@ -88,59 +88,58 @@
        "details": "Details"
    }
 
- ,  "matrixinfo": {
-   "name": "Matrix Name :",
-   "releaseDate": "Release Date :",
-   "updateDate": "Update Date :",
-   "publisher": "Publishing Entity :",
-   "introduction": "Introduction :",
-   "definitionsHeader": "Definitions Used in the Matrix",
-   "definitions": "Definitions :",
-   "permissions": "Associated Articles :",
-   "subjectTitle": "Articles Title :",
-   "noRelatedSubjects": "No Related Articles",
-   "notes": "Notes :"
-    
-    
- }
-,
-
-"sidebar": {
-  "dashboard": "Matrices",
-  "permissions": "Articles",
-  "employees": "Employees",
-  "editAppearance": "Edit Theme",
-  "addUser": "Add User"
-},"edittheme":{
-  "topBanner": "Top Banner Image",
-  "bottomBanner": "Bottom Banner Image",
-  "logo": "Logo Image",
-  "upload": "Click to upload image",
-  "save": "Save",
-  "success": "Saved successfully",
-  "error": "An error occurred during saving, please try again."
-},"addaccount":{
-  "createAccount": "Create User Account",
-  "firstName": " Name",
-  "lastName": "Last Name",
-  "email": "User Email",
-  "password": "Password",
-  "registering": "Registering...",
-  "register": "Register",
-  "noUsers": "No users available"
-}
-,"userform":{
- "empimg":"Employee Photo" ,
-  "adduser":"Add Employee ",
-  "employeeName": "Employee Name",
-  "employeeId": "Employee ID",
-  "hireDate": "Hire Date",
-  "jobGrade": "Job Grade",
-  "department": "Department (Division - Section)",
-  "officeNumber": "Office Number",
-  "jobTitle": "Job Title",
-  "phoneNumber": "Phone Number",
-  "currentOffice": "Current Building and Office","email": "Email",
+  "matrixinfo": {
+    "name": "Matrix Name :",
+    "releaseDate": "Release Date :",
+    "updateDate": "Update Date :",
+    "publisher": "Publishing Entity :",
+    "introduction": "Introduction :",
+    "definitionsHeader": "Definitions Used in the Matrix",
+    "definitions": "Definitions :",
+    "permissions": "Associated Articles :",
+    "subjectTitle": "Articles Title :",
+    "noRelatedSubjects": "No Related Articles",
+    "notes": "Notes :"
+  },
+  "sidebar": {
+    "dashboard": "Matrices",
+    "permissions": "Articles",
+    "employees": "Employees",
+    "editAppearance": "Edit Theme",
+    "addUser": "Add User"
+  },
+  "edittheme": {
+    "topBanner": "Top Banner Image",
+    "bottomBanner": "Bottom Banner Image",
+    "logo": "Logo Image",
+    "upload": "Click to upload image",
+    "save": "Save",
+    "success": "Saved successfully",
+    "error": "An error occurred during saving, please try again."
+  },
+  "addaccount": {
+    "createAccount": "Create User Account",
+    "firstName": " Name",
+    "lastName": "Last Name",
+    "email": "User Email",
+    "password": "Password",
+    "registering": "Registering...",
+    "register": "Register",
+    "noUsers": "No users available"
+  },
+  "userform": {
+    "empimg": "Employee Photo",
+    "adduser": "Add Employee ",
+    "employeeName": "Employee Name",
+    "employeeId": "Employee ID",
+    "hireDate": "Hire Date",
+    "jobGrade": "Job Grade",
+    "department": "Department (Division - Section)",
+    "officeNumber": "Office Number",
+    "jobTitle": "Job Title",
+    "phoneNumber": "Phone Number",
+    "currentOffice": "Current Building and Office",
+    "email": "Email",
     "proxyEmployeeName": "Proxy Employee Name",
     "proxyEmployeeId": "Employee ID",
     "proxyHireDate": "Hire Date",
@@ -150,12 +149,73 @@
     "proxyJobTitle": "Job Title",
     "proxyPhoneNumber": "Phone Number",
     "proxyCurrentOffice": "Current Office Location",
-    "proxyEmail": "Email Address"
-    ,    "proxyimg":"Proxy Employee Photo",  
-                  "title":"Proxy Employee","appproxy":" Add Proxy Employee ",  "save": "Save","edittitle": "Edit Employee Data"
-
-  
+    "proxyEmail": "Email Address",
+    "proxyimg": "Proxy Employee Photo",
+    "title": "Proxy Employee",
+    "appproxy": " Add Proxy Employee ",
+    "save": "Save",
+    "edittitle": "Edit Employee Data"
+  },
+  "matrixCardDashboard": {
+    "update": "update",
+    "delete": "delete",
+    "noSubjects": "no Subjects found"
+  },
+  "matrixEditForm": {
+    "updateMatrix": "Update Matrix",
+    "companyName": "Company name",
+    "matrixName": "Matrix Name",
+    "updateDate": "Update Date",
+    "releaseDate": "Release Date",
+    "Introduction": "Introduction",
+    "notes": "Notes",
+    "definitions": "Definitions",
+    "term": "Term",
+    "interpretation": "Interpretation",
+    "addNewDef": "Add NewDef",
+    "save": "save"
+  },
+  "matrixForm": {
+    "alert": "data has been save successfully",
+    "addNewMatrix": "Add New Matrix",
+    "companyName": "Company name",
+    "matrixName": "Matrix Name",
+    "updateDate": "Update Date",
+    "releaseDate": "Release Date",
+    "Introduction": "Introduction",
+    "notes": "Notes",
+    "definitions": "Definitions",
+    "term": "Term",
+    "interpretation": "Interpretation",
+    "addNewDef": "Add NewDef",
+    "save": "save",
+    "search": "Search for Matrix"
+  },
+  "subjectCardDashboard": {
+    "subjectNum": "Subject Number",
+    "update": "update",
+    "delete": "delete",
+    "nosubjects": "no Subjects found"
+  },
+  "subjectEditForm": {
+    "editSubject": "edit Subject",
+    "addSubject": "add New Subject",
+    "search": "Search for Subject",
+    "field": "Field",
+    "subjectNum": "Subject Number",
+    "subjectTitle": "Subject Title",
+    "subjectContent": "Subject Content",
+    "negotiationLimit": "Negotiation Limit",
+    "relatedMatrix": "Related Matrix",
+    "hiredEmp": "hired Employee",
+    "chooseEmp": "choose Employee",
+    "notes": "Notes",
+    "sharedEmployees": "Envolved Employees",
+    "chooseRole": "Choose Role",
+    "single": "Single",
+    "grouped": "Grouped",
+    "delete": "delete",
+    "addNewEmp": "Add New Emp",
+    "save": "save"
   }
-  
-
 }
