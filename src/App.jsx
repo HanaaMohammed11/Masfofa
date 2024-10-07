@@ -1,4 +1,9 @@
-import {Route, Routes, useNavigate } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 import MatrixList from "./pages/Dashboard/Componants/Matrix/MatrixList";
@@ -25,22 +30,20 @@ import UerProxy from "./pages/Users/Employee/userProxy";
 
 export default function App() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem('id');
+    const userId = localStorage.getItem("id");
     if (userId) {
-      setIsLoggedIn(true);  
- 
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false); 
-      navigate('/login');   
+      setIsLoggedIn(false);
+      navigate("/login");
     }
   }, [navigate]);
 
   return (
     <Routes>
-
       {isLoggedIn ? (
         <>
           <Route path="/" element={<Home />} />
