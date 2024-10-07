@@ -96,7 +96,7 @@ export default function Cards() {
           className="p-9 w-80 text-center h-52 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
           style={{
             border: "9px solid rgba(128, 128, 128, 0.9)", 
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("./src/assets/WhatsApp Image 2024-10-02 at 7.14.55 AM.jpeg")`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("./src/assets/dash.jpeg")`,
             backgroundPosition: "center",
             backgroundSize: "cover"
           }}

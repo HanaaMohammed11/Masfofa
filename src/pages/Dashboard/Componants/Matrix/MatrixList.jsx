@@ -23,7 +23,7 @@ export default function MatrixList() {
             className="text-lg font-bold mx-5 text-white "
             style={{
               backgroundImage:
-                ' url("./src/assets/WhatsApp_Image_2024-10-01_at_8.39.17_AM-removebg-preview.png")',
+                ' url("./src/assets/btn.png")',
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               height: "79px",

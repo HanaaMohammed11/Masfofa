@@ -101,7 +101,7 @@ export default function AddAccounts() {
           onClick={() => setOpenModal(true)}
           className="text-lg font-bold sm:mx-5 text-white m-9"
           style={{
-            backgroundImage: `url("./src/assets/WhatsApp_Image_2024-10-01_at_8.39.17_AM-removebg-preview.png")`,
+            backgroundImage: `url("./src/assets/btn.png")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             height: "79px",
