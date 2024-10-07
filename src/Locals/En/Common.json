@@ -22,7 +22,7 @@
   },
   "EmpCard": {
     "details": "Details",
-    "noEmp":"No Employees found"
+    "noEmp": "No Employees found"
   },
   "search": {
     "searchEmployees": "Search "
@@ -47,47 +47,47 @@
     "phoneNumber": "Phone Number : ",
     "email": " Email :",
 
-      "currentOffice": "Current Office : ",
-      "proxyEmployeeTitle": "Deputy Employees : ",
-      "proxyEmployeeName": "Deputy Employee Name : ",
-      "proxyPhoneNumber": "Deputy Phone Number : ",
-      "noProxyEmployees": "No Deputy employees for this user.  ",
-      "permissionsTitle": "Permissions : ",
-      "subjectTitle": "Article Title : ",
-      "noRelatedSubjects": "No related Articles found."  ,
-          "edituser":"Edit","delete":"Delete"
-    }
-    ,
-      "articels": {
-        "title": "Article Title",
-        "searchPlaceholder": "Search ",
-        "noResults": "No Articles found."
-        ,      "details": "Details"
-      },"subjectInfo": {
-  "subjectNumber": "Article Number :",
-  "subjectTitle": "Article Title :",
-  "subjectContent": "Article Content :",
-  "authorizedEmployee": "Authorized Employee - Job Title :",
-  "sharedEmployees": "Participants Employees - Subscription Type :",
-  "noRelatedSubjects": "No related Articles",
-  "negotiationLimit": "Authorization Limit :",
-  "notes": "Notes :"
-}
-,
-   "matrix": {
-     "title": "Matrix",
-     "selectSearchCriterion": "Select Search Criterion",
-     "searchByMatrix": "Search by Matrix",
-     "searchByCompany": "Search by Company",
-     "searchBySubjects": "Search by Permissions",
-     "searchByEmployee": "Search by Employee Name",
-     "searchByJobTitle": "Search by Job Title",
-     "searchPlaceholder": "Search for Matrix",
-     "searchButton": "Search",
-     "clearFilters": "Clear Filters",
-     "searchByLabel": "Search by",
-       "details": "Details"
-   },
+    "currentOffice": "Current Office : ",
+    "proxyEmployeeTitle": "Deputy Employees : ",
+    "proxyEmployeeName": "Deputy Employee Name : ",
+    "proxyPhoneNumber": "Deputy Phone Number : ",
+    "noProxyEmployees": "No Deputy employees for this user.  ",
+    "permissionsTitle": "Permissions : ",
+    "subjectTitle": "Article Title : ",
+    "noRelatedSubjects": "No related Articles found.",
+    "edituser": "Edit",
+    "delete": "Delete"
+  },
+  "articels": {
+    "title": "Article Title",
+    "searchPlaceholder": "Search ",
+    "noResults": "No Articles found.",
+    "details": "Details"
+  },
+  "subjectInfo": {
+    "subjectNumber": "Article Number :",
+    "subjectTitle": "Article Title :",
+    "subjectContent": "Article Content :",
+    "authorizedEmployee": "Authorized Employee - Job Title :",
+    "sharedEmployees": "Participants Employees - Subscription Type :",
+    "noRelatedSubjects": "No related Articles",
+    "negotiationLimit": "Authorization Limit :",
+    "notes": "Notes :"
+  },
+  "matrix": {
+    "title": "Matrix",
+    "selectSearchCriterion": "Select Search Criterion",
+    "searchByMatrix": "Search by Matrix",
+    "searchByCompany": "Search by Company",
+    "searchBySubjects": "Search by Permissions",
+    "searchByEmployee": "Search by Employee Name",
+    "searchByJobTitle": "Search by Job Title",
+    "searchPlaceholder": "Search for Matrix",
+    "searchButton": "Search",
+    "clearFilters": "Clear Filters",
+    "searchByLabel": "Search by",
+    "details": "Details"
+  },
 
   "matrixinfo": {
     "name": "Matrix Name :",
@@ -126,6 +126,9 @@
     "password": "Password",
     "registering": "Registering...",
     "register": "Register",
+    "accType": "Account type",
+    "emp": "Employee",
+    "admin": "Admin",
     "noUsers": "No users available"
   },
   "userform": {

@@ -20,8 +20,8 @@
     "Logout": "تسجيل الخروج"
   },
   "EmpCard": {
-    "details": "التفاصيل"
-    ,    "noEmp":"لا يوجد موظفين"
+    "details": "التفاصيل",
+    "noEmp": "لا يوجد موظفين"
   },
   "search": {
     "searchEmployees": "بحث  "
@@ -122,6 +122,9 @@
     "password": "الرمز السري",
     "registering": "جاري التسجيل...",
     "register": "تسجيل",
+    "accType": "نوع الحساب",
+    "emp": "موظف",
+    "admin": "أدمن",
     "noUsers": "لا يوجد مستخدمين"
   },
   "userform": {
