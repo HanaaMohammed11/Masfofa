@@ -6,6 +6,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import "../../../Dashboard/btns.css"
 
 export default function AdminUsers() {
   const { t, i18n } = useTranslation("global");
@@ -48,30 +49,17 @@ export default function AdminUsers() {
   return (
     <div className="p-9">
       <div className="">
-        <div
-          className="text-lg font-bold mx-5 text-white lg:mb-0 md:mb-7 sm:mb-7 xs:mb-9 m-auto "
-          style={{
-            backgroundImage: `url("./src/assets/btn.png")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "79px",
-            width: "200px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "8px",
-            cursor: "pointer",
-            textAlign: "center",
-          }}
-          onClick={handleClick}
-        >
+      <div
+  className="add-btn add-g add-c add-uppercase add-text"
+  onClick={handleClick}
+>
           {t("userform.adduser")}
         </div>
-        <div className='search flex justify-center '>
+        <div className='earch flex justify-center '>
           <input
             type="text"
             placeholder={t("search.searchEmployees")}
-            className="w-96 rounded-full h-10"
+            className="xs:w-72 sm:w-96 rounded-full text-right"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

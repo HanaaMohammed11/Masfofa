@@ -11,7 +11,6 @@ export default function Home() {
     <div
       className="relative flex flex-col min-h-screen bg-gray-300"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./src/assets/backgroundhome.jpg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -19,9 +18,7 @@ export default function Home() {
     >
       <div className="flex justify-center items-center text-center  inset-0 bg-black  ">
         <Topbanner />
-        <div className="w-48 items-center mx-auto absolute text-6xl text-yellow-500"  style={{fontFamily:" Amiri, serif"}}>
-        {t("text.masfofa")}
-        </div>
+       
       </div>
 <div className="mt-auto">
 <Cards />

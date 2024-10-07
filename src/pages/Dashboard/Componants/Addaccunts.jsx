@@ -8,6 +8,7 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import btn from "../../../../src/assets/btn.png";
+import "../../Dashboard/btns.css"
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -106,22 +107,9 @@ export default function AddAccounts() {
   return (
     <div className="sm:mx-0 ">
       <div
-        onClick={() => setOpenModal(true)}
-        className="text-lg font-bold sm:mx-5 text-white m-9"
-        style={{
-          backgroundImage: `url(${btn})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          height: "79px",
-          width: "200px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: "8px",
-          cursor: "pointer",
-          textAlign: "center",
-        }}
-      >
+  className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
+  onClick={() => setOpenModal(true)}
+>
         {t("addaccount.createAccount")}
       </div>
       <div></div>

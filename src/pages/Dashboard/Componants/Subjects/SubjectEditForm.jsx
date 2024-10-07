@@ -6,6 +6,8 @@ import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import save from "../../../../../src/assets/save.png"
+import Bottombanner from "../../../Home/componants/banner/Bottombanner";
+import Topbanner from "../../../Home/componants/banner/Topbanner";
 
 export default function SubjectEditForm() {
   const navigate = useNavigate();
@@ -18,7 +20,6 @@ export default function SubjectEditForm() {
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
-  // State for subject data (includes shared employees and other fields)
   const [subjectData, setSubjectData] = useState({
     subjectNum: subject.subjectNum || "",
     subjectField: subject.subjectField || "",
@@ -63,19 +64,17 @@ export default function SubjectEditForm() {
 
   // Save updated subject data
   const handleSave = async () => {
-    const subjectRef = doc(db, "subjects", subject.id); // Reference to the document being updated
+    const subjectRef = doc(db, "subjects", subject.id); 
 
     try {
-      await updateDoc(subjectRef, subjectData); // Update the document with the new subject data
-      navigate("/dashboard"); // Navigate back after saving
+      await updateDoc(subjectRef, subjectData); 
+      navigate("/dashboard"); 
     } catch (error) {
       console.error("Error updating subject:", error);
     }
   };
 
-  // Fetch related matrix and employees on load
   useEffect(() => {
-    // Fetch matrix data
     const matrixCollectionRef = collection(db, "matrix");
     const unsubscribeMatrix = onSnapshot(matrixCollectionRef, (snapshot) => {
       const matrixList = [];
@@ -103,7 +102,10 @@ export default function SubjectEditForm() {
   }, []);
 
   return (
+    <div>
+      <Topbanner/>
     <div className="flex" style={{ fontFamily: "cursive" }} dir={direction}>
+
       <div className="mx-auto p-8 w-full max-w-5xl" >
         <h1 className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl" dir={direction}>
           {t("subjectEditForm.editSubject")}
@@ -351,6 +353,8 @@ export default function SubjectEditForm() {
           </div>
         </div>
       </div>
+    </div>
+    <Bottombanner/>
     </div>
   );
 }

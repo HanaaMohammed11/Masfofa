@@ -1,6 +1,6 @@
 import React from 'react';
 import './Planet.css'; 
-import planet from "../../../../../src/assets/planet.png"
+import planet from "../../../../../src/assets/plant-removebg-preview.png"
 
 const Planet = () => {
   return (

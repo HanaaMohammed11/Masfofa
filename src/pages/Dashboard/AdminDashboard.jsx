@@ -9,6 +9,8 @@ import AdminUserCard from "./Componants/users/AdminUserCard";
 import AdminUsers from "./Componants/users/AdminUsers";
 import SubjectList from "./Componants/Subjects/SubjectList";
 import AddAccounts from "./Componants/Addaccunts";
+import Topbanner from "../Home/componants/banner/Topbanner";
+import Bottombanner from "../Home/componants/banner/Bottombanner";
 
 function AdminDashboard() {
     const { t ,i18n} = useTranslation("global");
@@ -32,7 +34,10 @@ function AdminDashboard() {
     };
 
     return (
+        <div>
+            <Topbanner/>
         <div className="flex flex-row-reverse min-h-screen bg-gray-100" dir={direction}>
+          
                <div className="flex-grow">
                 {renderComponent()}
             </div>
@@ -41,6 +46,8 @@ function AdminDashboard() {
             </div>
 
          
+        </div>
+        <Bottombanner/>
         </div>
     );
 }

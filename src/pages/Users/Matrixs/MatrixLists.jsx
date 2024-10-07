@@ -120,12 +120,7 @@ export default function MatrixLists() {
     <div className="flex flex-col min-h-screen bg-gray-100">
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
-        <h1
-          className="absolute top-16 text-6xl font-semibold text-gray-700"
-          style={{ fontFamily: "cursive" }}
-        >
-          {t("matrix.title")} 
-        </h1>
+        
       </div>
 
       {/* Input search section */}

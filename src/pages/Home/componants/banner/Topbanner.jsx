@@ -95,7 +95,7 @@ export default function Topbanner() {
             color: "white",
             marginTop: 20,
             cursor: "pointer",
-            backgroundImage: `url(${logoutbtn})`,
+            backgroundImage: `url()`,
             marginRight: 30,
             width: "90px",
             height: "90px",

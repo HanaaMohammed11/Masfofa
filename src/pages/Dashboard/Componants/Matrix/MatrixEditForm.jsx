@@ -6,6 +6,8 @@ import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import save from "../../../../../src/assets/save.png"
+import Topbanner from "../../../Home/componants/banner/Topbanner";
+import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
 export default function MatrixEditForm() {
   const location = useLocation();
@@ -59,8 +61,10 @@ export default function MatrixEditForm() {
   };
 
   return (
+    <div>
+      <Topbanner/>
     <div
-      className="flex h-full bg-slate-100 "
+      className="  bg-slate-100 "
       dir={direction}
       style={{ fontFamily: "cursive" }}
     >
@@ -207,6 +211,8 @@ export default function MatrixEditForm() {
           </div>
         </div>
       </div>
+    </div>
+    <Bottombanner/>
     </div>
   );
 }

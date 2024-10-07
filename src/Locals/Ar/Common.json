@@ -66,7 +66,7 @@
     "subjectTitle": "موضوع المادة :",
     "subjectContent": "نص المادة :",
     "authorizedEmployee": "الموظف المفوض - المسمى الوظيفي :",
-    "sharedEmployees": "الموظفين المشتركين - نوع الاشتراك :",
+    "sharedEmployees": "الموظفين المشتركين  :",
     "noRelatedSubjects": "لا توجد مواد مرتبطة",
     "negotiationLimit": "حدود التفاوض :",
     "notes": "ملاحظات :"
@@ -204,9 +204,18 @@
     "subjectNum": "رقم المادة",
     "subjectTitle": "موضوع المادة",
     "subjectContent": "نص المادة",
+    "hiredEmp": "الموظف المفوض",
+    "notes": "ملاحظات",
+    "sharedEmployees": "الموظفين المشتركين  ",
+    "single": "منفردين",
+    "grouped": "مجتمعين",
     "negotiationLimit": "حدود التفاوض",
-    "relatedMatrix": "المصفوفات المرتبطة",
+    "relatedMatrix": "المصفوفات التابعة لها",
     "subjectNotes": "الملاحظات",
-    "save": "حفظ"
+    "chooseEmp": "اختيار موظف",
+    "save": "حفظ",
+    "chooseRole": "الحالة",
+    "delete": "حذف",
+    "addNewEmp": "اضافة موظف مشترك"
   }
 }
