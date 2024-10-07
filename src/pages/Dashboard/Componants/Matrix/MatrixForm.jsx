@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import db from "../../../../config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
-
+import save from "../../../../../src/assets/save.png"
 export default function MatrixForm() {
   const [definitions, setDefinitions] = useState([
     { term: "", interpretation: "" },
@@ -247,7 +247,7 @@ export default function MatrixForm() {
             onClick={handleSave}
             className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
             style={{
-              backgroundImage: 'url("./src/assets/save.png")',
+              backgroundImage: `url(${save})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderRadius: "5px",

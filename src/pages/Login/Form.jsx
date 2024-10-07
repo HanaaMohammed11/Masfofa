@@ -10,6 +10,7 @@ import Loader from "./loder";
 import "./FormStyle.css";
 import { useTranslation } from "react-i18next";
 import { TranslateContext } from "../../TranslateContext/TransContext";
+import logo from "../../../src/assets/logo.png"
 
 export default function Form() {
   const { t, i18n } = useTranslation("global");
@@ -84,7 +85,7 @@ export default function Form() {
                   }`}
                 >
                   <img
-                    src="..\src\assets\logo.png"
+                    src={logo}
                     alt=""
                     width={"100%"}
                     className="-mt-20 m-auto"

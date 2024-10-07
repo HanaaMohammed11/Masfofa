@@ -4,6 +4,10 @@ import { Card } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import db from "../../config/firebase";
+import emp from "../../../src/assets/emp.jpeg"
+import articals from "../../../src/assets/articals.jpeg"
+import matriex from "../../../src/assets/matriex.jpeg"
+import dash from "../../assets/dash.jpeg"
 export default function Cards() {
   const {t}=useTranslation("global");
   const [user, setUser] = useState("");
@@ -38,7 +42,8 @@ export default function Cards() {
         className="p-9 w-80 text-center h-52 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
         style={{
           border: "9px solid rgba(128, 128, 128, 0.9)",
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("./src/assets/emp.jpeg")`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${emp})
+`,
           backgroundPosition: "center",
           backgroundSize: "cover"
         }}
@@ -57,7 +62,7 @@ export default function Cards() {
         className="p-9 w-80 text-center h-52 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
         style={{
           border: "9px solid rgba(128, 128, 128, 0.9)", 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("./src/assets/articals.jpeg")`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${articals})`,
           backgroundPosition: "center",
           backgroundSize: "cover"
         }}
@@ -76,7 +81,7 @@ export default function Cards() {
         className="p-9 w-80 text-center h-52 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
         style={{
           border: "9px solid rgba(128, 128, 128, 0.9)", 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("./src/assets/matriex.jpeg")`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${matriex})`,
           backgroundPosition: "center",
           backgroundSize: "cover"
         }}
@@ -96,7 +101,7 @@ export default function Cards() {
           className="p-9 w-80 text-center h-52 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
           style={{
             border: "9px solid rgba(128, 128, 128, 0.9)", 
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("./src/assets/dash.jpeg")`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${dash})`,
             backgroundPosition: "center",
             backgroundSize: "cover"
           }}

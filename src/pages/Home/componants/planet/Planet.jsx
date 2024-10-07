@@ -1,11 +1,12 @@
 import React from 'react';
 import './Planet.css'; 
+import planet from "../../../../../src/assets/planet.png"
 
 const Planet = () => {
   return (
     <div className="planet-container">
       <img
-        src="./src/assets/planet.png"
+        src={planet}
         alt="Logo"
         className="planet"
       />

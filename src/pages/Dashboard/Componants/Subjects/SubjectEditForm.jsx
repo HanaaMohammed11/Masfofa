@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Button, Label, Textarea, TextInput, Select } from "flowbite-react"; // Import Select from Flowbite
+import { Button, Label, Textarea, TextInput, Select } from "flowbite-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
+import save from "../../../../../src/assets/save.png"
 
 export default function SubjectEditForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const subject = location.state?.subject || {}; // Passed subject data from the add form
+  const subject = location.state?.subject || {};
 
   const [matrix, setMatrix] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -336,7 +337,7 @@ export default function SubjectEditForm() {
               onClick={handleSave}
               className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
               style={{
-                backgroundImage: 'url("./src/assets/save.png")',
+                backgroundImage: `url(${save})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "5px",

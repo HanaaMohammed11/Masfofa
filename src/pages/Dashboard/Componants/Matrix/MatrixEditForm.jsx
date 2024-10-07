@@ -5,6 +5,7 @@ import { Button, Label, TextInput, Textarea } from "flowbite-react";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
+import save from "../../../../../src/assets/save.png"
 
 export default function MatrixEditForm() {
   const location = useLocation();
@@ -193,7 +194,7 @@ export default function MatrixEditForm() {
             onClick={handleSave}
             className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
             style={{
-              backgroundImage: 'url("./src/assets/save.png")',
+              backgroundImage:`url(${save})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderRadius: "5px",

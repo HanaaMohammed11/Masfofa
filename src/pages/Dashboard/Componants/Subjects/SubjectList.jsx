@@ -4,6 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import SubjectForm from "./subjectForm";
 import { SubjctCard } from "./SubjectCard";
 import { useTranslation } from "react-i18next";
+import btn from "../../../../assets/btn.png"
 
 export default function SubjectList() {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
@@ -21,7 +22,8 @@ export default function SubjectList() {
         <div
           className="text-lg font-bold mx-5 text-white "
           style={{
-            backgroundImage: `url("./src/assets/btn.png")`,
+            backgroundImage:               `url(${btn})`,
+            
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             height: "79px",

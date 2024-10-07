@@ -21,10 +21,10 @@ export default function MatrixCard({ searchQuery }) {
 
   const navigation = useNavigate();
   const deleteMatrix = async (matrixId) => {
-    const matrixRef = doc(db, "matrix", matrixId); // Reference to the document to be deleted
+    const matrixRef = doc(db, "matrix", matrixId); 
 
     try {
-      await deleteDoc(matrixRef); // Delete document from Firestore
+      await deleteDoc(matrixRef); 
       console.log("Document successfully deleted!");
     } catch (error) {
       console.error("Error deleting document: ", error);

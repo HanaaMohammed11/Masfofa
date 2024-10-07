@@ -36,13 +36,11 @@ export function SubjctCard() {
     const subjectRef = doc(db, "subjects", subjectId);
 
     try {
-      // 1. Delete the subject from the "subjects" collection
       await deleteDoc(subjectRef);
       console.log(
         "Subject document successfully deleted from 'subjects' collection!"
       );
 
-      // 2. Query all matrix documents where "subjects" array contains the subjectTitle
       const matrixCollectionRef = collection(db, "matrix");
       const matrixQuery = query(
         matrixCollectionRef,
@@ -60,7 +58,6 @@ export function SubjctCard() {
         matrixSnapshot.size
       );
 
-      // 3. Update each matrix document by removing the subjectTitle from the "subjects" array
       matrixSnapshot.forEach(async (matrixDoc) => {
         const matrixDocRef = doc(db, "matrix", matrixDoc.id);
         const currentSubjects = matrixDoc.data().subjects || [];

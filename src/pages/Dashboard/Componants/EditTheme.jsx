@@ -7,7 +7,7 @@ import Topbanner from '../../Home/componants/banner/Topbanner';
 import Bottombanner from '../../Home/componants/banner/Bottombanner';
 import { FileInput, Label } from "flowbite-react";
 import { useTranslation } from 'react-i18next';
-
+import save from "../../../../src/assets/save.png"
 const EditTheme = () => {
   const { t, i18n } = useTranslation("global");
   
@@ -176,7 +176,7 @@ const EditTheme = () => {
                 onClick={handleSave} 
                 className='p-5 w-36 flex items-center text-center mx-auto justify-center text-white' 
                 style={{ 
-                    backgroundImage: 'url("./src/assets/save.png")', 
+                    backgroundImage: `url(${save})`,
                     backgroundSize: 'cover', 
                     backgroundPosition: 'center', 
                     borderRadius: '5px', 

@@ -7,6 +7,7 @@ import db from "../../../config/firebase";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import  { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import btn from "../../../../src/assets/btn.png"
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -101,7 +102,8 @@ export default function AddAccounts() {
           onClick={() => setOpenModal(true)}
           className="text-lg font-bold sm:mx-5 text-white m-9"
           style={{
-            backgroundImage: `url("./src/assets/btn.png")`,
+            backgroundImage:               `url(${btn})`
+            ,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             height: "79px",

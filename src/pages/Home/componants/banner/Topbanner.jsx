@@ -6,7 +6,7 @@ import { signOut } from "firebase/auth";
 import Planet from "../planet/Planet";
 import { TranslateContext } from "../../../../TranslateContext/TransContext";
 import { useTranslation } from "react-i18next";
-
+import logoutbtn from "../../../../assets/logout.png"
 export default function Topbanner() {
   const [topBannerUrl, setTopBannerUrl] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
@@ -64,7 +64,8 @@ export default function Topbanner() {
             color: "white",
             marginTop: 20,
             cursor: "pointer",
-            backgroundImage: "url(./src/assets/logout.png)",
+            backgroundImage:`url(${logoutbtn})`,
+
             marginRight: 30,
             width: "90px",
             height: "90px",

@@ -271,7 +271,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
-
+import save from "../../../../../src/assets/save.png"
 export default function SubjectForm() {
   const navigate = useNavigate();
   const [subjectNum, setSubjectNum] = useState("");
@@ -594,7 +594,7 @@ export default function SubjectForm() {
                 onClick={handleSave}
                 className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
                 style={{
-                  backgroundImage: 'url("./src/assets/save.png")',
+                  backgroundImage: `url(${save})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   borderRadius: "5px",
