@@ -24,25 +24,25 @@ import EditProxyrForm from "./pages/Dashboard/Componants/users/editProxy";
 import UerProxy from "./pages/Users/Employee/userProxy";
 
 export default function App() {
-  // const navigate = useNavigate();
-  // const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
-  // useEffect(() => {
-  //   const userId = localStorage.getItem('id');
-  //   if (userId) {
-  //     setIsLoggedIn(true);  
-  //     navigate('/');  
-  //   } else {
-  //     setIsLoggedIn(false); 
-  //     navigate('/login');   
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    const userId = localStorage.getItem('id');
+    if (userId) {
+      setIsLoggedIn(true);  
+      navigate('/');  
+    } else {
+      setIsLoggedIn(false); 
+      navigate('/login');   
+    }
+  }, [navigate]);
 
   return (
     <Routes>
 
-      {/* {isLoggedIn ? (
-        <> */}
+      {isLoggedIn ? (
+        <>
           <Route path="/" element={<Home />} />
           <Route path="/userinfo" element={<UserInfo />} />
           <Route path="/users" element={<Users />} />
@@ -64,10 +64,10 @@ export default function App() {
           <Route path="/MatrixList" element={<MatrixList />} />
           <Route path="/MatrixEditForm" element={<MatrixEditForm />} />
           <Route path="/MatrixForm" element={<MatrixForm />} />
-        {/* </>
-      ) : ( */}
+        </>
+      ) : (
         <Route path="/login" element={<Form />} />
-      {/* )} */}
+      )}
     </Routes>
   );
 }
