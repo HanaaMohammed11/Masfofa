@@ -31,7 +31,7 @@ export default function App() {
     const userId = localStorage.getItem('id');
     if (userId) {
       setIsLoggedIn(true);  
-      navigate('/');  
+ 
     } else {
       setIsLoggedIn(false); 
       navigate('/login');   
