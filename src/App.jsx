@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import {Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 import MatrixList from "./pages/Dashboard/Componants/Matrix/MatrixList";
