@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 import MatrixList from "./pages/Dashboard/Componants/Matrix/MatrixList";
 import MatrixEditForm from "./pages/Dashboard/Componants/Matrix/MatrixEditForm";
@@ -23,49 +23,51 @@ import AddAccounts from "./pages/Dashboard/Componants/Addaccunts";
 import EditProxyrForm from "./pages/Dashboard/Componants/users/editProxy";
 import UerProxy from "./pages/Users/Employee/userProxy";
 
-function App() {
+export default function App() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   useEffect(() => {
-
     const userId = localStorage.getItem('id');
     if (userId) {
-
-      navigate('/');
+      setIsLoggedIn(true);  
+      navigate('/');  
     } else {
- 
-      navigate('/login');
+      setIsLoggedIn(false); 
+      navigate('/login');   
     }
   }, [navigate]);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/userinfo" element={<UserInfo />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/Matrix" element={<MatrixLists />} />
-        <Route path="/sujects" element={<SubjectList />} />
-        <Route path="/MatrixInfo" element={<MatrixInfo />} />
-        <Route path="/userProxy" element={<UerProxy />} />
-        <Route path="/subjectInfo" element={<SubjectInfo />} />
-        <Route path="/editproxy" element={<EditProxyrForm />} />
-        <Route path="/acc" element={<AddAccounts />} />
-        <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/proxyemployeeinfo" element={<Proxyemployeeinfo />} />
-        <Route path="/adduser" element={<UserForm />} />
-        <Route path="/edituser" element={<EditUserForm />} />
-        <Route path="/editsubject" element={<SubjectEditForm />} />
-        <Route path="/AdminUserInfo" element={<AdminUserInfo />} />
-        <Route path="/AdminUserCard" element={<AdminUserCard />} />
-        <Route path="/AdminUsers" element={<AdminUsers />} />
-        <Route path="/MatrixList" element={<MatrixList />} />
-        <Route path="/MatrixEditForm" element={<MatrixEditForm />} />
-        <Route path="/MatrixForm" element={<MatrixForm />} />
+    <Routes>
+
+      {isLoggedIn ? (
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="/userinfo" element={<UserInfo />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/Matrix" element={<MatrixLists />} />
+          <Route path="/sujects" element={<SubjectList />} />
+          <Route path="/MatrixInfo" element={<MatrixInfo />} />
+          <Route path="/userProxy" element={<UerProxy />} />
+          <Route path="/subjectInfo" element={<SubjectInfo />} />
+          <Route path="/editproxy" element={<EditProxyrForm />} />
+          <Route path="/acc" element={<AddAccounts />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/proxyemployeeinfo" element={<Proxyemployeeinfo />} />
+          <Route path="/adduser" element={<UserForm />} />
+          <Route path="/edituser" element={<EditUserForm />} />
+          <Route path="/editsubject" element={<SubjectEditForm />} />
+          <Route path="/AdminUserInfo" element={<AdminUserInfo />} />
+          <Route path="/AdminUserCard" element={<AdminUserCard />} />
+          <Route path="/AdminUsers" element={<AdminUsers />} />
+          <Route path="/MatrixList" element={<MatrixList />} />
+          <Route path="/MatrixEditForm" element={<MatrixEditForm />} />
+          <Route path="/MatrixForm" element={<MatrixForm />} />
+        </>
+      ) : (
         <Route path="/login" element={<Form />} />
-      </Routes>
-    </Router>
+      )}
+    </Routes>
   );
 }
-
-export default App;
