@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import save from "../../../../../src/assets/save.png"
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
-
+import "../../../Home/Card.css";
 export default function MatrixEditForm() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -196,18 +196,10 @@ export default function MatrixEditForm() {
         <div className="mt-8  flex justify-center" dir={direction}>
           <div
             onClick={handleSave}
-            className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
-            style={{
-              backgroundImage:`url(${save})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              borderRadius: "5px",
-              height: "75px",
-              marginTop: 30,
-              cursor: "pointer",
-            }}
+            className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}        
           >
-            {t("matrixEditForm.save")}
+            <span className="flex items-center space-x-4 aux-text">{t("matrixEditForm.save")}</span>
+         
           </div>
         </div>
       </div>

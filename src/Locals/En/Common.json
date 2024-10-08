@@ -4,7 +4,8 @@
     "Employees": "Employees",
     "Articles": "Articles",
     "Matrices": "Matrix",
-    "masfofa": "Masfofa"
+    "masfofa": "Masfofa","home":"Corgov"
+    
   },
   "login": {
     "email": "Email",

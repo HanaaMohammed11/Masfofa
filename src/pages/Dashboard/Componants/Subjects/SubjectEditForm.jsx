@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import save from "../../../../../src/assets/save.png"
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
-
+import "../../../Home/Card.css";
 export default function SubjectEditForm() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -334,21 +334,13 @@ export default function SubjectEditForm() {
           </div>
 
           {/* Save Button */}
-          <div className="mt-6">
+          <div className="mt-6 flex justify-center">
             <div
               onClick={handleSave}
-              className="p-5 w-36  flex items-center text-center mx-auto justify-center text-white"
-              style={{
-                backgroundImage: `url(${save})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "5px",
-                height: "75px",
-                marginTop: 30,
-                cursor: "pointer",
-              }}
+              className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}        
+             
             >
-              {t("subjectEditForm.save")}
+               <span className="flex items-center space-x-4 aux-text">{t("subjectEditForm.save")}</span>
             </div>{" "}
           </div>
         </div>

@@ -4,6 +4,9 @@ import db, { auth } from "../../../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import Planet from "../planet/Planet";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+
 import { TranslateContext } from "../../../../TranslateContext/TransContext";
 import { useTranslation } from "react-i18next";
 import logoutbtn from "../../../../assets/logout.png";
@@ -18,6 +21,7 @@ export default function Topbanner() {
   const [topBannerUrl, setTopBannerUrl] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const { handleChangeLanguage } = useContext(TranslateContext);
+  const [user, setUser] = useState("");
 
   const { t ,i18n} = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -25,6 +29,27 @@ export default function Topbanner() {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("lang") || "ar"
   );
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const q = query(
+          collection(db, "users"),
+          where("ID", "==", localStorage.getItem("id"))
+        );
+        const querySnapshot = await getDocs(q);
+        const userData = querySnapshot.docs.map((doc) => doc.data());
+        if (userData.length > 0) {
+          setUser(userData[0]);
+        } else {
+          console.log("No matching user found");
+        }
+      } catch (error) {
+        console.error("Error fetching user data: ", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const dropdownRef = useRef(null);
 
@@ -87,7 +112,7 @@ export default function Topbanner() {
   <div className="flex">
     {/* Logout Button */}
     <div
-      className="ml-8 font-semibold text-xl flex items-center justify-center text-white cursor-pointer hover:bg-gray-600 p-2 rounded-md"
+      className="ml-8 font-semibold text-xl flex items-center justify-center text-white  cursor-pointer hover:bg-gray-600 p-2 rounded-md"
       onClick={handleLogout}
       style={{
         marginRight: 30,
@@ -100,7 +125,7 @@ export default function Topbanner() {
     {/* Language Dropdown */}
     <div className="relative" ref={dropdownRef}>
       <button
-        className="p-2 rounded-md bg-slate-400 text-white flex items-center hover:bg-slate-500"
+        className="p-2 rounded-md bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <img
@@ -134,21 +159,34 @@ export default function Topbanner() {
 
   {/* Navbar Items */}
   <Navbar.Collapse>
+  {user.accountType === "admin" && (
+  <div
+      onClick={() => navigate("/dashboard")}
+      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+    >
+      {t("text.DashBoard")}
+    </div>   )}
+    <div
+      onClick={() => navigate("/")}
+      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+    >
+      {t("text.home")}
+    </div>
     <div
       onClick={() => navigate("/Matrix")}
-      className="cursor-pointer text-xl p-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
     >
       {t("text.Matrices")}
     </div>
     <div
       onClick={() => navigate("/sujects")}
-      className="cursor-pointer text-xl p-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
     >
       {t("text.Articles")}
     </div>
     <div
       onClick={() => navigate("/users")}
-      className="cursor-pointer text-xl p-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
     >
       {t("text.Employees")}
     </div>

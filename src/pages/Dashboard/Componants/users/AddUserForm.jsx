@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, setDoc, addDoc, collection } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
 import { useTranslation } from "react-i18next";
-
+import "../../../Home/Card.css";
 export default function UserForm() {
   const { t ,i18n} = useTranslation("global"); 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -213,24 +213,15 @@ export default function UserForm() {
         {/* Save Button */}
         <div className="flex justify-center ">
         
-          <div 
-           
-  onClick={handleSave} 
-  className='p-5 w-36  flex items-center text-center mx-auto justify-center text-white' 
-  style={{ 
-    backgroundImage: 'url("./src/assets/save.png")', 
-    backgroundSize: 'cover', 
-    backgroundPosition: 'center', 
-    borderRadius: '5px', 
-    height: '75px', 
-    marginTop:30,
-    cursor: 'pointer',
-    
-
-  }}
->
-  {t("edittheme.save")}
-</div>
+        <div className="mt-6 flex justify-center">
+            <div
+              onClick={handleSave}
+              className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}        
+             
+            >
+               <span className="flex items-center space-x-4 aux-text">{t("subjectEditForm.save")}</span>
+            </div>{" "}
+          </div>
         </div>
       </div>
     </div>

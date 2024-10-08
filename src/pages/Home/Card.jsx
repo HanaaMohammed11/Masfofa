@@ -3,7 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { Card } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom"; // استيراد useNavigate
+import { useNavigate } from "react-router-dom"; 
 import db from "../../config/firebase";
 import Planet from "../../../src/assets/plant-removebg-preview.png";
 import "./Card.css";
@@ -11,7 +11,7 @@ import "./Card.css";
 export default function Cards() {
   const { t } = useTranslation("global");
   const [user, setUser] = useState("");
-  const navigate = useNavigate(); // تهيئة useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchUser = async () => {

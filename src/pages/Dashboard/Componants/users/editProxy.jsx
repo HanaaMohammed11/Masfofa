@@ -6,6 +6,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useTranslation } from "react-i18next";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
+import "../../../Home/Card.css";
 
 const FormField = ({ id, label, value, onChange }) => (
   <div>
@@ -162,22 +163,17 @@ export default function EditProxyrForm() {
             />
           ))}
         </div>
-
-        <button
+<div className="flex justify-center">
+<button
           type="submit"
-          className="p-5 w-36 flex items-center text-center mx-auto justify-center text-white"
-          style={{
-            backgroundImage: 'url("./src/assets/save.png")',
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "5px",
-            height: "75px",
-            marginTop: 30,
-            cursor: "pointer",
-          }}
+          className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}        
+         
         >
-          {t("edittheme.save")}
-        </button>
+               <span className="flex items-center space-x-4 aux-text">{t("subjectEditForm.save")}</span>
+               </button>
+       
+</div>
+       
       </form>
     </div>
     </div>
