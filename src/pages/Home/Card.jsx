@@ -75,7 +75,7 @@ export default function Cards() {
     </div>
 
     {/* Card 3 */}
-    <div className="p-4 text-center relative bg-transparent w-80"> {/* تقليل العرض */}
+    <div className="p-4 text-center relative bg-transparent w-80"> 
       <img
         src={Planet}
         alt="Spinning Planet"

@@ -67,7 +67,7 @@ export default function EditUserForm() {
       const userId = userData.id; 
       await setDoc(doc(db, "employees", user.id), updatedUserData);
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error saving data: ", error);
       alert("An error occurred while saving the data. Please try again.");

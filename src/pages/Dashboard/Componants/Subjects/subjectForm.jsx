@@ -69,11 +69,11 @@
 //     return () => unsubscribe();
 //   }, []);
 //   return (
-//     <div className="flex" style={{ fontFamily: "cursive" }}>
+//     <div className="flex" >
 //       <div className="ml-64 p-8 w-full max-w-5xl">
 //         <h1
 //           className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
-//           style={{ fontFamily: "cursive" }}
+//           
 //         >
 //           إضافة مادة جديدة
 //         </h1>
@@ -306,7 +306,6 @@ export default function SubjectForm() {
 
     try {
       const subjectRef = await addDoc(collection(db, "subjects"), data);
-      alert(t("matrixForm.alert"));
 
       const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
 
@@ -317,7 +316,7 @@ export default function SubjectForm() {
           MainEmployees: arrayUnion(emp1.employeeId),
         });
 
-        navigate("/");
+        navigate("/dashboard");
       } else {
         alert("The specified matrix does not exist.");
       }
@@ -365,7 +364,7 @@ export default function SubjectForm() {
   }, []);
 
   return (
-    <div className="flex" style={{ fontFamily: "cursive" }}>
+    <div className="flex" >
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
         <h1     dir={direction} className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
           {t("subjectEditForm.addSubject")}

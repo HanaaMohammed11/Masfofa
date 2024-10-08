@@ -8,8 +8,11 @@ import Bottombanner from '../../Home/componants/banner/Bottombanner';
 import { FileInput, Label } from "flowbite-react";
 import { useTranslation } from 'react-i18next';
 import save from "../../../../src/assets/save.png"
+import { useNavigate, useNavigation } from 'react-router-dom';
 const EditTheme = () => {
   const { t, i18n } = useTranslation("global");
+  const       navigation= useNavigate();
+
   
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
@@ -79,7 +82,7 @@ const EditTheme = () => {
       if (topBanner) await handleImageUpload(topBanner, 'topBanner', topBannerUrl);
       if (bottomBanner) await handleImageUpload(bottomBanner, 'bottomBanner', bottomBannerUrl);
       if (logo) await handleImageUpload(logo, 'logo', logoUrl);
-     console.log ('تم الحفظ بنجاح');
+      navigation("/dashboard");
     } catch (error) {
       console.log ('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
     }

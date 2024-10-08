@@ -55,13 +55,12 @@ export default function AddAccounts() {
       );
       const user = userCredential.user;
 
-      // Add user to Firestore with the selected account type
       const docRef = await addDoc(usersCollection, {
         firstname: firstName,
         lastname: lastName,
         email: email,
         id: user.uid,
-        accountType: accountType, // Store the selected account type
+        accountType: accountType, 
         password: password,
       });
 

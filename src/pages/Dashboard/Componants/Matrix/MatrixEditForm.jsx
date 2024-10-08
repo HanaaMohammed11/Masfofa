@@ -64,9 +64,9 @@ export default function MatrixEditForm() {
     <div>
       <Topbanner/>
     <div
-      className="  bg-slate-100 "
+      className="  bg-slate-100  "
       dir={direction}
-      style={{ fontFamily: "cursive" }}
+      
     >
       <div className="mx-auto p-8 w-full max-w-5xl" >
         <h1 dir={direction} className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">

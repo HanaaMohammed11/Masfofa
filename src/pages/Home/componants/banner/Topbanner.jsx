@@ -10,14 +10,18 @@ import logoutbtn from "../../../../assets/logout.png";
 import { TbLogout2 } from "react-icons/tb";
 import saudiArabia from "../../../../assets/Flag_of_Saudi_Arabia.png";
 import USA from "../../../../assets/Flag_of_the_United_States.png";
+import NavBar from "../../../../Nav/NavBar";
+import { Navbar, Button } from 'flowbite-react';
 
 export default function Topbanner() {
+  const navigate = useNavigate();
   const [topBannerUrl, setTopBannerUrl] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const { handleChangeLanguage } = useContext(TranslateContext);
-  const { t } = useTranslation("global");
 
-  const [isOpen, setIsOpen] = useState(false); // state for dropdown visibility
+  const { t ,i18n} = useTranslation("global");
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("lang") || "ar"
   );
@@ -52,7 +56,6 @@ export default function Topbanner() {
     setIsOpen(false);
   };
 
-  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       localStorage.removeItem("id");
@@ -63,7 +66,6 @@ export default function Topbanner() {
     }
   };
 
-  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -78,76 +80,97 @@ export default function Topbanner() {
   }, []);
 
   return (
+    <div className="w-full " >
+    
+  <Navbar fluid={true} rounded={true} className="bg-gray-500 text-white mb-1">
+  <Navbar.Toggle />
+  <div className="flex">
+    {/* Logout Button */}
     <div
-      className="Topbaner w-full h-48 bg-cover bg-center"
-      style={{ backgroundImage: `url(${topBannerUrl})` }}
+      className="ml-8 font-semibold text-xl flex items-center justify-center text-white cursor-pointer hover:bg-gray-600 p-2 rounded-md"
+      onClick={handleLogout}
+      style={{
+        marginRight: 30,
+        marginBottom: "10px",
+      }}
     >
-      <div className="flex justify-between  w-full items-center">
-        <div
-          className="ml-8 font-semibold text-xl flex items-center justify-center text-white text-center"
-          onClick={handleLogout}
-          style={{
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            marginTop: 20,
-            cursor: "pointer",
-            backgroundImage: `url()`,
-            marginRight: 30,
-            width: "90px",
-            height: "90px",
-            marginBottom: "10px",
-          }}
-        >
-          <TbLogout2 size={30} />
-        </div>
+      <TbLogout2 size={30} />
+    </div>
 
-        <div className="w-80 pr-9 pt-9 logo flex items-center">
-          {/* Custom Language Dropdown */}
-          <div className="relative w-36" ref={dropdownRef}>
-            <button
-              className="p-2 rounded-md bg-slate-400 text-white flex items-center"
-              onClick={() => setIsOpen((prev) => !prev)}
-            >
-              <img
-                src={selectedLanguage === "en" ? USA : saudiArabia}
-                alt={selectedLanguage === "en" ? "English" : "Arabic"}
-                className="w-6 h-6 mr-2"
-              />
-              {/* {selectedLanguage === "en" ? "English" : "Arabic"} */}
-            </button>
-            {isOpen && (
-              <div className="absolute bg-white shadow-lg rounded-md mt-2 w-full z-10">
-                <div
-                  onClick={() => handleLanguageSelect("en")}
-                  className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
-                >
-                  <img src={USA} alt="USA Flag" className="w-6 h-6 mr-2" />
-                  {/* English */}
-                </div>
-                <div
-                  onClick={() => handleLanguageSelect("ar")}
-                  className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
-                >
-                  <img
-                    src={saudiArabia}
-                    alt="Saudi Arabia Flag"
-                    className="w-6 h-6 mr-2"
-                  />
-                  {/* Arabic */}
-                </div>
-              </div>
-            )}
+    {/* Language Dropdown */}
+    <div className="relative" ref={dropdownRef}>
+      <button
+        className="p-2 rounded-md bg-slate-400 text-white flex items-center hover:bg-slate-500"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <img
+          src={selectedLanguage === "en" ? USA : saudiArabia}
+          alt={selectedLanguage === "en" ? "English" : "Arabic"}
+          className="w-6 h-6 mr-2"
+        />
+      </button>
+      {isOpen && (
+        <div className="absolute bg-white shadow-lg rounded-md mt-2 w-full z-10">
+          <div
+            onClick={() => handleLanguageSelect("en")}
+            className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+          >
+            <img src={USA} alt="USA Flag" className="w-6 h-6 mr-2" />
           </div>
-
-          <Link to="/" className="ml-4">
-            <img src={logoUrl} alt="Logo" />
-          </Link>
+          <div
+            onClick={() => handleLanguageSelect("ar")}
+            className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+          >
+            <img
+              src={saudiArabia}
+              alt="Saudi Arabia Flag"
+              className="w-6 h-6 mr-2"
+            />
+          </div>
         </div>
-      </div>
+      )}
+    </div>
+  </div>
+
+  {/* Navbar Items */}
+  <Navbar.Collapse>
+    <div
+      onClick={() => navigate("/Matrix")}
+      className="cursor-pointer text-xl p-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+    >
+      {t("text.Matrices")}
+    </div>
+    <div
+      onClick={() => navigate("/sujects")}
+      className="cursor-pointer text-xl p-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+    >
+      {t("text.Articles")}
+    </div>
+    <div
+      onClick={() => navigate("/users")}
+      className="cursor-pointer text-xl p-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+    >
+      {t("text.Employees")}
+    </div>
+  </Navbar.Collapse>
+</Navbar>
+
+
+      {/* Banner section */}
+      <div
+  className="Topbaner w-full h-56 bg-cover bg-center flex justify-end items-center"
+  style={{ backgroundImage: `url(${topBannerUrl})` }}
+>
+  {/* Logo */}
+  <div className="w-60 pr-5 pt-9 mb-12 logo">
+    <Link to="/" className="ml-4">
+      <img src={logoUrl} alt="Logo" />
+    </Link>
+  </div>
+</div>
+
+
+   
     </div>
   );
 }

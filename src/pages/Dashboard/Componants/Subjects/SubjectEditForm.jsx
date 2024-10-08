@@ -104,7 +104,7 @@ export default function SubjectEditForm() {
   return (
     <div>
       <Topbanner/>
-    <div className="flex" style={{ fontFamily: "cursive" }} dir={direction}>
+    <div className="flex"  dir={direction}>
 
       <div className="mx-auto p-8 w-full max-w-5xl" >
         <h1 className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl" dir={direction}>

@@ -37,8 +37,7 @@ export default function MatrixForm() {
 
     try {
       await addDoc(collection(db, "matrix"), data);
-      alert(t("matrixForm.alert"));
-      navigation("/");
+      navigation("/dashboard");
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -57,13 +56,13 @@ export default function MatrixForm() {
   return (
     <div
       className="flex flex-col items-center p-4"
-      style={{ fontFamily: "cursive" }}
+      
     >
       <div className="w-full max-w-5xl p-4 md:p-8" >
         <h1
         dir={direction}
           className=" text-2xl md:text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl"
-          style={{ fontFamily: "cursive" }}
+          
         >
           {t("matrixForm.addNewMatrix")}
         </h1>
@@ -177,7 +176,7 @@ export default function MatrixForm() {
         <h2
         dir={direction}
           className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
-          style={{ fontFamily: "cursive" }}
+          
         >
           {t("matrixForm.definitions")}
         </h2>

@@ -74,7 +74,7 @@ export default function UserForm() {
       const employeeDocRef = await addDoc(collection(db, "employees"), employeeData);
       console.log("Employee document written with ID: ", employeeDocRef.id);
 
-      navigation("/");
+      navigation("/dashboard");
     } catch (error) {
       console.error("Error saving data: ", error);
     }
@@ -95,7 +95,7 @@ export default function UserForm() {
   };
 
   return (
-    <div className="flex w-full" style={{ fontFamily: "cursive" }}>
+    <div className="flex w-full" >
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
         <h1 className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"     dir={direction}>
  {t("userform.adduser")}

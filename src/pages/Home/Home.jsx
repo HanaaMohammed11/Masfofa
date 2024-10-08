@@ -9,7 +9,7 @@ export default function Home() {
   const { t } = useTranslation("global");
   return (
     <div
-      className="relative flex flex-col min-h-screen bg-gray-300"
+      className="relative flex flex-col min-h-screen bg-gray-100"
       style={{
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

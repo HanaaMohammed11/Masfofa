@@ -74,7 +74,7 @@ export default function EditProxyrForm() {
       const userId = userData.proxyEmployeeId;
       await setDoc(doc(db, "proxyEmployees", userId), updatedUserData);
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error saving data: ", error);
       alert("An error occurred while saving the data. Please try again.");
