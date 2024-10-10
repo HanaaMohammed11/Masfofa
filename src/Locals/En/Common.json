@@ -70,7 +70,7 @@
     "subjectTitle": "Article Title :",
     "subjectContent": "Article Content :",
     "authorizedEmployee": "Authorized Employee - Job Title :",
-    "sharedEmployees": "Participants Employees - Subscription Type :",
+    "sharedEmployees": "Participants Employees :",
     "noRelatedSubjects": "No related Articles",
     "negotiationLimit": "Authorization Limit :",
     "notes": "Notes :"
@@ -117,7 +117,7 @@
     "upload": "Click to upload image",
     "save": "Save",
     "success": "Saved successfully",
-    "error": "An error occurred during saving, please try again."
+    "error": "An error occurred during saving, please try again." ,"homeElements":"Home Elements image"
   },
   "addaccount": {
     "createAccount": "Create User Account",

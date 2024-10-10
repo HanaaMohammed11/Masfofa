@@ -9,6 +9,9 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import btn from "../../../../src/assets/btn.png";
 import "../../Dashboard/btns.css"
+import SideBar from "../SideBar";
+import Topbanner from "../../Home/componants/banner/Topbanner";
+import Bottombanner from "../../Home/componants/banner/Bottombanner";
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -104,14 +107,10 @@ export default function AddAccounts() {
   }, []);
 
   return (
-    <div className="sm:mx-0 ">
-      <div
-  className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
-  onClick={() => setOpenModal(true)}
->
-        {t("addaccount.createAccount")}
-      </div>
-      <div></div>
+    <div className=" bg-gray-100 flex flex-col items-center">
+
+    <div className=" flex">
+
 
       <Modal
         show={openModal}
@@ -253,6 +252,13 @@ export default function AddAccounts() {
       </Modal>
 
       <div className=" bg-gray-100 flex flex-col items-center" dir={direction}>
+
+      <div
+  className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
+  onClick={() => setOpenModal(true)}
+>
+        {t("addaccount.createAccount")}
+      </div>
         <div
           dir={direction}
           className="w-[90%] mx-auto h-auto bg-white p-4 rounded-lg shadow-lg mt-10 xs:overflow-x-auto sm:overflow-x-visible"
@@ -292,6 +298,8 @@ export default function AddAccounts() {
           </table>
         </div>
       </div>
+    </div>
+  
     </div>
   );
 }

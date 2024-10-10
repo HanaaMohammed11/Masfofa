@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import "../../../Home/Card.css";
+import SideBar from "../../SideBar";
 
 const FormField = ({ id, label, value, onChange }) => (
   <div>
@@ -106,6 +107,7 @@ export default function EditProxyrForm() {
   return (
     <div>
       <Topbanner/>
+      <SideBar/>
     <div className="flex justify-center items-center min-h-screen" >
     <div className="bg-white p-8 rounded-lg shadow-md  w-full max-w-5xl ">
       <form onSubmit={handleSave}>

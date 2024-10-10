@@ -47,8 +47,8 @@ export default function AdminUsers() {
   });
 
   return (
-    <div className="p-9">
-      <div className="">
+    <div className="p-9 w-full">
+      <div className="w-full">
       <div
   className="add-btn add-g add-c add-uppercase add-text"
   onClick={handleClick}
@@ -72,7 +72,7 @@ export default function AdminUsers() {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center w-full">
         {showuserForm ? (
           <UserForm />
         ) : (

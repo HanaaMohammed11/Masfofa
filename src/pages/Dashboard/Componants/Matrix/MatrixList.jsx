@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import btn from "../../../../assets/btn.png"
 import "../../../Dashboard/btns.css"
+import SideBar from "../../SideBar";
+import Topbanner from "../../../Home/componants/banner/Topbanner";
 
 export default function MatrixList() {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
@@ -19,14 +21,19 @@ export default function MatrixList() {
 
   return (
     <>
-      <div className="flex justify-between p-9">
-        <div className="flex justify-between w-full xs:flex-col md:flex-row xs:items-center">
+    <div className="w-full">
+
+      <div className="flex flex-col p-9">
+        
+
+        <div className="flex  flex-col w-full   xs:items-center">
         <div
-  className="add-btn add-g add-c add-uppercase add-text"
+  className="add-btn add-g add-c add-uppercase add-text mb-6"
   onClick={handleClick}
 >
-            {t("matrixForm.addNewMatrix")}{" "}
-          </div>
+  {t("matrixForm.addNewMatrix")}
+</div>
+
 
           {/* Search Input */}
           <div className="search flex justify-center ">
@@ -46,6 +53,8 @@ export default function MatrixList() {
       ) : (
         <MatrixCard searchQuery={searchQuery} />
       )}
+      </div>
     </>
+
   );
 }

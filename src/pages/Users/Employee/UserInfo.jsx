@@ -13,6 +13,8 @@ import {
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useTranslation } from "react-i18next";
+import Loader from "../../Login/loder";
+import SideBar from "../../Dashboard/SideBar";
 
 export default function UserInfo() {
   const location = useLocation();
@@ -20,6 +22,7 @@ export default function UserInfo() {
   const user = location.state.user;
   const [proxyEmployees, setProxyEmployees] = useState([]);
   const [empSubjects, setEmpSubjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const { t, i18n } = useTranslation("global");
 
@@ -46,6 +49,8 @@ export default function UserInfo() {
         console.log(matchedEmployees);
       } catch (error) {
         console.error("Error fetching proxy employees: ", error);
+      }finally{
+        setLoading(false);
       }
     };
 
@@ -76,10 +81,14 @@ export default function UserInfo() {
   return (
     <div>
       <Topbanner />
+  
       <div
         className="min-h-screen bg-gray-100 justify-center flex items-center"
         dir={direction}
       >
+         {loading ? ( 
+          <Loader />
+        ) : ( 
         <Card className="w-[900px] h-auto my-12">
           <div className="flex flex-col items-center pb-10">
             <img
@@ -248,8 +257,14 @@ export default function UserInfo() {
             </div>
           </div>
         </Card>
+      )}
       </div>
+ 
       <Bottombanner />
     </div>
   );
 }
+
+
+
+

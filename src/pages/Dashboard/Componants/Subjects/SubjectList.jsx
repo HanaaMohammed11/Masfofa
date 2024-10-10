@@ -5,6 +5,9 @@ import { SubjctCard } from "./SubjectCard";
 import { useTranslation } from "react-i18next";
 import btn from "../../../../assets/btn.png";
 import "../../../Dashboard/btns.css";
+import SideBar from "../../SideBar";
+import Topbanner from "../../../Home/componants/banner/Topbanner";
+import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
 export default function SubjectList() {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
@@ -18,10 +21,19 @@ export default function SubjectList() {
   };
 
   return (
-    <div className="p-9">
-      <div className="flex justify-between w-full xs:flex-col md:flex-row xs:items-center">
+    <div>
+  
+    <div className="p-9 flex">
+      
+       <div>
+ 
+       </div>
+
+       <div>
+      <div className="flex flex-col w-full  xs:items-center">
+     
         <div
-          className="add-btn add-g add-c add-uppercase add-text"
+          className="add-btn add-g add-c add-uppercase add-text mb-7"
           onClick={handleClick}
         >
           {t("subjectEditForm.addSubject")}
@@ -36,12 +48,15 @@ export default function SubjectList() {
           />
         </div>
       </div>
-
-      {showMatrixForm ? (
+<div className="w-full flex justify-center" >
+{showMatrixForm ? (
         <SubjectForm />
       ) : (
         <SubjctCard searchTerm={searchTerm} />
-      )}
+      )}</div>
+</div>
+</div>
+
     </div>
   );
 }

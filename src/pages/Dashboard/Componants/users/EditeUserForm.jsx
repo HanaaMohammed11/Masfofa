@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import "../../../Home/Card.css";
+import SideBar from "../../SideBar";
 export default function EditUserForm() {
   const { t ,i18n} = useTranslation("global"); 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -101,12 +102,13 @@ export default function EditUserForm() {
   return (
     <div>
           <Topbanner/>
+          <SideBar/>
     <div
       className="min-h-screen bg-gray-100 justify-center flex"
       style={{ fontFamily: "cursive" }}
  
     >
-  
+   
       <div className=" p-8 w-full max-w-5xl  "     > 
         <h1 className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl" dir={direction}>
      {t("userform.edittitle")}

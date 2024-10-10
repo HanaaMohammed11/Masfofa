@@ -1,4 +1,4 @@
-import { Button, Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react"; 
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import React, { useEffect, useState } from "react";
@@ -17,6 +17,10 @@ export function SubjctCard({ searchTerm }) {
     } catch (error) {
       console.error("Error deleting subject: ", error);
     }
+  };
+
+  const handleButtonClick = (subjectItem) => {
+    navigation("/AdminSubjectInfo", { state: { subjectItem } });
   };
 
   const Edit = (subjectItem) => {
@@ -64,6 +68,12 @@ export function SubjctCard({ searchTerm }) {
                 className="inline-flex items-center rounded-lg bg-red-700 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
               >
                 {t("subjectCardDashboard.delete")}
+              </Button>
+              <Button
+                className="bg-[#64748B] w-32 mt-8"
+                onClick={() => handleButtonClick(subject)} // استخدام subject هنا
+              >
+                {t("articels.details")}
               </Button>
             </div>
           </Card>

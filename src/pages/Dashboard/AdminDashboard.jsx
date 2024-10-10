@@ -14,37 +14,15 @@ import Bottombanner from "../Home/componants/banner/Bottombanner";
 
 function AdminDashboard() {
     const { t ,i18n} = useTranslation("global");
-    const [activeItem, setActiveItem] = useState(t("sidebar.dashboard"));  
     const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
-    const handleItemClick = (item) => {
-        setActiveItem(item);
-    };
-
-    const renderComponent = () => {
-        const components = {
-            [t("sidebar.dashboard")]: <MatrixList />,
-            [t("sidebar.editAppearance")]: <EditTheme />,
-            [t("sidebar.employees")]: <AdminUsers />,
-            [t("sidebar.permissions")]: <SubjectList />,
-            [t("sidebar.addUser")]: <AddAccounts />
-        };
-
-        return components[activeItem] || null; 
-    };
 
     return (
         <div>
             <Topbanner/>
         <div className="flex flex-row-reverse min-h-screen bg-gray-100" dir={direction}>
           
-               <div className="flex-grow">
-                {renderComponent()}
-            </div>
-            <div className="w-64">
-                <SideBar activeItem={activeItem} onItemClick={handleItemClick} />
-            </div>
-
+<SideBar/>
          
         </div>
         <Bottombanner/>

@@ -52,7 +52,7 @@
     "noProxyEmployees": "لا يوجد موظفين  لهذا المستخدم.",
     "permissionsTitle": "الصلاحيات  : ",
     "subjectTitle": "عنوان المادة  : ",
-    "noRelatedSubjects": "لا توجد مواد مرتبطة.",
+    "noRelatedSubjects": "لا توجد مواد",
     "edituser": "تعديل",
     "delete": "حذف"
   },
@@ -68,9 +68,9 @@
     "subjectContent": "نص المادة :",
     "authorizedEmployee": "الموظف المفوض - المسمى الوظيفي :",
     "sharedEmployees": "الموظفين المشتركين  :",
-    "noRelatedSubjects": "لا توجد مواد مرتبطة",
+    "noRelatedSubjects": "لا توجد مواد",
     "negotiationLimit": "حدود التفاوض :",
-    "notes": "ملاحظات :"
+    "notes": "ملاحظات :","relatedMatrix": ""
   },
   "matrix": {
     "title": "المصفوفات",
@@ -113,7 +113,8 @@
     "upload": "اضغط لتحميل الصور",
     "save": "حفظ",
     "success": "تم الحفظ بنجاح",
-    "error": "حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى."
+    "error": "حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.",
+    "homeElements":"عناصر الصفحة الرئيسية"
   },
   "addaccount": {
     "createAccount": "إنشاء حساب مستخدم",

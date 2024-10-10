@@ -144,7 +144,8 @@ export default function MatrixForm() {
                 value={t("matrixForm.Introduction")}
                 className="text-lg md:text-xl font-semibold"
               />
-              <TextInput
+              <                Textarea
+   rows={4}
                 id="introduction"
                 type="text"
                 sizing="lg"
@@ -161,8 +162,10 @@ export default function MatrixForm() {
                 value={t("matrixForm.notes")}
                 className="text-lg md:text-xl font-semibold"
               />
-              <TextInput
+              <                Textarea
+
                 id="notes"
+                rows={4}
                 type="text"
                 sizing="lg"
                 className="mt-2 w-full"

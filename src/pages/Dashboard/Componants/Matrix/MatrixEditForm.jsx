@@ -121,8 +121,10 @@ export default function MatrixEditForm() {
                 htmlFor="introduction"
                 value={t("matrixEditForm.Introduction")}
               />
-              <TextInput
+              <                Textarea
+
                 id="intro"
+                rows={4}
                 type="text"
                 value={matrixData.intro}
                 onChange={handleInputChange}
@@ -130,8 +132,9 @@ export default function MatrixEditForm() {
             </div>
             <div className="col-span-2">
               <Label htmlFor="notes" value={t("matrixEditForm.notes")} />
-              <TextInput
+              <                Textarea
                 id="notes"
+                rows={4}
                 type="text"
                 value={matrixData.notes}
                 onChange={handleInputChange}

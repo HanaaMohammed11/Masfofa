@@ -5,6 +5,7 @@ import Topbanner from "./../../../Home/componants/banner/Topbanner";
 import Bottombanner from "./../../../Home/componants/banner/Bottombanner";
 import { getFirestore, doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import SideBar from "../../SideBar";
 
 export default function Proxyemployeeinfo() {
   const location = useLocation();
@@ -74,6 +75,7 @@ export default function Proxyemployeeinfo() {
   return (
     <div>
       <Topbanner />
+      <SideBar/>
       <div className="min-h-screen bg-gray-100 justify-center flex items-center"  dir={direction}>
         <Card className="w-[900px] h-auto my-12"  dir={direction}>
           <div className="flex flex-col items-center pb-10"  >

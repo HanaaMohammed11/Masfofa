@@ -7,10 +7,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
+import Loader from "../../Login/loder";
 
 export default function MatrixInfo() {
   const { t, i18n } = useTranslation("global");
-
+  const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,10 +32,14 @@ export default function MatrixInfo() {
           id: doc.id,
           ...doc.data(),
         }));
-        setRelatedsubjectss(subjects);
+        if (subjects.length > 0) {
+          setLoading(false);
+        }
       });
-
+  
       return () => unsubscribe();
+    } else {
+      setLoading(false); 
     }
   }, [matrix]);
 
@@ -42,11 +47,15 @@ export default function MatrixInfo() {
     <div >
       <Topbanner />
       <div className="min-h-screen bg-gray-100 justify-center flex items-center" dir={direction}>
-        <Card className="w-[900px] h-auto transition-transform duration-300 transform hover:-translate-y-2 hover:scale-105">
-          <div className="flex justify-end px-4 pt-4"></div>
-          <div className="flex flex-col items-center pb-10">
+         {loading ? ( 
+          <Loader />
+        ) : ( 
+
+        <Card className="w-[900px] h-auto my-9">
+          <div className="flex justify-end px-4 pt-4 "></div>
+          <div className="flex flex-col items-center pb-10 ">
             {/* الجدول */}
-            <div className="mt-4 w-full">
+            <div className="mt-4 w-full ">
               <table className="min-w-full  border-collapse">
                 <tbody className="text-gray-700">
                   <tr>
@@ -146,6 +155,7 @@ export default function MatrixInfo() {
             </div>
           </div>
         </Card>
+        )}
       </div>
       <Bottombanner />
     </div>

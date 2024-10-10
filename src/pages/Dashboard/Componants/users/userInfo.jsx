@@ -5,6 +5,12 @@ import Topbanner from "./../../../Home/componants/banner/Topbanner";
 import Bottombanner from "./../../../Home/componants/banner/Bottombanner";
 import { getFirestore, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import SideBar from "../../SideBar";
+import MatrixList from "../Matrix/MatrixList";
+import EditTheme from "../EditTheme";
+import AdminUsers from "./AdminUsers";
+import SubjectList from "../Subjects/SubjectList";
+import AddAccounts from "../Addaccunts";
 
 export default function AdminUserInfo() {
   const location = useLocation();
@@ -70,11 +76,36 @@ export default function AdminUserInfo() {
   const handleCardClick = (proxyEmployee) => {
     navigate("/proxyemployeeinfo", { state: { user: proxyEmployee, mainUser: user.id } });
   };
+  const [activeItem, setActiveItem] = useState(t("sidebar.dashboard"));  
+
+
+  const handleItemClick = (item) => {
+      setActiveItem(item);
+  };
+
+  const renderComponent = () => {
+      // const components = {
+      //     [t("sidebar.dashboard")]: <MatrixList />,
+      //     [t("sidebar.editAppearance")]: <EditTheme />,
+      //     [t("sidebar.employees")]: <AdminUsers />,
+      //     [t("sidebar.permissions")]: <SubjectList />,
+      //     [t("sidebar.addUser")]: <AddAccounts />
+      // };
+
+      // return components[activeItem] || null; 
+  };
 
   return (
     <div>
       <Topbanner />
+      <div className="flex-grow">
+                {renderComponent()}
+            </div>
+            <div className="w-64">
+                <SideBar activeItem={activeItem} onItemClick={handleItemClick} />
+            </div>
       <div className="min-h-screen bg-gray-100 justify-center flex items-center"      dir={direction}>
+     
         <Card className="w-[900px] h-auto my-12">
           <div className="flex flex-col items-center pb-10">
             <img

@@ -5,18 +5,19 @@ import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { collection, onSnapshot } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
+import Loader from "../../Login/loder";
 
 export default function MatrixLists() {
-
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchBy, setSearchBy] = useState(""); 
+  const [searchBy, setSearchBy] = useState("");
   const [filteredMatrices, setFilteredMatrices] = useState([]);
   const [matrix, setMatrix] = useState([]);
-  const [employees, setEmployees] = useState([]); 
+  const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const usersCollectionRef = collection(db, "matrix");
@@ -28,6 +29,7 @@ export default function MatrixLists() {
       });
       setMatrix(matrix);
       setFilteredMatrices(matrix);
+      setLoading(false);  // Set loading to false when data is fetched
     });
 
     return () => unsubscribe();
@@ -39,7 +41,7 @@ export default function MatrixLists() {
     const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
       const employeeList = [];
       snapshot.forEach((doc) => {
-        employeeList.push({ id: doc.id, ...doc.data() }); 
+        employeeList.push({ id: doc.id, ...doc.data() });
       });
       setEmployees(employeeList);
     });
@@ -75,7 +77,7 @@ export default function MatrixLists() {
 
       if (matchedEmployeesByJobTitle.length > 0) {
         const results = matrix.filter((matrixItem) => {
-          const mainEmployees = matrixItem.MainEmployees || []; 
+          const mainEmployees = matrixItem.MainEmployees || [];
           return (
             Array.isArray(mainEmployees) &&
             matchedEmployeesByJobTitle.some((emp) =>
@@ -112,15 +114,14 @@ export default function MatrixLists() {
 
   const handleClearFilters = () => {
     setSearchQuery("");
-    setSearchBy(""); 
-    setFilteredMatrices(matrix); 
+    setSearchBy("");
+    setFilteredMatrices(matrix);
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
-        
       </div>
 
       {/* Input search section */}
@@ -128,11 +129,11 @@ export default function MatrixLists() {
         {/* Select what to search by */}
         <select
           value={searchBy}
-          onChange={handleSearchByChange} 
+          onChange={handleSearchByChange}
           className="w-40 p-2 rounded-md text-gray-700"
         >
           <option value="" disabled>
-            {t("matrix.selectSearchCriterion")} 
+            {t("matrix.selectSearchCriterion")}
           </option>
           <option value="title">{t("matrix.searchByMatrix")}</option>
           <option value="companyName">{t("matrix.searchByCompany")}</option>
@@ -143,24 +144,24 @@ export default function MatrixLists() {
 
         <input
           type="text"
-          placeholder=    {t("matrix.searchButton")} 
+          placeholder={t("matrix.searchButton")}
           className="xs:w-72 sm:w-96 rounded-full ml-4"
           dir={direction}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          disabled={!searchBy} 
+          disabled={!searchBy}
         />
         <button
           onClick={handleSearch}
           className="ml-2 px-4 py-2 rounded-full bg-blue-500 text-white"
         >
-          {t("matrix.searchButton")} 
+          {t("matrix.searchButton")}
         </button>
         <button
-          onClick={handleClearFilters} 
+          onClick={handleClearFilters}
           className="ml-2 px-4 py-2 rounded-full bg-red-500 text-white"
         >
-          {t("matrix.clearFilters")} 
+          {t("matrix.clearFilters")}
         </button>
       </div>
 
@@ -171,11 +172,15 @@ export default function MatrixLists() {
           </div>
         )}
       </div>
-
-      <div className="flex-grow">
-        <MatrixCard matrices={filteredMatrices} />
-      </div>
-
+      {loading ? (
+  <div className="flex justify-center items-center h-screen">
+    <Loader />
+  </div>
+) : (
+  <div className="flex-grow">
+    <MatrixCard matrices={filteredMatrices} />
+  </div>
+)}
       <div className="mt-auto">
         <Bottombanner />
       </div>
