@@ -5,53 +5,70 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { Button, Card, Spinner } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import { useEffect, useState } from "react";
 import db from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { use } from "i18next";
 import Loader from "../../Login/loder";
 
 export function SubCard({ searchTerm }) {
   const { t, i18n } = useTranslation("global");
-
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [matrixItems, setMatrixItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+
+  // Fetch the current user
   useEffect(() => {
     const qUser = query(
       collection(db, "users"),
       where("ID", "==", localStorage.getItem("id"))
     );
     const unsubscribe = onSnapshot(qUser, (snapshot) => {
-      const userData = [];
-      snapshot.forEach((doc) => {
-        userData.push({ docId: doc.id, ...doc.data() });
-      });
+      const userData = snapshot.docs.map((doc) => ({
+        docId: doc.id,
+        ...doc.data(),
+      }));
       setUser(userData);
     });
 
     return () => unsubscribe();
-  }, []); // Keep this as is
-  console.log(user[0]);
+  }, []);
+
+  // Fetch subjects based on the user info
   useEffect(() => {
     const getSubjects = async () => {
-      setLoading(true);
-      const querySnapshot = await getDocs(
-        query(
-          collection(db, "subjects"),
-          where("ownerAdmin", "==", user[0]?.ownerAdmin)
-        )
-      );
-      const subjectsList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setMatrixItems(subjectsList);
-      setLoading(false);
+      if (user.length > 0 && user[0]?.ownerAdmin) {
+        setLoading(true);
+        const querySnapshot = await getDocs(
+          query(
+            collection(db, "subjects"),
+            where("ownerAdmin", "==", user[0].ownerAdmin)
+          )
+        );
+        const subjectsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setMatrixItems(subjectsList);
+        setLoading(false);
+      } else if (user.length > 0 && !user[0]?.ownerAdmin) {
+        setLoading(true);
+        const querySnapshot = await getDocs(
+          query(
+            collection(db, "subjects"),
+            where("ownerAdmin", "==", user[0].ID)
+          )
+        );
+        const subjectsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setMatrixItems(subjectsList);
+        setLoading(false);
+      }
     };
 
     getSubjects();
@@ -68,7 +85,7 @@ export function SubCard({ searchTerm }) {
   if (loading) {
     return (
       <div className="flex justify-center items-center m-44">
-        <Loader  />
+        <Loader />
       </div>
     );
   }
@@ -76,7 +93,7 @@ export function SubCard({ searchTerm }) {
   if (filteredSubjects.length === 0) {
     return (
       <div
-        className={`flex justify-center  mt-44 items-center h-full ${direction}`}
+        className={`flex justify-center mt-44 items-center h-full ${direction}`}
       >
         <p className="text-xl text-gray-500">{t("articels.noResults")}</p>
       </div>
@@ -95,7 +112,7 @@ export function SubCard({ searchTerm }) {
           </h5>
           <p className="font-normal text-gray-700 dark:text-gray-400">
             <span className="font-bold text-gray-800 dark:text-gray-200">
-              {item.relatedMatrix.companyName}
+              {item?.relatedMatrix?.companyName || t("articels.unknownCompany")}
             </span>
             <span> - {item.subjectNum}</span>
           </p>

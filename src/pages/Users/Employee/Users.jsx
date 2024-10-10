@@ -3,7 +3,13 @@ import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import UserCard from "./UserCard";
 import { useTranslation } from "react-i18next";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../config/firebase";
 import Loader from "../../Login/loder"; // تأكد من أن مسار اللودر صحيح
 import { useNavigate } from "react-router-dom";
@@ -38,23 +44,40 @@ export default function Users() {
 
   // Fetch employees based on the current user's ownerAdmin
   useEffect(() => {
-    if (user[0]?.ownerAdmin) {
-      const q = query(
-        collection(db, "employees"),
-        where("ownerAdmin", "==", user[0].ownerAdmin)
-      );
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const users = [];
-        snapshot.forEach((doc) => {
-          users.push({ id: doc.id, ...doc.data() });
-        });
-        setUsersData(users);
-      });
+    const getSubjects = async () => {
+      if (user.length > 0 && user[0]?.ownerAdmin) {
+        setLoading(true);
+        const querySnapshot = await getDocs(
+          query(
+            collection(db, "employees"),
+            where("ownerAdmin", "==", user[0].ownerAdmin)
+          )
+        );
+        const subjectsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUsersData(subjectsList);
+        setLoading(false);
+      } else if (user.length > 0 && !user[0]?.ownerAdmin) {
+        setLoading(true);
+        const querySnapshot = await getDocs(
+          query(
+            collection(db, "employees"),
+            where("ownerAdmin", "==", user[0].ID)
+          )
+        );
+        const subjectsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUsersData(subjectsList);
+        setLoading(false);
+      }
+    };
 
-      return () => unsubscribe();
-    }
+    getSubjects();
   }, [user]);
-
   const filteredUsers = usersData.filter((user) =>
     user.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
   );
