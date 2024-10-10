@@ -8,7 +8,7 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import btn from "../../../../src/assets/btn.png";
-import "../../Dashboard/btns.css"
+import "../../Dashboard/btns.css";
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -56,11 +56,12 @@ export default function AddAccounts() {
       const user = userCredential.user;
 
       const docRef = await addDoc(usersCollection, {
+        ownerAdmin: localStorage.getItem("id"),
         firstname: firstName,
         lastname: lastName,
         email: email,
-        id: user.uid,
-        accountType: accountType, 
+        ID: user.uid,
+        accountType: accountType,
         password: password,
       });
 
@@ -106,9 +107,9 @@ export default function AddAccounts() {
   return (
     <div className="sm:mx-0 ">
       <div
-  className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
-  onClick={() => setOpenModal(true)}
->
+        className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
+        onClick={() => setOpenModal(true)}
+      >
         {t("addaccount.createAccount")}
       </div>
       <div></div>

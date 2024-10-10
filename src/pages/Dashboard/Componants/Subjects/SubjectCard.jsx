@@ -1,5 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Button, Card } from "flowbite-react";
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,8 +33,12 @@ export function SubjctCard({ searchTerm }) {
   };
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "subjects");
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+    // const usersCollectionRef = collection(db, "subjects");
+    const q = query(
+      collection(db, "subjects"),
+      where("ownerAdmin", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const subjects = [];
       snapshot.forEach((doc) => {
         subjects.push({ id: doc.id, ...doc.data() });

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import db from "../../../../config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
-import save from "../../../../../src/assets/save.png"
+import save from "../../../../../src/assets/save.png";
 import "../../../Home/Card.css";
 export default function MatrixForm() {
   const [definitions, setDefinitions] = useState([
@@ -24,6 +24,7 @@ export default function MatrixForm() {
 
   const handleSave = async () => {
     const data = {
+      ownerAdmin: localStorage.getItem("id"),
       title: title,
       companyName: companyName,
       releaseDate: releaseDate,
@@ -55,22 +56,21 @@ export default function MatrixForm() {
   };
 
   return (
-    <div
-      className="flex flex-col items-center p-4"
-      
-    >
-      <div className="w-full max-w-5xl p-4 md:p-8" >
+    <div className="flex flex-col items-center p-4">
+      <div className="w-full max-w-5xl p-4 md:p-8">
         <h1
-        dir={direction}
+          dir={direction}
           className=" text-2xl md:text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl"
-          
         >
           {t("matrixForm.addNewMatrix")}
         </h1>
 
         {/* قسم تفاصيل المصفوفة */}
         <div className="bg-white p-4 md:p-8 rounded-lg shadow-md">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2" dir={direction}>
+          <div
+            className="grid grid-cols-1 gap-4 md:grid-cols-2"
+            dir={direction}
+          >
             {/* الجهة المنشئة */}
             <div className="xs:col-span-2 md:col-span-1 w-full">
               <Label
@@ -175,9 +175,8 @@ export default function MatrixForm() {
 
         {/* قسم التعريفات */}
         <h2
-        dir={direction}
+          dir={direction}
           className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
-          
         >
           {t("matrixForm.definitions")}
         </h2>
@@ -245,10 +244,11 @@ export default function MatrixForm() {
         <div className="mt-8 justify-center flex" dir={direction}>
           <div
             onClick={handleSave}
-            className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}        
-
+            className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
           >
-            <span className="flex items-center space-x-4 aux-text">{t("matrixForm.save")}</span> 
+            <span className="flex items-center space-x-4 aux-text">
+              {t("matrixForm.save")}
+            </span>
           </div>
         </div>
       </div>

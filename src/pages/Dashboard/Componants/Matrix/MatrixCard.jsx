@@ -5,7 +5,14 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "./use-outside-click";
 import { useNavigate } from "react-router-dom";
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 
@@ -21,10 +28,10 @@ export default function MatrixCard({ searchQuery }) {
 
   const navigation = useNavigate();
   const deleteMatrix = async (matrixId) => {
-    const matrixRef = doc(db, "matrix", matrixId); 
+    const matrixRef = doc(db, "matrix", matrixId);
 
     try {
-      await deleteDoc(matrixRef); 
+      await deleteDoc(matrixRef);
       console.log("Document successfully deleted!");
     } catch (error) {
       console.error("Error deleting document: ", error);
@@ -50,9 +57,12 @@ export default function MatrixCard({ searchQuery }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
   useEffect(() => {
-    const usersCollectionRef = collection(db, "matrix");
-
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+    // const usersCollectionRef = collection(db, "matrix");
+    const q = query(
+      collection(db, "matrix"),
+      where("ownerAdmin", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const Matrixs = [];
       snapshot.forEach((doc) => {
         Matrixs.push({ id: doc.id, ...doc.data() });

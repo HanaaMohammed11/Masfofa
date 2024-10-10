@@ -1,51 +1,93 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { MatrixCard } from "./MatrixCard";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 
 export default function MatrixLists() {
-
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchBy, setSearchBy] = useState(""); 
+  const [searchBy, setSearchBy] = useState("");
   const [filteredMatrices, setFilteredMatrices] = useState([]);
   const [matrix, setMatrix] = useState([]);
-  const [employees, setEmployees] = useState([]); 
+  const [employees, setEmployees] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "matrix");
-
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
-      const matrix = [];
+    const qUser = query(
+      collection(db, "users"),
+      where("ID", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(qUser, (snapshot) => {
+      const userData = [];
       snapshot.forEach((doc) => {
-        matrix.push({ id: doc.id, ...doc.data() });
+        userData.push({ docId: doc.id, ...doc.data() });
       });
-      setMatrix(matrix);
-      setFilteredMatrices(matrix);
+      setUser(userData);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, []); // Keep this as is
+  console.log(user[0]);
 
   useEffect(() => {
-    const employeesCollectionRef = collection(db, "employees");
-
-    const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
-      const employeeList = [];
-      snapshot.forEach((doc) => {
-        employeeList.push({ id: doc.id, ...doc.data() }); 
+    if (user.length > 0) {
+      let qmatrix;
+      if (user.ownerAdmin) {
+        qmatrix = query(
+          collection(db, "matrix"),
+          where("ownerAdmin", "==", user[0]?.ownerAdmin)
+        );
+      } else {
+        qmatrix = query(
+          collection(db, "matrix"),
+          where("ownerAdmin", "==", user[0]?.ID)
+        );
+      }
+      const unsubscribe = onSnapshot(qmatrix, (snapshot) => {
+        const matrixData = [];
+        snapshot.forEach((doc) => {
+          matrixData.push({ id: doc.id, ...doc.data() });
+        });
+        setMatrix(matrixData);
+        setFilteredMatrices(matrixData);
       });
-      setEmployees(employeeList);
-    });
 
-    return () => unsubscribe();
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user.length > 0) {
+      let qEmps;
+      if (user.ownerAdmin) {
+        qEmps = query(
+          collection(db, "employees"),
+          where("ownerAdmin", "==", user[0]?.ownerAdmin)
+        );
+      } else {
+        qEmps = query(
+          collection(db, "employees"),
+          where("ownerAdmin", "==", user[0]?.ID)
+        );
+      }
+      const unsubscribe = onSnapshot(qEmps, (snapshot) => {
+        const employeeList = [];
+        snapshot.forEach((doc) => {
+          employeeList.push({ id: doc.id, ...doc.data() });
+        });
+        setEmployees(employeeList);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   const handleSearch = () => {
     if (searchBy === "MainEmployees" && searchQuery) {
@@ -75,7 +117,7 @@ export default function MatrixLists() {
 
       if (matchedEmployeesByJobTitle.length > 0) {
         const results = matrix.filter((matrixItem) => {
-          const mainEmployees = matrixItem.MainEmployees || []; 
+          const mainEmployees = matrixItem.MainEmployees || [];
           return (
             Array.isArray(mainEmployees) &&
             matchedEmployeesByJobTitle.some((emp) =>
@@ -112,15 +154,14 @@ export default function MatrixLists() {
 
   const handleClearFilters = () => {
     setSearchQuery("");
-    setSearchBy(""); 
-    setFilteredMatrices(matrix); 
+    setSearchBy("");
+    setFilteredMatrices(matrix);
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
-        
       </div>
 
       {/* Input search section */}
@@ -128,11 +169,11 @@ export default function MatrixLists() {
         {/* Select what to search by */}
         <select
           value={searchBy}
-          onChange={handleSearchByChange} 
+          onChange={handleSearchByChange}
           className="w-40 p-2 rounded-md text-gray-700"
         >
           <option value="" disabled>
-            {t("matrix.selectSearchCriterion")} 
+            {t("matrix.selectSearchCriterion")}
           </option>
           <option value="title">{t("matrix.searchByMatrix")}</option>
           <option value="companyName">{t("matrix.searchByCompany")}</option>
@@ -143,24 +184,24 @@ export default function MatrixLists() {
 
         <input
           type="text"
-          placeholder=    {t("matrix.searchButton")} 
+          placeholder={t("matrix.searchButton")}
           className="xs:w-72 sm:w-96 rounded-full ml-4"
           dir={direction}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          disabled={!searchBy} 
+          disabled={!searchBy}
         />
         <button
           onClick={handleSearch}
           className="ml-2 px-4 py-2 rounded-full bg-blue-500 text-white"
         >
-          {t("matrix.searchButton")} 
+          {t("matrix.searchButton")}
         </button>
         <button
-          onClick={handleClearFilters} 
+          onClick={handleClearFilters}
           className="ml-2 px-4 py-2 rounded-full bg-red-500 text-white"
         >
-          {t("matrix.clearFilters")} 
+          {t("matrix.clearFilters")}
         </button>
       </div>
 

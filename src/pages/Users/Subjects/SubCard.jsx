@@ -1,22 +1,50 @@
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { Button, Card, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import db from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { use } from "i18next";
 
 export function SubCard({ searchTerm }) {
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [matrixItems, setMatrixItems] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
+  useEffect(() => {
+    const qUser = query(
+      collection(db, "users"),
+      where("ID", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(qUser, (snapshot) => {
+      const userData = [];
+      snapshot.forEach((doc) => {
+        userData.push({ docId: doc.id, ...doc.data() });
+      });
+      setUser(userData);
+    });
 
+    return () => unsubscribe();
+  }, []); // Keep this as is
+  console.log(user[0]);
   useEffect(() => {
     const getSubjects = async () => {
       setLoading(true);
-      const querySnapshot = await getDocs(collection(db, "subjects"));
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, "subjects"),
+          where("ownerAdmin", "==", user[0]?.ownerAdmin)
+        )
+      );
       const subjectsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -26,17 +54,15 @@ export function SubCard({ searchTerm }) {
     };
 
     getSubjects();
-  }, []);
+  }, [user]);
 
   const handleButtonClick = (subject) => {
     navigate("/subjectInfo", { state: { subject } });
   };
 
-
   const filteredSubjects = matrixItems.filter((item) =>
     item.subjectTitle.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
   if (loading) {
     return (
@@ -46,10 +72,11 @@ export function SubCard({ searchTerm }) {
     );
   }
 
-
   if (filteredSubjects.length === 0) {
     return (
-      <div className={`flex justify-center  mt-44 items-center h-full ${direction}`}>
+      <div
+        className={`flex justify-center  mt-44 items-center h-full ${direction}`}
+      >
         <p className="text-xl text-gray-500">{t("articels.noResults")}</p>
       </div>
     );

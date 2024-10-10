@@ -6,7 +6,6 @@ import { signOut } from "firebase/auth";
 import Planet from "../planet/Planet";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-
 import { TranslateContext } from "../../../../TranslateContext/TransContext";
 import { useTranslation } from "react-i18next";
 import logoutbtn from "../../../../assets/logout.png";
@@ -14,7 +13,7 @@ import { TbLogout2 } from "react-icons/tb";
 import saudiArabia from "../../../../assets/Flag_of_Saudi_Arabia.png";
 import USA from "../../../../assets/Flag_of_the_United_States.png";
 import NavBar from "../../../../Nav/NavBar";
-import { Navbar, Button } from 'flowbite-react';
+import { Navbar, Button } from "flowbite-react";
 
 export default function Topbanner() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ export default function Topbanner() {
   const { handleChangeLanguage } = useContext(TranslateContext);
   const [user, setUser] = useState("");
 
-  const { t ,i18n} = useTranslation("global");
+  const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
@@ -50,6 +49,7 @@ export default function Topbanner() {
 
     fetchUser();
   }, []);
+  console.log(user);
 
   const dropdownRef = useRef(null);
 
@@ -105,110 +105,110 @@ export default function Topbanner() {
   }, []);
 
   return (
-    <div className="w-full " >
-    
-  <Navbar fluid={true} rounded={true} className="bg-gray-500 text-white mb-1">
-  <Navbar.Toggle />
-  <div className="flex">
-    {/* Logout Button */}
-    <div
-      className="ml-8 font-semibold text-xl flex items-center justify-center text-white  cursor-pointer hover:bg-gray-600 p-2 rounded-md"
-      onClick={handleLogout}
-      style={{
-        marginRight: 30,
-        marginBottom: "10px",
-      }}
-    >
-      <TbLogout2 size={30} />
-    </div>
-
-    {/* Language Dropdown */}
-    <div className="relative" ref={dropdownRef}>
-      <button
-        className="p-2 rounded-md bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
-        onClick={() => setIsOpen((prev) => !prev)}
+    <div className="w-full ">
+      <Navbar
+        fluid={true}
+        rounded={true}
+        className="bg-gray-500 text-white mb-1"
       >
-        <img
-          src={selectedLanguage === "en" ? USA : saudiArabia}
-          alt={selectedLanguage === "en" ? "English" : "Arabic"}
-          className="w-6 h-6 mr-2"
-        />
-      </button>
-      {isOpen && (
-        <div className="absolute bg-white shadow-lg rounded-md mt-2 w-full z-10">
+        <Navbar.Toggle />
+        <div className="flex">
+          {/* Logout Button */}
           <div
-            onClick={() => handleLanguageSelect("en")}
-            className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+            className="ml-8 font-semibold text-xl flex items-center justify-center text-white  cursor-pointer hover:bg-gray-600 p-2 rounded-md"
+            onClick={handleLogout}
+            style={{
+              marginRight: 30,
+              marginBottom: "10px",
+            }}
           >
-            <img src={USA} alt="USA Flag" className="w-6 h-6 mr-2" />
+            <TbLogout2 size={30} />
           </div>
-          <div
-            onClick={() => handleLanguageSelect("ar")}
-            className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
-          >
-            <img
-              src={saudiArabia}
-              alt="Saudi Arabia Flag"
-              className="w-6 h-6 mr-2"
-            />
+
+          {/* Language Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              className="p-2 rounded-md bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
+              <img
+                src={selectedLanguage === "en" ? USA : saudiArabia}
+                alt={selectedLanguage === "en" ? "English" : "Arabic"}
+                className="w-6 h-6 mr-2"
+              />
+            </button>
+            {isOpen && (
+              <div className="absolute bg-white shadow-lg rounded-md mt-2 w-full z-10">
+                <div
+                  onClick={() => handleLanguageSelect("en")}
+                  className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+                >
+                  <img src={USA} alt="USA Flag" className="w-6 h-6 mr-2" />
+                </div>
+                <div
+                  onClick={() => handleLanguageSelect("ar")}
+                  className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+                >
+                  <img
+                    src={saudiArabia}
+                    alt="Saudi Arabia Flag"
+                    className="w-6 h-6 mr-2"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
-    </div>
-  </div>
 
-  {/* Navbar Items */}
-  <Navbar.Collapse>
-  {user.accountType === "admin" && (
-  <div
-      onClick={() => navigate("/dashboard")}
-      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
-    >
-      {t("text.DashBoard")}
-    </div>   )}
-    <div
-      onClick={() => navigate("/")}
-      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
-    >
-      {t("text.home")}
-    </div>
-    <div
-      onClick={() => navigate("/Matrix")}
-      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
-    >
-      {t("text.Matrices")}
-    </div>
-    <div
-      onClick={() => navigate("/sujects")}
-      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
-    >
-      {t("text.Articles")}
-    </div>
-    <div
-      onClick={() => navigate("/users")}
-      className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
-    >
-      {t("text.Employees")}
-    </div>
-  </Navbar.Collapse>
-</Navbar>
-
+        {/* Navbar Items */}
+        <Navbar.Collapse>
+          {user.accountType === "admin" && (
+            <div
+              onClick={() => navigate("/dashboard")}
+              className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+            >
+              {t("text.DashBoard")}
+            </div>
+          )}
+          <div
+            onClick={() => navigate("/")}
+            className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+          >
+            {t("text.home")}
+          </div>
+          <div
+            onClick={() => navigate("/Matrix")}
+            className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+          >
+            {t("text.Matrices")}
+          </div>
+          <div
+            onClick={() => navigate("/sujects")}
+            className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+          >
+            {t("text.Articles")}
+          </div>
+          <div
+            onClick={() => navigate("/users")}
+            className="cursor-pointer text-xl p-2 bg-black border-yellow-400 border-2 hover:bg-gray-600 rounded-md transition-all duration-300"
+          >
+            {t("text.Employees")}
+          </div>
+        </Navbar.Collapse>
+      </Navbar>
 
       {/* Banner section */}
       <div
-  className="Topbaner w-full h-56 bg-cover bg-center flex justify-end items-center"
-  style={{ backgroundImage: `url(${topBannerUrl})` }}
->
-  {/* Logo */}
-  <div className="w-60 pr-5 pt-9 mb-12 logo">
-    <Link to="/" className="ml-4">
-      <img src={logoUrl} alt="Logo" />
-    </Link>
-  </div>
-</div>
-
-
-   
+        className="Topbaner w-full h-56 bg-cover bg-center flex justify-end items-center"
+        style={{ backgroundImage: `url(${topBannerUrl})` }}
+      >
+        {/* Logo */}
+        <div className="w-60 pr-5 pt-9 mb-12 logo">
+          <Link to="/" className="ml-4">
+            <img src={logoUrl} alt="Logo" />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
