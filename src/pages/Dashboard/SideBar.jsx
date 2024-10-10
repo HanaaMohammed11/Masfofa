@@ -63,7 +63,7 @@ function SideBar() {
       )}
 
       <div
-        className={`Sidebar w-64 h-full text-white fixed transform transition-transform duration-300 ${
+        className={`Sidebar  h-full text-white fixed transform transition-transform duration-300 ${
           isOpen ? "translate-x-0" : isRtl ? "-translate-x-full" : "translate-x-full"
         } ${isRtl ? "right-9" : "left-9"} lg:translate-x-0 lg:block hidden`}
       >

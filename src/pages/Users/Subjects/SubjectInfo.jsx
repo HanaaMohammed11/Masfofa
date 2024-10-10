@@ -1,16 +1,42 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Card } from "flowbite-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Card } from "flowbite-react";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
-
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 export default function SubjectInfo() {
   const { t, i18n } = useTranslation("global");
+  const pdfRef = useRef();  
 
+  const downloadPDF = () => {
+    const input = pdfRef.current; 
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      
+
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+
+  
+      const pdfWidth = imgWidth / 1; 
+      const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
+
+    
+      const doc = new jsPDF({
+        orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
+        unit: 'px',
+        format: [imgWidth, imgHeight],
+      });
+
+      doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      doc.save("table.pdf"); 
+    });
+  };
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
   const navigate = useNavigate();
@@ -58,8 +84,12 @@ export default function SubjectInfo() {
         <Card className="w-[1200px] ">
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
+          <div className="mt-4 w-full">
+                     <Button onClick={downloadPDF}>
+            Download PDF
+          </Button></div>
             {/* الجدول */}
-            <div className="mt-4 w-full">
+            <div className="mt-4 w-full" ref={pdfRef}>
               <table
                 className="min-w-full  border-collapse table-fixed"
                 dir={direction}

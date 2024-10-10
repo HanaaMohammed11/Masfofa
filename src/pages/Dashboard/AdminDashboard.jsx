@@ -20,9 +20,10 @@ function AdminDashboard() {
     return (
         <div>
             <Topbanner/>
-        <div className="flex flex-row-reverse min-h-screen bg-gray-100" dir={direction}>
+         
+        <div className="flex justify-around min-h-screen bg-gray-100" dir={direction}>
           
-<SideBar/>
+        <SideBar/>
          
         </div>
         <Bottombanner/>

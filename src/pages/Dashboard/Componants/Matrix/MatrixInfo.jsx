@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Card } from "flowbite-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Card } from "flowbite-react";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,8 +9,35 @@ import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loder";
 import SideBar from "../../SideBar";
-
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 export default function AdminMatrixInfo() {
+    const pdfRef = useRef();  
+
+  const downloadPDF = () => {
+    const input = pdfRef.current; 
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      
+
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+
+  
+      const pdfWidth = imgWidth / 1; 
+      const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
+
+    
+      const doc = new jsPDF({
+        orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
+        unit: 'px',
+        format: [imgWidth, imgHeight],
+      });
+
+      doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      doc.save("table.pdf"); 
+    });
+  };
   const { t, i18n } = useTranslation("global");
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -18,7 +45,6 @@ export default function AdminMatrixInfo() {
   const navigate = useNavigate();
   const [relatedsubjects, setRelatedsubjectss] = useState([]);
   
-  // استخدام location.state.matrix للحصول على البيانات
   const matrix = location.state.matrix;
 
   useEffect(() => {
@@ -53,12 +79,16 @@ export default function AdminMatrixInfo() {
         {loading ? ( 
           <Loader />
         ) : ( 
-          <Card className="w-[900px] h-auto my-9">
+          <Card className="w-[900px] h-auto my-9" >
+                <div className="mt-4 w-full">
+                     <Button onClick={downloadPDF}>
+            Download PDF
+          </Button></div>
             <div className="flex justify-end px-4 pt-4 "></div>
-            <div className="flex flex-col items-center pb-10 ">
+            <div className="flex flex-col items-center pb-10 "ref={pdfRef}>
               {/* الجدول */}
-              <div className="mt-4 w-full ">
-                <table className="min-w-full border-collapse">
+              <div className="mt-4 w-full " >
+                <table className="min-w-full border-collapse" >
                   <tbody className="text-gray-700">
                     <tr>
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.name")}</td>

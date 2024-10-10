@@ -6,15 +6,14 @@ import { signOut } from "firebase/auth";
 import Planet from "../planet/Planet";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-
 import { TranslateContext } from "../../../../TranslateContext/TransContext";
 import { useTranslation } from "react-i18next";
 import logoutbtn from "../../../../assets/logout.png";
 import { TbLogout2 } from "react-icons/tb";
 import saudiArabia from "../../../../assets/Flag_of_Saudi_Arabia.png";
 import USA from "../../../../assets/Flag_of_the_United_States.png";
+import { Navbar, Button } from "flowbite-react";
 
-import { Navbar, Button } from 'flowbite-react';
 
 export default function Topbanner() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ export default function Topbanner() {
   const { handleChangeLanguage } = useContext(TranslateContext);
   const [user, setUser] = useState("");
 
-  const { t ,i18n} = useTranslation("global");
+  const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
@@ -50,6 +49,7 @@ export default function Topbanner() {
 
     fetchUser();
   }, []);
+  console.log(user);
 
   const dropdownRef = useRef(null);
 
@@ -105,10 +105,22 @@ export default function Topbanner() {
   }, []);
 
   return (
-    <div className="w-full " >
+    <div className="w-full ">
+      <Navbar
+        fluid={true}
+        rounded={true}
+        className="bg-gray-500 text-white mb-1"
+      >
+           <Navbar.Toggle  className="bg-red text-yellow-50"/>
+        <Navbar.Toggle />
+     
+        <div className="flex">
+          {/* Logout Button */}
+      
+  
     
-  <Navbar fluid={true} rounded={true} className="bg-gray-500 text-white mb-1">
-  <Navbar.Toggle />
+
+
   <div className="flex">
     {/* Logout Button */}
     <div
@@ -122,6 +134,9 @@ export default function Topbanner() {
       <TbLogout2 size={30} />
     </div>
 
+          {/* Language Dropdown */}
+       
+        </div>
     {/* Language Dropdown */}
     <div className="relative" ref={dropdownRef}>
       <button
@@ -157,6 +172,9 @@ export default function Topbanner() {
     </div>
   </div>
 
+        {/* Navbar Items */}
+ 
+    
   {/* Navbar Items */}
   <Navbar.Collapse>
   {user.accountType === "admin" && (
@@ -234,19 +252,16 @@ export default function Topbanner() {
 
       {/* Banner section */}
       <div
-  className="Topbaner w-full h-56 bg-cover bg-center flex justify-end items-center"
-  style={{ backgroundImage: `url(${topBannerUrl})` }}
->
-  {/* Logo */}
-  <div className="w-60 pr-5 pt-9 mb-12 logo">
-    <Link to="/" className="ml-4">
-      <img src={logoUrl} alt="Logo" />
-    </Link>
-  </div>
-</div>
-
-
-   
+        className="Topbaner w-full h-56 bg-cover bg-center flex justify-end items-center"
+        style={{ backgroundImage: `url(${topBannerUrl})` }}
+      >
+        {/* Logo */}
+        <div className="w-60 pr-5 pt-9 mb-12 logo">
+          <Link to="/" className="ml-4">
+            <img src={logoUrl} alt="Logo" />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

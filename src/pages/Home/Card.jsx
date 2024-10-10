@@ -1,38 +1,55 @@
-/* eslint-disable no-unused-vars */
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"; // استيراد getDoc لجلب دوكيومنت فردي
+import { getDownloadURL, ref } from "firebase/storage"; // Firebase Storage functions
 import { Card } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom"; 
-import db from "../../config/firebase";
-import Planet from "../../../src/assets/plant-removebg-preview.png";
+import db, { storage } from "../../config/firebase"; // Firebase config
 import "./Card.css";
 
 export default function Cards() {
   const { t } = useTranslation("global");
   const [user, setUser] = useState("");
+  const [bannerUrl, setBannerUrl] = useState(""); // رابط صورة البانر
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUserAndBanner = async () => {
       try {
+        // Fetch user information
         const q = query(
           collection(db, "users"),
           where("ID", "==", localStorage.getItem("id"))
         );
         const querySnapshot = await getDocs(q);
         const userData = querySnapshot.docs.map((doc) => doc.data());
+        
         if (userData.length > 0) {
           setUser(userData[0]);
+
+          // Fetch the single banner image from banners collection
+          const bannerDocRef = doc(db, "banners", "homeElements"); // استبدلي yourDocumentId بالـ ID الخاص بالدوكيومنت
+          const bannerDoc = await getDoc(bannerDocRef);
+          
+          if (bannerDoc.exists()) {
+            const bannerData = bannerDoc.data();
+            if (bannerData.imageUrl) {
+              const imageRef = ref(storage, bannerData.imageUrl);
+              const url = await getDownloadURL(imageRef);
+              setBannerUrl(url); // Set URL to state
+            }
+          } else {
+            console.log("No banner document found");
+          }
         } else {
           console.log("No matching user found");
         }
       } catch (error) {
-        console.error("Error fetching user data: ", error);
+        console.error("Error fetching user or banner data: ", error);
       }
     };
 
-    fetchUser();
+    fetchUserAndBanner();
   }, []);
 
   return (
@@ -42,13 +59,13 @@ export default function Cards() {
         {/* Card 1 */}
         <div className="p-4 text-center relative bg-transparent w-72 card-container card-1"> 
           <img
-            src={Planet}
-            alt="Spinning Planet"
+            src={bannerUrl || "default-image-url"}  // Use the same image in all cards
+            alt="Banner"
             className="inset-0 w-full h-full object-contain"
             style={{ animation: "spin 10s linear infinite" }}
           />
           <button
-            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
+            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase "
             onClick={() => navigate("/users")}
           >
             <h1 className="aux-text">
@@ -60,14 +77,14 @@ export default function Cards() {
         {/* Card 2 */}
         <div className="p-4 text-center relative bg-transparent w-72 card-container card-2"> 
           <img
-            src={Planet}
-            alt="Spinning Planet"
+            src={bannerUrl || "default-image-url"}  // Use the same image in all cards
+            alt="Banner"
             className="inset-0 w-full h-full object-contain"
             style={{ animation: "spin 10s linear infinite" }}
           />
           <button
             className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
-            onClick={() => navigate("/sujects")}
+            onClick={() => navigate("/subjects")}
           >
             <h1 className="aux-text">
               {t("text.Articles")}
@@ -78,8 +95,8 @@ export default function Cards() {
         {/* Card 3 */}
         <div className="p-4 text-center relative bg-transparent w-72 card-container card-3"> 
           <img
-            src={Planet}
-            alt="Spinning Planet"
+            src={bannerUrl || "default-image-url"}  // Use the same image in all cards
+            alt="Banner"
             className="inset-0 w-full h-full object-contain"
             style={{ animation: "spin 10s linear infinite" }}
           />
@@ -97,8 +114,8 @@ export default function Cards() {
         {user.accountType === "admin" && (
           <div className="p-4 text-center relative bg-transparent w-72 card-container card-4"> 
             <img
-              src={Planet}
-              alt="Spinning Planet"
+              src={bannerUrl || "default-image-url"}  // Use the same image in all cards
+              alt="Banner"
               className="inset-0 w-full h-full object-contain"
               style={{ animation: "spin 10s linear infinite" }}
             />

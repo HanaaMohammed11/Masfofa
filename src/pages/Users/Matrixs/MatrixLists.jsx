@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { MatrixCard } from "./MatrixCard";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loder";
@@ -16,38 +17,91 @@ export default function MatrixLists() {
   const [searchBy, setSearchBy] = useState("");
   const [filteredMatrices, setFilteredMatrices] = useState([]);
   const [matrix, setMatrix] = useState([]);
+  const [user, setUser] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "matrix");
-
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
-      const matrix = [];
+    const qUser = query(
+      collection(db, "users"),
+      where("ID", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(qUser, (snapshot) => {
+      const userData = [];
       snapshot.forEach((doc) => {
-        matrix.push({ id: doc.id, ...doc.data() });
+        userData.push({ docId: doc.id, ...doc.data() });
       });
+      setUser(userData);
       setMatrix(matrix);
       setFilteredMatrices(matrix);
       setLoading(false);  // Set loading to false when data is fetched
     });
 
     return () => unsubscribe();
-  }, []);
+  }, []); // Keep this as is
+  console.log(user[0]);
 
   useEffect(() => {
+    if (user.length > 0) {
+      let qmatrix;
+      if (user.ownerAdmin) {
+        qmatrix = query(
+          collection(db, "matrix"),
+          where("ownerAdmin", "==", user[0]?.ownerAdmin)
+        );
+      } else {
+        qmatrix = query(
+          collection(db, "matrix"),
+          where("ownerAdmin", "==", user[0]?.ID)
+        );
+      }
+      const unsubscribe = onSnapshot(qmatrix, (snapshot) => {
+        const matrixData = [];
+        snapshot.forEach((doc) => {
+          matrixData.push({ id: doc.id, ...doc.data() });
+        });
+        setMatrix(matrixData);
+        setFilteredMatrices(matrixData);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user.length > 0) {
+      let qEmps;
+      if (user.ownerAdmin) {
+        qEmps = query(
+          collection(db, "employees"),
+          where("ownerAdmin", "==", user[0]?.ownerAdmin)
+        );
+      } else {
+        qEmps = query(
+          collection(db, "employees"),
+          where("ownerAdmin", "==", user[0]?.ID)
+        );
+      }
+      const unsubscribe = onSnapshot(qEmps, (snapshot) => {
+        const employeeList = [];
+        snapshot.forEach((doc) => {
+          employeeList.push({ id: doc.id, ...doc.data() });
+        });
+        setEmployees(employeeList);
+      });
     const employeesCollectionRef = collection(db, "employees");
 
-    const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
-      const employeeList = [];
-      snapshot.forEach((doc) => {
-        employeeList.push({ id: doc.id, ...doc.data() });
-      });
-      setEmployees(employeeList);
-    });
+    // const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
+    //   const employeeList = [];
+    //   snapshot.forEach((doc) => {
+    //     employeeList.push({ id: doc.id, ...doc.data() });
+    //   });
+    //   setEmployees(employeeList);
+    // });
 
-    return () => unsubscribe();
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   const handleSearch = () => {
     if (searchBy === "MainEmployees" && searchQuery) {
@@ -134,6 +188,7 @@ export default function MatrixLists() {
         >
           <option value="" disabled>
             {t("matrix.selectSearchCriterion")}
+            {t("matrix.selectSearchCriterion")}
           </option>
           <option value="title">{t("matrix.searchByMatrix")}</option>
           <option value="companyName">{t("matrix.searchByCompany")}</option>
@@ -173,7 +228,7 @@ export default function MatrixLists() {
         )}
       </div>
       {loading ? (
-  <div className="flex justify-center items-center h-screen">
+  <div className="flex justify-center items-center  m-44">
     <Loader />
   </div>
 ) : (

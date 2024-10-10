@@ -25,9 +25,7 @@ export default function SubjectList() {
   
     <div className="p-9 flex">
       
-       <div>
- 
-       </div>
+   
 
        <div>
       <div className="flex flex-col w-full  xs:items-center">

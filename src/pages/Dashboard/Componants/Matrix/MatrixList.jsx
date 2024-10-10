@@ -21,7 +21,7 @@ export default function MatrixList() {
 
   return (
     <>
-    <div className="w-full">
+
 
       <div className="flex flex-col p-9">
         
@@ -48,12 +48,13 @@ export default function MatrixList() {
         </div>
       </div>
 
+<div className="flex flex-wrap justify-center">
       {showMatrixForm ? (
         <MatrixForm />
       ) : (
         <MatrixCard searchQuery={searchQuery} />
       )}
-      </div>
+  </div>
     </>
 
   );

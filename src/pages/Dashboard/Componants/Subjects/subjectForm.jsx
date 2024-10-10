@@ -73,7 +73,7 @@
 //       <div className="ml-64 p-8 w-full max-w-5xl">
 //         <h1
 //           className="text-right text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
-//           
+//
 //         >
 //           إضافة مادة جديدة
 //         </h1>
@@ -269,10 +269,12 @@ import {
   doc,
   getDoc,
   onSnapshot,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
-import save from "../../../../../src/assets/save.png"
+import save from "../../../../../src/assets/save.png";
 export default function SubjectForm() {
   const navigate = useNavigate();
   const [subjectNum, setSubjectNum] = useState("");
@@ -294,6 +296,7 @@ export default function SubjectForm() {
 
   const handleSave = async () => {
     const data = {
+      ownerAdmin: localStorage.getItem("id"),
       subjectNum,
       subjectField,
       subjectTitle,
@@ -338,8 +341,12 @@ export default function SubjectForm() {
   };
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "matrix");
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+    // const usersCollectionRef = collection(db, "matrix");
+    const qMatrix = query(
+      collection(db, "matrix"),
+      where("ownerAdmin", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(qMatrix, (snapshot) => {
       const Matrixs = [];
       snapshot.forEach((doc) => {
         Matrixs.push({ id: doc.id, ...doc.data() });
@@ -351,8 +358,12 @@ export default function SubjectForm() {
   }, []);
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "employees");
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+    // const usersCollectionRef = collection(db, "employees");
+    const qEmps = query(
+      collection(db, "employees"),
+      where("ownerAdmin", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(qEmps, (snapshot) => {
       const epmloyees = [];
       snapshot.forEach((doc) => {
         epmloyees.push({ id: doc.id, ...doc.data() });
@@ -365,15 +376,21 @@ export default function SubjectForm() {
   }, []);
 
   return (
-    <div className="flex" >
+    <div className="flex ">
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
-        <h1     dir={direction} className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl">
+        <h1
+          dir={direction}
+          className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
+        >
           {t("subjectEditForm.addSubject")}
         </h1>
 
         {/* Form Section */}
         <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className=" grid grid-cols-1 md:grid-cols-2 gap-6" dir={direction}>
+          <div
+            className=" grid grid-cols-1 md:grid-cols-2 gap-6"
+            dir={direction}
+          >
             {/* Subject Field */}
             <div className="xs:col-span-2 md:col-span-1">
               <Label
@@ -590,14 +607,15 @@ export default function SubjectForm() {
 
             {/* Save Button */}
             <div className="mt-6 flex justify-center">
-            <div
-              onClick={handleSave}
-              className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}        
-             
-            >
-               <span className="flex items-center space-x-4 aux-text">{t("subjectEditForm.save")}</span>
-            </div>{" "}
-          </div>
+              <div
+                onClick={handleSave}
+                className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
+              >
+                <span className="flex items-center space-x-4 aux-text">
+                  {t("subjectEditForm.save")}
+                </span>
+              </div>{" "}
+            </div>
           </div>
         </div>
       </div>

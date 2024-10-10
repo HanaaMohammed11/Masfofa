@@ -1,5 +1,14 @@
-import { Button, Card } from "flowbite-react"; 
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { Button, Card } from "flowbite-react";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,8 +37,12 @@ export function SubjctCard({ searchTerm }) {
   };
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "subjects");
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+    // const usersCollectionRef = collection(db, "subjects");
+    const q = query(
+      collection(db, "subjects"),
+      where("ownerAdmin", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const subjects = [];
       snapshot.forEach((doc) => {
         subjects.push({ id: doc.id, ...doc.data() });
@@ -46,7 +59,7 @@ export function SubjctCard({ searchTerm }) {
   );
 
   return (
-    <div className="flex-col pt-9">
+    <div className="flex-col pt-9 text-center">
       {filteredSubjects.length > 0 ? (
         filteredSubjects.map((subject, index) => (
           <Card key={index} className="w-full mb-9">
@@ -57,25 +70,26 @@ export function SubjctCard({ searchTerm }) {
               {t("subjectCardDashboard.subjectNum")}: {subject.subjectNum}
             </p>
             <div className="flex space-x-3">
-              <Button
-                onClick={() => Edit(subject)}
-                className="inline-flex items-center rounded-lg bg-slate-500 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-              >
-                {t("subjectCardDashboard.update")}
-              </Button>
-              <Button
-                onClick={() => deleteSubject(subject.id, subject.subjectTitle)}
-                className="inline-flex items-center rounded-lg bg-red-700 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-              >
-                {t("subjectCardDashboard.delete")}
-              </Button>
-              <Button
-                className="bg-[#64748B] w-32 mt-8"
-                onClick={() => handleButtonClick(subject)} // استخدام subject هنا
-              >
-                {t("articels.details")}
-              </Button>
-            </div>
+  <Button
+    onClick={() => Edit(subject)}
+    className=" ml-4"
+  >
+    {t("subjectCardDashboard.update")}
+  </Button>
+  <Button
+    onClick={() => deleteSubject(subject.id, subject.subjectTitle)}
+    className="bg-red-700 "
+  >
+    {t("subjectCardDashboard.delete")}
+  </Button>
+  <Button
+    className="bg-[#64748B]"
+    onClick={() => handleButtonClick(subject)} 
+  >
+    {t("articels.details")}
+  </Button>
+</div>
+
           </Card>
         ))
       ) : (

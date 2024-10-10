@@ -12,6 +12,7 @@ import "../../Dashboard/btns.css"
 import SideBar from "../SideBar";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
+import "../../Dashboard/btns.css";
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -59,11 +60,12 @@ export default function AddAccounts() {
       const user = userCredential.user;
 
       const docRef = await addDoc(usersCollection, {
+        ownerAdmin: localStorage.getItem("id"),
         firstname: firstName,
         lastname: lastName,
         email: email,
-        id: user.uid,
-        accountType: accountType, 
+        ID: user.uid,
+        accountType: accountType,
         password: password,
       });
 
@@ -111,6 +113,14 @@ export default function AddAccounts() {
 
     <div className=" flex">
 
+    <div className="sm:mx-0 ">
+      <div
+        className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
+        onClick={() => setOpenModal(true)}
+      >
+        {t("addaccount.createAccount")}
+      </div>
+      <div></div>
 
       <Modal
         show={openModal}
@@ -253,12 +263,6 @@ export default function AddAccounts() {
 
       <div className=" bg-gray-100 flex flex-col items-center" dir={direction}>
 
-      <div
-  className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
-  onClick={() => setOpenModal(true)}
->
-        {t("addaccount.createAccount")}
-      </div>
         <div
           dir={direction}
           className="w-[90%] mx-auto h-auto bg-white p-4 rounded-lg shadow-lg mt-10 xs:overflow-x-auto sm:overflow-x-visible"
@@ -300,6 +304,6 @@ export default function AddAccounts() {
       </div>
     </div>
   
-    </div>
+    </div>    </div>
   );
 }

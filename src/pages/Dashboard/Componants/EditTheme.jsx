@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EditTheme = () => {
   const { t, i18n } = useTranslation("global");
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
@@ -67,16 +67,17 @@ const EditTheme = () => {
       setFile(null);
       setUrl('');
     } catch (error) {
-      console.error('حدث خطأ أثناء حذف الصورة:', error);
+      console.error('Error deleting image:', error);
     }
   };
+
   const deleteOldImage = async (oldUrl) => {
     if (oldUrl) {
       const imageRef = ref(storage, oldUrl);
       try {
         await deleteObject(imageRef);
       } catch (error) {
-        console.error('حدث خطأ أثناء حذف الصورة القديمة:', error);
+        console.error('Error deleting old image:', error);
       }
     }
   };
@@ -89,7 +90,7 @@ const EditTheme = () => {
       const imageUrl = await getDownloadURL(imageRef);
       await setDoc(doc(db, 'banners', storagePath), { imageUrl });
     } catch (error) {
-      console.error('حدث خطأ أثناء رفع الصورة:', error);
+      console.error('Error uploading image:', error);
     }
   };
 
@@ -99,33 +100,35 @@ const EditTheme = () => {
       if (bottomBanner) await handleImageUpload(bottomBanner, 'bottomBanner', bottomBannerUrl);
       if (logo) await handleImageUpload(logo, 'logo', logoUrl);
       if (homeElements) await handleImageUpload(homeElements, 'homeElements', homeElementsUrl);
-      navigation("/dashboard");
+      navigate("/dashboard");
     } catch (error) {
-      console.log('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
+      console.log('Error saving, please try again.');
     }
   };
 
   return (
-    <div className='flex items-center m-auto mt-44'>
-      <div className='gap-5 justify-center w-full xs:w-[90%] sm:w-[70%] lg:w-full'>
-        <div className='flex flex-wrap justify-center gap-5 w-full'>
+    <div className="flex flex-col items-center m-auto mt-44 w-full">
+      <div className="gap-5 justify-center w-full xs:w-[90%] sm:w-[70%] lg:w-full">
+        <div className="flex flex-wrap justify-center gap-5 w-full">
 
-          {/* Top Banner */}
-          <Label htmlFor="top-banner" className="flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
+    <div className='mb-9'>
+            {/* Top Banner */}
+            <Label htmlFor="top-banner" className="mb-9 relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
-              <svg className="mb-4 h-4 w-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-              </svg>
               <p className="mb-2 text-sm text-gray-500">
                 <span className="font-semibold">{t("edittheme.upload")}</span>
               </p>
               <p className="text-xs text-gray-500">{t("edittheme.topBanner")}</p>
+
               {topBannerPreview ? (
                 <img src={topBannerPreview} alt="Top Banner" className="mt-2 h-32 w-full object-cover" />
+              ) : topBannerUrl ? (
+                <img src={topBannerUrl} alt="Top Banner" className="mt-2 h-32 w-full object-cover" />
               ) : (
-                topBannerUrl && <img src={topBannerUrl} alt="Top Banner" className="mt-2 h-32 w-full object-cover" />
+                <p className="text-gray-400">No image currently</p>
               )}
             </div>
+
             <input
               id="top-banner"
               type="file"
@@ -135,27 +138,31 @@ const EditTheme = () => {
                 setTopBannerPreview(URL.createObjectURL(e.target.files[0]));
               }}
             />
-              <button onClick={() => handleDeleteImage('topBanner', setTopBannerPreview, setTopBanner, setTopBannerUrl)} className="mt-2 bg-red-500 text-white px-2 py-1 rounded">
-                حذف الصورة
-              </button>
+            <button
+              onClick={() => handleDeleteImage('topBanner', setTopBannerPreview, setTopBanner, setTopBannerUrl)}
+              className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
+            >
+              ❌
+            </button>
           </Label>
 
           {/* Bottom Banner */}
-          <Label htmlFor="bottom-banner" className="flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
+          <Label htmlFor="bottom-banner" className=" relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
-              <svg className="mb-4 h-4 w-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-              </svg>
               <p className="mb-2 text-sm text-gray-500">
                 <span className="font-semibold">{t("edittheme.upload")}</span>
               </p>
               <p className="text-xs text-gray-500">{t("edittheme.bottomBanner")}</p>
+
               {bottomBannerPreview ? (
                 <img src={bottomBannerPreview} alt="Bottom Banner" className="mt-2 h-32 w-full object-cover" />
+              ) : bottomBannerUrl ? (
+                <img src={bottomBannerUrl} alt="Bottom Banner" className="mt-2 h-32 w-full object-cover" />
               ) : (
-                bottomBannerUrl && <img src={bottomBannerUrl} alt="Bottom Banner" className="mt-2 h-32 w-full object-cover" />
+                <p className="text-gray-400">No image currently</p>
               )}
             </div>
+
             <input
               id="bottom-banner"
               type="file"
@@ -165,27 +172,30 @@ const EditTheme = () => {
                 setBottomBannerPreview(URL.createObjectURL(e.target.files[0]));
               }}
             />
-               <button onClick={() => handleDeleteImage('bottomBanner', setBottomBannerPreview, setBottomBanner, setBottomBannerUrl)} className="mt-2 bg-red-500 text-white px-2 py-1 rounded">
-                حذف الصورة
-              </button>
+            <button
+              onClick={() => handleDeleteImage('bottomBanner', setBottomBannerPreview, setBottomBanner, setBottomBannerUrl)}
+              className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
+            >
+              ❌
+            </button>
           </Label>
+    </div>
 
-          {/* Logo */}
-          <Label htmlFor="logo" className="flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
+     <div className=''>     {/* Logo */}
+          <Label htmlFor="logo" className="mb-9 relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
-              <svg className="mb-4 h-4 w-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-              </svg>
               <p className="mb-2 text-sm text-gray-500">
                 <span className="font-semibold">{t("edittheme.upload")}</span>
               </p>
               <p className="text-xs text-gray-500">{t("edittheme.logo")}</p>
+
               {logoPreview ? (
                 <img src={logoPreview} alt="Logo" className="mt-2 h-32 w-full object-cover" />
               ) : (
                 logoUrl && <img src={logoUrl} alt="Logo" className="mt-2 h-32 w-full object-cover" />
               )}
             </div>
+
             <input
               id="logo"
               type="file"
@@ -195,27 +205,29 @@ const EditTheme = () => {
                 setLogoPreview(URL.createObjectURL(e.target.files[0]));
               }}
             />
-             <button onClick={() => handleDeleteImage('logo', setLogoPreview, setLogo, setLogoUrl)} className="mt-2 bg-red-500 text-white px-2 py-1 rounded">
-              حذف الصورة
+            <button
+              onClick={() => handleDeleteImage('logo', setLogoPreview, setLogo, setLogoUrl)}
+              className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
+            >
+              ❌
             </button>
           </Label>
 
           {/* Home Elements */}
-          <Label htmlFor="home-elements" className="flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
+          <Label htmlFor="home-elements" className="relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
-              <svg className="mb-4 h-4 w-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-              </svg>
               <p className="mb-2 text-sm text-gray-500">
                 <span className="font-semibold">{t("edittheme.upload")}</span>
               </p>
               <p className="text-xs text-gray-500">{t("edittheme.homeElements")}</p>
+
               {homeElementsPreview ? (
                 <img src={homeElementsPreview} alt="Home Elements" className="mt-2 h-32 w-full object-cover" />
               ) : (
                 homeElementsUrl && <img src={homeElementsUrl} alt="Home Elements" className="mt-2 h-32 w-full object-cover" />
               )}
             </div>
+
             <input
               id="home-elements"
               type="file"
@@ -225,17 +237,20 @@ const EditTheme = () => {
                 setHomeElementsPreview(URL.createObjectURL(e.target.files[0]));
               }}
             />
-             <button onClick={() => handleDeleteImage('homeElements', setHomeElementsPreview, setHomeElements, setHomeElementsUrl)} className="mt-2 bg-red-500 text-white px-2 py-1 rounded">
-              حذف الصورة
+            <button
+              onClick={() => handleDeleteImage('homeElements', setHomeElementsPreview, setHomeElements, setHomeElementsUrl)}
+              className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
+            >
+              ❌
             </button>
-          </Label>
+          </Label></div>
         </div>
 
-        {/* Save Button */}
-        <div className='w-full text-center'>
+        {/* Save button */}
+        <div className="w-full flex justify-center mt-5">
           <button
             onClick={handleSave}
-            className="mt-8 p-3 bg-blue-600 text-white rounded-md"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             {t("edittheme.save")}
           </button>

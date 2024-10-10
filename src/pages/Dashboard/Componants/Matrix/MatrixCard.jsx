@@ -5,7 +5,14 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "./use-outside-click";
 import { useNavigate } from "react-router-dom";
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 
@@ -23,20 +30,27 @@ export default function MatrixCard({ searchQuery }) {
     try {
       await deleteDoc(matrixRef);
       console.log("Document successfully deleted!");
+      // Add feedback for success if needed
     } catch (error) {
       console.error("Error deleting document: ", error);
+      // Add user feedback for failure
     }
   };
-const show =(matrixItem)=>{
-  navigation("/AdminMtrixInfo", { state: { matrix: matrixItem } });
-}
+
+  const show = (matrixItem) => {
+    navigation("/AdminMtrixInfo", { state: { matrix: matrixItem } });
+  };
+
   const Edit = (matrixItem) => {
     navigation("/MatrixEditForm", { state: { matrix: matrixItem } });
   };
 
   useEffect(() => {
-    const usersCollectionRef = collection(db, "matrix");
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+    const q = query(
+      collection(db, "matrix"),
+      where("ownerAdmin", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const Matrixs = [];
       snapshot.forEach((doc) => {
         Matrixs.push({ id: doc.id, ...doc.data() });
@@ -44,7 +58,7 @@ const show =(matrixItem)=>{
       setMatrix(Matrixs);
     });
     return () => unsubscribe();
-  }, []);
+  }, []); // Fixed the dependency array here.
 
   useOutsideClick(ref, () => setActive(null));
 
@@ -94,14 +108,11 @@ const show =(matrixItem)=>{
                   {t("matrixCardDashboard.delete")}
                 </button>
                 <button
-              onClick={() => {
-        show(active)
-              }}
-              className="mt-2 ml-2 bg-gray-500 text-white py-2 px-4 rounded hover:bg-red-600 "
-            >
-     {t("matrix.details")}
-            
-            </button>
+                  onClick={() => show(active)}
+                  className="mt-2 ml-2 bg-gray-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                >
+                  {t("matrix.details")}
+                </button>
                 <div className="mt-2">
                   {typeof active.content === "function"
                     ? active.content()
@@ -121,7 +132,7 @@ const show =(matrixItem)=>{
               className="bg-white rounded-lg shadow-md overflow-hidden"
               onClick={() => setActive(card)}
             >
-              <div className="w-60  h-44 text-center p-12">
+              <div className="w-60 h-44 text-center p-12">
                 <h3 className="text-lg font-bold">{card.title}</h3>
                 <p className="text-gray-600">{card.companyName}</p>
               </div>

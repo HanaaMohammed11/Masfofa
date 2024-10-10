@@ -3,43 +3,69 @@ import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import UserCard from "./UserCard";
 import { useTranslation } from "react-i18next";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
-import Loader from "../../Login/loder";
+import Loader from "../../Login/loder"; // تأكد من أن مسار اللودر صحيح
+import { useNavigate } from "react-router-dom";
 
 export default function Users() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [usersData, setUsersData] = useState([]);
+  const [user, setUser] = useState([]);
+
   const { t, i18n } = useTranslation("global");
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
+  // Fetch current user data
   useEffect(() => {
-    const usersCollectionRef = collection(db, "employees");
-
-    const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
-      const users = [];
+    const qUser = query(
+      collection(db, "users"),
+      where("ID", "==", localStorage.getItem("id"))
+    );
+    const unsubscribe = onSnapshot(qUser, (snapshot) => {
+      const userData = [];
       snapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() });
+        userData.push({ docId: doc.id, ...doc.data() });
       });
-      setUsersData(users);
+      setUser(userData);
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
+  // Fetch employees based on the current user's ownerAdmin
+  useEffect(() => {
+    if (user[0]?.ownerAdmin) {
+      const q = query(
+        collection(db, "employees"),
+        where("ownerAdmin", "==", user[0].ownerAdmin)
+      );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const users = [];
+        snapshot.forEach((doc) => {
+          users.push({ id: doc.id, ...doc.data() });
+        });
+        setUsersData(users);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+
   const filteredUsers = usersData.filter((user) =>
     user.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100">
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
       </div>
 
-      {/* شريط البحث */}
+      {/* Search bar */}
       <div className="search flex justify-center mt-9">
         <input
           type="text"
@@ -51,21 +77,22 @@ export default function Users() {
         />
       </div>
 
-      <div className="flex flex-wrap justify-center items-center mt-10 min-h-[300px]">
-        {loading ? ( 
+      {/* User Cards section */}
+      {loading ? (
+        <div className="flex justify-center items-center min-h-[300px]">
           <Loader />
-        ) : (
-          filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <UserCard key={user.id} user={user} />
-            ))
+        </div>
+      ) : (
+        <div className="flex flex-wrap justify-center">
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => <UserCard key={user.id} user={user} />)
           ) : (
-            <p className="text-center text-gray-500 mt-44">
+            <p className="text-center text-gray-500 m-44">
               {t("EmpCard.noEmp")}
             </p>
-          )
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
       <div className="mt-auto">
         <Bottombanner />
