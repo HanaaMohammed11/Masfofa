@@ -5,7 +5,8 @@
     "Articles": "المواد",
     "Matrices": "المصفوفات",
     "masfofa": "مصفوفتي",
-    "home":"الرئيسية","download":"طباعة"
+    "home": "الرئيسية",
+    "download": "طباعة"
   },
   "login": {
     "email": "البريد الإلكتروني",
@@ -70,8 +71,9 @@
     "sharedEmployees": "الموظفين المشتركين  :",
     "noRelatedSubjects": "لا توجد مواد",
     "negotiationLimit": "حدود التفاوض :",
-    "notes": "ملاحظات :","relatedMatrix": ""
-    ,"action":"اجراء"
+    "notes": "ملاحظات :",
+    "relatedMatrix": "",
+    "action": "اجراء"
   },
   "matrix": {
     "title": "المصفوفات",
@@ -115,7 +117,7 @@
     "save": "حفظ",
     "success": "تم الحفظ بنجاح",
     "error": "حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.",
-    "homeElements":"عناصر الصفحة الرئيسية"
+    "homeElements": "عناصر الصفحة الرئيسية"
   },
   "addaccount": {
     "createAccount": "إنشاء حساب مستخدم",
@@ -128,6 +130,7 @@
     "accType": "نوع الحساب",
     "emp": "موظف",
     "admin": "أدمن",
+    "superAdmin": "سوبر أدمن",
     "noUsers": "لا يوجد مستخدمين"
   },
   "userform": {

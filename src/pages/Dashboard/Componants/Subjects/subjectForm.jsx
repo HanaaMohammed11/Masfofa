@@ -368,12 +368,14 @@ export default function SubjectForm() {
       snapshot.forEach((doc) => {
         epmloyees.push({ id: doc.id, ...doc.data() });
       });
-      console.log("Employees:", epmloyees);
       setEmployees(epmloyees);
     });
 
     return () => unsubscribe();
   }, []);
+  useEffect(() => {
+    console.log("Updated relatedMatrix:", relatedMatrix);
+  }, [relatedMatrix]);
 
   return (
     <div className="flex lg:w-[900px] md:w-[500px]">
@@ -488,22 +490,31 @@ export default function SubjectForm() {
               <Select
                 id="relatedMatrix"
                 className="mt-2"
-                value={relatedMatrix.title || ""}
+                value={relatedMatrix?.title || ""} // Safely handle undefined relatedMatrix
                 onChange={(e) => {
                   const selectedMatrix = matrix.find(
                     (item) => item.title === e.target.value
                   );
-                  setRelatedMatrix({
-                    ...selectedMatrix,
-                  });
+
+                  if (selectedMatrix) {
+                    setRelatedMatrix({
+                      ...selectedMatrix,
+                    });
+                  }
                 }}
               >
-                {matrix.map((item) => (
-                  <option key={item.id} value={item.title}>
-                    {item.title}
-                  </option>
-                ))}
+                <option value="" disabled>
+                  Select a Matrix
+                </option>
+                {matrix?.length > 0 &&
+                  matrix.map((item) => (
+                    <option key={item.id} value={item.title}>
+                      {item.title}
+                    </option>
+                  ))}
               </Select>
+
+              {/* Use useEffect to log the updated relatedMatrix */}
             </div>
 
             {/* Assigned Employee */}
@@ -516,25 +527,26 @@ export default function SubjectForm() {
               <Select
                 id="emp1"
                 className="mt-2"
-                value={emp1.employeeName || ""}
+                value={emp1?.employeeName || ""} // Ensure emp1 is defined
                 onChange={(e) => {
                   const selectedEmployee = employees.find(
                     (item) => item.employeeName === e.target.value
                   );
                   setEmp1({
-                    ...selectedEmployee,
+                    ...emp1, // Retain current emp1 properties if needed
+                    ...selectedEmployee, // Update with selected employee details
                   });
                 }}
               >
                 <option value="" disabled>
                   {t("subjectEditForm.chooseEmp")}
-                </option>{" "}
-                {/* إضافة خيار افتراضي */}
-                {employees.map((item) => (
-                  <option key={item.id} value={item.employeeName}>
-                    {item.employeeName}
-                  </option>
-                ))}
+                </option>
+                {employees?.length > 0 &&
+                  employees.map((item) => (
+                    <option key={item.id} value={item.employeeName}>
+                      {item.employeeName}
+                    </option>
+                  ))}
               </Select>
             </div>
 
