@@ -11,30 +11,27 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 export default function SubjectInfo() {
   const { t, i18n } = useTranslation("global");
-  const pdfRef = useRef();  
+  const pdfRef = useRef();
 
   const downloadPDF = () => {
-    const input = pdfRef.current; 
+    const input = pdfRef.current;
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      
 
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
 
-  
-      const pdfWidth = imgWidth / 1; 
+      const pdfWidth = imgWidth / 1;
       const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
 
-    
       const doc = new jsPDF({
-        orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
-        unit: 'px',
+        orientation: imgWidth > imgHeight ? "landscape" : "portrait",
+        unit: "px",
         format: [imgWidth, imgHeight],
       });
 
       doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      doc.save("table.pdf"); 
+      doc.save("table.pdf");
     });
   };
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -84,10 +81,9 @@ export default function SubjectInfo() {
         <Card className="w-[1200px] ">
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
-          <div className="mt-4 w-full">
-                     <Button onClick={downloadPDF}>
-            Download PDF
-          </Button></div>
+            <div className="mt-4 w-full">
+              <Button onClick={downloadPDF}>Download PDF</Button>
+            </div>
             {/* الجدول */}
             <div className="mt-4 w-full" ref={pdfRef}>
               <table
@@ -139,7 +135,7 @@ export default function SubjectInfo() {
                   {clickedSubject.sharedEmployees.length > 0 ? (
                     clickedSubject.sharedEmployees.map((emp) => {
                       const user = employees.find(
-                        (empl) => empl.id === emp.empId
+                        (empl) => empl.employeeId === emp.empId
                       );
                       console.log("Found user:", user);
                       return (

@@ -23,7 +23,7 @@ export default function SubjectList() {
   return (
 
   
-    <div className="p-9 flex min-h-s">
+    <div className="p-9 flex h-screen">
       
    
 

@@ -14,7 +14,6 @@ import saudiArabia from "../../../../assets/Flag_of_Saudi_Arabia.png";
 import USA from "../../../../assets/Flag_of_the_United_States.png";
 import { Navbar, Button } from "flowbite-react";
 
-
 export default function Topbanner() {
   const navigate = useNavigate();
   const [topBannerUrl, setTopBannerUrl] = useState("");
@@ -49,7 +48,6 @@ export default function Topbanner() {
 
     fetchUser();
   }, []);
-  console.log(user);
 
   const dropdownRef = useRef(null);
 
@@ -111,144 +109,134 @@ export default function Topbanner() {
         rounded={true}
         className="bg-gray-500 text-white mb-1"
       >
-           <Navbar.Toggle  className="bg-red text-yellow-50"/>
+        <Navbar.Toggle className="bg-red text-yellow-50" />
         <Navbar.Toggle />
-     
+
         <div className="flex">
           {/* Logout Button */}
-      
-  
-    
 
+          <div className="flex">
+            {/* Logout Button */}
+            <div
+              className="ml-8 font-semibold text-xl flex items-center justify-center text-white  cursor-pointer hover:bg-gray-600 p-2 "
+              onClick={handleLogout}
+              style={{
+                marginRight: 30,
+                marginBottom: "10px",
+              }}
+            >
+              <TbLogout2 size={30} />
+            </div>
 
-  <div className="flex">
-    {/* Logout Button */}
-    <div
-      className="ml-8 font-semibold text-xl flex items-center justify-center text-white  cursor-pointer hover:bg-gray-600 p-2 "
-      onClick={handleLogout}
-      style={{
-        marginRight: 30,
-        marginBottom: "10px",
-      }}
-    >
-      <TbLogout2 size={30} />
-    </div>
-
+            {/* Language Dropdown */}
+          </div>
           {/* Language Dropdown */}
-       
-        </div>
-    {/* Language Dropdown */}
-    <div className="relative" ref={dropdownRef}>
-      <button
-        className="p-2  bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        <img
-          src={selectedLanguage === "en" ? USA : saudiArabia}
-          alt={selectedLanguage === "en" ? "English" : "Arabic"}
-          className="w-6 h-6 mr-2"
-        />
-      </button>
-      {isOpen && (
-        <div className="absolute bg-white shadow-lg  mt-2 w-full z-10">
-          <div
-            onClick={() => handleLanguageSelect("en")}
-            className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
-          >
-            <img src={USA} alt="USA Flag" className="w-6 h-6 mr-2" />
+          <div className="relative" ref={dropdownRef}>
+            <button
+              className="p-2  bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
+              <img
+                src={selectedLanguage === "en" ? USA : saudiArabia}
+                alt={selectedLanguage === "en" ? "English" : "Arabic"}
+                className="w-6 h-6 mr-2"
+              />
+            </button>
+            {isOpen && (
+              <div className="absolute bg-white shadow-lg  mt-2 w-full z-10">
+                <div
+                  onClick={() => handleLanguageSelect("en")}
+                  className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+                >
+                  <img src={USA} alt="USA Flag" className="w-6 h-6 mr-2" />
+                </div>
+                <div
+                  onClick={() => handleLanguageSelect("ar")}
+                  className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
+                >
+                  <img
+                    src={saudiArabia}
+                    alt="Saudi Arabia Flag"
+                    className="w-6 h-6 mr-2"
+                  />
+                </div>
+              </div>
+            )}
           </div>
-          <div
-            onClick={() => handleLanguageSelect("ar")}
-            className="p-2 flex items-center cursor-pointer hover:bg-gray-100"
-          >
-            <img
-              src={saudiArabia}
-              alt="Saudi Arabia Flag"
-              className="w-6 h-6 mr-2"
-            />
-          </div>
         </div>
-      )}
-    </div>
-  </div>
 
         {/* Navbar Items */}
- 
-    
-  {/* Navbar Items */}
-  <Navbar.Collapse>
-  {user.accountType === "admin" && (
-    <div
 
-      className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group "
-      onClick={() => navigate("/dashboard")}
-    >
-      <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="block p-2 text-white">{t("text.DashBoard")}</span>
-      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      {/* الخطوط الجانبية */}
-      
-    </div>
-  )}
+        {/* Navbar Items */}
+        <Navbar.Collapse>
+          {user.accountType === "admin" && (
+            <div
+              className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group "
+              onClick={() => navigate("/dashboard")}
+            >
+              <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+              <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+              <span className="block p-2 text-white">
+                {t("text.DashBoard")}
+              </span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+              {/* الخطوط الجانبية */}
+            </div>
+          )}
 
-  <div
-    className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group"
-    onClick={() => navigate("/users")}
-  >
-      <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-    <span className="block p-2 text-white">{t("text.Employees")}</span>
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      {/* الخطوط الجانبية */}
-    {/* الخطوط الجانبية */}
-  
-  </div>
+          <div
+            className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group"
+            onClick={() => navigate("/users")}
+          >
+            <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="block p-2 text-white">{t("text.Employees")}</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            {/* الخطوط الجانبية */}
+            {/* الخطوط الجانبية */}
+          </div>
 
-  <div
-    className="relative cursor-pointer text-xl rounded-full transition-all duration-300 group"
-    onClick={() => navigate("/subjects")}
-  >
-      <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-    <span className="block p-2 text-white">{t("text.Articles")}</span>
-    {/* الخطوط الجانبية */}
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      {/* الخطوط الجانبية */}
-  </div>
+          <div
+            className="relative cursor-pointer text-xl rounded-full transition-all duration-300 group"
+            onClick={() => navigate("/subjects")}
+          >
+            <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="block p-2 text-white">{t("text.Articles")}</span>
+            {/* الخطوط الجانبية */}
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            {/* الخطوط الجانبية */}
+          </div>
 
-  <div
-    className="relative cursor-pointer text-xl rounded-full transition-all duration-300 group"
-    onClick={() => navigate("/Matrix")}
-  >
-      <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-    <span className="block p-2 text-white">{t("text.Matrices")}</span>
-    {/* الخطوط الجانبية */}
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      {/* الخطوط الجانبية */}
-  </div>
+          <div
+            className="relative cursor-pointer text-xl rounded-full transition-all duration-300 group"
+            onClick={() => navigate("/Matrix")}
+          >
+            <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="block p-2 text-white">{t("text.Matrices")}</span>
+            {/* الخطوط الجانبية */}
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            {/* الخطوط الجانبية */}
+          </div>
 
-  <div
-    className="relative cursor-pointer text-xl rounded-full transition-all duration-300 group "
-    onClick={() => navigate("/")}
-  >
-      <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-    <span className="block p-2 text-white">{t("text.home")}</span>
-<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
-      {/* الخطوط الجانبية */}
-  </div>
-</Navbar.Collapse>
-
-
-</Navbar>
-
+          <div
+            className="relative cursor-pointer text-xl rounded-full transition-all duration-300 group "
+            onClick={() => navigate("/")}
+          >
+            <span className="absolute top-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute top-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="block p-2 text-white">{t("text.home")}</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+            {/* الخطوط الجانبية */}
+          </div>
+        </Navbar.Collapse>
+      </Navbar>
 
       {/* Banner section */}
       <div

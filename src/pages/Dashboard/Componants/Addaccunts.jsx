@@ -109,13 +109,13 @@ export default function AddAccounts() {
   }, []);
 
   return (
-    <div className=" bg-gray-100 flex flex-col items-center">
+    <div className=" bg-gray-100 flex flex-col items-center h-screen">
 
     <div className=" flex">
 
     <div className="sm:mx-0 ">
       <div
-        className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9"
+        className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9 flex justify-center items-center"
         onClick={() => setOpenModal(true)}
       >
         {t("addaccount.createAccount")}

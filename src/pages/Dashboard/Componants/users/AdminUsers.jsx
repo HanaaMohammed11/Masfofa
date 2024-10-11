@@ -51,7 +51,7 @@ export default function AdminUsers() {
   });
 
   return (
-    <div className="p-9 w-full">
+    <div className="p-9 w-full h-screen">
       <div className="flex flex-col w-full xs:items-center">
         <div
           className="add-btn add-g add-c add-uppercase add-text"

@@ -68,7 +68,7 @@ export default function MatrixCard({ searchQuery }) {
   );
 
   return (
-    <div className="">
+    <div className="h-screen">
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div
@@ -125,8 +125,8 @@ export default function MatrixCard({ searchQuery }) {
         ) : null}
       </AnimatePresence>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center">
-        {loading ? ( // Show the loading spinner when fetching data
+      <div className="flex justify-center items-center ">
+        {loading ? ( 
           <div className=" flex justify-center items-center m-44">
        <Loader/> 
           </div>
@@ -134,7 +134,7 @@ export default function MatrixCard({ searchQuery }) {
           filteredMatrix.map((card) => (
             <motion.div
               key={`card-${card.title}-${id}`}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+              className="bg-white rounded-lg shadow-md overflow-hidden "
               onClick={() => setActive(card)}
             >
               <div className="w-60 h-44 text-center p-12">
