@@ -71,7 +71,7 @@ export default function App() {
           <Route path="/editsubject" element={<SubjectEditForm />} />
           <Route path="/AdminUserInfo" element={<AdminUserInfo />} />
           <Route path="/AdminUserCard" element={<AdminUserCard />} />
-          <Route path="/AdminMtrixInfo" element={<AdminMatrixInfo />} />
+          {/* <Route path="/AdminMtrixInfo" element={<AdminMatrixInfo />} /> */}
 
 
           <Route path="/edit-Theme" element={<EditTheme />} />

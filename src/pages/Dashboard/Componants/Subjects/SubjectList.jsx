@@ -9,7 +9,7 @@ import SideBar from "../../SideBar";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
-export default function SubjectList() {
+export default function SubjectList({handleClickShow}) {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -50,7 +50,7 @@ export default function SubjectList() {
 {showMatrixForm ? (
         <SubjectForm />
       ) : (
-        <SubjctCard searchTerm={searchTerm} />
+        <SubjctCard searchTerm={searchTerm} handleShowInfo={handleClickShow}/>
       )}</div>
 </div>
 </div>

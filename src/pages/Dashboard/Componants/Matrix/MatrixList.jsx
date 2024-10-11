@@ -9,7 +9,7 @@ import "../../../Dashboard/btns.css"
 import SideBar from "../../SideBar";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 
-export default function MatrixList() {
+export default function MatrixList({handleClickShow}) {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { t, i18n } = useTranslation("global");
@@ -48,11 +48,11 @@ export default function MatrixList() {
         </div>
       </div>
 
-<div className="flex flex-wrap  ">
+<div className="flex flex-wrap justify-center  ">
       {showMatrixForm ? (
         <MatrixForm />
       ) : (
-        <MatrixCard searchQuery={searchQuery} />
+        <MatrixCard searchQuery={searchQuery} handleShowInfo={handleClickShow}/>
       )}
   </div>
     </>

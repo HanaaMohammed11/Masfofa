@@ -376,7 +376,7 @@ export default function SubjectForm() {
   }, []);
 
   return (
-    <div className="flex ">
+    <div className="flex lg:w-[900px] md:w-[500px]">
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
         <h1
           dir={direction}

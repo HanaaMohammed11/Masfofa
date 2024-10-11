@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import "../../../Dashboard/btns.css";
 import Loader from "../../../Login/loader"; 
 
-export default function AdminUsers() {
+export default function AdminUsers({ handleClickShow }) {
   const { t, i18n } = useTranslation("global");
   const [searchTerm, setSearchTerm] = useState("");
   const navigation = useNavigate();
 
   const [showUserForm, setShowUserForm] = useState(false);
   const [usersData, setUsersData] = useState([]);
-  const [loading, setLoading] = useState(true); // Adding loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const qEmps = query(
@@ -29,7 +29,7 @@ export default function AdminUsers() {
         users.push({ id: doc.id, ...doc.data() });
       });
       setUsersData(users);
-      setLoading(false); // Stop loading when data is fetched
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -51,7 +51,7 @@ export default function AdminUsers() {
   });
 
   return (
-    <div className="p-9 w-full h-screen">
+    <div className="p-9 w-full min-h-screen">
       <div className="flex flex-col w-full xs:items-center">
         <div
           className="add-btn add-g add-c add-uppercase add-text"
@@ -78,11 +78,15 @@ export default function AdminUsers() {
               <Loader />
             </div>
           ) : filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => <AdminUserCard key={user.id} user={user} />)
+            filteredUsers.map((user) => (
+              <AdminUserCard
+                key={user.id}
+                user={user}
+                handleShowInfo={handleClickShow}
+              />
+            ))
           ) : (
-            <p className="text-center text-gray-500">
-              {t("EmpCard.noEmp")}
-            </p>
+            <p className="text-center text-gray-500">{t("EmpCard.noEmp")}</p>
           )}
         </div>
       </div>

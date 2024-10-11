@@ -17,7 +17,7 @@ import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 
-export default function MatrixCard({ searchQuery }) {
+export default function MatrixCard({ searchQuery, handleShowInfo }) {
   const [active, setActive] = useState(null);
   const [matrix, setMatrix] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
@@ -38,7 +38,8 @@ export default function MatrixCard({ searchQuery }) {
   };
 
   const show = (matrixItem) => {
-    navigation("/AdminMtrixInfo", { state: { matrix: matrixItem } });
+    // navigation("/AdminMtrixInfo", { state: { matrix: matrixItem } });
+    handleShowInfo(matrixItem);
   };
 
   const Edit = (matrixItem) => {
@@ -126,9 +127,9 @@ export default function MatrixCard({ searchQuery }) {
       </AnimatePresence>
 
       <div className="flex justify-center items-center ">
-        {loading ? ( 
+        {loading ? (
           <div className=" flex justify-center items-center m-44">
-       <Loader/> 
+            <Loader />
           </div>
         ) : filteredMatrix.length > 0 ? (
           filteredMatrix.map((card) => (
@@ -153,7 +154,17 @@ export default function MatrixCard({ searchQuery }) {
 
 export const CloseIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-black">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4 text-black"
+    >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M18 6l-12 12" />
       <path d="M6 6l12 12" />

@@ -137,7 +137,7 @@ export default function UserForm() {
   };
 
   return (
-    <div className="flex w-full">
+    <div className="flex lg:w-[900px] md:w-[500px] h-screen">
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
         <h1
           className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
@@ -343,7 +343,7 @@ export default function UserForm() {
               <span className="flex items-center space-x-4 aux-text">
                 {t("subjectEditForm.save")}
               </span>
-            </div>{" "}
+            </div>
           </div>
         </div>
       </div>

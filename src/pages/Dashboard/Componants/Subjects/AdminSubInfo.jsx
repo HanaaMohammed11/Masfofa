@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-export default function AdminSubjectInfo() {
+export default function AdminSubjectInfo({item}) {
 
   const pdfRef = useRef();  
 
@@ -46,12 +46,11 @@ export default function AdminSubjectInfo() {
 
   const [subject, setSubject] = useState(null);
   const [employees, setEmployees] = useState([]);
-  const clickedSubject = location.state?.subjectItem;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!clickedSubject) {
+        if (!item) {
           console.error("No subject data found in location state");
           return;
         }
@@ -63,29 +62,28 @@ export default function AdminSubjectInfo() {
         }));
 
         setEmployees(employeesList);
-        setSubject(clickedSubject);
+        setSubject(item);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [clickedSubject]);
+  }, [item]);
 
-  const emp1 = employees.find((emp) => emp.employeeId === clickedSubject.emp1Id);
-  const emp2 = employees.find((emp) => emp.employeeId === clickedSubject.emp2Id);
+  const emp1 = employees.find((emp) => emp.employeeId === item.emp1Id);
+  const emp2 = employees.find((emp) => emp.employeeId === item.emp2Id);
 
   return (
     <div>
-      <Topbanner />
       <div className="min-h-screen bg-gray-100 justify-center flex items-center">
         <Card className="w-[1200px]" >
      
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
             <div className="mt-4 w-full" >
-                     <Button onClick={downloadPDF}>
-            Download PDF
+                     <Button onClick={downloadPDF} className="mb-5">
+     {t("text.download")}
           </Button>
               <table className="min-w-full border-collapse table-fixed" dir={direction} ref={pdfRef}>
                 <tbody className="text-gray-700">
@@ -94,7 +92,7 @@ export default function AdminSubjectInfo() {
                       {t("subjectEditForm.subjectNum")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.subjectNum}
+                      {item.subjectNum}
                     </td>
                   </tr>
                   <tr className="bg-gray-100">
@@ -102,7 +100,7 @@ export default function AdminSubjectInfo() {
                       {t("subjectEditForm.subjectTitle")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.subjectTitle}
+                      {item.subjectTitle}
                     </td>
                   </tr>
                   <tr>
@@ -110,7 +108,7 @@ export default function AdminSubjectInfo() {
                       {t("subjectEditForm.subjectContent")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {clickedSubject.subjectContent}
+                      {item.subjectContent}
                     </td>
                   </tr>
                   <tr className="bg-gray-100">
@@ -118,7 +116,7 @@ export default function AdminSubjectInfo() {
                       {t("subjectInfo.authorizedEmployee")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.emp1.employeeName} - {clickedSubject.emp1.jobTitle}
+                      {item.emp1.employeeName} - {item.emp1.jobTitle}
                     </td>
                   </tr>
                   <tr>
@@ -129,8 +127,8 @@ export default function AdminSubjectInfo() {
                       {emp2?.employeeName} - {emp2?.role}
                     </td>
                   </tr>
-                  {clickedSubject.sharedEmployees.length > 0 ? (
-                    clickedSubject.sharedEmployees.map((emp) => {
+                  {item.sharedEmployees.length > 0 ? (
+                    item.sharedEmployees.map((emp) => {
                       const user = employees.find((empl) => empl.id === emp.empId);
                       return (
                         <tr
@@ -163,7 +161,7 @@ export default function AdminSubjectInfo() {
                       {t("subjectEditForm.negotiationLimit")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.negotiationLimit}
+                      {item.negotiationLimit}
                     </td>
                   </tr>
                   <tr>
@@ -171,7 +169,7 @@ export default function AdminSubjectInfo() {
                       {t("subjectInfo.notes")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {clickedSubject.notes}
+                      {item.notes}
                     </td>
                   </tr>
                 </tbody>
@@ -180,7 +178,7 @@ export default function AdminSubjectInfo() {
           </div>
         </Card>
       </div>
-      <Bottombanner />
+
     </div>
   );
 }

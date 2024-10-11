@@ -66,7 +66,7 @@ export default function MatrixForm() {
         </h1>
 
         {/* قسم تفاصيل المصفوفة */}
-        <div className="bg-white p-4 md:p-8 rounded-lg shadow-md">
+        <div className="bg-white p-4 md:p-8 rounded-lg shadow-md lg:w-[900px] md:w-[500px]">
           <div
             className="grid grid-cols-1 gap-4 md:grid-cols-2"
             dir={direction}

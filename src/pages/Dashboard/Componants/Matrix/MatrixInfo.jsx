@@ -11,7 +11,7 @@ import Loader from "../../../Login/loader";
 import SideBar from "../../SideBar";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-export default function AdminMatrixInfo() {
+export default function AdminMatrixInfo({item}) {
     const pdfRef = useRef();  
 
   const downloadPDF = () => {
@@ -45,15 +45,14 @@ export default function AdminMatrixInfo() {
   const navigate = useNavigate();
   const [relatedsubjects, setRelatedsubjectss] = useState([]);
   
-  const matrix = location.state.matrix;
 
   useEffect(() => {
     const usersCollectionRef = collection(db, "subjects");
 
-    if (matrix.subjects) {
+    if (item.subjects) {
       const q = query(
         usersCollectionRef,
-        where("subjectTitle", "in", matrix.subjects)
+        where("subjectTitle", "in", item.subjects)
       );
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -69,12 +68,12 @@ export default function AdminMatrixInfo() {
     } else {
       setLoading(false); 
     }
-  }, [matrix]);
+  }, [item]);
 
   return (
     <div>
-      <Topbanner />
-     <SideBar/>
+    
+
       <div className="min-h-screen bg-gray-100 justify-center flex items-center" dir={direction}>
         {loading ? ( 
           <Loader />
@@ -82,7 +81,7 @@ export default function AdminMatrixInfo() {
           <Card className="w-[900px] h-auto my-9" >
                 <div className="mt-4 w-full">
                      <Button onClick={downloadPDF}>
-            Download PDF
+        {t("text.download")}
           </Button></div>
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center pb-10 "ref={pdfRef}>
@@ -93,38 +92,38 @@ export default function AdminMatrixInfo() {
                     <tr>
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.name")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {matrix.title}
+                        {item.title}
                       </td>
                     </tr>
                     <tr className="bg-gray-100">
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.releaseDate")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {matrix.releaseDate}
+                        {item.releaseDate}
                       </td>
                     </tr>
                     <tr>
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.updateDate")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {matrix.updateDate}
+                        {item.updateDate}
                       </td>
                     </tr>
                     <tr className="bg-gray-100">
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.publisher")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {matrix.companyName}
+                        {item.companyName}
                       </td>
                     </tr>
                     <tr>
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.introduction")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {matrix.intro}
+                        {item.intro}
                       </td>
                     </tr>
                     <tr className="bg-gray-100">
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.definitions")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden"></td>
                     </tr>
-                    {matrix.definitions.map((elem, index) => (
+                    {item.definitions.map((elem, index) => (
                       <tr key={index}>
                         <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
                           {elem.term}
@@ -162,7 +161,7 @@ export default function AdminMatrixInfo() {
                     <tr className="bg-gray-100">
                       <td className="px-4 py-2 font-bold">{t("matrixinfo.notes")}</td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {matrix.notes}
+                        {item.notes}
                       </td>
                     </tr>
                   </tbody>
@@ -172,7 +171,7 @@ export default function AdminMatrixInfo() {
           </Card>
         )}
       </div>
-      <Bottombanner />
+  
     </div>
   );
 }

@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 
-export default function SubjctCard({ searchTerm }) {
+export default function SubjctCard({ searchTerm , handleShowInfo }) {
   const navigation = useNavigate();
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,9 +31,8 @@ export default function SubjctCard({ searchTerm }) {
   };
 
   const handleButtonClick = (subjectItem) => {
-    navigation("/AdminSubjectInfo", { state: { subjectItem } });
+    handleShowInfo(subjectItem);
   };
-
   const Edit = (subjectItem) => {
     navigation("/editsubject", { state: { subject: subjectItem } });
   };
