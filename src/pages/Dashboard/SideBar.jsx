@@ -48,7 +48,7 @@ function SideBar() {
       name: t("sidebar.employees"),
       icon: <FaUsers className="text-[#f5bc42]" />,
       content: (
-        <AdminUsers handleClickShow={(item) => handleItemClick(<AdminUserInfo item={item}/>)} />
+        <AdminUsers />
       ),
     },
     {

@@ -110,8 +110,9 @@ export default function Topbanner() {
         className="bg-gray-500 text-white mb-1"
       >
         <Navbar.Toggle className="bg-red text-yellow-50" />
-  
 
+        <div className="flex">
+          {/* Logout Button */}
 
           <div className="flex">
             {/* Logout Button */}
@@ -161,9 +162,9 @@ export default function Topbanner() {
               </div>
             )}
           </div>
-  
+        </div>
 
-
+        {/* Navbar Items */}
 
         {/* Navbar Items */}
         <Navbar.Collapse>
