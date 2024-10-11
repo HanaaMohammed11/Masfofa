@@ -136,16 +136,16 @@ export default function AddAccounts() {
   }, []); // Keep this as is
 
   return (
-    <div className=" bg-gray-100 flex flex-col items-center h-screen">
+    <div className="  flex flex-col items-center h-screen">
       <div className=" flex">
         <div className="sm:mx-0 ">
-          <div
-            className="add-btn add-g add-c add-uppercase add-text mt-10 mx-9 flex justify-center items-center"
+          <botton
+            className="add-btn add-g add-c  add-uppercase add-text mt-10  flex justify-center items-center"
             onClick={() => setOpenModal(true)}
           >
             {t("addaccount.createAccount")}
-          </div>
-          <div></div>
+          </botton>
+        
 
           <Modal
             show={openModal}
@@ -296,78 +296,59 @@ export default function AddAccounts() {
             </Modal.Body>
           </Modal>
 
-          <div className=" overflow-x-auto flex flex-col items-center" dir={direction}>
-      <div
-        dir={direction}
-        className="overflow-x-auto w-[100%] mx-auto  p-4 rounded-lg shadow-lg mt-10"
-      >
-        <table
-          dir="rtl"
-          className="table-auto overflow-x-auto w-full  bg-[#D3A17A]"
-        >
-          <thead dir={direction}>
-            <tr dir={direction} className="bg-[#D3A17A] text-white">
-              <th className="px-4 py-2 text-sm md:text-base">
-                {t("addaccount.firstName")}
-              </th>
-              <th className="px-4 py-2 text-sm md:text-base">
-                {t("addaccount.email")}
-              </th>
-              <th className="px-4 py-2 text-sm md:text-base">
-                {t("addaccount.password")}
-              </th>
-              <th className="px-4 py-2 text-sm md:text-base">
-              {t("addaccount.accType")}
+          <div className="overflow-x-auto flex flex-col items-center" dir={direction}>
+  <div
+    dir={direction}
+    className="overflow-x-auto w-full mx-auto p-4 rounded-lg shadow-lg mt-10"
+  >
+    <table
+      dir="rtl"
+      className="table-auto min-w-full bg-[#D3A17A] text-sm md:text-base"
+    >
+      <thead dir={direction}>
+        <tr dir={direction} className="bg-[#D3A17A] text-white">
+          <th className="px-4 py-2">{t("addaccount.firstName")}</th>
+          <th className="px-4 py-2">{t("addaccount.email")}</th>
+          <th className="px-4 py-2">{t("addaccount.password")}</th>
+          <th className="px-4 py-2">{t("addaccount.accType")}</th>
+          <th className="px-4 py-2">{t("subjectInfo.action")}</th>
+        </tr>
+      </thead>
 
-              </th>
-              <th className="px-4 py-2 text-sm md:text-base">
-                {t("subjectInfo.action")}
-              </th>
-
+      <tbody className="text-gray-700">
+        {employees.length > 0 ? (
+          employees.map((employee) => (
+            <tr key={employee.id} className="border-t hover:bg-gray-100">
+              <td className="px-4 py-2">
+                {employee.firstname} {employee.lastname}
+              </td>
+              <td className="px-4 py-2">{employee.email}</td>
+              <td className="px-4 py-2">{employee.password}</td>
+              <td className="px-4 py-2">{employee.accountType}</td>
+              <td className="px-4 py-2 flex justify-center space-x-2">
+                {/* أيقونة التعديل */}
+                <button className="text-yellow-500">
+                  <AiFillEdit size={20} />
+                </button>
+                {/* أيقونة الحذف */}
+                <button className="text-red-500">
+                  <AiFillDelete size={20} />
+                </button>
+              </td>
             </tr>
-          </thead>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5" className="px-4 py-10 text-center">
+              {t("addaccount.noUsers")}
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-          <tbody className="text-gray-700">
-            {employees.length > 0 ? (
-              employees.map((employee) => (
-                <tr key={employee.id} className="border-t">
-                  <td className="px-4 py-2 text-sm md:text-base">
-                    {employee.firstname} {employee.lastname}
-                  </td>
-                  <td className="px-4 py-2 text-sm md:text-base">
-                    {employee.email}
-                  </td>
-                  <td className="px-4 py-2 text-sm md:text-base">
-                    {employee.password}
-                  </td>
-                  <td className="px-4 py-2 text-sm md:text-base">
-                    {employee.accountType}
-                  </td>
-
-                  <td className="px-4 py-2 relative">
-                    {/* أيقونة التعديل */}
-                    <button className="text-yellow-500 mx-2">
-                      <AiFillEdit size={20} />
-                    </button>
-
-                    {/* أيقونة الحذف */}
-                    <button className="text-red-500 mx-2">
-                      <AiFillDelete size={20} />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="px-4 py-10 text-center">
-        {t("addaccount.noUsers")}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
         </div>
       </div>
     </div>

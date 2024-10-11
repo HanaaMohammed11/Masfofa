@@ -82,9 +82,8 @@ export default function AdminSubjectInfo({item}) {
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
             <div className="mt-4 w-full" >
-                     <Button onClick={downloadPDF} className="mb-5">
-     {t("text.download")}
-          </Button>
+            <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">     {t("text.download")}</Button>
+        
               <table className="min-w-full border-collapse table-fixed" dir={direction} ref={pdfRef}>
                 <tbody className="text-gray-700">
                   <tr>
@@ -95,7 +94,7 @@ export default function AdminSubjectInfo({item}) {
                       {item.subjectNum}
                     </td>
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectTitle")}
                     </td>
@@ -111,7 +110,7 @@ export default function AdminSubjectInfo({item}) {
                       {item.subjectContent}
                     </td>
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectInfo.authorizedEmployee")}
                     </td>
@@ -156,7 +155,7 @@ export default function AdminSubjectInfo({item}) {
                       </td>
                     </tr>
                   )}
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.negotiationLimit")}
                     </td>

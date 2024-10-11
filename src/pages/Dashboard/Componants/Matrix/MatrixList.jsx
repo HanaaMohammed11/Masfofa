@@ -23,7 +23,7 @@ export default function MatrixList({handleClickShow}) {
     <>
 
 
-      <div className="flex flex-col p-9 ">
+      <div className="flex flex-col p-9  ">
         
 
         <div className="flex  flex-col w-full   xs:items-center">
@@ -48,7 +48,7 @@ export default function MatrixList({handleClickShow}) {
         </div>
       </div>
 
-<div className="flex flex-wrap justify-center  ">
+<div className="flex flex-wrap justify-center pb-20 ">
       {showMatrixForm ? (
         <MatrixForm />
       ) : (

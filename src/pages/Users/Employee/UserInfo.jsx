@@ -87,7 +87,7 @@ export default function UserInfo() {
          {loading ? ( 
           <Loader />
         ) : ( 
-          <div className="flex flex-col md:flex-row w-full md:w-[90%] lg:w-[70%] p-4">
+          <div className="flex flex-col md:flex-row  md:w-[90%] lg:w-[70%]  sm:w-[50%] w-full p-4">
             {/* Left Side: User Info */}
             <Card className="w-full h-auto my-12 p-6">
               <div className="flex flex-col items-center pb-10">

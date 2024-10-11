@@ -107,7 +107,7 @@ const EditTheme = () => {
   };
 
   return (
-    <div className="flex flex-col items-center m-auto mt-44 w-full">
+    <div className="flex flex-col items-center pt-14 w-full">
       <div className="gap-5 justify-center w-full xs:w-[90%] sm:w-[70%] lg:w-full">
         <div className="flex flex-wrap justify-center gap-5 w-full">
 
@@ -250,7 +250,7 @@ const EditTheme = () => {
         <div className="w-full flex justify-center mt-5">
           <button
             onClick={handleSave}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-[#d4af37] rounded-full text-white  font-semibold w-44 m-9 shadow-lg"
           >
             {t("edittheme.save")}
           </button>

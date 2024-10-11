@@ -55,12 +55,12 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
   return (
     <div className={`overflow-x-auto mx-4 md:mx-3  mt-6 mb-9  ${direction}`}>
       {loading ? (
-        <div className="flex justify-center items-center m-44">
+        <div className="flex justify-center items-center ">
           <Loader />
         </div>
       ) : filteredMatrix.length > 0 ? (
         <table
-          className="w-[1000px] text-center text-gray-500 dark:text-gray-400 shadow-lg"
+          className="w-[1000px] overflow-x-auto text-center text-gray-500 dark:text-gray-400 shadow-lg"
           dir={direction}
         >
           <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

@@ -24,7 +24,7 @@ function UserTable({ users }) {
       <table className="w-full text-center text-gray-500 dark:text-gray-400" dir={direction}>
         <thead className="text-center text-lg bg-white">
           <tr>
-            <th scope="col" className="px-6 py-3">{t("job.employeeId")}</th>
+            <th scope="col" className="px-6 py-3">{t("userInfo.employeeName")}</th>
      
             <th scope="col" className="px-6 py-3">{t("job.jobTitle")}</th>
             <th scope="col" className="px-6 py-3">{t("job.phoneNumber")}</th>
@@ -39,11 +39,14 @@ function UserTable({ users }) {
             >
               <td className="px-6 py-4 text-gray-900 dark:text-white flex items-center justify-center">
               <img
-                  src={user.profileImageUrl}  
+                  src={user.profileImage}  
                   alt={user.name}
-                  className="w-10 h-10 rounded-full "
+                  className="w-10 h-10 rounded-full  "
                 />
+                <span className='m-3'>
                 {user.employeeName}
+                </span>
+           
               </td>
       
               <td className="px-6 py-4">

@@ -23,12 +23,12 @@ export default function SubjectList({handleClickShow}) {
   return (
 
   
-    <div className="p-9 flex h-screen">
+    <div className="p-9 flex  justify-center">
       
    
 
        <div>
-      <div className="flex flex-col w-full  xs:items-center">
+       <div className="flex  flex-col w-full   xs:items-center">
      
         <div
           className="add-btn add-g add-c add-uppercase add-text mb-7"
@@ -46,8 +46,8 @@ export default function SubjectList({handleClickShow}) {
           />
         </div>
       </div>
-<div className="w-full flex justify-center" >
-{showMatrixForm ? (
+      <div className="flex flex-wrap justify-center pb-20 ">
+      {showMatrixForm ? (
         <SubjectForm />
       ) : (
         <SubjctCard searchTerm={searchTerm} handleShowInfo={handleClickShow}/>
