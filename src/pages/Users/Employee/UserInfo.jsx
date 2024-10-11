@@ -5,7 +5,7 @@ import {
   getFirestore,
   doc,
   getDoc,
-  query,
+  query, 
   where,
   getDocs,
   collection,
@@ -14,7 +14,6 @@ import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
-import SideBar from "../../Dashboard/SideBar";
 
 export default function UserInfo() {
   const location = useLocation();
@@ -27,7 +26,6 @@ export default function UserInfo() {
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
-  console.log(user);
 
   useEffect(() => {
     const fetchProxyEmployees = async () => {
@@ -46,7 +44,6 @@ export default function UserInfo() {
         }
 
         setProxyEmployees(matchedEmployees);
-        console.log(matchedEmployees);
       } catch (error) {
         console.error("Error fetching proxy employees: ", error);
       }finally{
@@ -56,6 +53,11 @@ export default function UserInfo() {
 
     fetchProxyEmployees();
   }, [db, user.employeeId]);
+
+  const handleCardClick = (proxyEmployee) => {
+    navigate("/userProxy", {
+      state: { user: proxyEmployee, mainUser: user.id },
+    });}
 
   useEffect(() => {
     const fetchSubjectByEmployeeID = async () => {
@@ -68,49 +70,42 @@ export default function UserInfo() {
     fetchSubjectByEmployeeID();
   }, [user.id]);
 
-  useEffect(() => {
-    console.log(empSubjects);
-  }, [empSubjects]);
-
-  const handleCardClick = (proxyEmployee) => {
-    navigate("/userProxy", {
-      state: { user: proxyEmployee, mainUser: user.id },
-    });
-  };
-
   return (
     <div>
       <Topbanner />
   
       <div
-        className="min-h-screen bg-gray-100 justify-center flex items-center"
+        className="min-h-screen flex justify-center items-start mt-8"
         dir={direction}
       >
          {loading ? ( 
           <Loader />
         ) : ( 
-        <Card className="w-[900px] h-auto my-12">
-          <div className="flex flex-col items-center pb-10">
-            <img
-              alt="User Avatar"
-              src={
-                user.profileImage ||
-                "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"
-              }
-              className="mb-3 rounded-full shadow-lg w-60 h-60"
-            />
-            <div className="mt-4 w-full">
-              <table className="min-w-full  border-collapse">
-                <tbody className="text-gray-700">
-                  <tr>
+          <div className="flex flex-col md:flex-row w-full md:w-[90%] lg:w-[70%] p-4">
+            {/* Left Side: User Info */}
+            <Card className="w-full h-auto my-12 p-6">
+              <div className="flex flex-col items-center pb-10">
+                <img
+                  alt="User Avatar"
+                  src={
+                    user.profileImage ||
+                    "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"
+                  }
+                  className="mb-3 rounded-full shadow-lg w-44 h-44"
+                />
+                <div className="mt-4 w-full">
+                  <table className="min-w-full border-collapse">
+                    <tbody className="text-gray-700">
+                    <tr>
                     <td className="px-4 py-2 font-bold">
-                      {" "}
+                   
                       {t("userInfo.employeeName")}
                     </td>
 
                     <td className="px-4 py-2">{user.employeeName}</td>
                   </tr>
-                  <tr className="bg-gray-100">
+
+                  <tr className="bg-[#DEBA9A]">
                     <td className="px-4 py-2 font-bold">
                       {" "}
                       {t("userInfo.employeeId")}
@@ -118,20 +113,23 @@ export default function UserInfo() {
 
                     <td className="px-4 py-2">{user.employeeId}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-2 font-bold">
+
+                      <tr>
+                      <td className="px-4 py-2 font-bold">
                       {t("userInfo.hireDate")}
                     </td>
 
                     <td className="px-4 py-2">{user.hireDate}</td>
                   </tr>
-                  <tr className="bg-gray-100">
+
+                  <tr className="bg-[#DEBA9A]">
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.jobGrade")}
                     </td>
 
                     <td className="px-4 py-2">{user.jobGrade}</td>
                   </tr>
+
                   <tr>
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.department")}
@@ -139,13 +137,15 @@ export default function UserInfo() {
 
                     <td className="px-4 py-2">{user.department}</td>
                   </tr>
-                  <tr className="bg-gray-100">
+
+                  <tr className="bg-[#DEBA9A]">
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.officeNumber")}
                     </td>
 
                     <td className="px-4 py-2">{user.officeNumber}</td>
                   </tr>
+
                   <tr>
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.jobTitle")}
@@ -153,7 +153,8 @@ export default function UserInfo() {
 
                     <td className="px-4 py-2">{user.jobTitle}</td>
                   </tr>
-                  <tr className="bg-gray-100">
+
+                  <tr className="bg-[#DEBA9A]">
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.phoneNumber")}
                     </td>
@@ -167,12 +168,12 @@ export default function UserInfo() {
 
                     <td className="px-4 py-2">{user.employeeEmail}</td>
                   </tr>
-                  <tr>
+                  <tr className="bg-[#DEBA9A]">
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.currentOffice")}
                     </td>
 
-                    <td className="px-4 py-2 break-words">
+                    <td className="px-4 py-2 break-words ">
                       {user.currentOffice}
                     </td>
                   </tr>
@@ -184,12 +185,12 @@ export default function UserInfo() {
                     </td>
                     <td></td>
                   </tr>
-                  {/* عرض الموظفين البدلاء */}
-                  {proxyEmployees.length > 0 ? (
+  {/* عرض الموظفين البدلاء */}
+  {proxyEmployees.length > 0 ? (
                     proxyEmployees.map((proxyEmployee, index) => (
                       <React.Fragment key={index}>
                         <tr
-                          className={index % 2 === 0 ? "bg-gray-100" : ""}
+                          className={index % 2 === 0 ? "bg-[#DEBA9A]" : ""}
                           onClick={() => handleCardClick(proxyEmployee)}
                         >
                           <td className="px-4 py-2 font-bold">
@@ -202,7 +203,7 @@ export default function UserInfo() {
                           </td>
                         </tr>
                         <tr
-                          className={index % 2 === 0 ? "bg-gray-100" : ""}
+                          className={index % 2 === 0 ? "bg-[#DEBA9A]" : ""}
                           onClick={() => handleCardClick(proxyEmployee)}
                         >
                           <td className="px-4 py-2 font-bold">
@@ -221,50 +222,40 @@ export default function UserInfo() {
                       </td>
                     </tr>
                   )}
-                  <td className="px-4 py-8 pt-10 font-bold">
-                    <h1 className="text-xl">
-                      {t("userInfo.permissionsTitle")}
-                    </h1>
-                  </td>
+                 
                   <td></td>
 
-                  {empSubjects.length > 0 ? (
-                    empSubjects.map((subject) => (
-                      <tr
-                        key={subject.id}
-                        className="cursor-pointer hover:bg-gray-100"
-                        onClick={() => {
-                          navigate("/subjectInfo", { state: { subject } });
-                        }}
-                      >
-                        <td className="px-4 py-2 font-bold ">
-                          {t("userInfo.subjectTitle")}
-                        </td>
-                        <td className="px-4 py-2 break-words">
-                          {subject.subjectTitle}
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={2} className="px-4 py-2 text-center">
-                        {t("userInfo.noRelatedSubjects")}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </Card>
+
+            {/* Right Side: Permissions Sidebar */}
+            <div className="w-full md:w-[40%] mt-6 md:mt-14 md:ml-9 lg:mr-9 sm:mr-0 mr-0">
+              <Card className="p-4">
+                <h2 className="text-xl font-bold mb-4">{t("userInfo.permissionsTitle")}</h2>
+                {empSubjects.length > 0 ? (
+                  empSubjects.map((subject) => (
+                    <div
+                      key={subject.id}
+                      className="cursor-pointer hover:bg-gray-100 p-2 border-b"
+                      onClick={() => navigate("/subjectInfo", { state: { subject } })}
+                    >
+                      {subject.subjectTitle}
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center">{t("userInfo.noRelatedSubjects")}</div>
+                )}
+              </Card>
             </div>
           </div>
-        </Card>
-      )}
+        )}
       </div>
  
       <Bottombanner />
     </div>
   );
 }
-
-
-
-

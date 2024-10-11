@@ -1,52 +1,68 @@
-import React from 'react';
-import { Button, Card } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; 
+import { useTranslation } from 'react-i18next';
 
-function UserCardItem({ user }) {
+function UserTable({ users }) {
   const navigate = useNavigate();
-  const { t } = useTranslation("global"); 
+  const { t, i18n } = useTranslation("global");
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
-  const handleDetailsClick = () => {
+  const handleDetailsClick = (user) => {
     navigate('/userinfo', { state: { user } });
   };
 
-  if (!user) {
+  if (!users || users.length === 0) {
     return (
       <p className="text-center text-gray-500">
-        {t("EmpCard.noEmp")} 
+        {t("EmpCard.noEmp")}
       </p>
     );
   }
 
   return (
-    <div className="flex flex-wrap gap-9 xs:py-5 sm:p-10">
-      <Card className="w-80 cursor-pointer">
-        <div className="flex justify-end px-4 pt-4"></div>
-        <div className="flex flex-col items-center pb-10">
-          <img
-            alt={""}
-            src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-            className="mb-3 rounded-full shadow-lg w-32 h-32"
-          />
-          <h5 className="mb-1 text-xl font-medium text-gray-900">
-            {user.employeeName}
-          </h5>
-          <span className="text-sm text-gray-500">{t("job.jobTitle")}: {user.jobTitle}</span>
-          <span className="text-sm text-gray-500">
-            {t("job.employeeId")}: {user.employeeId}
-          </span>
-          <span className="text-sm text-gray-500">
-            {t("job.phoneNumber")}: {user.phoneNumber}
-          </span>
-
-          <Button className='mt-7' onClick={handleDetailsClick}>
-            {t("EmpCard.details")} 
-          </Button>
-        </div>
-      </Card>
+    <div className="overflow-x-auto w-full mx-9 my-9">
+      <table className="w-full text-center text-gray-500 dark:text-gray-400" dir={direction}>
+        <thead className="text-center text-lg bg-white">
+          <tr>
+            <th scope="col" className="px-6 py-3">{t("job.employeeId")}</th>
+     
+            <th scope="col" className="px-6 py-3">{t("job.jobTitle")}</th>
+            <th scope="col" className="px-6 py-3">{t("job.phoneNumber")}</th>
+            <th scope="col" className="px-6 py-3">{t("EmpCard.details")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr
+              key={user.employeeId}
+              className={`${index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white'} border-b dark:bg-gray-800 dark:border-gray-700`}
+            >
+              <td className="px-6 py-4 text-gray-900 dark:text-white flex items-center justify-center">
+              <img
+                  src={user.profileImageUrl}  
+                  alt={user.name}
+                  className="w-10 h-10 rounded-full "
+                />
+                {user.employeeName}
+              </td>
+      
+              <td className="px-6 py-4">
+                {user.jobTitle}
+              </td>
+              <td className="px-6 py-4">
+                {user.phoneNumber}
+              </td>
+              <td className="px-6 py-4">
+                <button onClick={() => handleDetailsClick(user)}>
+                  {t("EmpCard.details")}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default UserCardItem;
+export default UserTable;
