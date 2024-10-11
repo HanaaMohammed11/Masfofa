@@ -79,8 +79,8 @@ export default function SubTable({ searchTerm }) {
     <div className={`p-4 overflow-x-auto mx-14  mt-9 ${direction}`}>
       <table className="table-auto w-full text-sm text-center text-gray-500 dark:text-gray-400 shadow-lg rounded-xl" dir={direction}
       >
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+        <thead className=" text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr className="text-center">
             <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.subjectTitle")}</th>
             <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.authorizedEmployee")}</th>
             <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.action")}</th>
