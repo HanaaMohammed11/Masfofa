@@ -99,8 +99,8 @@ export default function UserInfo() {
                   }
                   className="mb-3 rounded-full shadow-lg w-44 h-44"
                 />
-                <div className="mt-4 w-full">
-                  <table className="min-w-full border-collapse">
+                <div className="mt-4 ">
+                  <table className=" border-collapse">
                     <tbody className="text-gray-700">
                     <tr>
                     <td className="px-4 py-2 font-bold">

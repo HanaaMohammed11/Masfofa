@@ -38,8 +38,8 @@ export default function UerProxy() {
               src={user.profileImage || user.proxyProfileImage ||"https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
               className="mb-3 rounded-full shadow-lg  w-44 h-44"
             />
-            <div className="mt-4 w-full">
-              <table className="min-w-full border-collapse">
+            <div className="mt-4 ">
+              <table className=" border-collapse">
                 <tbody className="text-gray-700">
                   <tr>
                   <td className="px-4 py-2 font-bold"> {t('userInfo.employeeName')}</td>
