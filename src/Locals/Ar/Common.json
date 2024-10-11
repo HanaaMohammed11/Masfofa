@@ -66,11 +66,12 @@
     "subjectNumber": "رقم المادة :",
     "subjectTitle": "موضوع المادة :",
     "subjectContent": "نص المادة :",
-    "authorizedEmployee": "الموظف المفوض - المسمى الوظيفي :",
+    "authorizedEmployee": "الموظف المفوض :",
     "sharedEmployees": "الموظفين المشتركين  :",
     "noRelatedSubjects": "لا توجد مواد",
     "negotiationLimit": "حدود التفاوض :",
     "notes": "ملاحظات :","relatedMatrix": ""
+    ,"action":"اجراء"
   },
   "matrix": {
     "title": "المصفوفات",

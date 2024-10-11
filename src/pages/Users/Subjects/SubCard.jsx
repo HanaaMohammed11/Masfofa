@@ -1,18 +1,11 @@
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
-import { Button, Card } from "flowbite-react";
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import db from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 
-export function SubCard({ searchTerm }) {
+export default function SubTable({ searchTerm }) {
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [matrixItems, setMatrixItems] = useState([]);
@@ -20,12 +13,8 @@ export function SubCard({ searchTerm }) {
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch the current user
   useEffect(() => {
-    const qUser = query(
-      collection(db, "users"),
-      where("ID", "==", localStorage.getItem("id"))
-    );
+    const qUser = query(collection(db, "users"), where("ID", "==", localStorage.getItem("id")));
     const unsubscribe = onSnapshot(qUser, (snapshot) => {
       const userData = snapshot.docs.map((doc) => ({
         docId: doc.id,
@@ -33,45 +22,31 @@ export function SubCard({ searchTerm }) {
       }));
       setUser(userData);
     });
-
     return () => unsubscribe();
   }, []);
 
-  // Fetch subjects based on the user info
   useEffect(() => {
-    const getSubjects = async () => {
-      if (user.length > 0 && user[0]?.ownerAdmin) {
-        setLoading(true);
-        const querySnapshot = await getDocs(
-          query(
-            collection(db, "subjects"),
-            where("ownerAdmin", "==", user[0].ownerAdmin)
-          )
-        );
+    if (user.length > 0) {
+      const getSubjects = async () => {
+        let querySnapshot;
+        if (user[0]?.ownerAdmin) {
+          querySnapshot = await getDocs(
+            query(collection(db, "subjects"), where("ownerAdmin", "==", user[0].ownerAdmin))
+          );
+        } else {
+          querySnapshot = await getDocs(
+            query(collection(db, "subjects"), where("ownerAdmin", "==", user[0].ID))
+          );
+        }
         const subjectsList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setMatrixItems(subjectsList);
         setLoading(false);
-      } else if (user.length > 0 && !user[0]?.ownerAdmin) {
-        setLoading(true);
-        const querySnapshot = await getDocs(
-          query(
-            collection(db, "subjects"),
-            where("ownerAdmin", "==", user[0].ID)
-          )
-        );
-        const subjectsList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setMatrixItems(subjectsList);
-        setLoading(false);
-      }
-    };
-
-    getSubjects();
+      };
+      getSubjects();
+    }
   }, [user]);
 
   const handleButtonClick = (subject) => {
@@ -92,52 +67,45 @@ export function SubCard({ searchTerm }) {
 
   if (filteredSubjects.length === 0) {
     return (
-      <div
-        className={`flex justify-center mt-44 items-center h-full ${direction}`}
-      >
+      <div className={`flex justify-center mt-44 items-center h-full ${direction}`}>
         <p className="text-xl text-gray-500">{t("articels.noResults")}</p>
       </div>
     );
   }
 
+  const getProfileImage = (item) => item.profileImage?.E || "/default-avatar.png";
+
   return (
-    <div className={`flex flex-wrap justify-center gap-9 p-9 ${direction}`}>
-      {filteredSubjects.map((item) => (
-        <Card
-          key={item.id}
-          className="max-w-sm text-center w-full h-80 transition-transform duration-300 transform hover:-translate-y-2 hover:scale-105"
-        >
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {item.subjectTitle}
-          </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            <span className="font-bold text-gray-800 dark:text-gray-200">
-              {item?.relatedMatrix?.companyName || t("articels.unknownCompany")}
-            </span>
-            <span> - {item.subjectNum}</span>
-          </p>
-          <div className="flex justify-center">
-            <Button
-              className="bg-[#64748B] w-32 mt-8"
-              onClick={() => handleButtonClick(item)}
-            >
-              {t("articels.details")}
-              <svg
-                className="-mr-1 ml-2 h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </Button>
-          </div>
-        </Card>
-      ))}
+    <div className={`p-4 overflow-x-auto mx-14  mt-9 ${direction}`}>
+      <table className="table-auto w-full text-sm text-center text-gray-500 dark:text-gray-400 shadow-lg rounded-xl" dir={direction}
+      >
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.subjectTitle")}</th>
+            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.authorizedEmployee")}</th>
+            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.action")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredSubjects.map((item, index) => (
+            <tr key={item.id} className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700`}>
+              <td className="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                {item.subjectTitle}
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="flex items-center">
+                  <img className="w-8 h-8 rounded-full" src={getProfileImage(item)} alt="User Avatar" />
+                </div>
+              </td>
+              <td className="px-4 py-3">
+                <button className={`font-semibold hover:underline  text-gray-600`} onClick={() => handleButtonClick(item)}>
+                  {t("articels.details")}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
