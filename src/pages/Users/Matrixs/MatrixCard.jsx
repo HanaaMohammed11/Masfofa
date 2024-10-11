@@ -18,7 +18,8 @@ export function MatrixCard(props) {
       <div className="text-center text-gray-500 mt-44">
         {t("matrixCardDashboard.noMatrix")}
       </div>
-    )}
+    );
+  }
   return (
     <div className="flex flex-wrap justify-center gap-9 p-9">
       {props.matrices.map((item) => (
@@ -42,7 +43,7 @@ export function MatrixCard(props) {
               }}
               className="bg-[#64748B] w-32 mt-8"
             >
-     {t("matrix.details")}
+              {t("matrix.details")}
               <svg
                 className="-mr-1 ml-2 h-4 w-4"
                 fill="currentColor"

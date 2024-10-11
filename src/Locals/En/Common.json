@@ -4,8 +4,9 @@
     "Employees": "Employees",
     "Articles": "Articles",
     "Matrices": "Matrix",
-    "masfofa": "Masfofa","home":"Corgov"
-    ,"download":"Download pdf"
+    "masfofa": "Masfofa",
+    "home": "Corgov",
+    "download": "Download pdf"
   },
   "login": {
     "email": "Email",
@@ -117,7 +118,8 @@
     "upload": "Click to upload image",
     "save": "Save",
     "success": "Saved successfully",
-    "error": "An error occurred during saving, please try again." ,"homeElements":"Home Elements image"
+    "error": "An error occurred during saving, please try again.",
+    "homeElements": "Home Elements image"
   },
   "addaccount": {
     "createAccount": "Create User Account",
@@ -130,6 +132,7 @@
     "accType": "Account type",
     "emp": "Employee",
     "admin": "Admin",
+    "superAdmin": "Super Admin",
     "noUsers": "No users available"
   },
   "userform": {
