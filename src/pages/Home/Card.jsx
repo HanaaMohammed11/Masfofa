@@ -53,7 +53,7 @@ export default function Cards() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-96 mt-44 mb-44">
+    <div className="flex justify-center items-center min-h-96 ">
       <div className="flex gap-4 items-center sm:p-4 flex-wrap justify-center">
         
         {/* Card 1 */}

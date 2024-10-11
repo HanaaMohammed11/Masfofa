@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { IoArrowBack } from "react-icons/io5";
 export default function MatrixInfo() {
   const pdfRef = useRef();
 
@@ -68,18 +69,26 @@ export default function MatrixInfo() {
       setLoading(false);
     }
   }, [matrix]);
+  const handleBack = () => {
+    navigate(-1);
+  };
+
 
   return (
     <div>
       <Topbanner />
+    <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
       <div
-        className="min-h-screen bg-gray-100 justify-center flex items-center"
+        className="min-h-screen  justify-center flex items-center"
         dir={direction}
       >
+        
         {loading ? (
           <Loader />
         ) : (
-          <Card className="w-[900px] h-auto my-9">
+          <Card className="w-[900px] h-auto ">
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center pb-10 ">
               <div className="mt-4 w-full">

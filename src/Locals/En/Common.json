@@ -6,7 +6,8 @@
     "Matrices": "Matrix",
     "masfofa": "Masfofa",
     "home": "Corgov",
-    "download": "Print"
+    "download": "Print",
+      "back":"Back"
   },
   "login": {
     "email": "Email",

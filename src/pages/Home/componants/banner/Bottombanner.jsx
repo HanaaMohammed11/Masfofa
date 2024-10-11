@@ -33,7 +33,7 @@ export default function Bottombanner() {
     <div 
       className="BottomBaner h-44 bg-cover bg-center " 
       style={{ 
-        backgroundImage: `url(${BottomBannerUrl})` 
+        backgroundImage: `url(${BottomBannerUrl})`,
       }}
     >
     

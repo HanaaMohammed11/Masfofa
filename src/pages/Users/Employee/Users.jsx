@@ -65,7 +65,7 @@ export default function Users() {
   );
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen ">
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
       </div>

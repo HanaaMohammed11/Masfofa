@@ -20,6 +20,7 @@ import SideBar from "../SideBar";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import "../../Dashboard/btns.css";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -51,7 +52,11 @@ export default function AddAccounts() {
       .min(6, "يجب أن يكون الرمز السري 6 أحرف على الأقل")
       .required("الرمز السري مطلوب"),
   });
+  const [isOpen, setIsOpen] = useState(null); 
 
+  const handleDropdownToggle = (id) => {
+    setIsOpen(isOpen === id ? null : id); 
+  };
   const handleRegister = async (values, { setSubmitting }) => {
     const { email, password, firstName, lastName, accountType } = values;
 
@@ -291,51 +296,80 @@ export default function AddAccounts() {
             </Modal.Body>
           </Modal>
 
-          <div
-            className=" bg-gray-100 flex flex-col items-center"
-            dir={direction}
-          >
-            <div
-              dir={direction}
-              className="w-[90%] mx-auto h-auto bg-white p-4 rounded-lg shadow-lg mt-10 xs:overflow-x-auto sm:overflow-x-visible"
-            >
-              <table
-                dir={direction}
-                className="table-auto w-full max-w-full  border-collapse"
-              >
-                <thead dir={direction}>
-                  <tr className="bg-gray-200" dir={direction}>
-                    <th className="px-4 py-2">{t("addaccount.firstName")}</th>
-                    <th className="px-4 py-2">{t("addaccount.email")}</th>
-                    <th className="px-4 py-2">{t("addaccount.password")}</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-700">
-                  {employees.length > 0 ? (
-                    employees.map((employee) => (
-                      <tr key={employee.id} className="border-t">
-                        <td className="px-4 py-2">
-                          {employee.firstname} {employee.lastname}
-                        </td>
-                        <td className="px-4 py-2 overflow-hidden">
-                          {employee.email}
-                        </td>
-                        <td className="px-4 py-2">{employee.password}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="px-4 py-10 text-center  ">
-                        {t("addaccount.noUsers")}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <div className=" overflow-x-auto flex flex-col items-center" dir={direction}>
+      <div
+        dir={direction}
+        className="overflow-x-auto w-[100%] mx-auto  p-4 rounded-lg shadow-lg mt-10"
+      >
+        <table
+          dir="rtl"
+          className="table-auto overflow-x-auto w-full  bg-[#D3A17A]"
+        >
+          <thead dir={direction}>
+            <tr dir={direction} className="bg-[#D3A17A] text-white">
+              <th className="px-4 py-2 text-sm md:text-base">
+                {t("addaccount.firstName")}
+              </th>
+              <th className="px-4 py-2 text-sm md:text-base">
+                {t("addaccount.email")}
+              </th>
+              <th className="px-4 py-2 text-sm md:text-base">
+                {t("addaccount.password")}
+              </th>
+              <th className="px-4 py-2 text-sm md:text-base">
+              {t("addaccount.accType")}
+
+              </th>
+              <th className="px-4 py-2 text-sm md:text-base">
+                {t("subjectInfo.action")}
+              </th>
+
+            </tr>
+          </thead>
+
+          <tbody className="text-gray-700">
+            {employees.length > 0 ? (
+              employees.map((employee) => (
+                <tr key={employee.id} className="border-t">
+                  <td className="px-4 py-2 text-sm md:text-base">
+                    {employee.firstname} {employee.lastname}
+                  </td>
+                  <td className="px-4 py-2 text-sm md:text-base">
+                    {employee.email}
+                  </td>
+                  <td className="px-4 py-2 text-sm md:text-base">
+                    {employee.password}
+                  </td>
+                  <td className="px-4 py-2 text-sm md:text-base">
+                    {employee.accountType}
+                  </td>
+
+                  <td className="px-4 py-2 relative">
+                    {/* أيقونة التعديل */}
+                    <button className="text-yellow-500 mx-2">
+                      <AiFillEdit size={20} />
+                    </button>
+
+                    {/* أيقونة الحذف */}
+                    <button className="text-red-500 mx-2">
+                      <AiFillDelete size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="px-4 py-10 text-center">
+        {t("addaccount.noUsers")}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 }

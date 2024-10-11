@@ -21,7 +21,7 @@ function AdminDashboard() {
         <div>
             <Topbanner/>
          
-        <div className="flex justify-around  bg-gray-100" dir={direction}>
+        <div className=" justify-around  bg-gray-100" dir={direction}>
           
         <SideBar/>
          

@@ -1,49 +1,35 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "./use-outside-click";
+import React, { useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
+import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 export default function MatrixCard({ searchQuery, handleShowInfo }) {
-  const [active, setActive] = useState(null);
   const [matrix, setMatrix] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
-  const ref = useRef(null);
   const id = useId();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const deleteMatrix = async (matrixId) => {
     const matrixRef = doc(db, "matrix", matrixId);
     try {
       await deleteDoc(matrixRef);
-      console.log("Document successfully deleted!");
+      console.log("تم حذف المستند بنجاح!");
     } catch (error) {
-      console.error("Error deleting document: ", error);
+      console.error("خطأ في حذف المستند: ", error);
     }
   };
 
   const show = (matrixItem) => {
-    // navigation("/AdminMtrixInfo", { state: { matrix: matrixItem } });
     handleShowInfo(matrixItem);
   };
 
-  const Edit = (matrixItem) => {
-    navigation("/MatrixEditForm", { state: { matrix: matrixItem } });
+  const edit = (matrixItem) => {
+    navigate("/MatrixEditForm", { state: { matrix: matrixItem } });
   };
 
   useEffect(() => {
@@ -52,122 +38,84 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
       where("ownerAdmin", "==", localStorage.getItem("id"))
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const Matrixs = [];
+      const matrixData = [];
       snapshot.forEach((doc) => {
-        Matrixs.push({ id: doc.id, ...doc.data() });
+        matrixData.push({ id: doc.id, ...doc.data() });
       });
-      setMatrix(Matrixs);
-      setLoading(false); // Set loading to false once data is fetched
+      setMatrix(matrixData);
+      setLoading(false);
     });
     return () => unsubscribe();
-  }, []); // Fixed the dependency array here.
-
-  useOutsideClick(ref, () => setActive(null));
+  }, []);
 
   const filteredMatrix = matrix.filter((card) =>
     card.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <div className="h-screen">
-      <AnimatePresence>
-        {active && typeof active === "object" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 h-full w-full z-10"
-          />
-        )}
-      </AnimatePresence>
+    <div className={`overflow-x-auto mx-4 md:mx-3  mt-6 mb-9  ${direction}`}>
+      {loading ? (
+        <div className="flex justify-center items-center m-44">
+          <Loader />
+        </div>
+      ) : filteredMatrix.length > 0 ? (
+        <table
+          className="w-[1000px] text-center text-gray-500 dark:text-gray-400 shadow-lg"
+          dir={direction}
+        >
+          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
+                {t("matrixinfo.name")}
+              </th>
+              <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
+                {t("matrixinfo.publisher")}
+              </th>
+              <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
+                {t("subjectInfo.action")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredMatrix.map((card, index) => (
+              <tr
+                key={card.id}
+                className={`${
+                  index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"
+                } border-b dark:bg-gray-800 dark:border-gray-700 transition-all`}
+              >
+                {/* العنوان */}
+                <td className="px-4 py-2 md:px-6 md:py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap text-sm md:text-base">
+                  {card.title}
+                </td>
 
-      <AnimatePresence>
-        {active && typeof active === "object" ? (
-          <div className="fixed inset-0 grid place-items-center z-[100] ">
-            <motion.button
-              className="absolute top-2 right-2"
-              onClick={() => setActive(null)}
-            >
-              <CloseIcon />
-            </motion.button>
-            <motion.div
-              ref={ref}
-              className="w-full max-w-[500px] bg-white p-4 rounded-lg shadow-md"
-            >
-              <div className="p-4 text-center ">
-                <h3 className="text-lg font-bold p-9">{active.title}</h3>
-                <p className="text-gray-600">{active.description}</p>
-                <button
-                  onClick={() => Edit(active)}
-                  className="mt-2 ml-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                >
-                  {t("matrixCardDashboard.update")}
-                </button>
-                <button
-                  onClick={() => deleteMatrix(active.id)}
-                  className="mt-2 ml-2 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                >
-                  {t("matrixCardDashboard.delete")}
-                </button>
-                <button
-                  onClick={() => show(active)}
-                  className="mt-2 ml-2 bg-gray-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                >
-                  {t("matrix.details")}
-                </button>
-                <div className="mt-2">
-                  {typeof active.content === "function"
-                    ? active.content()
-                    : active.content}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        ) : null}
-      </AnimatePresence>
+                <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">{card.companyName}</td>
 
-      <div className="flex justify-center items-center ">
-        {loading ? (
-          <div className=" flex justify-center items-center m-44">
-            <Loader />
-          </div>
-        ) : filteredMatrix.length > 0 ? (
-          filteredMatrix.map((card) => (
-            <motion.div
-              key={`card-${card.title}-${id}`}
-              className="bg-white rounded-lg shadow-md overflow-hidden "
-              onClick={() => setActive(card)}
-            >
-              <div className="w-60 h-44 text-center p-12">
-                <h3 className="text-lg font-bold">{card.title}</h3>
-                <p className="text-gray-600">{card.companyName}</p>
-              </div>
-            </motion.div>
-          ))
-        ) : (
-          <div className="text-center">{t("matrixCardDashboard.noMatrix")}</div>
-        )}
-      </div>
+                <td className="py-2 px-4 text-center">
+                  <div className="flex justify-center space-x-2 md:space-x-4">
+                    {/* أيقونة العرض */}
+                    <button onClick={() => show(card)} className="text-blue-500 ml-4">
+                      <AiFillEye size={20} />
+                    </button>
+
+                    {/* أيقونة التعديل */}
+                    <button onClick={() => edit(card)} className="text-yellow-500 ">
+                      <AiFillEdit size={20} />
+                    </button>
+
+                    {/* أيقونة الحذف */}
+                    <button onClick={() => deleteMatrix(card.id)} className="text-red-500">
+                      <AiFillDelete size={20} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="text-center">{t("matrixCardDashboard.noMatrix")}</div>
+      )}
     </div>
   );
 }
-
-export const CloseIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-4 w-4 text-black"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
-    </svg>
-  );
-};

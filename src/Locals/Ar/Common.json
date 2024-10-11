@@ -7,6 +7,7 @@
     "masfofa": "مصفوفتي",
     "home": "الرئيسية",
     "download": "طباعة"
+    ,"back":"العودة"
   },
   "login": {
     "email": "البريد الإلكتروني",
@@ -99,7 +100,7 @@
     "definitions": "التعريفات :",
     "permissions": "الصلاحيات التابعة لها :",
     "subjectTitle": "عنوان المادة :",
-    "noRelatedSubjects": "لا توجد مواد مرتبطة",
+    "noRelatedSubjects": "لا توجد مواد",
     "notes": "ملاحظات :"
   },
   "sidebar": {

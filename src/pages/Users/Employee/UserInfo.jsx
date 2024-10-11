@@ -14,6 +14,7 @@ import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function UserInfo() {
   const location = useLocation();
@@ -69,13 +70,18 @@ export default function UserInfo() {
     };
     fetchSubjectByEmployeeID();
   }, [user.id]);
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
       <Topbanner />
-  
+      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
       <div
-        className="min-h-screen flex justify-center items-start mt-8"
+        className="min-h-screen flex justify-center items-start "
         dir={direction}
       >
          {loading ? ( 

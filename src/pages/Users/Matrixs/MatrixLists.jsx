@@ -208,13 +208,13 @@ export default function MatrixLists() {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 px-4 py-2 rounded-full bg-[#da9c78] text-white"
+          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
         >
           {t("matrix.searchButton")}
         </button>
         <button
           onClick={handleClearFilters}
-          className="ml-2 px-4 py-2 rounded-full bg-[#c9966a] text-white"
+          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
         >
           {t("matrix.clearFilters")}
         </button>

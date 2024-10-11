@@ -9,6 +9,7 @@ import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { IoArrowBack } from "react-icons/io5";
 export default function SubjectInfo() {
   const { t, i18n } = useTranslation("global");
   const pdfRef = useRef();
@@ -73,20 +74,26 @@ export default function SubjectInfo() {
   const emp2 = employees.find(
     (emp) => emp.employeeId === clickedSubject.emp2Id
   );
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
       <Topbanner />
+      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
       <div className="min-h-screen  justify-center flex items-center">
         <Card className="w-[1200px] ">
-        <div className="mt-4 w-full" dir={direction}>
+        <div className=" w-full" dir={direction}>
               <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">     {t("text.download")}</Button>
             </div>
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
           
             {/* الجدول */}
-            <div className="mt-4 w-full" ref={pdfRef}>
+            <div className=" w-full" ref={pdfRef}>
               <table
                 className="min-w-full  border-collapse table-fixed"
                 dir={direction}

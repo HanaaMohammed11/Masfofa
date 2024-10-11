@@ -60,7 +60,7 @@ export default function MatrixForm() {
       <div className="w-full max-w-5xl p-4 md:p-8">
         <h1
           dir={direction}
-          className=" text-2xl md:text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl"
+          className=" text-2xl md:text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-4 md:p-5 rounded-t-xl"
         >
           {t("matrixForm.addNewMatrix")}
         </h1>
@@ -179,7 +179,7 @@ export default function MatrixForm() {
         {/* قسم التعريفات */}
         <h2
           dir={direction}
-          className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
+          className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#CDA03D] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
         >
           {t("matrixForm.definitions")}
         </h2>

@@ -4,7 +4,8 @@
     padding: 10px 20px;
     border: none;
     border-radius: 50%;
-    background-color: #d4af37; 
+    box-shadow: #535353 2px 2px 9px;
+    background-color: #CDA03D; 
     color: white;
   
     text-transform: uppercase;
@@ -60,7 +61,7 @@
 }
 
 .add-g {
-    background-color: #d4af37; 
+    background-color: #CDA03D; 
 }
 .rotating-image {
     width: 100px; 
