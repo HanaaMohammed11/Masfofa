@@ -6,7 +6,7 @@
     "Matrices": "Matrix",
     "masfofa": "Masfofa",
     "home": "Corgov",
-    "download": "Download pdf"
+    "download": "Print"
   },
   "login": {
     "email": "Email",
@@ -68,13 +68,14 @@
   },
   "subjectInfo": {
     "subjectNumber": "Article Number :",
-    "subjectTitle": "Article Title :",
+    "subjectTitle": "Article Title ",
     "subjectContent": "Article Content :",
-    "authorizedEmployee": "Authorized Employee - Job Title :",
+    "authorizedEmployee": "Authorized Employee ",
     "sharedEmployees": "Participants Employees :",
     "noRelatedSubjects": "No related Articles",
     "negotiationLimit": "Authorization Limit :",
-    "notes": "Notes :"
+    "notes": "Notes :",
+    "action": "Action"
   },
   "matrix": {
     "title": "Matrix",

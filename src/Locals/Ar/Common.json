@@ -6,7 +6,7 @@
     "Matrices": "المصفوفات",
     "masfofa": "مصفوفتي",
     "home": "الرئيسية",
-    "download": "تحميل"
+    "download": "طباعة"
   },
   "login": {
     "email": "البريد الإلكتروني",
@@ -67,12 +67,13 @@
     "subjectNumber": "رقم المادة :",
     "subjectTitle": "موضوع المادة :",
     "subjectContent": "نص المادة :",
-    "authorizedEmployee": "الموظف المفوض - المسمى الوظيفي :",
+    "authorizedEmployee": "الموظف المفوض :",
     "sharedEmployees": "الموظفين المشتركين  :",
     "noRelatedSubjects": "لا توجد مواد",
     "negotiationLimit": "حدود التفاوض :",
     "notes": "ملاحظات :",
-    "relatedMatrix": ""
+    "relatedMatrix": "",
+    "action": "اجراء"
   },
   "matrix": {
     "title": "المصفوفات",

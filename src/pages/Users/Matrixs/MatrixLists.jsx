@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { MatrixCard } from "./MatrixCard";
+import  MatrixTable  from "./MatrixCard";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
@@ -208,13 +208,13 @@ export default function MatrixLists() {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 px-4 py-2 rounded-full bg-blue-500 text-white"
+          className="ml-2 px-4 py-2 rounded-full bg-[#da9c78] text-white"
         >
           {t("matrix.searchButton")}
         </button>
         <button
           onClick={handleClearFilters}
-          className="ml-2 px-4 py-2 rounded-full bg-red-500 text-white"
+          className="ml-2 px-4 py-2 rounded-full bg-[#c9966a] text-white"
         >
           {t("matrix.clearFilters")}
         </button>
@@ -233,7 +233,7 @@ export default function MatrixLists() {
   </div>
 ) : (
   <div className="flex-grow">
-    <MatrixCard matrices={filteredMatrices} />
+    <MatrixTable matrices={filteredMatrices} />
   </div>
 )}
       <div className="mt-auto">

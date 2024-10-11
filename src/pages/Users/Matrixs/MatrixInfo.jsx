@@ -83,7 +83,13 @@ export default function MatrixInfo() {
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center pb-10 ">
               <div className="mt-4 w-full">
-                <Button onClick={downloadPDF}>Download PDF</Button>
+                <Button
+                  onClick={downloadPDF}
+                  className="bg-[#d4af37] rounded-full"
+                >
+                  {" "}
+                  {t("text.download")}
+                </Button>
               </div>
               {/* الجدول */}
               <div className="mt-4 w-full " ref={pdfRef}>
@@ -97,7 +103,7 @@ export default function MatrixInfo() {
                         {matrix.title}
                       </td>
                     </tr>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.releaseDate")}
                       </td>
@@ -114,7 +120,7 @@ export default function MatrixInfo() {
                         {matrix.updateDate}
                       </td>
                     </tr>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.publisher")}
                       </td>
@@ -131,7 +137,7 @@ export default function MatrixInfo() {
                         {matrix.intro}
                       </td>
                     </tr>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {" "}
                         {t("matrixinfo.definitions")}
@@ -180,7 +186,7 @@ export default function MatrixInfo() {
                       </tr>
                     )}
 
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.notes")}
                       </td>
