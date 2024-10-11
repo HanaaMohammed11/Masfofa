@@ -76,33 +76,16 @@ export default function AdminUserInfo() {
   const handleCardClick = (proxyEmployee) => {
     navigate("/proxyemployeeinfo", { state: { user: proxyEmployee, mainUser: user.id } });
   };
-  const [activeItem, setActiveItem] = useState(t("sidebar.dashboard"));  
+ 
 
 
-  const handleItemClick = (item) => {
-      setActiveItem(item);
-  };
-
-  const renderComponent = () => {
-      // const components = {
-      //     [t("sidebar.dashboard")]: <MatrixList />,
-      //     [t("sidebar.editAppearance")]: <EditTheme />,
-      //     [t("sidebar.employees")]: <AdminUsers />,
-      //     [t("sidebar.permissions")]: <SubjectList />,
-      //     [t("sidebar.addUser")]: <AddAccounts />
-      // };
-
-      // return components[activeItem] || null; 
-  };
 
   return (
     <div>
       <Topbanner />
-      <div className="flex-grow">
-                {renderComponent()}
-            </div>
+   
             <div className="w-64">
-                <SideBar activeItem={activeItem} onItemClick={handleItemClick} />
+                <SideBar  />
             </div>
       <div className="min-h-screen bg-gray-100 justify-center flex items-center"      dir={direction}>
      

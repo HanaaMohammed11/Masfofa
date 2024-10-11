@@ -37,7 +37,7 @@ function SideBar() {
   return (
     <>
       <button
-        className={`lg:hidden z-50 bg-[#f5bc42] p-2 rounded-md text-white`}
+        className={`lg:hidden z-50 bg-[#f5bc42] p-2 rounded-md text-white `}
         onClick={toggleSidebar}
         aria-label="Toggle sidebar"
       >

@@ -11,7 +11,7 @@ import db from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { use } from "i18next";
-import Loader from "../../Login/loder";
+import Loader from "../../Login/loader";
 
 export function SubCard({ searchTerm }) {
   const { t, i18n } = useTranslation("global");

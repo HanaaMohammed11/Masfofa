@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import SubjectForm from "./subjectForm";
-import { SubjctCard } from "./SubjectCard";
+import  SubjctCard  from "./SubjectCard";
 import { useTranslation } from "react-i18next";
 import btn from "../../../../assets/btn.png";
 import "../../../Dashboard/btns.css";
@@ -21,9 +21,9 @@ export default function SubjectList() {
   };
 
   return (
-    <div>
+
   
-    <div className="p-9 flex">
+    <div className="p-9 flex min-h-s">
       
    
 
@@ -55,6 +55,6 @@ export default function SubjectList() {
 </div>
 </div>
 
-    </div>
+
   );
 }

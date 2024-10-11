@@ -13,10 +13,12 @@ import db from "../../../../config/firebase";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Loader from "../../../Login/loader";
 
-export function SubjctCard({ searchTerm }) {
+export default function SubjctCard({ searchTerm }) {
   const navigation = useNavigate();
   const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
 
   const deleteSubject = async (subjectId, subjectTitle) => {
@@ -48,6 +50,7 @@ export function SubjctCard({ searchTerm }) {
         subjects.push({ id: doc.id, ...doc.data() });
       });
       setSubjects(subjects);
+      setLoading(false); // Set loading to false once subjects are fetched
     });
 
     return () => unsubscribe();
@@ -60,7 +63,11 @@ export function SubjctCard({ searchTerm }) {
 
   return (
     <div className="flex-col pt-9 text-center">
-      {filteredSubjects.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center min-h-[300px]">
+          <Loader /> {/* Show loader while fetching data */}
+        </div>
+      ) : filteredSubjects.length > 0 ? (
         filteredSubjects.map((subject, index) => (
           <Card key={index} className="w-full mb-9">
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -70,26 +77,19 @@ export function SubjctCard({ searchTerm }) {
               {t("subjectCardDashboard.subjectNum")}: {subject.subjectNum}
             </p>
             <div className="flex space-x-3">
-  <Button
-    onClick={() => Edit(subject)}
-    className=" ml-4"
-  >
-    {t("subjectCardDashboard.update")}
-  </Button>
-  <Button
-    onClick={() => deleteSubject(subject.id, subject.subjectTitle)}
-    className="bg-red-700 "
-  >
-    {t("subjectCardDashboard.delete")}
-  </Button>
-  <Button
-    className="bg-[#64748B]"
-    onClick={() => handleButtonClick(subject)} 
-  >
-    {t("articels.details")}
-  </Button>
-</div>
-
+              <Button onClick={() => Edit(subject)} className="ml-4">
+                {t("subjectCardDashboard.update")}
+              </Button>
+              <Button
+                onClick={() => deleteSubject(subject.id, subject.subjectTitle)}
+                className="bg-red-700"
+              >
+                {t("subjectCardDashboard.delete")}
+              </Button>
+              <Button className="bg-[#64748B]" onClick={() => handleButtonClick(subject)}>
+                {t("articels.details")}
+              </Button>
+            </div>
           </Card>
         ))
       ) : (

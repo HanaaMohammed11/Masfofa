@@ -6,7 +6,7 @@ import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
-import Loader from "../../Login/loder";
+import Loader from "../../Login/loader";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");

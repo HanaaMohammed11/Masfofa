@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import Loader from "./loder";
+import Loader from "./loader";
 import "./FormStyle.css";
 import { useTranslation } from "react-i18next";
 import { TranslateContext } from "../../TranslateContext/TransContext";

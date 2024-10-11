@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
-import Loader from "../../Login/loder";
+import Loader from "../../Login/loader";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 export default function MatrixInfo() {

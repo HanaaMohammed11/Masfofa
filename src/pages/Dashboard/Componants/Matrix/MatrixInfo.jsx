@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
-import Loader from "../../../Login/loder";
+import Loader from "../../../Login/loader";
 import SideBar from "../../SideBar";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -74,7 +74,7 @@ export default function AdminMatrixInfo() {
   return (
     <div>
       <Topbanner />
-     
+     <SideBar/>
       <div className="min-h-screen bg-gray-100 justify-center flex items-center" dir={direction}>
         {loading ? ( 
           <Loader />

@@ -15,10 +15,12 @@ import {
 } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
+import Loader from "../../../Login/loader";
 
 export default function MatrixCard({ searchQuery }) {
   const [active, setActive] = useState(null);
   const [matrix, setMatrix] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const ref = useRef(null);
@@ -30,10 +32,8 @@ export default function MatrixCard({ searchQuery }) {
     try {
       await deleteDoc(matrixRef);
       console.log("Document successfully deleted!");
-      // Add feedback for success if needed
     } catch (error) {
       console.error("Error deleting document: ", error);
-      // Add user feedback for failure
     }
   };
 
@@ -56,6 +56,7 @@ export default function MatrixCard({ searchQuery }) {
         Matrixs.push({ id: doc.id, ...doc.data() });
       });
       setMatrix(Matrixs);
+      setLoading(false); // Set loading to false once data is fetched
     });
     return () => unsubscribe();
   }, []); // Fixed the dependency array here.
@@ -124,8 +125,12 @@ export default function MatrixCard({ searchQuery }) {
         ) : null}
       </AnimatePresence>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredMatrix.length > 0 ? (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center">
+        {loading ? ( // Show the loading spinner when fetching data
+          <div className=" flex justify-center items-center m-44">
+       <Loader/> 
+          </div>
+        ) : filteredMatrix.length > 0 ? (
           filteredMatrix.map((card) => (
             <motion.div
               key={`card-${card.title}-${id}`}

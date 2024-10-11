@@ -31,6 +31,7 @@ import SubjectsList from "./pages/Dashboard/Componants/Subjects/SubjectList";
 import SubjectsLists from "./pages/Users/Subjects/SubjectList";
 import AdminMatrixInfo from "./pages/Dashboard/Componants/Matrix/MatrixInfo";
 import AdminSubjectInfo from "./pages/Dashboard/Componants/Subjects/AdminSubInfo";
+import SideBar from "./pages/Dashboard/SideBar";
 
 export default function App() {
   const navigate = useNavigate();
@@ -59,7 +60,6 @@ export default function App() {
           <Route path="/MatrixInfo" element={<MatrixInfo />} />
           <Route path="/userProxy" element={<UerProxy />} />
           <Route path="/subjectInfo" element={<SubjectInfo />} />
-
           <Route path="/AdminSubjectInfo" element={<AdminSubjectInfo  />} />
           <Route path="/admin-subjects" element={<SubjectsList />} />
           <Route path="/editproxy" element={<EditProxyrForm />} />

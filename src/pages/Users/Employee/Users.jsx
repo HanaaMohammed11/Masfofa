@@ -5,7 +5,7 @@ import UserCard from "./UserCard";
 import { useTranslation } from "react-i18next";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../config/firebase";
-import Loader from "../../Login/loder"; // تأكد من أن مسار اللودر صحيح
+import Loader from "../../Login/loader"; // تأكد من أن مسار اللودر صحيح
 import { useNavigate } from "react-router-dom";
 
 export default function Users() {

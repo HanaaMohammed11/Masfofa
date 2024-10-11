@@ -13,7 +13,7 @@ import {
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useTranslation } from "react-i18next";
-import Loader from "../../Login/loder";
+import Loader from "../../Login/loader";
 import SideBar from "../../Dashboard/SideBar";
 
 export default function UserInfo() {
