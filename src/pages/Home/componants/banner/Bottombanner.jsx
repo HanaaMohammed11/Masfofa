@@ -30,14 +30,19 @@ export default function Bottombanner() {
   }, []);
   return (
 
-    <div 
-      className="BottomBaner h-44 bg-cover bg-center " 
-      style={{ 
-        backgroundImage: `url(${BottomBannerUrl})`,
-      }}
-    >
-    
-    </div>
+    <div
+    className="BottomBaner h-44 bg-cover bg-center"
+    style={{
+      backgroundImage: `url(${BottomBannerUrl})`,
+      position: "fixed",
+      bottom: 0,
+      left: 0,
+      width: "100%",
+      zIndex: 1000 
+    }}
+  >
+  </div>
+  
 
   );
 }

@@ -103,7 +103,14 @@ export default function Topbanner() {
   }, []);
 
   return (
-    <div className="w-full ">
+    <div className="w-full "  style={{ 
+
+      position: "fixed", 
+      top: 0, 
+      left: 0, 
+      width: "100%", 
+      zIndex: 1000 
+    }}>
       <Navbar
         fluid={true}
         rounded={true}
@@ -239,16 +246,20 @@ export default function Topbanner() {
 
       {/* Banner section */}
       <div
-        className="Topbaner w-full h-56 bg-cover bg-center flex justify-end items-center"
-        style={{ backgroundImage: `url(${topBannerUrl})` }}
-      >
-        {/* Logo */}
-        <div className="w-60 pr-5 pt-9 mb-12 logo">
-          <Link to="/" className="ml-4">
-            <img src={logoUrl} alt="Logo" />
-          </Link>
-        </div>
-      </div>
+  className="Topbaner w-full h-52 bg-cover bg-center flex justify-end items-center"
+  style={{ 
+    backgroundImage: `url(${topBannerUrl})`, 
+
+  }}
+>
+  {/* Logo */}
+  <div className="w-60 pr-5 pt-9 mb-12 logo">
+    <Link to="/" className="ml-4">
+      <img src={logoUrl} alt="Logo" />
+    </Link>
+  </div>
+</div>
+
     </div>
   );
 }

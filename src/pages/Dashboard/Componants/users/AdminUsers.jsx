@@ -6,7 +6,7 @@ import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader"; 
 
-export default function AdminUsers({ handleClickShow }) {
+export default function AdminUsers() {
   const { t } = useTranslation("global");
   const [searchTerm, setSearchTerm] = useState("");
   const [showUserForm, setShowUserForm] = useState(false);
@@ -38,14 +38,6 @@ export default function AdminUsers({ handleClickShow }) {
     fetchUsers();
   }, [showUserForm]);
 
-  const handleClick = () => {
-    setShowUserForm(!showUserForm);
-  };
-  const [selectedUser, setSelectedUser] = useState(null);
-  const handleShowInfo = (user) => {
-    setSelectedUser(user);
-  };
-
   const filteredUsers = usersData.filter(user => {
     const userName = user.employeeName?.toLowerCase() || "";
     const userEmail = user.email?.toLowerCase() || "";
@@ -56,7 +48,7 @@ export default function AdminUsers({ handleClickShow }) {
   return (
     <div className="p-9 w-full min-h-screen">
       <div className="flex flex-col w-full xs:items-center">
-        <div className="add-btn add-g add-c add-uppercase add-text" onClick={handleClick}>
+        <div className="add-btn add-g add-c add-uppercase add-text" onClick={() => setShowUserForm(!showUserForm)}>
           {t("userform.adduser")}
         </div>
 
@@ -78,8 +70,23 @@ export default function AdminUsers({ handleClickShow }) {
               <Loader />
             </div>
           ) : filteredUsers.length > 0 ? (
-            filteredUsers.map(user => (
-              <AdminUserCard key={user.employeeId} user={user} handleShowInfo={handleShowInfo} />        ))
+            <div className="overflow-x-auto w-full mx-9 my-10 shadow-2xl">
+              <table className="w-full text-center text-gray-500 dark:text-gray-400">
+                <thead className="text-center text-lg bg-white">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">{t("userInfo.employeeName")}</th>
+                    <th scope="col" className="px-6 py-3">{t("job.jobTitle")}</th>
+                    <th scope="col" className="px-6 py-3">{t("job.phoneNumber")}</th>
+                    <th scope="col" className="px-6 py-3">{t("EmpCard.details")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredUsers.map((user, index) => (
+                    <AdminUserCard key={user.employeeId} user={user} index={index} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p className="text-center text-gray-500">{t("EmpCard.noEmp")}</p>
           )}
