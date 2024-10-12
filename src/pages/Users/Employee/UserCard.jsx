@@ -38,11 +38,13 @@ function UserTable({ users }) {
               className={`${index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white'} border-b dark:bg-gray-800 dark:border-gray-700`}
             >
               <td className="px-6 py-4 text-gray-900 dark:text-white flex items-center justify-center">
+              <div style={profileContainerStyle}>
               <img
-                  src={user.profileImage}  
-                  alt={user.name}
-                  className="w-10 h-10 rounded-full  "
-                />
+                alt={`${user.employeeName} image`}
+                src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
+                style={imageStyle}
+              />
+            </div>
                 <span className='m-3'>
                 {user.employeeName}
                 </span>
@@ -69,3 +71,34 @@ function UserTable({ users }) {
 }
 
 export default UserTable;
+const profileContainerStyle = {
+  margin: 'auto',
+  width: '70px',
+  height: '70px',
+  position: 'relative',
+  borderRadius: '50%',
+  border: '10px solid transparent', 
+  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%) border-box',
+  animation: 'rotate-border 5s linear infinite',
+};
+
+// أنماط الصورة
+const imageStyle = {
+  width: '100%',
+  height: '100%',
+  borderRadius: '50%', 
+  display: 'block',
+};
+
+// يمكنك إضافة أنماط CSS أدناه
+const style = `
+  @keyframes rotate-border {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+document.head.insertAdjacentHTML("beforeend", `<style>${style}</style>`);
