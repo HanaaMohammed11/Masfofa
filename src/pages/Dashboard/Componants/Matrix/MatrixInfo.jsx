@@ -71,7 +71,7 @@ export default function AdminMatrixInfo({ item }) {
   return (
     <div>
       <div
-        className="min-h-screen bg-gray-100 justify-center flex items-center"
+        className="min-h-screen  justify-center flex items-center"
         dir={direction}
       >
         {loading ? (
@@ -79,7 +79,7 @@ export default function AdminMatrixInfo({ item }) {
         ) : (
           <Card className="w-[900px] h-auto my-9">
             <div className="mt-4 w-full">
-              <Button onClick={downloadPDF}>{t("text.download")}</Button>
+              <Button className="bg-[#d4af37] rounded-full" onClick={downloadPDF}>{t("text.download")}</Button>
             </div>
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center pb-10 " ref={pdfRef}>
@@ -95,7 +95,7 @@ export default function AdminMatrixInfo({ item }) {
                         {item.title}
                       </td>
                     </tr>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.releaseDate")}
                       </td>
@@ -111,7 +111,7 @@ export default function AdminMatrixInfo({ item }) {
                         {item.updateDate}
                       </td>
                     </tr>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.publisher")}
                       </td>
@@ -127,7 +127,7 @@ export default function AdminMatrixInfo({ item }) {
                         {item.intro}
                       </td>
                     </tr>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.definitions")}
                       </td>
@@ -170,7 +170,7 @@ export default function AdminMatrixInfo({ item }) {
                         </td>
                       </tr>
                     )}
-                    <tr className="bg-gray-100">
+                    <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
                         {t("matrixinfo.notes")}
                       </td>

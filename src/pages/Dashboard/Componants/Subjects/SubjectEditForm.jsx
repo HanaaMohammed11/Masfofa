@@ -16,6 +16,7 @@ import save from "../../../../../src/assets/save.png";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import "../../../Home/Card.css";
+import { IoArrowBack } from "react-icons/io5";
 export default function SubjectEditForm() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -112,14 +113,24 @@ export default function SubjectEditForm() {
       unsubscribeEmployees();
     };
   }, []);
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div>
       <Topbanner />
-      <div className="flex" dir={direction}>
+      <div
+      className="   "
+      dir={direction}
+      
+    >
+        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
+      <div className="flex" dir={direction} style={{paddingBottom:"400px"}}>
         <div className="mx-auto p-8 w-full max-w-5xl">
           <h1
-            className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
+            className="text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
             dir={direction}
           >
             {t("subjectEditForm.editSubject")}

@@ -55,15 +55,12 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
   return (
     <div className={`mx-4 md:mx-3 mt-6 mb-9 ${direction}`}>
       {loading ? (
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center">
           <Loader />
         </div>
       ) : filteredMatrix.length > 0 ? (
-        <div className="overflow-y-auto h-96"> {/* تحديد ارتفاع الجدول */}
-          <table
-            className="min-w-full text-center text-gray-500 dark:text-gray-400 shadow-lg"
-            dir={direction}
-          >
+        <div className={`overflow-x-auto mx-14 shadow-2xl mb-9 mt-9 ${direction} w-[1500px]`}>
+          <table className="min-w-full text-center text-gray-500 dark:text-gray-400 shadow-lg" dir={direction}>
             <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
@@ -81,29 +78,25 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
               {filteredMatrix.map((card, index) => (
                 <tr
                   key={card.id}
-                  className={`${
-                    index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"
-                  } border-b dark:bg-gray-800 dark:border-gray-700 transition-all`}
+                  className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700 transition-all`}
                 >
                   {/* العنوان */}
                   <td className="px-4 py-2 md:px-6 md:py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap text-sm md:text-base">
                     {card.title}
                   </td>
-  
                   <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">{card.companyName}</td>
-  
                   <td className="py-2 px-4 text-center">
                     <div className="flex justify-center space-x-2 md:space-x-4">
                       {/* أيقونة العرض */}
                       <button onClick={() => show(card)} className="text-blue-500 ml-4">
                         <AiFillEye size={20} />
                       </button>
-  
+
                       {/* أيقونة التعديل */}
-                      <button onClick={() => edit(card)} className="text-yellow-500 ">
+                      <button onClick={() => edit(card)} className="text-yellow-500">
                         <AiFillEdit size={20} />
                       </button>
-  
+
                       {/* أيقونة الحذف */}
                       <button onClick={() => deleteMatrix(card.id)} className="text-red-500">
                         <AiFillDelete size={20} />
@@ -120,6 +113,4 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
       )}
     </div>
   );
-  
-  
 }
