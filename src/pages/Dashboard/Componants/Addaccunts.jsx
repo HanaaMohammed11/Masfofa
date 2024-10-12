@@ -3,6 +3,8 @@ import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import emailjs from "emailjs-com";
+import { deleteDoc, doc } from "firebase/firestore"; // Import deleteDoc and doc from firestore
+import { deleteUser } from "firebase/auth";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import db from "../../../config/firebase";
 import {
@@ -37,7 +39,24 @@ export default function AddAccounts() {
     password: "",
     accountType: "employee",
   };
-
+  const handleDelete = async (employeeId, userId) => {
+    try {
+      // Delete from Firestore
+      await deleteDoc(doc(db, "users", employeeId));
+  
+      // Delete from Firebase Authentication
+      const user = auth.currentUser; // Get the current user
+      if (user && user.uid === userId) {
+        await deleteUser(user); // Delete the user if they match the userId
+      }
+  
+      console.log("User deleted successfully");
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      setError("حدث خطأ أثناء حذف المستخدم.");
+    }
+  };
+  
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("الاسم الأول مطلوب"),
     lastName: Yup.string().required("الاسم الأخير مطلوب"),
@@ -209,31 +228,33 @@ export default function AddAccounts() {
                     <th className="px-4 py-2">{t("subjectInfo.action")}</th>
                   </tr>
                 </thead>
-
                 <tbody className="text-gray-700">
-                  {filteredEmployees.length > 0 ? (
-                    filteredEmployees.map((employee) => (
-                      <tr
-                        key={employee.ID}
-                        className="border-t hover:bg-gray-100"
-                      >
-                        <td className="px-4 py-2">
-                          {employee.firstname} {employee.lastname}
-                        </td>
-                        <td className="px-4 py-2">{employee.email}</td>
-                        <td className="px-4 py-2">{employee.password}</td>
-                        <td className="px-4 py-2">{employee.accountType}</td>
-                        <td className="px-4 py-2 flex justify-center space-x-2"></td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="5" className="px-4 py-10 text-center">
-                        {t("addaccount.noUsers")}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
+  {filteredEmployees.length > 0 ? (
+    filteredEmployees.map((employee) => (
+      <tr key={employee.ID} className="border-t hover:bg-gray-100">
+        <td className="px-4 py-2">
+          {employee.firstname} {employee.lastname}
+        </td>
+        <td className="px-4 py-2">{employee.email}</td>
+        <td className="px-4 py-2">{employee.password}</td>
+        <td className="px-4 py-2">{employee.accountType}</td>
+        <td className="px-4 py-2 flex justify-center space-x-2">
+          <AiFillDelete
+            className="text-red-500 cursor-pointer"
+            onClick={() => handleDelete(employee.docId, employee.ID)}
+          />
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5" className="px-4 py-10 text-center">
+        {t("addaccount.noUsers")}
+      </td>
+    </tr>
+  )}
+</tbody>
+
               </table>
             </div>
           </div>
