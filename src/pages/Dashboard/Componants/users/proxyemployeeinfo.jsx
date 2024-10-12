@@ -6,6 +6,7 @@ import Bottombanner from "./../../../Home/componants/banner/Bottombanner";
 import { getFirestore, doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import SideBar from "../../SideBar";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function Proxyemployeeinfo() {
   const location = useLocation();
@@ -70,14 +71,23 @@ export default function Proxyemployeeinfo() {
   const handleEdit = () => {
     navigate("/editproxy", { state: { user: { ...user, id: user.id } } });
   };
-  
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
       <Topbanner />
-      <SideBar/>
-      <div className="min-h-screen bg-gray-100 justify-center flex items-center"  dir={direction}>
-        <Card className="w-[900px] h-auto my-12"  dir={direction}>
+      <div
+      className="   "
+      dir={direction}
+      
+    >
+        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
+      <div className=" justify-center flex items-center pb-[100px]"   dir={direction}>
+        <Card className="w-[900px] h-auto "  dir={direction}>
           <div className="flex flex-col items-center pb-10"  >
             <img
               alt="User Avatar"
@@ -95,7 +105,7 @@ export default function Proxyemployeeinfo() {
                     </td>
                 
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                   <td className="px-4 py-2 font-bold"> {t('userInfo.employeeId')}</td>
                     <td className="px-4 py-2">
                       {user.employeeId || user.proxyEmployeeId}
@@ -108,7 +118,7 @@ export default function Proxyemployeeinfo() {
                       {user.hiringDate || user.proxyHireDate}
                     </td>
                     </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                    
                     <td className="px-4 py-2 font-bold">{t('userInfo.jobGrade')}</td>    <td className="px-4 py-2">
                       {user.jobGrade || user.proxyJobGrade}
@@ -120,7 +130,7 @@ export default function Proxyemployeeinfo() {
                       {user.department || user.proxyDepartment}
                     </td>
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                   <td className="px-4 py-2 font-bold">{t('userInfo.officeNumber')}</td>
 
                     <td className="px-4 py-2">
@@ -134,7 +144,7 @@ export default function Proxyemployeeinfo() {
                     </td>
                  
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                   <td className="px-4 py-2 font-bold">{t('userInfo.phoneNumber')}</td>
 
                     <td className="px-4 py-2">

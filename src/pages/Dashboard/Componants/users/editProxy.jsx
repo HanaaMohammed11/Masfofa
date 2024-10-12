@@ -8,6 +8,7 @@ import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import "../../../Home/Card.css";
 import SideBar from "../../SideBar";
+import { IoArrowBack } from "react-icons/io5";
 
 const FormField = ({ id, label, value, onChange }) => (
   <div>
@@ -103,12 +104,21 @@ export default function EditProxyrForm() {
     { id: "proxyCurrentOffice", label: t("userform.proxyCurrentOffice") },
     { id: "proxyEmail", label: t("userform.proxyEmail") }
   ];
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div>
       <Topbanner/>
-      <SideBar/>
-    <div className="flex justify-center items-center min-h-screen" >
+      <div
+      className="   "
+      dir={direction}
+      
+    >
+        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
+    <div className="flex justify-center items-center pb-[200px]" >
     <div className="bg-white p-8 rounded-lg shadow-md  w-full max-w-5xl ">
       <form onSubmit={handleSave}>
       <div className="flex flex-col items-center mb-6 ">

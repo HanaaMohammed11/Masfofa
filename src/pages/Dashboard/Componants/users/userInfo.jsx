@@ -100,13 +100,11 @@ export default function AdminUserInfo() {
      
         <Card className="w-[900px] " >
           <div className="flex flex-col items-center pb-10">
-          <div style={profileContainerStyle}>
-              <img
-                alt={`${user.employeeName} image`}
-                src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-                style={imageStyle}
-              />
-            </div>
+            <img
+              alt="User Avatar"
+              src={user.profileImage ||"https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
+              className="mb-3 rounded-full shadow-lg w-60 h-60"
+            />
             <div className="mt-4 w-full">
               <table className="min-w-full border-collapse">
                 <tbody className="text-gray-700">
@@ -245,35 +243,3 @@ export default function AdminUserInfo() {
     </div>
   );
 }
-
-const profileContainerStyle = {
-  margin: 'auto',
-  width: '70px',
-  height: '70px',
-  position: 'relative',
-  borderRadius: '50%',
-  border: '20px solid transparent', // إطار شفاف
-  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%) border-box',
-  animation: 'rotate-border 5s linear infinite',
-};
-
-// أنماط الصورة
-const imageStyle = {
-  width: '100%',
-  height: '100%',
-  borderRadius: '50%', // لضمان كون الصورة دائرية
-  display: 'block',
-};
-
-// يمكنك إضافة أنماط CSS أدناه
-const style = `
-  @keyframes rotate-border {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
-document.head.insertAdjacentHTML("beforeend", `<style>${style}</style>`);
