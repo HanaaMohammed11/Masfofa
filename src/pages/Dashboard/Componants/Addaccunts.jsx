@@ -158,24 +158,43 @@ export default function AddAccounts() {
     <div className="flex flex-col items-center h-screen">
       <div className="flex">
         <div className="sm:mx-0">
-          <button
-            className="add-btn add-g add-c add-uppercase add-text mt-10 flex justify-center items-center"
+        <div className="flex justify-between flex-col md:flex-row mb-6">
+          <div
+            className="add-btn add-g add-c add-uppercase add-text mb-4 md:mb-0 flex items-center text-center"
+            onClick={() => setOpenModal(true)}          >
+     {t("addaccount.createAccount")}          </div>
+  
+          {/* Search Input */}
+          <div className="search flex justify-center w-full md:w-auto">
+            <input
+              type="text"
+              placeholder={t("subjectEditForm.search")}
+              className="h-12 w-full md:w-80 rounded-full text-right"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+   
+          {/* <button
+            className="add-btn add-g add-c add-uppercase add-text  flex justify-center items-center"
             onClick={() => setOpenModal(true)}
           >
             {t("addaccount.createAccount")}
           </button>
 
-          {/* Search Bar */}
-          <div className="my-4">
-            <TextInput
+ 
+          <div className="search flex justify-center w-full md:w-auto ">
+             <TextInput
               type="text"
               placeholder={t("addaccount.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full px-4 py-2  rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="h-12 w-full md:w-80 rounded-full text-right"
             />
-          </div>
+          </div> */}
 
+          </div>
+         
           <Modal
             show={openModal}
             size="md"
