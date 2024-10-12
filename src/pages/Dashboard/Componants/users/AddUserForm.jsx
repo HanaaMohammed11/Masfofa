@@ -19,7 +19,7 @@ export default function UserForm() {
   const navigation = useNavigate();
   const [employeeImageURL, setEmployeeImageURL] = useState(null);
   const [proxyEmployees, setProxyEmployees] = useState([{ imageURL: null }]);
-  const [isPopupVisible, setIsPopupVisible] = useState(false); 
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
   const handleSave = async () => {
     try {
       const storage = getStorage();
@@ -112,7 +112,7 @@ export default function UserForm() {
       );
       console.log("Employee document written with ID: ", employeeDocRef.id);
 
-      navigation("/dashboard");
+      // navigation("/dashboard");
 
       setIsPopupVisible(true);
     } catch (error) {
@@ -137,7 +137,10 @@ export default function UserForm() {
   };
 
   return (
-    <div className="flex lg:w-[900px] md:w-[500px]" style={{paddingBottom:"100px"}}>
+    <div
+      className="flex lg:w-[900px] md:w-[500px]"
+      style={{ paddingBottom: "100px" }}
+    >
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
         <h1
           className="text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
@@ -145,49 +148,48 @@ export default function UserForm() {
         >
           {t("userform.adduser")}
         </h1>
-
         <div className="bg-white p-8 rounded-lg shadow-md">
           <div className="flex flex-col items-center mb-6">
-          <Label
-  htmlFor="upload-file"
-  className="flex h-32 w-32 cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
->
-  <FileInput
-    id="upload-file"
-    className="hidden"
-    onChange={(e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const imageURL = URL.createObjectURL(file);
-        setEmployeeImageURL(imageURL);
-      }
-    }}
-  />
-  {employeeImageURL ? (
-    <img
-      src={employeeImageURL}
-      alt="Employee"
-      className="rounded-full h-full w-full"
-    />
-  ) : (
-    <div className="flex items-center justify-center h-full w-full">
-      <svg
-        className="h-5 w-5 text-gray-500"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 20 16"
-      >
-        <path
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-        />
-      </svg>
-    </div>
-  )}
-</Label>
+            <Label
+              htmlFor="upload-file"
+              className="flex h-32 w-32 cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+            >
+              <FileInput
+                id="upload-file"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const imageURL = URL.createObjectURL(file);
+                    setEmployeeImageURL(imageURL);
+                  }
+                }}
+              />
+              {employeeImageURL ? (
+                <img
+                  src={employeeImageURL}
+                  alt="Employee"
+                  className="rounded-full h-full w-full"
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full w-full">
+                  <svg
+                    className="h-5 w-5 text-gray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+                </div>
+              )}
+            </Label>
 
             <p className="text-center mt-2 text-xl text-gray-500 font-semibold">
               {t("userform.empimg")}
@@ -218,7 +220,6 @@ export default function UserForm() {
             <FormField label={t("userform.email")} id="email" />
           </div>
         </div>
-
         {/* Proxy Employee Section */}
         <h2
           className=" text-2xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl mt-9"
@@ -226,7 +227,6 @@ export default function UserForm() {
         >
           {t("userform.title")}
         </h2>
-
         {proxyEmployees.map((proxyEmployee, index) => (
           <div className="bg-white p-8 rounded-lg shadow-md mb-6" key={index}>
             {/* Upload Section for Proxy */}
@@ -319,21 +319,28 @@ export default function UserForm() {
             </div>
           </div>
         ))}
-
         <div className="flex justify-end">
           <Button onClick={addProxyEmployee} className="mt-4">
             {t("userform.appproxy")}
           </Button>
         </div>
-
-        {/* Save Button */} {isPopupVisible && (
-        <div style={popupStyles}>
-        <div style={popupContentStyles}>
-          <p>تم حفظ البيانات بنجاح!</p>
-          <button onClick={closePopup} className="text-red-600">إغلاق</button>
-        </div>
-      </div>
-    )}
+        {/* Save Button */}{" "}
+        {isPopupVisible && (
+          <div style={popupStyles}>
+            <div style={popupContentStyles}>
+              <p>تم حفظ البيانات بنجاح!</p>
+              <button
+                onClick={() => {
+                  closePopup();
+                  navigation(-1);
+                }}
+                className="text-red-600"
+              >
+                إغلاق
+              </button>
+            </div>
+          </div>
+        )}
         <div className="flex justify-center ">
           <div className="mt-6 flex justify-center">
             <div
@@ -369,20 +376,19 @@ function FormField({ label, id, type = "text" }) {
   );
 }
 const popupContentStyles = {
-  backgroundColor: '#fff',
-  padding: '20px',
-  borderRadius: '8px',
-  textAlign: 'center',
-
+  backgroundColor: "#fff",
+  padding: "20px",
+  borderRadius: "8px",
+  textAlign: "center",
 };
 const popupStyles = {
-  position: 'fixed',
+  position: "fixed",
   top: 0,
   left: 0,
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 };
