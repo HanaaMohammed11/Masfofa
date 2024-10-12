@@ -85,7 +85,7 @@ export default function AdminSubjectInfo({ item }) {
                       {item.subjectNum}
                     </td>
                   </tr>
-                  <tr className="bg-[#fce8ca]">
+                  <tr className="bg">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectTitle")}
                     </td>

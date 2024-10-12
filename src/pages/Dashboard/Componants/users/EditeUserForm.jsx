@@ -10,6 +10,7 @@ import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import "../../../Home/Card.css";
 import SideBar from "../../SideBar";
+import { IoArrowBack } from "react-icons/io5";
 export default function EditUserForm() {
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -100,18 +101,27 @@ export default function EditUserForm() {
     { id: "currentOffice", label: t("userform.currentOffice") },
     { id: "employeeEmail", label: t("userform.email") },
   ];
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div>
       <Topbanner />
-      <SideBar />
       <div
-        className="min-h-screen bg-gray-100 justify-center flex"
-        style={{ fontFamily: "cursive" }}
+      className="   "
+      dir={direction}
+      
+    >
+        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
+      <div
+        className="  justify-center flex"
+  
       >
-        <div className=" p-8 w-full max-w-5xl  ">
+        <div className=" p-8 w-full max-w-5xl  " style={{paddingBottom:"400px"}}>
           <h1
-            className=" text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
+            className=" text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
             dir={direction}
           >
             {t("userform.edittitle")}

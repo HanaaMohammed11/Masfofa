@@ -11,6 +11,7 @@ import EditTheme from "../EditTheme";
 import AdminUsers from "./AdminUsers";
 import SubjectList from "../Subjects/SubjectList";
 import AddAccounts from "../Addaccunts";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function AdminUserInfo() {
   const location = useLocation();
@@ -78,18 +79,26 @@ export default function AdminUserInfo() {
   };
  
 
-
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
       <Topbanner />
-   
-            <div className="w-64">
-                <SideBar  />
+      <div
+      className="   "
+      dir={direction}
+      
+    >
+        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+            </button></div>
+            <div className="w-64" >
             </div>
-      <div className="min-h-screen bg-gray-100 justify-center flex items-center"      dir={direction}>
+      <div className=" justify-center flex items-center"  style={{paddingBottom:"400px"}}    dir={direction}>
      
-        <Card className="w-[900px] h-auto my-12">
+        <Card className="w-[900px] " >
           <div className="flex flex-col items-center pb-10">
             <img
               alt="User Avatar"
@@ -107,7 +116,7 @@ export default function AdminUserInfo() {
                     <td className="px-4 py-2">{user.employeeName}</td>
                   
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
             
                     <td className="px-4 py-2 font-bold">
                       {" "}
@@ -123,7 +132,7 @@ export default function AdminUserInfo() {
                     <td className="px-4 py-2">{user.hireDate}</td>
                 
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                   <td className="px-4 py-2 font-bold">
                       {t("userInfo.jobGrade")}
                     </td>
@@ -137,7 +146,7 @@ export default function AdminUserInfo() {
                     <td className="px-4 py-2">{user.department}</td>
                
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                   <td className="px-4 py-2 font-bold">
                       {t("userInfo.officeNumber")}
                     </td>
@@ -150,7 +159,7 @@ export default function AdminUserInfo() {
                     <td className="px-4 py-2">{user.jobTitle}</td>
                  
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                   <td className="px-4 py-2 font-bold">
                       {t("userInfo.phoneNumber")}
                     </td>
@@ -165,7 +174,7 @@ export default function AdminUserInfo() {
                     <td className="px-4 py-2 break-words">{user.currentOffice}</td>
                 
                   </tr>
-                  <tr className="bg-gray-100">
+                  <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold">
                       {t("userInfo.email")}
                     </td>
@@ -186,7 +195,7 @@ export default function AdminUserInfo() {
                     proxyEmployees.map((proxyEmployee, index) => (
                       <React.Fragment key={index}>
                         <tr
-                          className={index % 2 === 0 ? "bg-gray-100" : ""}
+                          className={index % 2 === 0 ? "bg-[#fce8ca]" : ""}
                           onClick={() => handleCardClick(proxyEmployee)}
                         >
                            <td className="px-4 py-2 font-bold">
@@ -197,7 +206,7 @@ export default function AdminUserInfo() {
                        
                         </tr>
                         <tr
-                          className={index % 2 === 0 ? "bg-gray-100" : ""}
+                          className={index % 2 === 0 ? "bg-[#fce8ca]" : ""}
                           onClick={() => handleCardClick(proxyEmployee)}
                         >
                            <td className="px-4 py-2 font-bold">

@@ -52,23 +52,27 @@ export default function AdminUsers() {
   return (
     <div className="p-9 w-full" >
       <div className="flex flex-col w-full xs:items-center">
-        <div
-          className="add-btn add-g add-c add-uppercase add-text"
-          onClick={() => setShowUserForm(!showUserForm)}
-        >
-          {t("userform.adduser")}
-        </div>
 
-        <div className="search flex flex-col justify-center">
-          <input
-            type="text"
-            placeholder={t("search.searchEmployees")}
-            className="xs:w-72 sm:w-96 rounded-full text-right mt-7"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+  
+        <div className="flex justify-around md:flex-row w-full sm:flex-col xs:flex-col flex-col">
+          <div
+            className="add-btn add-g add-c add-uppercase add-text mb-6"
+            onClick={() => setShowUserForm(!showUserForm)}
+            >
+              {t("userform.adduser")}
+          </div>
 
+          {/* Search Input */}
+          <div className="search flex justify-center">
+            <input
+              type="text"
+              className="rounded-full text-right h-9"
+              placeholder={t("matrixForm.search")}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="flex flex-wrap justify-center w-full">
           {showUserForm ? (
             <UserForm />
