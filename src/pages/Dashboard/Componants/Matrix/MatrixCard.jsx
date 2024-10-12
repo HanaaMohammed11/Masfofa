@@ -1,6 +1,15 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
@@ -10,6 +19,8 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
   const [matrix, setMatrix] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const id = useId();
   const navigate = useNavigate();
@@ -19,6 +30,7 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
     try {
       await deleteDoc(matrixRef);
       console.log("تم حذف المستند بنجاح!");
+      setIsPopupVisible(true);
     } catch (error) {
       console.error("خطأ في حذف المستند: ", error);
     }
@@ -89,25 +101,51 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
                   {card.title}
                 </td>
 
-                <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">{card.companyName}</td>
+                <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">
+                  {card.companyName}
+                </td>
 
                 <td className="py-2 px-4 text-center">
                   <div className="flex justify-center space-x-2 md:space-x-4">
                     {/* أيقونة العرض */}
-                    <button onClick={() => show(card)} className="text-blue-500 ml-4">
+                    <button
+                      onClick={() => show(card)}
+                      className="text-blue-500 ml-4"
+                    >
                       <AiFillEye size={20} />
                     </button>
 
                     {/* أيقونة التعديل */}
-                    <button onClick={() => edit(card)} className="text-yellow-500 ">
+                    <button
+                      onClick={() => edit(card)}
+                      className="text-yellow-500 "
+                    >
                       <AiFillEdit size={20} />
                     </button>
 
                     {/* أيقونة الحذف */}
-                    <button onClick={() => deleteMatrix(card.id)} className="text-red-500">
+                    <button
+                      onClick={() => deleteMatrix(card.id)}
+                      className="text-red-500"
+                    >
                       <AiFillDelete size={20} />
                     </button>
                   </div>
+                  {isPopupVisible && (
+                    <div style={popupStyles}>
+                      <div style={popupContentStyles}>
+                        <p>تم حذف المصفوفة بنجاح!</p>
+                        <button
+                          onClick={() => {
+                            setIsPopupVisible(false);
+                          }}
+                          className="text-red-600"
+                        >
+                          إغلاق
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -119,3 +157,20 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
     </div>
   );
 }
+const popupContentStyles = {
+  backgroundColor: "#fff",
+  padding: "20px",
+  borderRadius: "8px",
+  textAlign: "center",
+};
+const popupStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};

@@ -14,19 +14,26 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineInfoCircle, AiFillEye } from 'react-icons/ai'; 
+import {
+  AiOutlineEdit,
+  AiOutlineDelete,
+  AiOutlineInfoCircle,
+  AiFillEye,
+} from "react-icons/ai";
 
-export default function SubjctCard({ searchTerm , handleShowInfo }) {
+export default function SubjctCard({ searchTerm, handleShowInfo }) {
   const navigation = useNavigate();
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const deleteSubject = async (subjectId, subjectTitle) => {
     const subjectRef = doc(db, "subjects", subjectId);
     try {
       await deleteDoc(subjectRef);
+      setIsPopupVisible(true);
     } catch (error) {
       console.error("Error deleting subject: ", error);
     }
@@ -72,43 +79,83 @@ export default function SubjctCard({ searchTerm , handleShowInfo }) {
         <div className="overflow-x-auto flex justify-center items-center ">
           <table className="table-auto w-full border-collapse  overflow-x-auto">
             <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr >
-                <th className="px-4 py-2  text-center">{t("subjectInfo.subjectTitle")}</th>
-          
-                <th className="px-4 py-2  text-center">          {t("subjectCardDashboard.subjectNum")} </th>
-                <th className="px-4 py-2  text-center">{t("subjectInfo.action")}</th>
+              <tr>
+                <th className="px-4 py-2  text-center">
+                  {t("subjectInfo.subjectTitle")}
+                </th>
+
+                <th className="px-4 py-2  text-center">
+                  {" "}
+                  {t("subjectCardDashboard.subjectNum")}{" "}
+                </th>
+                <th className="px-4 py-2  text-center">
+                  {t("subjectInfo.action")}
+                </th>
               </tr>
             </thead>
             <tbody className="text-gray-700">
-  {filteredSubjects.map((subject, index) => (
-    <tr 
-      key={index} 
-      className={`border-b  ${index % 2 === 1 ? "bg-white" : "bg-[#D3A17A]"}`}
-    >
-      <td className="px-4 py-2 text-center">{subject.subjectTitle}</td>
-      <td className="px-4 py-2 text-center">
-        {t("subjectCardDashboard.subjectNum")}: {subject.subjectNum}
-      </td>
-      <td className="px-4 py-2 text-center flex justify-center space-x-3">
-        <button onClick={() => Edit(subject)} className="bg-transparent border-0">
-          <AiOutlineEdit size={20} className="text-yellow-500 hover:text-blue-700" title="Edit" />
-        </button>
-        <button
-          onClick={() => deleteSubject(subject.id, subject.subjectTitle)}
-          className="bg-transparent border-0"
-        >
-          <AiOutlineDelete size={20} className="text-red-700 hover:text-red-900 mr-4" title="Delete" />
-        </button>
-            {/* أيقونة العرض */}
-            <button  onClick={() => handleButtonClick(subject)}className="text-blue-500 ml-4">
+              {filteredSubjects.map((subject, index) => (
+                <tr
+                  key={index}
+                  className={`border-b  ${
+                    index % 2 === 1 ? "bg-white" : "bg-[#D3A17A]"
+                  }`}
+                >
+                  <td className="px-4 py-2 text-center">
+                    {subject.subjectTitle}
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    {t("subjectCardDashboard.subjectNum")}: {subject.subjectNum}
+                  </td>
+                  <td className="px-4 py-2 text-center flex justify-center space-x-3">
+                    <button
+                      onClick={() => Edit(subject)}
+                      className="bg-transparent border-0"
+                    >
+                      <AiOutlineEdit
+                        size={20}
+                        className="text-yellow-500 hover:text-blue-700"
+                        title="Edit"
+                      />
+                    </button>
+                    <button
+                      onClick={() =>
+                        deleteSubject(subject.id, subject.subjectTitle)
+                      }
+                      className="bg-transparent border-0"
+                    >
+                      <AiOutlineDelete
+                        size={20}
+                        className="text-red-700 hover:text-red-900 mr-4"
+                        title="Delete"
+                      />
+                    </button>
+                    {isPopupVisible && (
+                      <div style={popupStyles}>
+                        <div style={popupContentStyles}>
+                          <p>تم حذف المادة بنجاح!</p>
+                          <button
+                            onClick={() => {
+                              setIsPopupVisible(false);
+                            }}
+                            className="text-red-600"
+                          >
+                            إغلاق
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    {/* أيقونة العرض */}
+                    <button
+                      onClick={() => handleButtonClick(subject)}
+                      className="text-blue-500 ml-4"
+                    >
                       <AiFillEye size={20} />
                     </button>
-        
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       ) : (
@@ -119,3 +166,20 @@ export default function SubjctCard({ searchTerm , handleShowInfo }) {
     </div>
   );
 }
+const popupContentStyles = {
+  backgroundColor: "#fff",
+  padding: "20px",
+  borderRadius: "8px",
+  textAlign: "center",
+};
+const popupStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};

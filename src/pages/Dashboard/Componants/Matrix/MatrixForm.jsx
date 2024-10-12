@@ -11,6 +11,8 @@ export default function MatrixForm() {
   const [definitions, setDefinitions] = useState([
     { term: "", interpretation: "" },
   ]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
   const [companyName, setCompanyName] = useState("");
   const [title, setTitle] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
@@ -39,7 +41,7 @@ export default function MatrixForm() {
 
     try {
       await addDoc(collection(db, "matrix"), data);
-      navigation("/dashboard");
+      setIsPopupVisible(true);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -144,8 +146,8 @@ export default function MatrixForm() {
                 value={t("matrixForm.Introduction")}
                 className="text-lg md:text-xl font-semibold"
               />
-              <                Textarea
-   rows={4}
+              <Textarea
+                rows={4}
                 id="introduction"
                 type="text"
                 sizing="lg"
@@ -162,8 +164,7 @@ export default function MatrixForm() {
                 value={t("matrixForm.notes")}
                 className="text-lg md:text-xl font-semibold"
               />
-              <                Textarea
-
+              <Textarea
                 id="notes"
                 rows={4}
                 type="text"
@@ -254,7 +255,40 @@ export default function MatrixForm() {
             </span>
           </div>
         </div>
+        {isPopupVisible && (
+          <div style={popupStyles}>
+            <div style={popupContentStyles}>
+              <p>تم حفظ البيانات بنجاح!</p>
+              <button
+                onClick={() => {
+                  setIsPopupVisible(false);
+                  navigation(-1);
+                }}
+                className="text-red-600"
+              >
+                إغلاق
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
+const popupContentStyles = {
+  backgroundColor: "#fff",
+  padding: "20px",
+  borderRadius: "8px",
+  textAlign: "center",
+};
+const popupStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};

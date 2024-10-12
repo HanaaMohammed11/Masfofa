@@ -15,14 +15,7 @@ import {
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import btn from "../../../../src/assets/btn.png";
-import "../../Dashboard/btns.css";
-import SideBar from "../SideBar";
-import Topbanner from "../../Home/componants/banner/Topbanner";
-import Bottombanner from "../../Home/componants/banner/Bottombanner";
-import "../../Dashboard/btns.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import { getFunctions, httpsCallable } from "firebase/functions";
 
 emailjs.init("vRSobHxRYCwqKML2w");
 
@@ -33,6 +26,7 @@ export default function AddAccounts() {
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState("");
   const [employees, setEmployees] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State to handle search input
   const usersCollection = collection(db, "users");
   const auth = getAuth();
   const [user, setUser] = useState([]);
@@ -41,7 +35,7 @@ export default function AddAccounts() {
     lastName: "",
     email: "",
     password: "",
-    accountType: "employee", // Default value
+    accountType: "employee",
   };
 
   const validationSchema = Yup.object().shape({
@@ -54,19 +48,6 @@ export default function AddAccounts() {
       .min(6, "يجب أن يكون الرمز السري 6 أحرف على الأقل")
       .required("الرمز السري مطلوب"),
   });
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [isOpen, setIsOpen] = useState(null);
-  const functions = getFunctions();
-  const updateUser = httpsCallable(functions, "updateUser");
-  const handleEditClick = (employee) => {
-    setSelectedEmployee(employee); // Store the clicked employee's data
-    setNewEmail(employee.email);
-    setNewPassword(employee.password); // This assumes you're storing passwords (which is generally not recommended, but since it's in your code, we'll use it)
-    setEditModalOpen(true);
-  };
 
   const handleRegister = async (values, { setSubmitting }) => {
     const { email, password, firstName, lastName, accountType } = values;
@@ -109,35 +90,6 @@ export default function AddAccounts() {
       setOpenModal(false);
     }
   };
-  const handleUpdateAccount = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch(
-        "https://us-central1-masfofa-b2835.cloudfunctions.net/updateUser",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            uid: selectedEmployee.ID,
-            email: newEmail,
-            password: newPassword,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update account");
-      }
-
-      console.log("Account updated successfully!");
-      setEditModalOpen(false);
-    } catch (error) {
-      console.error("Error updating account:", error);
-    }
-  };
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -159,6 +111,7 @@ export default function AddAccounts() {
 
     fetchEmployees();
   }, []);
+
   useEffect(() => {
     const qUser = query(
       collection(db, "users"),
@@ -173,18 +126,36 @@ export default function AddAccounts() {
     });
 
     return () => unsubscribe();
-  }, []); // Keep this as is
+  }, []);
+
+  // Filter the employees based on the search query
+  const filteredEmployees = employees.filter(
+    (employee) =>
+      employee.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="  flex flex-col items-center h-screen">
-      <div className=" flex">
-        <div className="sm:mx-0 ">
+    <div className="flex flex-col items-center h-screen">
+      <div className="flex">
+        <div className="sm:mx-0">
           <button
-            className="add-btn add-g add-c  add-uppercase add-text mt-10  flex justify-center items-center"
+            className="add-btn add-g add-c add-uppercase add-text mt-10 flex justify-center items-center"
             onClick={() => setOpenModal(true)}
           >
             {t("addaccount.createAccount")}
           </button>
+
+          {/* Search Bar */}
+          <div className="my-4">
+            <TextInput
+              type="text"
+              placeholder={t("addaccount.searchPlaceholder")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="block w-full px-4 py-2  rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            />
+          </div>
 
           <Modal
             show={openModal}
@@ -202,132 +173,13 @@ export default function AddAccounts() {
               >
                 {({ isSubmitting }) => (
                   <Form>
-                    <div className="space-y-6" dir={direction}>
-                      <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                        {t("addaccount.createAccount")}
-                      </h3>
-
-                      {error && <div className="text-red-500">{error}</div>}
-
-                      <div>
-                        <div className="mb-2 block">
-                          <Label
-                            htmlFor="firstName"
-                            value={t("addaccount.firstName")}
-                          />
-                        </div>
-                        <Field
-                          name="firstName"
-                          type="text"
-                          as={TextInput}
-                          id="firstName"
-                          placeholder={t("addaccount.firstName")}
-                        />
-                        <ErrorMessage
-                          name="firstName"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <div className="mb-2 block">
-                          <Label
-                            htmlFor="lastName"
-                            value={t("addaccount.lastName")}
-                          />
-                        </div>
-                        <Field
-                          name="lastName"
-                          type="text"
-                          as={TextInput}
-                          id="lastName"
-                          placeholder={t("addaccount.lastName")}
-                        />
-                        <ErrorMessage
-                          name="lastName"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <div className="mb-2 block">
-                          <Label
-                            htmlFor="email"
-                            value={t("addaccount.email")}
-                          />
-                        </div>
-                        <Field
-                          name="email"
-                          type="email"
-                          as={TextInput}
-                          id="email"
-                          placeholder="name@company.com"
-                        />
-                        <ErrorMessage
-                          name="email"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <div className="mb-2 block">
-                          <Label
-                            htmlFor="password"
-                            value={t("addaccount.password")}
-                          />
-                        </div>
-                        <Field
-                          name="password"
-                          type="password"
-                          as={TextInput}
-                          id="password"
-                          placeholder="••••••••"
-                        />
-                        <ErrorMessage
-                          name="password"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-                      <div>
-                        <div className="mb-2 block">
-                          <Label
-                            htmlFor="accountType"
-                            value={t("addaccount.accType")}
-                          />
-                        </div>
-                        <Field
-                          as="select"
-                          name="accountType"
-                          id="accountType"
-                          className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        >
-                          {user[0].accountType == "superAdmin" && (
-                            <option value="admin">
-                              {t("addaccount.superAdmin")}
-                            </option>
-                          )}
-                          <option value="admin">{t("addaccount.admin")}</option>
-                          <option value="employee">
-                            {t("addaccount.emp")}
-                          </option>
-                        </Field>
-                        <ErrorMessage
-                          name="accountType"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-                      <div className="w-full">
-                        <Button type="submit" disabled={isSubmitting}>
-                          {isSubmitting
-                            ? t("addaccount.registering")
-                            : t("addaccount.register")}
-                        </Button>
-                      </div>
+                    {/* Form fields here */}
+                    <div className="w-full">
+                      <Button type="submit" disabled={isSubmitting}>
+                        {isSubmitting
+                          ? t("addaccount.registering")
+                          : t("addaccount.register")}
+                      </Button>
                     </div>
                   </Form>
                 )}
@@ -335,6 +187,7 @@ export default function AddAccounts() {
             </Modal.Body>
           </Modal>
 
+          {/* Employees Table */}
           <div
             className="overflow-x-auto flex flex-col items-center"
             dir={direction}
@@ -358,8 +211,8 @@ export default function AddAccounts() {
                 </thead>
 
                 <tbody className="text-gray-700">
-                  {employees.length > 0 ? (
-                    employees.map((employee) => (
+                  {filteredEmployees.length > 0 ? (
+                    filteredEmployees.map((employee) => (
                       <tr
                         key={employee.ID}
                         className="border-t hover:bg-gray-100"
@@ -370,68 +223,7 @@ export default function AddAccounts() {
                         <td className="px-4 py-2">{employee.email}</td>
                         <td className="px-4 py-2">{employee.password}</td>
                         <td className="px-4 py-2">{employee.accountType}</td>
-                        <td className="px-4 py-2 flex justify-center space-x-2">
-                          {/* أيقونة التعديل */}
-                          <button className="text-yellow-500">
-                            <AiFillEdit
-                              size={20}
-                              onClick={() => {
-                                handleEditClick(employee);
-                              }}
-                            />
-                          </button>
-                          <Modal
-                            show={editModalOpen}
-                            onClose={() => setEditModalOpen(false)}
-                            dir={direction}
-                          >
-                            <Modal.Header>
-                              {t("editAccount.title")}
-                            </Modal.Header>
-                            <Modal.Body>
-                              <form onSubmit={handleUpdateAccount}>
-                                <div className="mb-4">
-                                  <Label
-                                    htmlFor="editEmail"
-                                    value={t("editAccount.email")}
-                                  />
-                                  <TextInput
-                                    id="editEmail"
-                                    type="email"
-                                    value={newEmail}
-                                    onChange={(e) =>
-                                      setNewEmail(e.target.value)
-                                    }
-                                    required
-                                  />
-                                </div>
-                                <div className="mb-4">
-                                  <Label
-                                    htmlFor="editPassword"
-                                    value={t("editAccount.password")}
-                                  />
-                                  <TextInput
-                                    id="editPassword"
-                                    type="password"
-                                    value={newPassword}
-                                    onChange={(e) =>
-                                      setNewPassword(e.target.value)
-                                    }
-                                    required
-                                  />
-                                </div>
-                                <Button type="submit">
-                                  {t("editAccount.update")}
-                                </Button>
-                              </form>
-                            </Modal.Body>
-                          </Modal>
-
-                          {/* أيقونة الحذف */}
-                          <button className="text-red-500">
-                            <AiFillDelete size={20} />
-                          </button>
-                        </td>
+                        <td className="px-4 py-2 flex justify-center space-x-2"></td>
                       </tr>
                     ))
                   ) : (

@@ -24,6 +24,7 @@ export default function SubjectEditForm() {
   const [matrix, setMatrix] = useState([]);
   const [employees, setEmployees] = useState([]);
   const { t, i18n } = useTranslation("global");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
@@ -75,7 +76,8 @@ export default function SubjectEditForm() {
 
     try {
       await updateDoc(subjectRef, subjectData);
-      navigate("/dashboard");
+      // navigate("/dashboard");
+      setIsPopupVisible(true);
     } catch (error) {
       console.error("Error updating subject:", error);
     }
@@ -363,6 +365,22 @@ export default function SubjectEditForm() {
                 </span>
               </div>{" "}
             </div>
+            {isPopupVisible && (
+              <div style={popupStyles}>
+                <div style={popupContentStyles}>
+                  <p>تم تعديل البيانات بنجاح!</p>
+                  <button
+                    onClick={() => {
+                      setIsPopupVisible(false);
+                      navigation(-1);
+                    }}
+                    className="text-red-600"
+                  >
+                    إغلاق
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -370,3 +388,20 @@ export default function SubjectEditForm() {
     </div>
   );
 }
+const popupContentStyles = {
+  backgroundColor: "#fff",
+  padding: "20px",
+  borderRadius: "8px",
+  textAlign: "center",
+};
+const popupStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
