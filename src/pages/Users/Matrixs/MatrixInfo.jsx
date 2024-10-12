@@ -41,7 +41,7 @@ export default function MatrixInfo() {
   const location = useLocation();
   const navigate = useNavigate();
   const [relatedsubjects, setRelatedsubjectss] = useState([]);
-  const matrix = location.state.item;
+  const matrix = location.state.item || location.state.matrix;
   console.log(matrix.subjects);
 
   useEffect(() => {
@@ -73,18 +73,23 @@ export default function MatrixInfo() {
     navigate(-1);
   };
 
-
   return (
     <div>
       <Topbanner />
-    <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}>
-        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
-            </button></div>
+      <div dir={direction}>
+        {" "}
+        <button
+          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          onClick={handleBack}
+          dir={direction}
+        >
+          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
+        </button>
+      </div>
       <div
         className="min-h-screen  justify-center flex items-center"
         dir={direction}
       >
-        
         {loading ? (
           <Loader />
         ) : (
