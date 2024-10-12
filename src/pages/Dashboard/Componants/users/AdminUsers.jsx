@@ -6,7 +6,7 @@ import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import "../../../Dashboard/btns.css";
-import Loader from "../../../Login/loader"; 
+import Loader from "../../../Login/loader";
 
 export default function AdminUsers() {
   const { t, i18n } = useTranslation("global");
@@ -82,7 +82,7 @@ export default function AdminUsers() {
               <AdminUserCard
                 key={user.id}
                 user={user}
-                handleShowInfo={handleClickShow}
+                // handleShowInfo={handleClickShow}
               />
             ))
           ) : (

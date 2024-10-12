@@ -55,12 +55,14 @@ export default function AddAccounts() {
       .required("الرمز السري مطلوب"),
   });
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [isOpen, setIsOpen] = useState(null);
   const functions = getFunctions();
   const updateUser = httpsCallable(functions, "updateUser");
   const handleEditClick = (employee) => {
+    setSelectedEmployee(employee); // Store the clicked employee's data
     setNewEmail(employee.email);
     setNewPassword(employee.password); // This assumes you're storing passwords (which is generally not recommended, but since it's in your code, we'll use it)
     setEditModalOpen(true);
@@ -107,21 +109,36 @@ export default function AddAccounts() {
       setOpenModal(false);
     }
   };
-  const handleUpdateAccount = async (e, emp) => {
-    console.log(emp);
+  const handleUpdateAccount = async (e) => {
+    e.preventDefault();
 
     try {
-      const result = await updateUser({
-        uid: emp.ID,
-        email: newEmail,
-        password: newPassword,
-      });
-      console.log(result.data.message);
+      const response = await fetch(
+        "https://us-central1-masfofa-b2835.cloudfunctions.net/updateUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            uid: selectedEmployee.ID,
+            email: newEmail,
+            password: newPassword,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update account");
+      }
+
+      console.log("Account updated successfully!");
       setEditModalOpen(false);
     } catch (error) {
       console.error("Error updating account:", error);
     }
   };
+
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -162,12 +179,12 @@ export default function AddAccounts() {
     <div className="  flex flex-col items-center h-screen">
       <div className=" flex">
         <div className="sm:mx-0 ">
-          <botton
+          <button
             className="add-btn add-g add-c  add-uppercase add-text mt-10  flex justify-center items-center"
             onClick={() => setOpenModal(true)}
           >
             {t("addaccount.createAccount")}
-          </botton>
+          </button>
 
           <Modal
             show={openModal}
@@ -344,7 +361,7 @@ export default function AddAccounts() {
                   {employees.length > 0 ? (
                     employees.map((employee) => (
                       <tr
-                        key={employee.id}
+                        key={employee.ID}
                         className="border-t hover:bg-gray-100"
                       >
                         <td className="px-4 py-2">
@@ -356,8 +373,60 @@ export default function AddAccounts() {
                         <td className="px-4 py-2 flex justify-center space-x-2">
                           {/* أيقونة التعديل */}
                           <button className="text-yellow-500">
-                            <AiFillEdit size={20} />
+                            <AiFillEdit
+                              size={20}
+                              onClick={() => {
+                                handleEditClick(employee);
+                              }}
+                            />
                           </button>
+                          <Modal
+                            show={editModalOpen}
+                            onClose={() => setEditModalOpen(false)}
+                            dir={direction}
+                          >
+                            <Modal.Header>
+                              {t("editAccount.title")}
+                            </Modal.Header>
+                            <Modal.Body>
+                              <form onSubmit={handleUpdateAccount}>
+                                <div className="mb-4">
+                                  <Label
+                                    htmlFor="editEmail"
+                                    value={t("editAccount.email")}
+                                  />
+                                  <TextInput
+                                    id="editEmail"
+                                    type="email"
+                                    value={newEmail}
+                                    onChange={(e) =>
+                                      setNewEmail(e.target.value)
+                                    }
+                                    required
+                                  />
+                                </div>
+                                <div className="mb-4">
+                                  <Label
+                                    htmlFor="editPassword"
+                                    value={t("editAccount.password")}
+                                  />
+                                  <TextInput
+                                    id="editPassword"
+                                    type="password"
+                                    value={newPassword}
+                                    onChange={(e) =>
+                                      setNewPassword(e.target.value)
+                                    }
+                                    required
+                                  />
+                                </div>
+                                <Button type="submit">
+                                  {t("editAccount.update")}
+                                </Button>
+                              </form>
+                            </Modal.Body>
+                          </Modal>
+
                           {/* أيقونة الحذف */}
                           <button className="text-red-500">
                             <AiFillDelete size={20} />
