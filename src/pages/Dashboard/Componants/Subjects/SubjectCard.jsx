@@ -71,7 +71,7 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
             </thead>
             <tbody className="text-gray-700">
               {filteredSubjects.map((subjectItem, index) => (
-                <tr key={subjectItem.id} className={`border-b ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}>
+                <tr key={subjectItem.id} className={`border-b ${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"}`}>
                   <td className="px-4 py-2 text-center">{subjectItem.subjectTitle}</td>
                   <td className="px-4 py-2 text-center">{subjectItem.subjectNum}</td>
                   <td className="px-4 py-2 text-center flex justify-center space-x-3">
