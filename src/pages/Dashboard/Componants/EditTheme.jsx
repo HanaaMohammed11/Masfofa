@@ -84,8 +84,8 @@ const EditTheme = () => {
 
   const handleImageUpload = async (file, storagePath, oldUrl) => {
     try {
-      await deleteOldImage(oldUrl);
-      const imageRef = ref(storage, storagePath);
+      if (oldUrl) await deleteOldImage(oldUrl);
+      const imageRef = ref(storage, `banners/${storagePath}`);  
       await uploadBytes(imageRef, file);
       const imageUrl = await getDownloadURL(imageRef);
       await setDoc(doc(db, 'banners', storagePath), { imageUrl });
@@ -93,12 +93,15 @@ const EditTheme = () => {
       console.error('Error uploading image:', error);
     }
   };
+  
 
   const handleSave = async () => {
     try {
       if (topBanner) await handleImageUpload(topBanner, 'topBanner', topBannerUrl);
       if (bottomBanner) await handleImageUpload(bottomBanner, 'bottomBanner', bottomBannerUrl);
-      if (logo) await handleImageUpload(logo, 'logo', logoUrl);
+      if (logo) {
+        if (logoUrl) await handleImageUpload(logo, 'logo', logoUrl);  
+      }
       if (homeElements) await handleImageUpload(homeElements, 'homeElements', homeElementsUrl);
       navigate("/dashboard");
     } catch (error) {
