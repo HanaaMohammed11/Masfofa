@@ -7,6 +7,8 @@ import { deleteDoc, doc } from "firebase/firestore"; // Import deleteDoc and doc
 import { deleteUser } from "firebase/auth";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import db from "../../../config/firebase";
+import axios from 'axios';
+
 import {
   addDoc,
   collection,
@@ -29,6 +31,7 @@ export default function AddAccounts() {
 
   const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState("");
+  const [refresh, setRefresh] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // State to handle search input
   const usersCollection = collection(db, "users");
@@ -43,24 +46,9 @@ export default function AddAccounts() {
     password: "",
     accountType: "employee",
   };
-  const handleDelete = async (employeeId, userId) => {
-    try {
-      // Delete from Firestore
-      await deleteDoc(doc(db, "users", employeeId));
 
-      // Delete from Firebase Authentication
-      const user = auth.currentUser; // Get the current user
-      if (user && user.uid === userId) {
-        await deleteUser(user); // Delete the user if they match the userId
-      }
 
-      console.log("User deleted successfully");
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      setError("حدث خطأ أثناء حذف المستخدم.");
-    }
-  };
-
+ 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("الاسم الأول مطلوب"),
     lastName: Yup.string().required("الاسم الأخير مطلوب"),
@@ -78,7 +66,7 @@ export default function AddAccounts() {
     try {
       setError("");
       setSubmitting(true);
-
+setRefresh(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -87,6 +75,7 @@ export default function AddAccounts() {
       const user = userCredential.user;
 
       const docRef = await addDoc(usersCollection, {
+
         ownerAdmin: localStorage.getItem("id"),
         firstname: firstName,
         lastname: lastName,
@@ -111,6 +100,7 @@ export default function AddAccounts() {
     } finally {
       setSubmitting(false);
       setOpenModal(false);
+      setRefresh(false);
     }
   };
 
@@ -130,10 +120,11 @@ export default function AddAccounts() {
       } catch (error) {
         console.error("Error fetching employees:", error);
       }
+
     };
 
     fetchEmployees();
-  }, []);
+  }, [refresh]);
 
   useEffect(() => {
     const qUser = query(
@@ -158,6 +149,48 @@ export default function AddAccounts() {
       employee.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+  // async function deleteUserByUid(uid) {
+  //   setRefresh(true)
+  //   try {
+  //     const response = await axios.delete(`https://delete-user-node-js.vercel.app/delete-user/${uid}`);
+  //    
+    
+  //     if (response.status == 200) {
+  //       console.log(response.data.message);
+  //     } else {
+  //       console.log(response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }finally{
+  //     setRefresh(false)
+  //   }
+  // }
+
+
+  async function deleteUserByUid(uid) {
+    setRefresh(true);
+    try {
+      const response = await axios.delete(`https://delete-user-node-js.vercel.app/delete-user/${uid}`);
+  
+
+      await deleteDoc(doc(db, "users", uid)); 
+      console.log(`Deleted user with Employee ID: ${uid}`);
+  
+  
+      if (response.status === 200) {
+        console.log(response.data.message);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error); 
+    } finally {
+      setRefresh(false); 
+    }
+  }
+  
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="flex">
@@ -181,23 +214,7 @@ export default function AddAccounts() {
               />
             </div>
 
-            {/* <button
-            className="add-btn add-g add-c add-uppercase add-text  flex justify-center items-center"
-            onClick={() => setOpenModal(true)}
-          >
-            {t("addaccount.createAccount")}
-          </button>
-
- 
-          <div className="search flex justify-center w-full md:w-auto ">
-             <TextInput
-              type="text"
-              placeholder={t("addaccount.searchPlaceholder")}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-12 w-full md:w-80 rounded-full text-right"
-            />
-          </div> */}
+        
           </div>
 
           <Modal
@@ -387,12 +404,11 @@ export default function AddAccounts() {
                         <td className="px-4 py-2">{employee.password}</td>
                         <td className="px-4 py-2">{employee.accountType}</td>
                         <td className="px-4 py-2 flex justify-center space-x-2">
-                          <AiFillDelete
-                            className="text-red-500 cursor-pointer"
-                            onClick={() =>
-                              handleDelete(employee.docId, employee.ID)
-                            }
-                          />
+                        <AiFillDelete
+  className="text-red-500 cursor-pointer"
+  onClick={() => deleteUserByUid(employee.ID)}
+/>
+
                         </td>
                       </tr>
                     ))
