@@ -100,7 +100,7 @@ export default function SubjctCard({ searchTerm , handleShowInfo }) {
           <AiOutlineDelete size={20} className="text-red-700 hover:text-red-900 mr-4" title="Delete" />
         </button>
             {/* أيقونة العرض */}
-            <button  onClick={() => handleButtonClick(subject)}className="text-blue-500 ml-4">
+            <button  onClick={() => handleButtonClick(handleButtonClick)}className="text-blue-500 ml-4">
                       <AiFillEye size={20} />
                     </button>
         

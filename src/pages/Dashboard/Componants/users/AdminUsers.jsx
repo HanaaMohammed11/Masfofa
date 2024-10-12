@@ -4,59 +4,59 @@ import UserForm from "./AddUserForm";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import "../../../Dashboard/btns.css";
 import Loader from "../../../Login/loader"; 
 
-export default function AdminUsers() {
-  const { t, i18n } = useTranslation("global");
+export default function AdminUsers({ handleClickShow }) {
+  const { t } = useTranslation("global");
   const [searchTerm, setSearchTerm] = useState("");
-  const navigation = useNavigate();
-
   const [showUserForm, setShowUserForm] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const qEmps = query(
-      collection(db, "employees"),
-      where("ownerAdmin", "==", localStorage.getItem("id"))
-    );
+    const fetchUsers = async () => {
+      const qEmps = query(
+        collection(db, "employees"),
+        where("ownerAdmin", "==", localStorage.getItem("id"))
+      );
 
-    const unsubscribe = onSnapshot(qEmps, (snapshot) => {
-      const users = [];
-      snapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() });
+      const unsubscribe = onSnapshot(qEmps, (snapshot) => {
+        const users = [];
+        snapshot.forEach((doc) => {
+          users.push({ id: doc.id, ...doc.data() });
+        });
+        setUsersData(users);
+        setLoading(false);
+      }, (error) => {
+        console.error("Error fetching users: ", error);
+        setLoading(false);
       });
-      setUsersData(users);
-      setLoading(false);
-    });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    };
+
+    fetchUsers();
   }, [showUserForm]);
 
   const handleClick = () => {
     setShowUserForm(!showUserForm);
   };
+  const [selectedUser, setSelectedUser] = useState(null);
+  const handleShowInfo = (user) => {
+    setSelectedUser(user);
+  };
 
-  // Filtering users based on search term
-  const filteredUsers = usersData.filter((user) => {
-    const userName = user.employeeName ? user.employeeName.toLowerCase() : "";
-    const userEmail = user.email ? user.email.toLowerCase() : "";
-
-    return (
-      userName.includes(searchTerm.toLowerCase()) ||
-      userEmail.includes(searchTerm.toLowerCase())
-    );
+  const filteredUsers = usersData.filter(user => {
+    const userName = user.employeeName?.toLowerCase() || "";
+    const userEmail = user.email?.toLowerCase() || "";
+    const term = searchTerm.toLowerCase();
+    return userName.includes(term) || userEmail.includes(term);
   });
 
   return (
     <div className="p-9 w-full min-h-screen">
       <div className="flex flex-col w-full xs:items-center">
-        <div
-          className="add-btn add-g add-c add-uppercase add-text"
-          onClick={handleClick}
-        >
+        <div className="add-btn add-g add-c add-uppercase add-text" onClick={handleClick}>
           {t("userform.adduser")}
         </div>
 
@@ -78,13 +78,8 @@ export default function AdminUsers() {
               <Loader />
             </div>
           ) : filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <AdminUserCard
-                key={user.id}
-                user={user}
-                handleShowInfo={handleClickShow}
-              />
-            ))
+            filteredUsers.map(user => (
+              <AdminUserCard key={user.employeeId} user={user} handleShowInfo={handleShowInfo} />        ))
           ) : (
             <p className="text-center text-gray-500">{t("EmpCard.noEmp")}</p>
           )}

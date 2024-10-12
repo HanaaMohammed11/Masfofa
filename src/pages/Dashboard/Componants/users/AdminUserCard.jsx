@@ -3,7 +3,7 @@ import { Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function AdminUserCard({ user }) {
+export default function AdminUserCard({ user , handleShowInfo }) {
   const navigate = useNavigate();
   const { t } = useTranslation("global"); 
   const handleCardClick = () => {
