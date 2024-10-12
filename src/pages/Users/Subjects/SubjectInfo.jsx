@@ -4,12 +4,21 @@ import { Button, Card } from "flowbite-react";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useLocation, useNavigate } from "react-router-dom";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { IoArrowBack } from "react-icons/io5";
+import { nav } from "framer-motion/client";
 export default function SubjectInfo() {
   const { t, i18n } = useTranslation("global");
   const pdfRef = useRef();
@@ -41,8 +50,21 @@ export default function SubjectInfo() {
 
   const [subject, setSubject] = useState(null);
   const [employees, setEmployees] = useState([]);
+  const [matrices, setMatrices] = useState([]);
   const clickedSubject = location.state?.subject;
+  console.log(clickedSubject.relatedMatrix.title);
+  useEffect(() => {
+    const qUser = query(collection(db, "matrix"), where("title", "!=", 0));
+    const unsubscribe = onSnapshot(qUser, (snapshot) => {
+      const matrix = [];
+      snapshot.forEach((doc) => {
+        matrix.push({ docId: doc.id, ...doc.data() });
+      });
+      setMatrices(matrix);
+    });
 
+    return () => unsubscribe();
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -81,17 +103,24 @@ export default function SubjectInfo() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}>
-        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
-            </button></div>
+      <div dir={direction}>
+        <button
+          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          onClick={handleBack}
+          dir={direction}
+        >
+          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
+        </button>
+      </div>
       <div className="min-h-screen  justify-center flex items-center">
         <Card className="w-[1200px] ">
-        <div className=" w-full" dir={direction}>
-              <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">     {t("text.download")}</Button>
-            </div>
+          <div className=" w-full" dir={direction}>
+            <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">
+              {t("text.download")}
+            </Button>
+          </div>
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
-          
             {/* الجدول */}
             <div className=" w-full" ref={pdfRef}>
               <table
@@ -121,6 +150,29 @@ export default function SubjectInfo() {
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
                       {clickedSubject.subjectContent}
+                    </td>
+                  </tr>
+                  <tr
+                    className="cursor-pointer hover:bg-[#fce8ca]"
+                    onClick={() => {
+                      console.log(matrices);
+
+                      const matrix = matrices.find(
+                        (item) =>
+                          item.title === clickedSubject.relatedMatrix.title
+                      );
+                      console.log(matrix);
+
+                      navigate("/MatrixInfo", {
+                        state: { matrix },
+                      });
+                    }}
+                  >
+                    <td className="px-4 py-2 font-bold w-1/2">
+                      {t("subjectEditForm.relatedMatrix")}
+                    </td>
+                    <td className="px-4 py-2 break-words w-1/2 overflow-hidden ">
+                      {clickedSubject.relatedMatrix.title}
                     </td>
                   </tr>
                   <tr className="bg-[#fce8ca]">
@@ -161,14 +213,16 @@ export default function SubjectInfo() {
                           }}
                           key={emp.empId}
                         >
-                          <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                            {emp.role}
-                          </td>
-                          <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                            {user
-                              ? user.employeeName
-                              : `Employee ID: ${emp.empId}`}
-                          </td>
+                          {user && (
+                            <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
+                              {emp.role}
+                            </td>
+                          )}
+                          {user && (
+                            <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
+                              {user.employeeName}
+                            </td>
+                          )}
                         </tr>
                       );
                     })
