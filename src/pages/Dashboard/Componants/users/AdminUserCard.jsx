@@ -16,13 +16,16 @@ export default function AdminUserCard({ user, index }) {
   return (
     <tr className={`${rowColor} cursor-pointer`} onClick={handleCardClick}>
       <td className="px-6 py-4 flex items-center justify-center">
+      <div style={profileContainerStyle}>
         <img
           alt={`${user.employeeName} image`}
           src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-          className="w-10 h-10 rounded-full shadow-lg"
+          style={imageStyle}
         />
-        <span className="ml-3">{user.employeeName}</span>
-      </td>
+      </div>
+      <span className="ml-3">{user.employeeName}</span>
+    </td>
+
       <td className="px-6 py-4">{user.jobTitle}</td>
       <td className="px-6 py-4">{user.phoneNumber}</td>
       <td className="px-6 py-4">
@@ -31,3 +34,20 @@ export default function AdminUserCard({ user, index }) {
     </tr>
   );
 }
+const profileContainerStyle = {
+  margin: 'auto',
+  width: '70px',  // يمكنك ضبط العرض حسب الحاجة
+  height: '70px', // يمكنك ضبط الارتفاع حسب الحاجة
+  position: 'relative',
+  borderRadius: '50%',
+  border: '5px solid transparent', // إطار شفاف
+  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%)',
+  animation: 'rotate-border 5s linear infinite',
+};
+
+const imageStyle = {
+  width: '100%',
+  height: '100%',
+  borderRadius: '50%', // لضمان كون الصورة دائرية
+  display: 'block',
+};
