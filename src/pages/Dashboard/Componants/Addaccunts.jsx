@@ -68,6 +68,7 @@ export default function AddAccounts() {
       .required("الرمز السري مطلوب"),
   });
 
+  
   const handleRegister = async (values, { setSubmitting }) => {
     const { email, password, firstName, lastName, accountType } = values;
 
