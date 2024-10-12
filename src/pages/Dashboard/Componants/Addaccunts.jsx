@@ -7,7 +7,7 @@ import { deleteDoc, doc } from "firebase/firestore"; // Import deleteDoc and doc
 import { deleteUser } from "firebase/auth";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import db from "../../../config/firebase";
-import axios from 'axios';
+import axios from "axios";
 
 import {
   addDoc,
@@ -47,8 +47,6 @@ export default function AddAccounts() {
     accountType: "employee",
   };
 
-
- 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("الاسم الأول مطلوب"),
     lastName: Yup.string().required("الاسم الأخير مطلوب"),
@@ -66,7 +64,7 @@ export default function AddAccounts() {
     try {
       setError("");
       setSubmitting(true);
-setRefresh(true);
+      setRefresh(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -75,7 +73,6 @@ setRefresh(true);
       const user = userCredential.user;
 
       const docRef = await addDoc(usersCollection, {
-
         ownerAdmin: localStorage.getItem("id"),
         firstname: firstName,
         lastname: lastName,
@@ -120,7 +117,6 @@ setRefresh(true);
       } catch (error) {
         console.error("Error fetching employees:", error);
       }
-
     };
 
     fetchEmployees();
@@ -149,13 +145,12 @@ setRefresh(true);
       employee.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-
   // async function deleteUserByUid(uid) {
   //   setRefresh(true)
   //   try {
   //     const response = await axios.delete(`https://delete-user-node-js.vercel.app/delete-user/${uid}`);
-  //    
-    
+  //
+
   //     if (response.status == 200) {
   //       console.log(response.data.message);
   //     } else {
@@ -168,26 +163,36 @@ setRefresh(true);
   //   }
   // }
 
-
-  async function deleteUserByUid(uid ,employeeId) {
+  async function deleteUserByUid(uid, employeeId) {
     setRefresh(true);
     try {
-      const response = await axios.delete(`https://delete-user-node-js.vercel.app/delete-user/${uid}`);
-  
-          await deleteDoc(doc(db, "users", employeeId))
-  
+      const response = await axios.delete(
+        `https://delete-user-node-js.vercel.app/delete-user/${uid}`
+      );
+
+      try {
+        // Make sure employeeId is defined and valid
+        if (employeeId) {
+          await deleteDoc(doc(db, "users", employeeId));
+          console.log("Employee deleted successfully!");
+        } else {
+          console.error("Invalid employeeId");
+        }
+      } catch (error) {
+        console.error("Error deleting employee: ", error);
+      }
       if (response.status === 200) {
         console.log(response.data.message);
       } else {
         console.log(response.data.message);
       }
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     } finally {
-      setRefresh(false); 
+      setRefresh(false);
     }
   }
-  
+
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="flex">
@@ -210,12 +215,10 @@ setRefresh(true);
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-
-        
           </div>
 
           <Modal
-          style={{paddingBottom:"10%" ,paddingTop:"20%"}}
+            style={{ paddingBottom: "10%", paddingTop: "20%" }}
             show={openModal}
             size="md"
             popup
@@ -401,11 +404,12 @@ setRefresh(true);
                         <td className="px-4 py-2">{employee.password}</td>
                         <td className="px-4 py-2">{employee.accountType}</td>
                         <td className="px-4 py-2 flex justify-center space-x-2">
-                        <AiFillDelete
-  className="text-red-500 cursor-pointer"
-  onClick={() => deleteUserByUid(employee.ID ,employee.docId)}
-/>
-
+                          <AiFillDelete
+                            className="text-red-500 cursor-pointer"
+                            onClick={() =>
+                              deleteUserByUid(employee.ID, employee.docId)
+                            }
+                          />
                         </td>
                       </tr>
                     ))

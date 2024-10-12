@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "flowbite-react";
@@ -79,7 +80,12 @@ export default function AdminMatrixInfo({ item }) {
         ) : (
           <Card className="w-[900px] h-auto my-9">
             <div className="mt-4 w-full">
-              <Button className="bg-[#d4af37] rounded-full" onClick={downloadPDF}>{t("text.download")}</Button>
+              <Button
+                className="bg-[#d4af37] rounded-full"
+                onClick={downloadPDF}
+              >
+                {t("text.download")}
+              </Button>
             </div>
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center pb-10 " ref={pdfRef}>
@@ -137,6 +143,9 @@ export default function AdminMatrixInfo({ item }) {
                       <tr key={index}>
                         <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
                           {elem.term}
+                        </td>
+                        <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
+                          {elem.interpretation}
                         </td>
                       </tr>
                     ))}

@@ -638,7 +638,7 @@ export default function SubjectForm() {
                   <button
                     onClick={() => {
                       setIsPopupVisible(false);
-                      navigation(-1);
+                      navigate(-1);
                     }}
                     className="text-red-600"
                   >

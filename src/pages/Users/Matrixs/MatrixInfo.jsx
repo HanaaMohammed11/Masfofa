@@ -76,11 +76,8 @@ export default function MatrixInfo() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction}    style={{  marginTop: "400px",marginLeft:20
-        }}>
-    
+      <div dir={direction} style={{ marginTop: "400px", marginLeft: 20 }}>
         <button
-     
           className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
           dir={direction}
@@ -90,8 +87,7 @@ export default function MatrixInfo() {
       </div>
       <div
         className="  justify-center flex items-center"
-        style={{  paddingTop: "2px",
-          paddingBottom: "440px"}}
+        style={{ paddingTop: "2px", paddingBottom: "440px" }}
         dir={direction}
       >
         {loading ? (
@@ -157,7 +153,6 @@ export default function MatrixInfo() {
                     </tr>
                     <tr className="bg-[#fce8ca]">
                       <td className="px-4 py-2 font-bold">
-                        {" "}
                         {t("matrixinfo.definitions")}
                       </td>
 
@@ -169,6 +164,9 @@ export default function MatrixInfo() {
                       <tr key={index}>
                         <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
                           {elem.term}
+                        </td>
+                        <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
+                          {elem.interpretation}
                         </td>
                       </tr>
                     ))}
