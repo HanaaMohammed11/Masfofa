@@ -169,15 +169,12 @@ setRefresh(true);
   // }
 
 
-  async function deleteUserByUid(uid) {
+  async function deleteUserByUid(uid ,employeeId) {
     setRefresh(true);
     try {
       const response = await axios.delete(`https://delete-user-node-js.vercel.app/delete-user/${uid}`);
   
-
-      await deleteDoc(doc(db, "users", uid)); 
-      console.log(`Deleted user with Employee ID: ${uid}`);
-  
+          await deleteDoc(doc(db, "users", employeeId))
   
       if (response.status === 200) {
         console.log(response.data.message);
@@ -195,9 +192,9 @@ setRefresh(true);
     <div className="flex flex-col items-center h-screen">
       <div className="flex">
         <div className="sm:mx-0">
-          <div className="flex justify-between flex-col md:flex-row mb-6">
+          <div className="flex justify-between flex-col md:flex-row mb-6 ">
             <div
-              className="add-btn add-g add-c add-uppercase add-text mb-4 md:mb-0 flex items-center text-center"
+              className=" mr-44 add-btn add-g add-c add-uppercase add-text mb-4 md:mb-0 flex items-center text-center"
               onClick={() => setOpenModal(true)}
             >
               {t("addaccount.createAccount")}{" "}
@@ -406,7 +403,7 @@ setRefresh(true);
                         <td className="px-4 py-2 flex justify-center space-x-2">
                         <AiFillDelete
   className="text-red-500 cursor-pointer"
-  onClick={() => deleteUserByUid(employee.ID)}
+  onClick={() => deleteUserByUid(employee.ID ,employee.docId)}
 />
 
                         </td>
