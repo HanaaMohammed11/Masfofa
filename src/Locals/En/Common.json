@@ -7,7 +7,7 @@
     "masfofa": "Masfofa",
     "home": "Corgov",
     "download": "Print",
-      "back":"Back"
+    "back": "Back"
   },
   "login": {
     "email": "Email",
@@ -125,6 +125,7 @@
   },
   "addaccount": {
     "createAccount": "Create User Account",
+    "searchPlaceholder": "Search ",
     "firstName": " Name",
     "lastName": "Last Name",
     "email": "User Email",

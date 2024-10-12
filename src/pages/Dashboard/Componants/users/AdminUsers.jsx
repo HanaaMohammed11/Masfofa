@@ -4,7 +4,7 @@ import UserForm from "./AddUserForm";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
-import Loader from "../../../Login/loader"; 
+import Loader from "../../../Login/loader";
 
 export default function AdminUsers() {
   const { t } = useTranslation("global");
@@ -20,17 +20,21 @@ export default function AdminUsers() {
         where("ownerAdmin", "==", localStorage.getItem("id"))
       );
 
-      const unsubscribe = onSnapshot(qEmps, (snapshot) => {
-        const users = [];
-        snapshot.forEach((doc) => {
-          users.push({ id: doc.id, ...doc.data() });
-        });
-        setUsersData(users);
-        setLoading(false);
-      }, (error) => {
-        console.error("Error fetching users: ", error);
-        setLoading(false);
-      });
+      const unsubscribe = onSnapshot(
+        qEmps,
+        (snapshot) => {
+          const users = [];
+          snapshot.forEach((doc) => {
+            users.push({ id: doc.id, ...doc.data() });
+          });
+          setUsersData(users);
+          setLoading(false);
+        },
+        (error) => {
+          console.error("Error fetching users: ", error);
+          setLoading(false);
+        }
+      );
 
       return () => unsubscribe();
     };
@@ -38,7 +42,7 @@ export default function AdminUsers() {
     fetchUsers();
   }, [showUserForm]);
 
-  const filteredUsers = usersData.filter(user => {
+  const filteredUsers = usersData.filter((user) => {
     const userName = user.employeeName?.toLowerCase() || "";
     const userEmail = user.email?.toLowerCase() || "";
     const term = searchTerm.toLowerCase();
@@ -48,7 +52,10 @@ export default function AdminUsers() {
   return (
     <div className="p-9 w-full min-h-screen">
       <div className="flex flex-col w-full xs:items-center">
-        <div className="add-btn add-g add-c add-uppercase add-text" onClick={() => setShowUserForm(!showUserForm)}>
+        <div
+          className="add-btn add-g add-c add-uppercase add-text"
+          onClick={() => setShowUserForm(!showUserForm)}
+        >
           {t("userform.adduser")}
         </div>
 
@@ -74,15 +81,27 @@ export default function AdminUsers() {
               <table className="w-full text-center text-gray-500 dark:text-gray-400">
                 <thead className="text-center text-lg bg-white">
                   <tr>
-                    <th scope="col" className="px-6 py-3">{t("userInfo.employeeName")}</th>
-                    <th scope="col" className="px-6 py-3">{t("job.jobTitle")}</th>
-                    <th scope="col" className="px-6 py-3">{t("job.phoneNumber")}</th>
-                    <th scope="col" className="px-6 py-3">{t("EmpCard.details")}</th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("userInfo.employeeName")}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("job.jobTitle")}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("job.phoneNumber")}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("EmpCard.details")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredUsers.map((user, index) => (
-                    <AdminUserCard key={user.employeeId} user={user} index={index} />
+                    <AdminUserCard
+                      key={user.employeeId}
+                      user={user}
+                      index={index}
+                    />
                   ))}
                 </tbody>
               </table>

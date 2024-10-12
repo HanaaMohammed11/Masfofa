@@ -1,6 +1,15 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
@@ -10,6 +19,8 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
   const [matrix, setMatrix] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const id = useId();
   const navigate = useNavigate();
@@ -19,6 +30,7 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
     try {
       await deleteDoc(matrixRef);
       console.log("تم حذف المستند بنجاح!");
+      setIsPopupVisible(true);
     } catch (error) {
       console.error("خطأ في حذف المستند: ", error);
     }
@@ -88,17 +100,25 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
                   <td className="py-2 px-4 text-center">
                     <div className="flex justify-center space-x-2 md:space-x-4">
                       {/* أيقونة العرض */}
-                      <button onClick={() => show(card)} className="text-blue-500 ml-4">
+                      <button
+                        onClick={() => show(card)}
+                        className="text-blue-500 ml-4"
+                      >
                         <AiFillEye size={20} />
                       </button>
+
 
                       {/* أيقونة التعديل */}
                       <button onClick={() => edit(card)} className="text-yellow-500">
                         <AiFillEdit size={20} />
                       </button>
 
+
                       {/* أيقونة الحذف */}
-                      <button onClick={() => deleteMatrix(card.id)} className="text-red-500">
+                      <button
+                        onClick={() => deleteMatrix(card.id)}
+                        className="text-red-500"
+                      >
                         <AiFillDelete size={20} />
                       </button>
                     </div>

@@ -6,8 +6,8 @@
     "Matrices": "المصفوفات",
     "masfofa": "مصفوفتي",
     "home": "الرئيسية",
-    "download": "طباعة"
-    ,"back":"العودة"
+    "download": "طباعة",
+    "back": "العودة"
   },
   "login": {
     "email": "البريد الإلكتروني",
@@ -122,6 +122,7 @@
   },
   "addaccount": {
     "createAccount": "إنشاء حساب مستخدم",
+    "searchPlaceholder": "بحث",
     "firstName": "الاسم ",
     "lastName": "الاسم الأخير",
     "email": "البريد الإلكتروني للمستخدم",
