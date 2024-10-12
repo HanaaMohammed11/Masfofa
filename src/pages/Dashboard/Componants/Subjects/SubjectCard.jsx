@@ -130,24 +130,9 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
                         title="Delete"
                       />
                     </button>
-                    {isPopupVisible && (
-                      <div style={popupStyles}>
-                        <div style={popupContentStyles}>
-                          <p>تم حذف المادة بنجاح!</p>
-                          <button
-                            onClick={() => {
-                              setIsPopupVisible(false);
-                            }}
-                            className="text-red-600"
-                          >
-                            إغلاق
-                          </button>
-                        </div>
-                      </div>
-                    )}
                     {/* أيقونة العرض */}
                     <button
-                      onClick={() => handleButtonClick(subject)}
+                      onClick={() => handleButtonClick(handleButtonClick)}
                       className="text-blue-500 ml-4"
                     >
                       <AiFillEye size={20} />

@@ -1,36 +1,33 @@
 import React from "react";
-import { Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function AdminUserCard({ user }) {
+export default function AdminUserCard({ user, index }) {
   const navigate = useNavigate();
-  const { t } = useTranslation("global"); 
+  const { t } = useTranslation("global");
+
   const handleCardClick = () => {
     navigate(`/AdminUserInfo`, { state: { user } });
   };
 
+  // Set alternating row colors
+  const rowColor = index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white';
+
   return (
-    <div className="flex flex-wrap gap-9 p-10 ">
-      <Card className="xs:w-72 sm:w-80 cursor-pointer" onClick={handleCardClick}>
-        <div className="flex "></div>
-        <div className="flex flex-col items-center ">
-          <img
-            alt={`${user.employeeName} image`}
-            src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-           
-            className="mb-3 rounded-full shadow-lg w-16 h-16"
-          />
-          <h5 className="mb-1 text-xl font-medium text-gray-900">
-            {user.employeeName}
-          </h5>
-          <span className="text-sm text-gray-500">{t("job.jobTitle")}: {user.jobTitle}</span>
-       
-          <span className="text-sm text-gray-500">
-          {t("job.phoneNumber")}:   {user.phoneNumber} 
-          </span>
-        </div>
-      </Card>
-    </div>
+    <tr className={`${rowColor} cursor-pointer`} onClick={handleCardClick}>
+      <td className="px-6 py-4 flex items-center justify-center">
+        <img
+          alt={`${user.employeeName} image`}
+          src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
+          className="w-10 h-10 rounded-full shadow-lg"
+        />
+        <span className="ml-3">{user.employeeName}</span>
+      </td>
+      <td className="px-6 py-4">{user.jobTitle}</td>
+      <td className="px-6 py-4">{user.phoneNumber}</td>
+      <td className="px-6 py-4">
+        <button className="text-blue-500">{t("EmpCard.details")}</button>
+      </td>
+    </tr>
   );
 }

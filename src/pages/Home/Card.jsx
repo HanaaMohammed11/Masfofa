@@ -57,7 +57,7 @@ export default function Cards() {
       <div className="flex gap-4 items-center sm:p-4 flex-wrap justify-center">
         
         {/* Card 1 */}
-        <div className="p-4 text-center relative bg-transparent w-72 card-container card-1"> 
+        <div className="p-4 text-center relative bg-transparent w-64 card-container card-1"> 
           <img
             src={bannerUrl || "default-image-url"}  // Use the same image in all cards
             alt="Banner"
@@ -75,7 +75,7 @@ export default function Cards() {
         </div>
 
         {/* Card 2 */}
-        <div className="p-4 text-center relative bg-transparent w-72 card-container card-2"> 
+        <div className="p-4 text-center relative bg-transparent w-64 card-container card-2"> 
           <img
             src={bannerUrl || "default-image-url"}  // Use the same image in all cards
             alt="Banner"
@@ -93,7 +93,7 @@ export default function Cards() {
         </div>
 
         {/* Card 3 */}
-        <div className="p-4 text-center relative bg-transparent w-72 card-container card-3"> 
+        <div className="p-4 text-center relative bg-transparent w-64 card-container card-3"> 
           <img
             src={bannerUrl || "default-image-url"}  // Use the same image in all cards
             alt="Banner"
@@ -112,7 +112,7 @@ export default function Cards() {
 
         {/* Card 4 (Visible for admin only) */}
         {user.accountType === "admin" && (
-          <div className="p-4 text-center relative bg-transparent w-72 card-container card-4"> 
+          <div className="p-4 text-center relative bg-transparent w-64 card-container card-4"> 
             <img
               src={bannerUrl || "default-image-url"}  // Use the same image in all cards
               alt="Banner"

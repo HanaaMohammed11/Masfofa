@@ -20,7 +20,8 @@ export default function Home() {
         <Topbanner />
        
       </div>
-<div className=" " >
+<div className=" " style={{  paddingTop: "300px",/* Adjust according to the height of Topbanner */
+paddingBottom: "44px"}} >
 <Cards />
 </div>
      
