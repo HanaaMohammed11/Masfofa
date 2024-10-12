@@ -137,10 +137,10 @@ export default function UserForm() {
   };
 
   return (
-    <div className="flex lg:w-[900px] md:w-[500px] h-screen">
+    <div className="flex lg:w-[900px] md:w-[500px]" style={{paddingBottom:"100px"}}>
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
         <h1
-          className="text-3xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl"
+          className="text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
           dir={direction}
         >
           {t("userform.adduser")}
@@ -221,7 +221,7 @@ export default function UserForm() {
 
         {/* Proxy Employee Section */}
         <h2
-          className=" text-2xl font-semibold text-gray-800 bg-[#B5B5B6] p-5 rounded-t-xl mt-9"
+          className=" text-2xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl mt-9"
           dir={direction}
         >
           {t("userform.title")}
