@@ -170,8 +170,17 @@ export default function AddAccounts() {
         `https://delete-user-node-js.vercel.app/delete-user/${uid}`
       );
 
-      await deleteDoc(doc(db, "users", employeeId));
-
+      try {
+        // Make sure employeeId is defined and valid
+        if (employeeId) {
+          await deleteDoc(doc(db, "users", employeeId));
+          console.log("Employee deleted successfully!");
+        } else {
+          console.error("Invalid employeeId");
+        }
+      } catch (error) {
+        console.error("Error deleting employee: ", error);
+      }
       if (response.status === 200) {
         console.log(response.data.message);
       } else {
