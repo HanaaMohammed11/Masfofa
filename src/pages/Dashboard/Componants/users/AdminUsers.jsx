@@ -50,7 +50,7 @@ export default function AdminUsers() {
   });
 
   return (
-    <div className="p-9 w-full min-h-screen">
+    <div className="p-9 w-full" >
       <div className="flex flex-col w-full xs:items-center">
         <div
           className="add-btn add-g add-c add-uppercase add-text"
@@ -73,7 +73,7 @@ export default function AdminUsers() {
           {showUserForm ? (
             <UserForm />
           ) : loading ? (
-            <div className="flex justify-center items-center min-h-[300px]">
+            <div className="flex justify-center items-center ">
               <Loader />
             </div>
           ) : filteredUsers.length > 0 ? (

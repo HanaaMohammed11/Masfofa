@@ -21,40 +21,39 @@ export default function SubjectList({handleClickShow}) {
   };
 
   return (
-
+    <div className="flex justify-center">
+      <div className="w-full max-w-screen-lg px-4">
+        {/* Header Section */}
+        <div className="flex justify-between flex-col md:flex-row mb-6">
+          <div
+            className="add-btn add-g add-c add-uppercase add-text mb-4 md:mb-0 flex items-center text-center"
+            onClick={handleClick}
+          >
+            {t("subjectEditForm.addSubject")}
+          </div>
   
-    <div className="p-9 flex  justify-center">
-      
-   
-
-       <div>
-       <div className="flex  flex-col w-full   xs:items-center">
-     
-        <div
-          className="add-btn add-g add-c add-uppercase add-text mb-7"
-          onClick={handleClick}
-        >
-          {t("subjectEditForm.addSubject")}
+          {/* Search Input */}
+          <div className="search flex justify-center w-full md:w-auto">
+            <input
+              type="text"
+              placeholder={t("subjectEditForm.search")}
+              className="h-12 w-full md:w-80 rounded-full text-right"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="search flex justify-center">
-          <input
-            type="text"
-            placeholder={t("subjectEditForm.search")}
-            className="xs:w-72 sm:w-96 rounded-full text-right"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+  
+        {/* Content Section */}
+        <div className="flex flex-wrap justify-center pb-20">
+          {showMatrixForm ? (
+            <SubjectForm />
+          ) : (
+            <SubjctCard searchTerm={searchTerm} handleShowInfo={handleClickShow} />
+          )}
         </div>
       </div>
-      <div className="flex flex-wrap justify-center pb-20 ">
-      {showMatrixForm ? (
-        <SubjectForm />
-      ) : (
-        <SubjctCard searchTerm={searchTerm} handleShowInfo={handleClickShow}/>
-      )}</div>
-</div>
-</div>
-
-
+    </div>
   );
+  
 }

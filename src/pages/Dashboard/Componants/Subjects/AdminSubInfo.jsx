@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Card } from "flowbite-react";
-import Topbanner from "../../../Home/componants/banner/Topbanner";
-import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import db from "../../../../config/firebase";
@@ -9,24 +7,20 @@ import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-export default function AdminSubjectInfo({item}) {
-
-  const pdfRef = useRef();  
+export default function AdminSubjectInfo({ item }) {
+  const pdfRef = useRef();
 
   const downloadPDF = () => {
-    const input = pdfRef.current; 
+    const input = pdfRef.current;
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      
 
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
 
-  
-      const pdfWidth = imgWidth / 1; 
+      const pdfWidth = imgWidth / 1;
       const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
 
-    
       const doc = new jsPDF({
         orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
         unit: 'px',
@@ -34,17 +28,15 @@ export default function AdminSubjectInfo({item}) {
       });
 
       doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      doc.save("table.pdf"); 
+      doc.save("table.pdf");
     });
   };
 
   const { t, i18n } = useTranslation("global");
-
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [subject, setSubject] = useState(null);
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
@@ -62,7 +54,6 @@ export default function AdminSubjectInfo({item}) {
         }));
 
         setEmployees(employeesList);
-        setSubject(item);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -18,10 +18,11 @@ function AdminDashboard() {
 
 
     return (
-        <div>
+        <div >
             <Topbanner/>
          
-        <div className=" justify-around  bg-gray-100" dir={direction}>
+        <div className=" justify-around  bg-gray-100" dir={direction} style={{  paddingTop: "300px",
+      paddingBottom: "400px"}}>
           
         <SideBar/>
          

@@ -34,12 +34,14 @@ export default function UerProxy() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}>
+      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{  marginTop: "300px",
+    }}>
         <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
             </button></div>
-      <div className="min-h-screen flex items-center justify-center" dir={direction}>
+      <div className="min-h-screen flex items-center justify-center" dir={direction} style={{  paddingTop: "2px",
+      paddingBottom: "400px"}}>
    
-  <Card className="w-full max-w-[900px] h-auto my-12">
+  <Card className="w-full max-w-[900px] h-auto my-12"   >
     <div className="flex flex-col items-center pb-10">
       <img
         alt="User Avatar"
