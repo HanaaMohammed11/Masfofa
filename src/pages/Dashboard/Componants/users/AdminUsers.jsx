@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../Dashboard/btns.css";
 import Loader from "../../../Login/loader"; 
 
-export default function AdminUsers({ handleClickShow }) {
+export default function AdminUsers() {
   const { t, i18n } = useTranslation("global");
   const [searchTerm, setSearchTerm] = useState("");
   const navigation = useNavigate();

@@ -12,10 +12,10 @@ import AdminUsers from "./AdminUsers";
 import SubjectList from "../Subjects/SubjectList";
 import AddAccounts from "../Addaccunts";
 
-export default function AdminUserInfo({user}) {
+export default function AdminUserInfo() {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const user = location.state.user;
   const [proxyEmployees, setProxyEmployees] = useState([]);
 
   const db = getFirestore();

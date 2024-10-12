@@ -48,7 +48,7 @@ function SideBar() {
       name: t("sidebar.employees"),
       icon: <FaUsers className="text-[#f5bc42]" />,
       content: (
-        <AdminUsers handleClickShow={(item) => handleItemClick(<AdminUserInfo item={item}/>)} />
+        <AdminUsers />
       ),
     },
     {
@@ -75,7 +75,7 @@ function SideBar() {
       </button>
 
       {isOpen && (
-        <div className={`lg:hidden bg-[#969594] p-4 mt-14`}>
+        <div className={`lg:hidden bg-[#969594] p-4 `}>
           {items.map(({ name, icon, content }) => {
             return (
               <button

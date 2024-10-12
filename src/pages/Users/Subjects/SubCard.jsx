@@ -76,14 +76,13 @@ export default function SubTable({ searchTerm }) {
   const getProfileImage = (item) => item.profileImage?.E || "/default-avatar.png";
 
   return (
-    <div className={`p-4 overflow-x-auto mx-14  mt-9 ${direction}`}>
+    <div className={`p-4 overflow-x-auto lg:mx-44 md:mx-44 sm:mx-0  mt-9 ${direction}`}>
       <table className="table-auto w-full text-sm text-center text-gray-500 dark:text-gray-400 shadow-lg rounded-xl" dir={direction}
       >
         <thead className=" text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr className="text-center ml-9">
             <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.subjectTitle")}</th>
-            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.authorizedEmployee")}</th>
-            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.action")}</th>
+            <th className="px-4 py-2  text-center">          {t("subjectCardDashboard.subjectNum")} </th>            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.action")}</th>
           </tr>
         </thead>
         <tbody>
@@ -92,11 +91,9 @@ export default function SubTable({ searchTerm }) {
               <td className="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                 {item.subjectTitle}
               </td>
-              <td className="px-4 py-3 text-center">
-                <div className="flex items-center">
-                  <img className="w-8 h-8 rounded-full" src={getProfileImage(item)} alt="User Avatar" />
-                </div>
-              </td>
+              <td className="px-4 py-2 text-center">
+        {t("subjectCardDashboard.subjectNum")}: {item.subjectNum}
+      </td>
               <td className="px-4 py-3">
                 <button className={`font-semibold hover:underline  text-gray-600`} onClick={() => handleButtonClick(item)}>
                   {t("articels.details")}
