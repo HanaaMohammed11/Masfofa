@@ -7,7 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import save from "../../../../../src/assets/save.png";
 import "../../../Home/Card.css";
-export default function MatrixForm() {
+export default function MatrixForm({ onClose }) {
   const [definitions, setDefinitions] = useState([
     { term: "", interpretation: "" },
   ]);
@@ -42,6 +42,7 @@ export default function MatrixForm() {
     try {
       await addDoc(collection(db, "matrix"), data);
       setIsPopupVisible(true);
+      onClose();
     } catch (error) {
       console.error("Error adding document: ", error);
     }

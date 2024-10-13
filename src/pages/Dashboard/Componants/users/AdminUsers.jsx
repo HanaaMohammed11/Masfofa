@@ -49,13 +49,15 @@ export default function AdminUsers() {
     const term = searchTerm.toLowerCase();
     return userName.includes(term) || userEmail.includes(term);
   });
-
+  const handleFormClose = () => {
+    setShowUserForm(false); 
+  };
   return (
     <div className="" >
    
 
  
-   <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10 fixed `}>
+   <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10  sticky lg:fixed md:fixed sm:sticky xs:sticky`}>
           <div
     className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
             onClick={() => setShowUserForm(!showUserForm)}
@@ -80,7 +82,7 @@ export default function AdminUsers() {
      
         <div className="flex flex-wrap justify-center w-full">
           {showUserForm ? (
-            <UserForm />
+            <UserForm  onClose={handleFormClose}/>
           ) : loading ? (
             <div className="flex justify-center items-center mt-48">
               <Loader />
