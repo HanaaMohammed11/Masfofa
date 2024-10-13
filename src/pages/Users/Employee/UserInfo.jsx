@@ -87,7 +87,7 @@ export default function UserInfo() {
   {loading ? (
     <Loader />
   ) : (
-    <div className="flex flex-col md:flex-row w-full p-4 overflow-hidden">
+    <div className="flex flex-col md:flex-row w-full mx-14 p-4 overflow-hidden">
       {/* Left Side: User Info */}
       <Card className="w-full md:w-[60%] my-12 p-6">
         <div className="flex flex-col items-center pb-10">
@@ -203,11 +203,15 @@ export default function UserInfo() {
 }
 const profileContainerStyle = {
   margin: 'auto',
-  width: '250px',
-  height: '250px',
+  width: '10vw', // عرض متجاوب، يمكن تعديله حسب الحاجة
+  height: '10vw', // ارتفاع متجاوب
+  maxWidth: '250px', // حد أقصى للعرض
+  maxHeight: '250px', // حد أقصى للارتفاع
+  minWidth: '50px', // حد أدنى للعرض
+  minHeight: '50px', // حد أدنى للارتفاع
   position: 'relative',
   borderRadius: '50%',
-  border: '15px solid transparent', 
+  border: '15px solid transparent',
   background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #FFD700 10%, #DAA520 10%, #C0C0C0 100%) border-box', // الخلفية الذهبية
 
 };

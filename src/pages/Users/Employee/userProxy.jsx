@@ -43,11 +43,13 @@ export default function UerProxy() {
    
   <Card className="w-full max-w-[900px] h-auto my-12"   >
     <div className="flex flex-col items-center pb-10">
+    <div style={profileContainerStyle}>
       <img
         alt="User Avatar"
         src={user.profileImage || user.proxyProfileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-        className="mb-3 rounded-full shadow-lg w-44 h-44"
+        style={imageStyle}
       />
+    </div>  
       <div className="mt-4 overflow-x-auto w-full">
         <table className="border-collapse w-full">
           <tbody className="text-gray-700">
@@ -102,3 +104,33 @@ export default function UerProxy() {
     </div>
   );
 }
+
+const profileContainerStyle = {
+  margin: 'auto',
+  width: '10vw', // عرض متجاوب، يمكن تعديله حسب الحاجة
+  height: '10vw', // ارتفاع متجاوب
+  maxWidth: '250px', // حد أقصى للعرض
+  maxHeight: '250px', // حد أقصى للارتفاع
+  minWidth: '50px', // حد أدنى للعرض
+  minHeight: '50px', // حد أدنى للارتفاع
+  position: 'relative',
+  borderRadius: '50%',
+  border: '15px solid transparent',
+  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #FFD700 10%, #DAA520 10%, #C0C0C0 100%) border-box', // الخلفية الذهبية
+
+};
+
+// أنماط الصورة
+const imageStyle = {
+  width: '100%',
+  height: '100%',
+  borderRadius: '50%', 
+  display: 'block',
+};
+
+// يمكنك إضافة أنماط CSS أدناه
+const style = `
+
+  }
+`;
+document.head.insertAdjacentHTML("beforeend", `<style>${style}</style>`);
