@@ -10,16 +10,18 @@ import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
 export default function SubjectList() {
-  const [showMatrixForm, setShowMatrixForm] = useState(false);
+  const [showSubForm, setShowSubForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const handleClick = () => {
-    setShowMatrixForm(!showMatrixForm);
+    setShowSubForm(!showSubForm);
   };
-
+  const handleFormClose = () => {
+    setShowSubForm(false); 
+  };
   return (
     <div className="">
       <div className="">
@@ -41,7 +43,7 @@ export default function SubjectList() {
   <div className="search flex justify-center items-center">
     <input
       type="text"
-      className="rounded-full text-right h-9 px-4"  // أضفنا padding للمدخل
+      className="rounded-full text-right h-9 px-4"  
       placeholder={t("matrixForm.search")}
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
@@ -52,8 +54,8 @@ export default function SubjectList() {
   
         {/* Content Section */}
         <div className="flex flex-wrap justify-center mb-96">
-          {showMatrixForm ? (
-            <SubjectForm />
+          {showSubForm ? (
+            <SubjectForm onClose={handleFormClose} />
           ) : (
             <SubjctCard searchTerm={searchTerm}  />
           )}

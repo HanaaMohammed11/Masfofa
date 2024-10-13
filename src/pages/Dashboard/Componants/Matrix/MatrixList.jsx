@@ -20,7 +20,9 @@ export default function MatrixList() {
   const handleClick = () => {
     setShowMatrixForm(!showMatrixForm);
   };
-
+  const handleFormClose = () => {
+    setShowMatrixForm(false); 
+  };
   return (
     <>
       <div className="flex flex-col  ">
@@ -52,7 +54,7 @@ export default function MatrixList() {
 
       <div className="flex flex-wrap justify-center mb-[30%]">
         {showMatrixForm ? (
-          <MatrixForm />
+          <MatrixForm onClose={handleFormClose} />
         ) : (
           <MatrixCard searchQuery={searchQuery} />
         )}

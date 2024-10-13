@@ -49,7 +49,9 @@ export default function AdminUsers() {
     const term = searchTerm.toLowerCase();
     return userName.includes(term) || userEmail.includes(term);
   });
-
+  const handleFormClose = () => {
+    setShowUserForm(false); 
+  };
   return (
     <div className="" >
    
@@ -80,7 +82,7 @@ export default function AdminUsers() {
      
         <div className="flex flex-wrap justify-center w-full">
           {showUserForm ? (
-            <UserForm />
+            <UserForm  onClose={handleFormClose}/>
           ) : loading ? (
             <div className="flex justify-center items-center mt-48">
               <Loader />

@@ -13,7 +13,7 @@ import {
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useTranslation } from "react-i18next";
 import "../../../Home/Card.css";
-export default function UserForm() {
+export default function UserForm({ onClose }) {
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const navigation = useNavigate();
@@ -116,6 +116,7 @@ export default function UserForm() {
       // navigation("/dashboard");
 
       setIsPopupVisible(true);
+      onClose();
     } catch (error) {
       console.error("Error saving data: ", error);
     }

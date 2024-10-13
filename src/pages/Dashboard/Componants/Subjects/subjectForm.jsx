@@ -275,7 +275,7 @@ import {
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import save from "../../../../../src/assets/save.png";
-export default function SubjectForm() {
+export default function SubjectForm({ onClose }) {
   const navigate = useNavigate();
   const [subjectNum, setSubjectNum] = useState("");
   const [subjectField, setSubjectField] = useState("");
@@ -315,6 +315,7 @@ export default function SubjectForm() {
 
       const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
       setIsPopupVisible(true);
+      onClose();
       const matrixDocSnapshot = await getDoc(matrixDocRef);
       if (matrixDocSnapshot.exists()) {
         await updateDoc(matrixDocRef, {
