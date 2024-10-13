@@ -22,7 +22,7 @@ function AdminDashboard() {
             <Topbanner/>
          
         <div className=" top-0 "  style={{  paddingTop: "300px",
-      paddingBottom: "400px"}}>
+   }}>
           
         <SideBar/>
          

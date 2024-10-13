@@ -75,7 +75,7 @@ function SideBar() {
       </button>
 
       {isOpen && (
-        <div className={`lg:hidden  bg-[#969594] p-4 `}>
+        <div className={`lg:hidden  bg-[#969594]  `}>
           {items.map(({ name, icon, content }) => {
             return (
               <button
@@ -94,7 +94,7 @@ function SideBar() {
       )}
 
       <div
-        className={`Sidebar  h-full text-white fixed transform transition-transform duration-300 ${
+        className={`Sidebar   text-white fixed transform transition-transform duration-300 ${
           isOpen
             ? "translate-x-0"
             : isRtl

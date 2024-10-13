@@ -228,5 +228,20 @@
     "delete": "delete",
     "addNewEmp": "Add New Emp",
     "save": "save"
+  }, "validation": {
+    "firstName": {
+      "required": "First name is required"
+    },
+    "lastName": {
+      "required": "Last name is required"
+    },
+    "email": {
+      "invalid": "Invalid email address",
+      "required": "Email is required"
+    },
+    "password": {
+      "minLength": "Password must be at least 6 characters",
+      "required": "Password is required"
+    }
   }
 }

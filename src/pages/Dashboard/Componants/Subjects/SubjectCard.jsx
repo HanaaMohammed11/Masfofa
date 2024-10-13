@@ -53,7 +53,7 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
   );
 
   return (
-    <div className={`mx-4  mt-32 mb-9 w-full ${direction} z-[100]`}>
+    <div className={`mx-4  mt-32 mb-9 w-full ${direction} `}>
       {loading ? (
         <div className="flex justify-center items-center min-h-[300px]">
           <Loader />

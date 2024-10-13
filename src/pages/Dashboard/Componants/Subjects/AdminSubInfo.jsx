@@ -101,6 +101,7 @@ export default function AdminSubjectInfo({ item }) {
                       {item.subjectContent}
                     </td>
                   </tr>
+                  
                   <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectInfo.authorizedEmployee")}

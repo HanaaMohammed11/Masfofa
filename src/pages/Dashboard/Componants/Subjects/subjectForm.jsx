@@ -314,7 +314,7 @@ export default function SubjectForm() {
       const subjectRef = await addDoc(collection(db, "subjects"), data);
 
       const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
-
+      setIsPopupVisible(true);
       const matrixDocSnapshot = await getDoc(matrixDocRef);
       if (matrixDocSnapshot.exists()) {
         await updateDoc(matrixDocRef, {
@@ -323,7 +323,7 @@ export default function SubjectForm() {
         });
 
         // navigate("/dashboard");
-        setIsPopupVisible(true);
+    
       } else {
         alert("The specified matrix does not exist.");
       }
@@ -381,7 +381,7 @@ export default function SubjectForm() {
   }, [relatedMatrix]);
 
   return (
-    <div className="flex lg:w-[900px] md:w-[500px] mt-10">
+    <div className="flex lg:w-[900px] md:w-[500px] mt-10  mb-16">
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
         <h1
           dir={direction}

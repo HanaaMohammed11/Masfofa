@@ -66,7 +66,7 @@ export default function MatrixCard({ searchQuery, handleShow }) {
   );
 
   return (
-    <div className={`mx-4  mt-32 mb-9 w-full ${direction} z-[100]`}>
+    <div className={`mx-4  mt-32 mb-9 w-full ${direction} `}>
       {loading ? (
         <div className="flex justify-center items-center mt-44">
           <Loader />

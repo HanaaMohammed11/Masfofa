@@ -226,5 +226,20 @@
     "chooseRole": "الحالة",
     "delete": "حذف",
     "addNewEmp": "اضافة موظف مشترك"
+  }, "validation": {
+    "firstName": {
+      "required": "الاسم الأول مطلوب"
+    },
+    "lastName": {
+      "required": "الاسم الأخير مطلوب"
+    },
+    "email": {
+      "invalid": "البريد الإلكتروني غير صحيح",
+      "required": "البريد الإلكتروني مطلوب"
+    },
+    "password": {
+      "minLength": "يجب أن يكون الرمز السري 6 أحرف على الأقل",
+      "required": "الرمز السري مطلوب"
+    }
   }
 }

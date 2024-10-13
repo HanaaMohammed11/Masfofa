@@ -139,7 +139,7 @@ export default function UserForm() {
 
   return (
     <div
-      className="flex lg:w-[900px] md:w-[500px] mt-10 z-[100]"
+      className="flex lg:w-[900px] md:w-[500px] mt-10 "
       style={{ paddingBottom: "100px" }}
     >
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
