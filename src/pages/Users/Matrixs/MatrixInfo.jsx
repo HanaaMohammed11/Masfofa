@@ -76,7 +76,7 @@ export default function MatrixInfo() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction} style={{ marginTop: "400px", marginLeft: 20 }}>
+      <div dir={direction} style={{ marginTop: "400px", marginRight:"15px" }}>
         <button
           className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
