@@ -138,7 +138,7 @@ const EditTheme = () => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-32 w-full ">
+    <div className="flex flex-col items-center mt-32 w-full  mb-48">
       <div className="gap-5 justify-center w-full xs:w-[90%] sm:w-[70%] lg:w-full">
         <div className="flex flex-wrap justify-center gap-5 w-full">
 
