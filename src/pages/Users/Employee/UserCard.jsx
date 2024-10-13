@@ -20,7 +20,7 @@ function UserTable({ users }) {
   }
 
   return (
-    <div className="overflow-x-auto w-full mx-9 my-10 shadow-2xl">
+    <div className="overflow-x-auto w-full mx-14  my-10 shadow-2xl">
       <table className="w-full text-center text-gray-500 dark:text-gray-400" dir={direction}>
         <thead className="text-center text-lg bg-white">
           <tr>

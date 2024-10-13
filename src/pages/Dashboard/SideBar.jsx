@@ -27,6 +27,7 @@ function SideBar() {
 
   const handleItemClick = (content) => {
     setSelectedItem(content);
+    setIsOpen(false)
   };
 
   const items = [
@@ -75,7 +76,7 @@ function SideBar() {
       </button>
 
       {isOpen && (
-        <div className={`lg:hidden  bg-[#969594]  `}>
+        <div className={`lg:hidden  bg-[#969594]   `}>
           {items.map(({ name, icon, content }) => {
             return (
               <button

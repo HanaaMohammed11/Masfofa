@@ -39,7 +39,7 @@ export default function MatrixList({ handleClickShow }) {
   <div className="search flex justify-center items-center">
     <input
       type="text"
-      className="rounded-full text-right h-9 px-4"  // أضفنا padding للمدخل
+      className="rounded-full text-right h-9 px-4" 
       placeholder={t("matrixForm.search")}
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}

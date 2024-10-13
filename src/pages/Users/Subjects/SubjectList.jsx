@@ -11,7 +11,7 @@ export default function SubjectsLists() {
   const [searchTerm, setSearchTerm] = useState(''); 
 
   return (
-    <div className='flex flex-col min-h-screen bg-gray-100'  style={{  paddingTop: "270px",
+    <div className='flex flex-col min-h-screen '  style={{  paddingTop: "270px",
       paddingBottom: "44px"}}>
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />

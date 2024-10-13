@@ -76,7 +76,7 @@ export default function SubTable({ searchTerm }) {
   const getProfileImage = (item) => item.profileImage?.E || "/default-avatar.png";
 
   return (
-    <div className={`p-4 overflow-x-auto lg:mx-44 md:mx-44 sm:mx-0  mt-9 ${direction}`}>
+    <div className={`p-4 overflow-x-auto mx-14     mt-9 ${direction}`}>
       <table className="table-auto w-full text-sm text-center text-gray-500 dark:text-gray-400 shadow-lg rounded-xl" dir={direction}
       >
         <thead className=" text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

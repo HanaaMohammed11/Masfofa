@@ -381,7 +381,7 @@ export default function SubjectForm() {
   }, [relatedMatrix]);
 
   return (
-    <div className="flex lg:w-[900px] md:w-[500px] mt-10  mb-16">
+    <div className="flex lg:w-[900px] md:w-[500px]  lg:mt-10 md:mt-10 mt-44 sm:mt-44   mb-16">
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
         <h1
           dir={direction}
