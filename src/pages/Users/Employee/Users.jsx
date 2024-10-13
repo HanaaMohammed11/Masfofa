@@ -65,7 +65,7 @@ export default function Users() {
   );
 
   return (
-    <div className="flex flex-col min-h-screen " style={{  paddingTop: "270px",
+    <div className="flex flex-col  " style={{  paddingTop: "270px",
       paddingBottom: "440px"}}>
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />

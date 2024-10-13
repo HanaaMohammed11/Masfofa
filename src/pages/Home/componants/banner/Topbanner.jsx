@@ -236,7 +236,7 @@ export default function Topbanner() {
 
       {/* Banner section */}
       <div
-  className="Topbaner w-full h-52 bg-cover bg-center flex justify-end items-center"
+  className="Topbaner w-full h-48 bg-cover bg-center flex justify-end items-center"
   style={{ 
     backgroundImage: `url(${topBannerUrl})`, 
 
