@@ -57,7 +57,7 @@ export default function AdminUsers() {
    
 
  
-   <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10 fixed `}>
+   <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10  sticky lg:fixed md:fixed sm:sticky xs:sticky`}>
           <div
     className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
             onClick={() => setShowUserForm(!showUserForm)}
