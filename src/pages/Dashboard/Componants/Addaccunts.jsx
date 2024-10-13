@@ -222,7 +222,7 @@ export default function AddAccounts() {
           </div>
        </div>
           <Modal
-            style={{ paddingBottom: "50%", paddingTop: "45%" }}
+            style={{ paddingBottom: "70%", paddingTop: "45%" }}
             show={openModal}
             size="md"
             popup
