@@ -103,7 +103,7 @@ export default function Topbanner() {
   }, []);
 
   return (
-    <div className="w-full "  style={{ 
+    <div className="w-full  "  style={{ 
 
       position: "fixed", 
       top: 0, 

@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { IoMdAdd } from "react-icons/io";
 import SubjectForm from "./subjectForm";
 import  SubjctCard  from "./SubjectCard";
 import { useTranslation } from "react-i18next";
-import btn from "../../../../assets/btn.png";
 import "../../../Dashboard/btns.css";
-import SideBar from "../../SideBar";
-import Topbanner from "../../../Home/componants/banner/Topbanner";
-import Bottombanner from "../../../Home/componants/banner/Bottombanner";
+
 
 export default function SubjectList() {
   const [showSubForm, setShowSubForm] = useState(false);
