@@ -286,13 +286,6 @@ export default function MatrixLists() {
         </button>
       </div>
 
-      <div className="mt-2 text-center">
-        {searchBy && (
-          <div className="inline-block bg-gray-200 p-2 rounded-md">
-            <strong>{t("matrix.searchByLabel")}</strong> {searchBy}
-          </div>
-        )}
-      </div>
       {loading ? (
         <div className="flex justify-center items-center  m-44">
           <Loader />
