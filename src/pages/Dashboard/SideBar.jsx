@@ -35,14 +35,17 @@ function SideBar() {
       name: t("sidebar.dashboard"),
       icon: <FaTh className="text-[#f5bc42]" />,
       content: (
-        <MatrixList handleClickShow={(item) => handleItemClick(<AdminMatrixInfo item={item}/>)} />
+        // <MatrixList handleClickShow={(item) => handleItemClick(<AdminMatrixInfo item={item}/>)} />
+                <MatrixList />
       ),
     },
     {
       name: t("sidebar.permissions"),
       icon: <FaBook className="text-[#f5bc42]" />,
       content: (
-        <SubjectList handleClickShow={(item) => handleItemClick(<AdminSubjectInfo item={item}/>)} />
+        // <SubjectList handleClickShow={(item) => handleItemClick(<AdminSubjectInfo item={item}/>)} />
+        <SubjectList/>
+
       ),
     },
     {

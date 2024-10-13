@@ -32,39 +32,39 @@ function UserTable({ users }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr
-              key={user.employeeId}
-              className={`${index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white'} border-b dark:bg-gray-800 dark:border-gray-700`}
-            >
-              <td className="px-6 py-4 text-gray-900 dark:text-white flex items-center justify-center">
-              <div style={profileContainerStyle}>
-              <img
-                alt={`${user.employeeName} image`}
-                src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-                style={imageStyle}
-              />
-            </div>
-                <span className='m-3'>
-                {user.employeeName}
-                </span>
-           
-              </td>
-      
-              <td className="px-6 py-4">
-                {user.jobTitle}
-              </td>
-              <td className="px-6 py-4">
-                {user.phoneNumber}
-              </td>
-              <td className="px-6 py-4">
-                <button onClick={() => handleDetailsClick(user)}>
-                  {t("EmpCard.details")}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {users.map((user, index) => (
+    <tr
+      key={user.employeeId}
+      className={`${index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white'} border-b dark:bg-gray-800 dark:border-gray-700`}
+    >
+      <td className="px-6 py-4 text-gray-900 dark:text-white w-44">
+        <div className="flex items-center">
+          <div style={profileContainerStyle}>
+            <img
+              alt={`${user.employeeName} image`}
+              src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
+              style={imageStyle}
+            />
+          </div>
+          <span className="mr-4 truncate ml-4">{user.employeeName}</span>
+        </div>
+      </td>
+
+      <td className="px-6 py-4">
+        {user.jobTitle}
+      </td>
+      <td className="px-6 py-4">
+        {user.phoneNumber}
+      </td>
+      <td className="px-6 py-4">
+        <button onClick={() => handleDetailsClick(user)}>
+          {t("EmpCard.details")}
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </div>
   );
@@ -72,14 +72,14 @@ function UserTable({ users }) {
 
 export default UserTable;
 const profileContainerStyle = {
-  margin: 'auto',
-  width: '70px',
-  height: '70px',
+
+  width: '50px',
+  height: '50px',
   position: 'relative',
   borderRadius: '50%',
-  border: '10px solid transparent', 
+  border: '6px solid transparent', 
   background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%) border-box',
-  animation: 'rotate-border 5s linear infinite',
+
 };
 
 // أنماط الصورة

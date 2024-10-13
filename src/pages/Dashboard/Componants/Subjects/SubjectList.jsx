@@ -9,7 +9,7 @@ import SideBar from "../../SideBar";
 import Topbanner from "../../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
-export default function SubjectList({handleClickShow}) {
+export default function SubjectList() {
   const [showMatrixForm, setShowMatrixForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -51,11 +51,11 @@ export default function SubjectList({handleClickShow}) {
 </div>
   
         {/* Content Section */}
-        <div className="flex flex-wrap justify-center pb-20">
+        <div className="flex flex-wrap justify-center mb-96">
           {showMatrixForm ? (
             <SubjectForm />
           ) : (
-            <SubjctCard searchTerm={searchTerm} handleShowInfo={handleClickShow} />
+            <SubjctCard searchTerm={searchTerm}  />
           )}
         </div>
       </div>

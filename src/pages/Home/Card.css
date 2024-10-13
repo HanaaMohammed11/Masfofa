@@ -91,24 +91,3 @@
     }
   }
   
-  .card-container {
-    opacity: 0;
-    animation: slideUp 0.8s ease-in-out forwards;
-  }
-  
-  .card-1 {
-    animation-delay: 0.3s;
-  }
-  
-  .card-2 {
-    animation-delay: 0.6s;
-  }
-  
-  .card-3 {
-    animation-delay: 0.9s;
-  }
-  
-  .card-4 {
-    animation-delay: 1.2s;
-  }
-  

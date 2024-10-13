@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-export default function MatrixCard({ searchQuery, handleShow }) {
+export default function MatrixCard({ searchQuery}) {
   const [matrix, setMatrix] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
@@ -38,7 +38,7 @@ export default function MatrixCard({ searchQuery, handleShow }) {
 
   const show = (matrixItem) => {
     console.log('Showing info for:', matrixItem);
-    handleShow(matrixItem);
+    navigate("/AdminMtrixInfo", { state: { matrix: matrixItem } });
   };
 
   const edit = (matrixItem) => {

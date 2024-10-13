@@ -12,7 +12,8 @@ import Loader from "../../../Login/loader";
 import SideBar from "../../SideBar";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-export default function AdminMatrixInfo({ item }) {
+import { IoArrowBack } from "react-icons/io5";
+export default function AdminMatrixInfo() {
   const pdfRef = useRef();
 
   const downloadPDF = () => {
@@ -40,18 +41,22 @@ export default function AdminMatrixInfo({ item }) {
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
+  const matrix = location.state.matrix;
   const navigate = useNavigate();
   const [relatedsubjects, setRelatedsubjectss] = useState([]);
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     const usersCollectionRef = collection(db, "subjects");
 
-    if (item.subjects) {
+    if (matrix.subjects) {
       console.log("inside if cond");
 
       const q = query(
         usersCollectionRef,
-        where("subjectTitle", "in", item.subjects)
+        where("subjectTitle", "in", matrix.subjects)
       );
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -67,10 +72,21 @@ export default function AdminMatrixInfo({ item }) {
     } else {
       setLoading(false);
     }
-  }, [item]);
+  }, [matrix]);
 
   return (
     <div>
+       <Topbanner />
+<div dir={direction}>
+<button
+        style={{marginTop:"400px"}}
+          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          onClick={handleBack}
+        >
+          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
+        </button>
+</div>
+       
       <div
         className="min-h-screen  justify-center flex items-center"
         dir={direction}
@@ -98,7 +114,7 @@ export default function AdminMatrixInfo({ item }) {
                         {t("matrixinfo.name")}
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {item.title}
+                        {matrix.title}
                       </td>
                     </tr>
                     <tr className="bg-[#fce8ca]">
@@ -106,7 +122,7 @@ export default function AdminMatrixInfo({ item }) {
                         {t("matrixinfo.releaseDate")}
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {item.releaseDate}
+                        {matrix.releaseDate}
                       </td>
                     </tr>
                     <tr>
@@ -114,7 +130,7 @@ export default function AdminMatrixInfo({ item }) {
                         {t("matrixinfo.updateDate")}
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {item.updateDate}
+                        {matrix.updateDate}
                       </td>
                     </tr>
                     <tr className="bg-[#fce8ca]">
@@ -122,7 +138,7 @@ export default function AdminMatrixInfo({ item }) {
                         {t("matrixinfo.publisher")}
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {item.companyName}
+                        {matrix.companyName}
                       </td>
                     </tr>
                     <tr>
@@ -130,7 +146,7 @@ export default function AdminMatrixInfo({ item }) {
                         {t("matrixinfo.introduction")}
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {item.intro}
+                        {matrix.intro}
                       </td>
                     </tr>
                     <tr className="bg-[#fce8ca]">
@@ -139,7 +155,7 @@ export default function AdminMatrixInfo({ item }) {
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden"></td>
                     </tr>
-                    {item.definitions.map((elem, index) => (
+                    {matrix.definitions.map((elem, index) => (
                       <tr key={index}>
                         <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
                           {elem.term}
@@ -184,7 +200,7 @@ export default function AdminMatrixInfo({ item }) {
                         {t("matrixinfo.notes")}
                       </td>
                       <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                        {item.notes}
+                        {matrix.notes}
                       </td>
                     </tr>
                   </tbody>
@@ -194,6 +210,7 @@ export default function AdminMatrixInfo({ item }) {
           </Card>
         )}
       </div>
+      <Bottombanner/>
     </div>
   );
 }

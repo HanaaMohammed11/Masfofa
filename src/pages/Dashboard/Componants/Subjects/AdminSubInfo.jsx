@@ -8,9 +8,14 @@ import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Topbanner from "../../../Home/componants/banner/Topbanner";
+import { IoArrowBack } from "react-icons/io5";
+import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
-export default function AdminSubjectInfo({ item }) {
+export default function AdminSubjectInfo() {
   const pdfRef = useRef();
+
+
 
   const downloadPDF = () => {
     const input = pdfRef.current;
@@ -38,13 +43,13 @@ export default function AdminSubjectInfo({ item }) {
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
   const navigate = useNavigate();
-
+  const subject = location.state?.subject ;
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!item) {
+        if (!subject) {
           console.error("No subject data found in location state");
           return;
         }
@@ -62,17 +67,29 @@ export default function AdminSubjectInfo({ item }) {
     };
 
     fetchData();
-  }, [item]);
+  }, [subject]);
 
-  const emp1 = employees.find((emp) => emp.employeeId === item.emp1Id);
-  const emp2 = employees.find((emp) => emp.employeeId === item.emp2Id);
+  const emp1 = employees.find((emp) => emp.employeeId === subject.emp1Id);
+  const emp2 = employees.find((emp) => emp.employeeId === subject.emp2Id);
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
-      <div className="mt-28 justify-center mb-[30%] flex items-center">
+       <Topbanner />
+      <div dir={direction} >
+        <button
+        style={{marginTop:"400px"}}
+          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          onClick={handleBack}
+        >
+          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
+        </button></div>
+      <div className="mt-28 justify-center mb-[30%] flex subjects-center">
         <Card className="w-[1200px]">
           <div className="flex justify-end px-4 pt-4"></div>
-          <div className="flex flex-col items-center pb-10">
+          <div className="flex flex-col subjects-center pb-10">
             <div className="mt-4 w-full">
               <Button
                 onClick={downloadPDF}
@@ -93,7 +110,7 @@ export default function AdminSubjectInfo({ item }) {
                       {t("subjectEditForm.subjectNum")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {item.subjectNum}
+                      {subject.subjectNum}
                     </td>
                   </tr>
                   <tr className="bg-[#fce8ca]">
@@ -101,7 +118,7 @@ export default function AdminSubjectInfo({ item }) {
                       {t("subjectEditForm.subjectTitle")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {item.subjectTitle}
+                      {subject.subjectTitle}
                     </td>
                   </tr>
                   <tr>
@@ -109,7 +126,7 @@ export default function AdminSubjectInfo({ item }) {
                       {t("subjectEditForm.subjectContent")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {item.subjectContent}
+                      {subject.subjectContent}
                     </td>
                   </tr>
 
@@ -118,7 +135,7 @@ export default function AdminSubjectInfo({ item }) {
                       {t("subjectInfo.authorizedEmployee")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {item.emp1.employeeName} - {item.emp1.jobTitle}
+                      {subject.emp1.employeeName} - {subject.emp1.jobTitle}
                     </td>
                   </tr>
                   <tr>
@@ -129,8 +146,8 @@ export default function AdminSubjectInfo({ item }) {
                       {emp2?.employeeName} - {emp2?.role}
                     </td>
                   </tr>
-                  {item.sharedEmployees.length > 0 ? (
-                    item.sharedEmployees.map((emp) => {
+                  {subject.sharedEmployees.length > 0 ? (
+                    subject.sharedEmployees.map((emp) => {
                       const user = employees.find(
                         (empl) => empl.employeeId === emp.empId
                       );
@@ -165,7 +182,7 @@ export default function AdminSubjectInfo({ item }) {
                       {t("subjectEditForm.negotiationLimit")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {item.negotiationLimit}
+                      {subject.negotiationLimit}
                     </td>
                   </tr>
                   <tr>
@@ -173,7 +190,7 @@ export default function AdminSubjectInfo({ item }) {
                       {t("subjectInfo.notes")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {item.notes}
+                      {subject.notes}
                     </td>
                   </tr>
                 </tbody>
@@ -181,7 +198,7 @@ export default function AdminSubjectInfo({ item }) {
             </div>
           </div>
         </Card>
-      </div>
+      </div><Bottombanner/>
     </div>
   );
 }

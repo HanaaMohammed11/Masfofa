@@ -123,7 +123,7 @@ export default function SubjectEditForm() {
       <Topbanner />
       <div className="   " dir={direction}>
         <button
-          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          className="text-center bg-[#CDA03D]  py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
           dir={direction}
           style={{ marginTop: "400px" }}

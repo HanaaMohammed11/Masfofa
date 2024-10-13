@@ -13,7 +13,7 @@ import {
   AiFillEye,
 } from "react-icons/ai";
 
-export default function SubjctCard({ searchTerm, handleShowInfo }) {
+export default function SubjctCard({ searchTerm }) {
   const navigate = useNavigate();
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,10 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
 
   const handleEdit = (subjectItem) => {
     navigate("/editsubject", { state: { subject: subjectItem } });
+  };
+
+  const handleShowInfo = (subjectItem) => {
+    navigate("/AdminSubjectInfo", { state: { subject: subjectItem } });
   };
 
   useEffect(() => {
@@ -60,12 +64,12 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
         </div>
       ) : filteredSubjects.length > 0 ? (
         <div className="overflow-x-auto flex justify-center items-center">
-          <table className="min-w-full border-collapse">
-            <thead className="text-gray-700 uppercase bg-gray-50">
+          <table className="min-w-full border-collapse" dir={direction}>
+            <thead className="text-gray-700 uppercase bg-gray-50" dir={direction}>
               <tr>
-                <th className="px-4 py-2 text-center">{t("subjectInfo.subjectTitle")}</th>
-                <th className="px-4 py-2 text-center">{t("subjectCardDashboard.subjectNum")}</th>
-                <th className="px-4 py-2 text-center">{t("subjectInfo.action")}</th>
+                <th className="px-4 py-2 ">{t("subjectInfo.subjectTitle")}</th>
+                <th className="px-4 py-2 r">{t("subjectCardDashboard.subjectNum")}</th>
+                <th className="px-4 py-2 texnter">{t("subjectInfo.action")}</th>
               </tr>
             </thead>
             <tbody className="text-gray-700">
@@ -74,15 +78,18 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
                   <td className="px-4 py-2 text-center">{subjectItem.subjectTitle}</td>
                   <td className="px-4 py-2 text-center">{subjectItem.subjectNum}</td>
                   <td className="px-4 py-2 text-center flex justify-center space-x-3">
+                  <button onClick={() => handleShowInfo(subjectItem)} className="text-blue-500 ml-3">
+                      <AiFillEye size={20} />
+                    </button>
                     <button onClick={() => handleEdit(subjectItem)} className="bg-transparent border-0">
                       <AiOutlineEdit size={20} className="text-yellow-500 hover:text-blue-700" title="Edit" />
                     </button>
                     <button onClick={() => deleteSubject(subjectItem.id)} className="bg-transparent border-0">
                       <AiOutlineDelete size={20} className="text-red-700 hover:text-red-900" title="Delete" />
                     </button>
-                    <button onClick={() => handleShowInfo(subjectItem)} className="text-blue-500">
-                      <AiFillEye size={20} />
-                    </button>
+                 
+                 
+                 
                   </td>
                 </tr>
               ))}

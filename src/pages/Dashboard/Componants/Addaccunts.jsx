@@ -391,7 +391,7 @@ export default function AddAccounts() {
           <th className="px-2 md:px-4 py-2">{t("subjectInfo.action")}</th>
         </tr>
       </thead>
-      <tbody className="text-gray-700">
+      <tbody className="text-gray-700 text-center">
         {filteredEmployees.length > 0 ? (
           filteredEmployees.map((employee) => (
             <tr

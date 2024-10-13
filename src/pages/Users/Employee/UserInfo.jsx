@@ -78,7 +78,7 @@ export default function UserInfo() {
     <div>
       <Topbanner />
       
-      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}  style={{  marginTop: "300px",
+      <div dir={direction}>  <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction}  style={{  marginTop: "300px",
     }} >
         <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
             </button></div>

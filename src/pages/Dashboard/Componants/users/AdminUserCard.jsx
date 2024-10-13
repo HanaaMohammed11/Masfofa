@@ -16,16 +16,18 @@ export default function AdminUserCard({ user, index }) {
 
   return (
     <tr className={`${rowColor} cursor-pointer`} onClick={handleCardClick}>
-      <td className="px-6 py-4 flex items-center justify-center">
-      <div style={profileContainerStyle}>
-        <img
-          alt={`${user.employeeName} image`}
-          src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-          style={imageStyle}
-        />
-      </div>
-      <span className="ml-3">{user.employeeName}</span>
-    </td>
+      <td className="px-6 py-4 text-gray-900 dark:text-white w-44">
+        <div className="flex items-center">
+          <div style={profileContainerStyle}>
+            <img
+              alt={`${user.employeeName} image`}
+              src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
+              style={imageStyle}
+            />
+          </div>
+          <span className="mr-4 truncate ml-4">{user.employeeName}</span>
+        </div>
+      </td>
 
       <td className="px-6 py-4">{user.jobTitle}</td>
       <td className="px-6 py-4">{user.phoneNumber}</td>
@@ -37,18 +39,19 @@ export default function AdminUserCard({ user, index }) {
 }
 const profileContainerStyle = {
 
-  width: '60px',  
-  height: '60px', 
+  width: '50px',
+  height: '50px',
   position: 'relative',
   borderRadius: '50%',
-  border: '5px solid transparent', // إطار شفاف
-  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%)',
-  animation: 'rotate-border 5s linear infinite',
+  border: '6px solid transparent', 
+  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%) border-box',
+
 };
 
+// أنماط الصورة
 const imageStyle = {
   width: '100%',
   height: '100%',
-  borderRadius: '50%', // لضمان كون الصورة دائرية
+  borderRadius: '50%', 
   display: 'block',
 };

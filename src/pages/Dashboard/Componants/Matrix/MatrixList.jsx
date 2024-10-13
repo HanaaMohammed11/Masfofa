@@ -9,7 +9,7 @@ import "./././../../SideBar.css";
 
 
 
-export default function MatrixList({ handleClickShow }) {
+export default function MatrixList() {
 
   const [showMatrixForm, setShowMatrixForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,7 +54,7 @@ export default function MatrixList({ handleClickShow }) {
         {showMatrixForm ? (
           <MatrixForm />
         ) : (
-          <MatrixCard searchQuery={searchQuery} handleShow={handleClickShow} />
+          <MatrixCard searchQuery={searchQuery} />
         )}
       </div>
     </>

@@ -5,7 +5,7 @@
     "Articles": "Articles",
     "Matrices": "Matrix",
     "masfofa": "Masfofa",
-    "home": "Corgov",
+    "home": "Main",
     "download": "Print",
     "back": "Back",   "close":"Close"
   },
@@ -40,7 +40,7 @@
   },
 
   "userInfo": {
-    "employeeName": "Employee Name :",
+    "employeeName": "Employee Name:",
     "employeeId": "Employee ID : ",
     "hireDate": "Appointment Date : ",
     "jobGrade": "Grade : ",
