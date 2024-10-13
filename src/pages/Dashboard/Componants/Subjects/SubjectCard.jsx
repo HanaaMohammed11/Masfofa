@@ -52,9 +52,18 @@ export default function SubjctCard({ searchTerm }) {
     return () => unsubscribe();
   }, []);
 
-  const filteredSubjects = subjects.filter((subject) =>
-    subject.subjectTitle.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredSubjects = subjects.filter((subject) => {
+    const searchText = searchTerm.toLowerCase();
+    return (
+      subject.subjectTitle.toLowerCase().includes(searchText) ||
+      subject.subjectNum.toString().toLowerCase().includes(searchText) ||
+subject.subjectContent.toString().toLowerCase().includes(searchText) ||
+subject.subjectField.toString().toLowerCase().includes(searchText) ||
+
+      subject.ownerAdmin.toLowerCase().includes(searchText)
+    );
+  });
+  
 
   return (
     <div className={`mx-4  mt-32 mb-9 w-full ${direction} `}>
