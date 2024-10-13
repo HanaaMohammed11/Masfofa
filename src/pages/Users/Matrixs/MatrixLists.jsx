@@ -1,9 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import  MatrixTable  from "./MatrixCard";
+import MatrixTable from "./MatrixCard";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
@@ -34,12 +40,11 @@ export default function MatrixLists() {
       setUser(userData);
       setMatrix(matrix);
       setFilteredMatrices(matrix);
-      setLoading(false);  // Set loading to false when data is fetched
+      setLoading(false); // Set loading to false when data is fetched
     });
 
     return () => unsubscribe();
   }, []); // Keep this as is
-  console.log(user[0]);
 
   useEffect(() => {
     if (user.length > 0) {
@@ -68,6 +73,35 @@ export default function MatrixLists() {
     }
   }, [user]);
 
+  const searchSubjectContent = async (searchQuery) => {
+    try {
+      // Fetch all subjects
+      const subjectQuery = query(collection(db, "subjects"));
+      const subjectSnapshot = await getDocs(subjectQuery);
+
+      const subjectTitles = [];
+      const lowerCaseSearchQuery = searchQuery.toLowerCase();
+
+      subjectSnapshot.forEach((doc) => {
+        const subjectData = doc.data();
+        // Compare subjectContent in a case-insensitive manner
+        if (
+          subjectData.subjectContent
+            .toLowerCase()
+            .includes(lowerCaseSearchQuery)
+        ) {
+          subjectTitles.push(subjectData.subjectTitle);
+        }
+      });
+
+      console.log("Subjects fetched:", subjectTitles); // Log the fetched subjects
+      return subjectTitles;
+    } catch (error) {
+      console.error("Error fetching subjects:", error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     if (user.length > 0) {
       let qEmps;
@@ -89,21 +123,21 @@ export default function MatrixLists() {
         });
         setEmployees(employeeList);
       });
-    const employeesCollectionRef = collection(db, "employees");
+      const employeesCollectionRef = collection(db, "employees");
 
-    // const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
-    //   const employeeList = [];
-    //   snapshot.forEach((doc) => {
-    //     employeeList.push({ id: doc.id, ...doc.data() });
-    //   });
-    //   setEmployees(employeeList);
-    // });
+      // const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
+      //   const employeeList = [];
+      //   snapshot.forEach((doc) => {
+      //     employeeList.push({ id: doc.id, ...doc.data() });
+      //   });
+      //   setEmployees(employeeList);
+      // });
 
       return () => unsubscribe();
     }
   }, [user]);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (searchBy === "MainEmployees" && searchQuery) {
       const matchedEmployees = employees.filter((emp) =>
         emp.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -144,6 +178,32 @@ export default function MatrixLists() {
       } else {
         setFilteredMatrices([]);
       }
+    } else if (searchBy === "subjectContent" && searchQuery) {
+      try {
+        const subjectTitles = await searchSubjectContent(searchQuery); // Get matching subjectTitles
+
+        if (subjectTitles.length > 0) {
+          console.log(`Matching subjectTitles: ${subjectTitles}`);
+
+          const results = matrix.filter((matrixItem) => {
+            const matrixSubjects = matrixItem.subjects || []; // Ensure subjects field exists
+            console.log(`Matrix item subjects: ${matrixSubjects}`);
+
+            // Check if any of the matrix subjects match the fetched subject titles
+            return matrixSubjects.some((subjectTitle) =>
+              subjectTitles.includes(subjectTitle)
+            );
+          });
+
+          console.log("Filtered matrices:", results); // Add this to check the filtered matrices
+          setFilteredMatrices(results);
+        } else {
+          setFilteredMatrices([]); // No matches found
+        }
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+        setFilteredMatrices([]); // Handle error by clearing results
+      }
     } else if (searchBy && searchQuery) {
       const results = matrix.filter((matrixItem) => {
         const value = matrixItem[searchBy];
@@ -173,8 +233,10 @@ export default function MatrixLists() {
   };
 
   return (
-    <div className="flex flex-col  bg-gray-100"  style={{  paddingTop: "270px",
-      paddingBottom: "44px"}}>
+    <div
+      className="flex flex-col  bg-gray-100"
+      style={{ paddingTop: "270px", paddingBottom: "44px" }}
+    >
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
       </div>
@@ -196,6 +258,9 @@ export default function MatrixLists() {
           <option value="subjects">{t("matrix.searchBySubjects")}</option>
           <option value="MainEmployees">{t("matrix.searchByEmployee")}</option>
           <option value="jobTitle">{t("matrix.searchByJobTitle")}</option>
+          <option value="subjectContent">
+            {t("matrix.searchBySubjectContent")}
+          </option>
         </select>
 
         <input
@@ -229,14 +294,14 @@ export default function MatrixLists() {
         )}
       </div>
       {loading ? (
-  <div className="flex justify-center items-center  m-44">
-    <Loader />
-  </div>
-) : (
-  <div className="flex-grow">
-    <MatrixTable matrices={filteredMatrices} />
-  </div>
-)}
+        <div className="flex justify-center items-center  m-44">
+          <Loader />
+        </div>
+      ) : (
+        <div className="flex-grow">
+          <MatrixTable matrices={filteredMatrices} />
+        </div>
+      )}
       <div className="mt-auto">
         <Bottombanner />
       </div>
