@@ -78,7 +78,7 @@ export default function AdminMatrixInfo({ item }) {
         {loading ? (
           <Loader />
         ) : (
-          <Card className="w-[900px] h-auto my-9">
+          <Card className="w-[900px] h-auto mt-16 mb-[30%]">
             <div className="mt-4 w-full">
               <Button
                 className="bg-[#d4af37] rounded-full"

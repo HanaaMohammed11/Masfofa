@@ -67,7 +67,7 @@ export default function AdminSubjectInfo({ item }) {
 
   return (
     <div>
-      <div className="mt-28 justify-center flex items-center">
+      <div className="mt-28 justify-center mb-[30%] flex items-center">
         <Card className="w-[1200px]" >
      
           <div className="flex justify-end px-4 pt-4"></div>

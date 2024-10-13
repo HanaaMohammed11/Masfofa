@@ -23,7 +23,7 @@ export default function MatrixList({ handleClickShow }) {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col  ">
       <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10 fixed `}>
   
   <div
@@ -50,7 +50,7 @@ export default function MatrixList({ handleClickShow }) {
 
       </div>
 
-      <div className="flex flex-wrap justify-center pb-20">
+      <div className="flex flex-wrap justify-center mb-[30%]">
         {showMatrixForm ? (
           <MatrixForm />
         ) : (
