@@ -21,7 +21,7 @@ function UserTable({ users }) {
 
   return (
     <div className="overflow-x-auto w-full mx-14  my-10 shadow-2xl">
-      <table className="w-full text-center text-gray-500 dark:text-gray-400" dir={direction}>
+      <table className="w-full text-center t dark:text-gray-400" dir={direction}>
         <thead className="text-center text-lg bg-white">
           <tr>
             <th scope="col" className="px-6 py-3">{t("userInfo.employeeName")}</th>
@@ -37,7 +37,7 @@ function UserTable({ users }) {
       key={user.employeeId}
       className={`${index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white'} border-b dark:bg-gray-800 dark:border-gray-700`}
     >
-      <td className="px-6 py-4 text-gray-900 dark:text-white w-44">
+      <td className="px-6 py-4  dark:text-white w-44">
         <div className="flex items-center">
           <div style={profileContainerStyle}>
             <img
@@ -50,7 +50,7 @@ function UserTable({ users }) {
         </div>
       </td>
 
-      <td className="px-6 py-4">
+      <td className="px-6 py-4 text-black">
         {user.jobTitle}
       </td>
       <td className="px-6 py-4">

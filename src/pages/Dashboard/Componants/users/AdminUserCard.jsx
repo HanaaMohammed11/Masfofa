@@ -16,7 +16,7 @@ export default function AdminUserCard({ user, index }) {
 
   return (
     <tr className={`${rowColor} cursor-pointer`} onClick={handleCardClick}>
-      <td className="px-6 py-4 text-gray-900 dark:text-white w-44">
+      <td className="px-6 py-4  dark:text-white w-44">
         <div className="flex items-center">
           <div style={profileContainerStyle}>
             <img

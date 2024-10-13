@@ -234,7 +234,7 @@ export default function MatrixLists() {
 
   return (
     <div
-      className="flex flex-col  bg-gray-100"
+      className="flex flex-col  "
       style={{ paddingTop: "270px", paddingBottom: "44px" }}
     >
       <div className="relative flex justify-center items-center text-center">

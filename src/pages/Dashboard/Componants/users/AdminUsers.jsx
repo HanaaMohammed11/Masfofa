@@ -89,7 +89,7 @@ export default function AdminUsers() {
             </div>
           ) : filteredUsers.length > 0 ? (
             <div className="overflow-x-auto w-full mx-9 mt-32  mb-96 shadow-2xl" >
-              <table className="w-full text-center text-gray-500 dark:text-gray-400" dir={direction}>
+              <table className="w-full text-center " dir={direction}>
                 <thead className="text-center text-lg bg-white">
                   <tr>
                     <th scope="col" className="px-6 py-3">
