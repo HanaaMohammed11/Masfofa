@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Card } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -22,8 +24,8 @@ export default function AdminSubjectInfo({ item }) {
       const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
 
       const doc = new jsPDF({
-        orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
-        unit: 'px',
+        orientation: imgWidth > imgHeight ? "landscape" : "portrait",
+        unit: "px",
         format: [imgWidth, imgHeight],
       });
 
@@ -68,16 +70,25 @@ export default function AdminSubjectInfo({ item }) {
   return (
     <div>
       <div className="mt-28 justify-center mb-[30%] flex items-center">
-        <Card className="w-[1200px]" >
-     
+        <Card className="w-[1200px]">
           <div className="flex justify-end px-4 pt-4"></div>
           <div className="flex flex-col items-center pb-10">
-            <div className="mt-4 w-full" >
-            <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">     {t("text.download")}</Button>
-        
-              <table className="min-w-full border-collapse table-fixed" dir={direction} ref={pdfRef}>
+            <div className="mt-4 w-full">
+              <Button
+                onClick={downloadPDF}
+                className="bg-[#d4af37] rounded-full"
+              >
+                {" "}
+                {t("text.download")}
+              </Button>
+
+              <table
+                className="min-w-full border-collapse table-fixed"
+                dir={direction}
+                ref={pdfRef}
+              >
                 <tbody className="text-gray-700">
-                  <tr >
+                  <tr>
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectNum")}
                     </td>
@@ -93,7 +104,7 @@ export default function AdminSubjectInfo({ item }) {
                       {item.subjectTitle}
                     </td>
                   </tr>
-                  <tr >
+                  <tr>
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectContent")}
                     </td>
@@ -101,7 +112,7 @@ export default function AdminSubjectInfo({ item }) {
                       {item.subjectContent}
                     </td>
                   </tr>
-                  
+
                   <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectInfo.authorizedEmployee")}
@@ -120,7 +131,9 @@ export default function AdminSubjectInfo({ item }) {
                   </tr>
                   {item.sharedEmployees.length > 0 ? (
                     item.sharedEmployees.map((emp) => {
-                      const user = employees.find((empl) => empl.id === emp.empId);
+                      const user = employees.find(
+                        (empl) => empl.employeeId === emp.empId
+                      );
                       return (
                         <tr
                           className="cursor-pointer hover:bg-gray-100"
@@ -169,7 +182,6 @@ export default function AdminSubjectInfo({ item }) {
           </div>
         </Card>
       </div>
-
     </div>
   );
 }
