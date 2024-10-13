@@ -93,7 +93,7 @@ export default function Cards() {
         </div>
 
         {/* Card 3 */}
-        <h1>zhfszjddddddddddddddddddddddddddddddf</h1>
+   
         <div className="p-4 text-center relative bg-transparent w-64 card-container card-3"> 
           <img
             src={bannerUrl || "default-image-url"}  // Use the same image in all cards
