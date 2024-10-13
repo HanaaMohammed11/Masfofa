@@ -7,7 +7,8 @@
     "masfofa": "Masfofa",
     "home": "Main",
     "download": "Print",
-    "back": "Back",   "close":"Close"
+    "back": "Back",
+    "close": "Close"
   },
   "login": {
     "email": "Email",
@@ -86,6 +87,7 @@
     "searchBySubjects": "Search by Permissions",
     "searchByEmployee": "Search by Employee Name",
     "searchByJobTitle": "Search by Job Title",
+    "searchBySubjectContent": "Search By Subject Content",
     "searchPlaceholder": "Search for Matrix",
     "searchButton": "Search",
     "clearFilters": "Clear Filters",
@@ -228,7 +230,8 @@
     "delete": "delete",
     "addNewEmp": "Add New Emp",
     "save": "save"
-  }, "validation": {
+  },
+  "validation": {
     "firstName": {
       "required": "First name is required"
     },

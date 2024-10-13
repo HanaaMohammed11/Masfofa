@@ -8,7 +8,7 @@
     "home": "الرئيسية",
     "download": "طباعة",
     "back": "العودة",
-    "close":"اغلاق"
+    "close": "اغلاق"
   },
   "login": {
     "email": "البريد الإلكتروني",
@@ -85,6 +85,7 @@
     "searchBySubjects": "البحث عن طريق الصلاحيات",
     "searchByEmployee": "البحث عن طريق اسم الموظف",
     "searchByJobTitle": "البحث عن طريق المسمى الوظيفي",
+    "searchBySubjectContent": "البحث عن طريق نص المادة",
     "searchPlaceholder": "بحث عن مصفوفة",
     "searchButton": "بحث",
     "clearFilters": "مسح الفلاتر",
@@ -226,7 +227,8 @@
     "chooseRole": "الحالة",
     "delete": "حذف",
     "addNewEmp": "اضافة موظف مشترك"
-  }, "validation": {
+  },
+  "validation": {
     "firstName": {
       "required": "الاسم الأول مطلوب"
     },

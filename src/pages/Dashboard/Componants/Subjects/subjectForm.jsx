@@ -323,7 +323,6 @@ export default function SubjectForm() {
         });
 
         // navigate("/dashboard");
-    
       } else {
         alert("The specified matrix does not exist.");
       }
@@ -634,7 +633,7 @@ export default function SubjectForm() {
             {isPopupVisible && (
               <div style={popupStyles}>
                 <div style={popupContentStyles}>
-                <p>{t("matrixForm.alert")}</p>
+                  <p>{t("matrixForm.alert")}</p>
                   <button
                     onClick={() => {
                       setIsPopupVisible(false);
@@ -642,7 +641,7 @@ export default function SubjectForm() {
                     }}
                     className="text-red-600"
                   >
-                       {t("text.close")}
+                    {t("text.close")}
                   </button>
                 </div>
               </div>
