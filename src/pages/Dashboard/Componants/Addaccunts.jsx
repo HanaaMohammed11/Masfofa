@@ -257,7 +257,7 @@ export default function AddAccounts() {
         </div>
       </div>
       <Modal
-        style={{ paddingBottom: "70%", paddingTop: "45%" }}
+        style={{ paddingBottom: "70%", paddingTop: "50%" }}
         show={openModal}
         size="md"
         popup
@@ -450,6 +450,7 @@ export default function AddAccounts() {
                           </button>
                         </td>
                         <Modal
+                        className="pt-[30%] pb-[50%]"
                           show={openEditModal}
                           size="md"
                           popup
