@@ -312,10 +312,10 @@ export default function SubjectForm({ onClose }) {
 
     try {
       const subjectRef = await addDoc(collection(db, "subjects"), data);
-
-      const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
       setIsPopupVisible(true);
       onClose();
+      const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
+  
       const matrixDocSnapshot = await getDoc(matrixDocRef);
       if (matrixDocSnapshot.exists()) {
         await updateDoc(matrixDocRef, {
