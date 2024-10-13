@@ -21,7 +21,7 @@ function AdminDashboard() {
         <div >
             <Topbanner/>
          
-        <div className=" justify-around  bg-gray-100" dir={direction} style={{  paddingTop: "300px",
+        <div className=" top-0 "  style={{  paddingTop: "300px",
       paddingBottom: "400px"}}>
           
         <SideBar/>

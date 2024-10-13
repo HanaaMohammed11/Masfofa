@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { AiFillEye } from "react-icons/ai";
 
 export default function AdminUserCard({ user, index }) {
   const navigate = useNavigate();
@@ -29,15 +30,15 @@ export default function AdminUserCard({ user, index }) {
       <td className="px-6 py-4">{user.jobTitle}</td>
       <td className="px-6 py-4">{user.phoneNumber}</td>
       <td className="px-6 py-4">
-        <button className="text-blue-500">{t("EmpCard.details")}</button>
+        <button className="text-blue-500">       <AiFillEye size={20} /></button>
       </td>
     </tr>
   );
 }
 const profileContainerStyle = {
-  margin: 'auto',
-  width: '70px',  // يمكنك ضبط العرض حسب الحاجة
-  height: '70px', // يمكنك ضبط الارتفاع حسب الحاجة
+
+  width: '60px',  
+  height: '60px', 
   position: 'relative',
   borderRadius: '50%',
   border: '5px solid transparent', // إطار شفاف

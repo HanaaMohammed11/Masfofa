@@ -4,7 +4,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { FiMenu } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
-import "../Home/Card.css";
+import "./SideBar.css";
 import AdminUsers from "./Componants/users/AdminUsers";
 import SubjectList from "./Componants/Subjects/SubjectList";
 import EditTheme from "./Componants/EditTheme";
@@ -75,7 +75,7 @@ function SideBar() {
       </button>
 
       {isOpen && (
-        <div className={`lg:hidden bg-[#969594] p-4 `}>
+        <div className={`lg:hidden  bg-[#969594] p-4 `}>
           {items.map(({ name, icon, content }) => {
             return (
               <button
@@ -100,19 +100,22 @@ function SideBar() {
             : isRtl
             ? "-translate-x-full"
             : "translate-x-full"
-        } ${isRtl ? "right-9" : "left-9"} lg:translate-x-0 lg:block hidden`}
+        } lg:translate-x-0 lg:block md:hidden hidden z-50`}
       >
-        <div className="" dir={direction}>
+        <div className=" flex gap-9 text-center justify-center top-0 ml-9 z-50" >
           {items.map(({ name, icon, content }) => (
             <button
               key={name}
               onClick={() => handleItemClick(content)}
-              className={`aux-button aux-curve aux-gold flex items-center justify-between text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300`}
+              className={`btn-button text-center btn-curve btn-gold flex items-center  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300`}
               aria-label={`Navigate to ${name}`}
             >
-              <span className="flex items-center space-x-4 aux-text">
-                <span className="whitespace-nowrap">{name}</span>
+              <span className="flex items-center space-x-4 btn-text text-center">
+        
+                <span className="whitespace-nowrap text-center">{name}</span>
+             
               </span>
+           
             </button>
           ))}
         </div>

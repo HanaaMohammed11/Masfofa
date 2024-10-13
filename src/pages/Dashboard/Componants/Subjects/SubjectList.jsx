@@ -21,28 +21,34 @@ export default function SubjectList({handleClickShow}) {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="w-full max-w-screen-lg px-4">
+    <div className="">
+      <div className="">
         {/* Header Section */}
-        <div className="flex justify-between flex-col md:flex-row mb-6">
-          <div
-            className="add-btn add-g add-c add-uppercase add-text mb-4 md:mb-0 flex items-center text-center"
-            onClick={handleClick}
-          >
-            {t("subjectEditForm.addSubject")}
-          </div>
+ 
+
+        <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10 fixed `}>
   
-          {/* Search Input */}
-          <div className="search flex justify-center w-full md:w-auto">
-            <input
-              type="text"
-              placeholder={t("subjectEditForm.search")}
-              className="h-12 w-full md:w-80 rounded-full text-right"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </div>
+  <div
+    className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+    onClick={handleClick}
+  >
+    <span className="whitespace-nowrap flex items-center space-x-2 btn-text">
+    <span className="whitespace-nowrap flex items-center space-x-2 btn-text">{t("subjectEditForm.addSubject")}</span>    
+    </span>
+  </div>
+  
+  {/* Search Input */}
+  <div className="search flex justify-center items-center">
+    <input
+      type="text"
+      className="rounded-full text-right h-9 px-4"  // أضفنا padding للمدخل
+      placeholder={t("matrixForm.search")}
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  </div>
+  
+</div>
   
         {/* Content Section */}
         <div className="flex flex-wrap justify-center pb-20">

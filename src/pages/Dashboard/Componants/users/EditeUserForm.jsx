@@ -121,7 +121,7 @@ export default function EditUserForm() {
       >
         <div className=" p-8 w-full max-w-5xl  " style={{paddingBottom:"400px"}}>
           <h1
-            className=" text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
+            className=" text-3xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl"
             dir={direction}
           >
             {t("userform.edittitle")}
@@ -199,15 +199,15 @@ export default function EditUserForm() {
           {isPopupVisible && (
             <div style={popupStyles}>
               <div style={popupContentStyles}>
-                <p>تم حفظ البيانات بنجاح!</p>
+              <p>{t("matrixForm.alert")}</p>
                 <button
                   onClick={() => {
                     setIsPopupVisible(false);
-                    navigation(-1);
+                    navigate(-1);
                   }}
                   className="text-red-600"
                 >
-                  إغلاق
+               {t("text.close")}
                 </button>
               </div>
             </div>

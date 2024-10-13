@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-export default function MatrixCard({ searchQuery, handleShowInfo }) {
+export default function MatrixCard({ searchQuery, handleShow }) {
   const [matrix, setMatrix] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation("global");
@@ -37,7 +37,8 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
   };
 
   const show = (matrixItem) => {
-    handleShowInfo(matrixItem);
+    console.log('Showing info for:', matrixItem);
+    handleShow(matrixItem);
   };
 
   const edit = (matrixItem) => {
@@ -65,69 +66,63 @@ export default function MatrixCard({ searchQuery, handleShowInfo }) {
   );
 
   return (
-    <div className={`mx-4 md:mx-3 mt-6 mb-9 ${direction}`}>
+    <div className={`mx-4  mt-32 mb-9 w-full ${direction} z-[100]`}>
       {loading ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mt-44">
           <Loader />
         </div>
       ) : filteredMatrix.length > 0 ? (
-        <div className={`overflow-x-auto mx-14 shadow-2xl mb-9 mt-9 ${direction} w-[1500px]`}>
-          <table className="min-w-full text-center text-gray-500 dark:text-gray-400 shadow-lg" dir={direction}>
-            <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
-                  {t("matrixinfo.name")}
-                </th>
-                <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
-                  {t("matrixinfo.publisher")}
-                </th>
-                <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
-                  {t("subjectInfo.action")}
-                </th>
+        <div className={`overflow-x-auto overflow-y-auto mx-4 md:mx-14 shadow-2xl mb-9 mt-9 ${direction} z-[1000%]}`}>
+        <table className="min-w-full text-center text-gray-500 dark:text-gray-400 shadow-lg z-[100]" dir={direction}>
+          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
+                {t("matrixinfo.name")}
+              </th>
+              <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
+                {t("matrixinfo.publisher")}
+              </th>
+              <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
+                {t("subjectInfo.action")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredMatrix.map((card, index) => (
+              <tr
+                key={card.id}
+                className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700 transition-all`}
+              >
+                {/* العنوان */}
+                <td className="px-4 py-2 md:px-6 md:py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap text-sm md:text-base">
+                  {card.title}
+                </td>
+                <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">{card.companyName}</td>
+                <td className="py-2 px-4 text-center">
+                  <div className="flex justify-center space-x-2 md:space-x-4">
+                    {/* أيقونة العرض */}
+                    <button onClick={() => show(card)} className="text-blue-500 ml-4">
+                      <AiFillEye size={20} />
+                    </button>
+      
+                    {/* أيقونة التعديل */}
+                    <button onClick={() => edit(card)} className="text-yellow-500">
+                      <AiFillEdit size={20} />
+                    </button>
+      
+                    {/* أيقونة الحذف */}
+                    <button onClick={() => deleteMatrix(card.id)} className="text-red-500">
+                      <AiFillDelete size={20} />
+                    </button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredMatrix.map((card, index) => (
-                <tr
-                  key={card.id}
-                  className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700 transition-all`}
-                >
-                  {/* العنوان */}
-                  <td className="px-4 py-2 md:px-6 md:py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap text-sm md:text-base">
-                    {card.title}
-                  </td>
-                  <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">{card.companyName}</td>
-                  <td className="py-2 px-4 text-center">
-                    <div className="flex justify-center space-x-2 md:space-x-4">
-                      {/* أيقونة العرض */}
-                      <button
-                        onClick={() => show(card)}
-                        className="text-blue-500 ml-4"
-                      >
-                        <AiFillEye size={20} />
-                      </button>
-
-
-                      {/* أيقونة التعديل */}
-                      <button onClick={() => edit(card)} className="text-yellow-500">
-                        <AiFillEdit size={20} />
-                      </button>
-
-
-                      {/* أيقونة الحذف */}
-                      <button
-                        onClick={() => deleteMatrix(card.id)}
-                        className="text-red-500"
-                      >
-                        <AiFillDelete size={20} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      
       ) : (
         <div className="text-center">{t("matrixCardDashboard.noMatrix")}</div>
       )}

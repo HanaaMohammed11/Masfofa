@@ -25,7 +25,6 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
     const subjectRef = doc(db, "subjects", subjectId);
     try {
       await deleteDoc(subjectRef);
-      setIsPopupVisible(true);
     } catch (error) {
       console.error("Error deleting subject: ", error);
     }
@@ -54,7 +53,7 @@ export default function SubjctCard({ searchTerm, handleShowInfo }) {
   );
 
   return (
-    <div className={`overflow-x-auto mx-4 md:mx-3 mt-6 mb-9 ${direction} w-[1500px]`}>
+    <div className={`mx-4  mt-32 mb-9 w-full ${direction} z-[100]`}>
       {loading ? (
         <div className="flex justify-center items-center min-h-[300px]">
           <Loader />

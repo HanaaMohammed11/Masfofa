@@ -207,9 +207,9 @@ const profileContainerStyle = {
   height: '250px',
   position: 'relative',
   borderRadius: '50%',
-  border: '20px solid transparent', 
-  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #000000 40%, #404040 60%, #C0C0C0 100%) border-box',
-  animation: 'rotate-border 5s linear infinite',
+  border: '15px solid transparent', 
+  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #FFD700 10%, #DAA520 10%, #C0C0C0 100%) border-box', // الخلفية الذهبية
+
 };
 
 // أنماط الصورة
@@ -222,13 +222,7 @@ const imageStyle = {
 
 // يمكنك إضافة أنماط CSS أدناه
 const style = `
-  @keyframes rotate-border {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+
   }
 `;
 document.head.insertAdjacentHTML("beforeend", `<style>${style}</style>`);

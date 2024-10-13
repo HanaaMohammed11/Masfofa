@@ -7,7 +7,7 @@
     "masfofa": "Masfofa",
     "home": "Corgov",
     "download": "Print",
-    "back": "Back"
+    "back": "Back",   "close":"Close"
   },
   "login": {
     "email": "Email",
@@ -187,7 +187,7 @@
     "save": "save"
   },
   "matrixForm": {
-    "alert": "data has been save successfully",
+    "alert": "Data has been save successfully",
     "addNewMatrix": "Add New Matrix",
     "companyName": "Company name",
     "matrixName": "Matrix Name",
@@ -209,8 +209,8 @@
     "nosubjects": "no Articles found"
   },
   "subjectEditForm": {
-    "editSubject": "edit Article",
-    "addSubject": "add New Article",
+    "editSubject": "Edit Article",
+    "addSubject": "Add New Article",
     "search": "Search ",
     "field": "Field",
     "subjectNum": "Article Number",

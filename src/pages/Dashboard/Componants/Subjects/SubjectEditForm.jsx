@@ -134,7 +134,7 @@ export default function SubjectEditForm() {
       <div className="flex" dir={direction} style={{ paddingBottom: "400px" }}>
         <div className="mx-auto p-8 w-full max-w-5xl">
           <h1
-            className="text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
+            className="text-3xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl"
             dir={direction}
           >
             {t("subjectEditForm.editSubject")}
@@ -381,7 +381,7 @@ export default function SubjectEditForm() {
             {isPopupVisible && (
               <div style={popupStyles}>
                 <div style={popupContentStyles}>
-                  <p>تم تعديل البيانات بنجاح!</p>
+                <p>{t("matrixForm.alert")}</p>
                   <button
                     onClick={() => {
                       setIsPopupVisible(false);
@@ -389,7 +389,7 @@ export default function SubjectEditForm() {
                     }}
                     className="text-red-600"
                   >
-                    إغلاق
+                       {t("text.close")}
                   </button>
                 </div>
               </div>

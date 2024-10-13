@@ -20,6 +20,7 @@ export default function UserForm() {
   const [employeeImageURL, setEmployeeImageURL] = useState(null);
   const [proxyEmployees, setProxyEmployees] = useState([{ imageURL: null }]);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+
   const handleSave = async () => {
     try {
       const storage = getStorage();
@@ -120,7 +121,7 @@ export default function UserForm() {
     }
   };
   const closePopup = () => {
-    setIsPopupVisible(false); // إخفاء النافذة عند النقر على زر "إغلاق"
+    setIsPopupVisible(false); 
   };
   const handleProxyEmployeeImageChange = (index, e) => {
     const file = e.target.files[0];
@@ -138,12 +139,12 @@ export default function UserForm() {
 
   return (
     <div
-      className="flex lg:w-[900px] md:w-[500px]"
+      className="flex lg:w-[900px] md:w-[500px] mt-10 z-[100]"
       style={{ paddingBottom: "100px" }}
     >
       <div className="mx-auto xs:py-2 sm:p-8 w-full max-w-5xl">
         <h1
-          className="text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
+          className="text-3xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl"
           dir={direction}
         >
           {t("userform.adduser")}
@@ -222,7 +223,7 @@ export default function UserForm() {
         </div>
         {/* Proxy Employee Section */}
         <h2
-          className=" text-2xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl mt-9"
+          className=" text-2xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl mt-9"
           dir={direction}
         >
           {t("userform.title")}
@@ -328,19 +329,20 @@ export default function UserForm() {
         {isPopupVisible && (
           <div style={popupStyles}>
             <div style={popupContentStyles}>
-              <p>تم حفظ البيانات بنجاح!</p>
+            <p>{t("matrixForm.alert")}</p>
               <button
-                onClick={() => {
-                  closePopup();
-                  navigation(-1);
-                }}
-                className="text-red-600"
-              >
-                إغلاق
-              </button>
+                    onClick={() => {
+                      setIsPopupVisible(false);
+                      navigation(-1);
+                    }}
+                    className="text-red-600"
+                  >
+                    {t("text.close")}
+                  </button>
             </div>
           </div>
         )}
+      
         <div className="flex justify-center ">
           <div className="mt-6 flex justify-center">
             <div

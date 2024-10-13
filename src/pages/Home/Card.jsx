@@ -111,7 +111,7 @@ export default function Cards() {
         </div>
 
         {/* Card 4 (Visible for admin only) */}
-        {user.accountType === "admin" && (
+        {(user.accountType === "admin" || user.accountType === "superAdmin") && (
           <div className="p-4 text-center relative bg-transparent w-64 card-container card-4"> 
             <img
               src={bannerUrl || "default-image-url"}  // Use the same image in all cards

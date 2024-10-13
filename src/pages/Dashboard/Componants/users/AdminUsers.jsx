@@ -50,38 +50,42 @@ export default function AdminUsers() {
   });
 
   return (
-    <div className="p-9 w-full" >
-      <div className="flex flex-col w-full xs:items-center">
+    <div className="" >
+   
 
-  
-        <div className="flex justify-around md:flex-row w-full sm:flex-col xs:flex-col flex-col">
+ 
+   <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10 fixed `}>
           <div
-            className="add-btn add-g add-c add-uppercase add-text mb-6"
+    className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
             onClick={() => setShowUserForm(!showUserForm)}
             >
-              {t("userform.adduser")}
-          </div>
+               <span className="whitespace-nowrap flex items-center space-x-2 btn-text">
+  {t("userform.adduser")}
+    </span>
+            
+    </div>
 
           {/* Search Input */}
-          <div className="search flex justify-center">
+    <div className="search flex justify-center items-center">
             <input
               type="text"
-              className="rounded-full text-right h-9"
+              className="rounded-full text-right h-9 px-4"  
               placeholder={t("matrixForm.search")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-        </div>
+       </div>
+     
         <div className="flex flex-wrap justify-center w-full">
           {showUserForm ? (
             <UserForm />
           ) : loading ? (
-            <div className="flex justify-center items-center ">
+            <div className="flex justify-center items-center mt-48">
               <Loader />
             </div>
           ) : filteredUsers.length > 0 ? (
-            <div className="overflow-x-auto w-full mx-9 my-10 shadow-2xl">
+            <div className="overflow-x-auto w-full mx-9 mt-32 shadow-2xl">
               <table className="w-full text-center text-gray-500 dark:text-gray-400">
                 <thead className="text-center text-lg bg-white">
                   <tr>
@@ -111,10 +115,10 @@ export default function AdminUsers() {
               </table>
             </div>
           ) : (
-            <p className="text-center text-gray-500">{t("EmpCard.noEmp")}</p>
+            <p className="text-center text-gray-500 mt-44">{t("EmpCard.noEmp")}</p>
           )}
         </div>
       </div>
-    </div>
+ 
   );
 }

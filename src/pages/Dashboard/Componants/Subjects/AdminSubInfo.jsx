@@ -67,7 +67,7 @@ export default function AdminSubjectInfo({ item }) {
 
   return (
     <div>
-      <div className="min-h-screen bg-gray-100 justify-center flex items-center">
+      <div className="mt-28 justify-center flex items-center">
         <Card className="w-[1200px]" >
      
           <div className="flex justify-end px-4 pt-4"></div>
@@ -77,7 +77,7 @@ export default function AdminSubjectInfo({ item }) {
         
               <table className="min-w-full border-collapse table-fixed" dir={direction} ref={pdfRef}>
                 <tbody className="text-gray-700">
-                  <tr>
+                  <tr >
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectNum")}
                     </td>
@@ -85,7 +85,7 @@ export default function AdminSubjectInfo({ item }) {
                       {item.subjectNum}
                     </td>
                   </tr>
-                  <tr className="bg">
+                  <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectTitle")}
                     </td>
@@ -93,7 +93,7 @@ export default function AdminSubjectInfo({ item }) {
                       {item.subjectTitle}
                     </td>
                   </tr>
-                  <tr>
+                  <tr >
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectEditForm.subjectContent")}
                     </td>

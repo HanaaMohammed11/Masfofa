@@ -114,7 +114,7 @@ const EditTheme = () => {
       <div className="gap-5 justify-center w-full xs:w-[90%] sm:w-[70%] lg:w-full">
         <div className="flex flex-wrap justify-center gap-5 w-full">
 
-    <div className='mb-9'>
+
             {/* Top Banner */}
             <Label htmlFor="top-banner" className="mb-9 relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
@@ -182,9 +182,9 @@ const EditTheme = () => {
               ❌
             </button>
           </Label>
-    </div>
 
-     <div className=''>     {/* Logo */}
+
+  {/* Logo */}
           <Label htmlFor="logo" className="mb-9 relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
               <p className="mb-2 text-sm text-gray-500">
@@ -259,7 +259,7 @@ const EditTheme = () => {
           </button>
         </div>
       </div>
-    </div>
+
   );
 };
 

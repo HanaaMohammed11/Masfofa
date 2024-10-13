@@ -73,7 +73,7 @@ export default function MatrixEditForm() {
           <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
         </button>
         <div className="mx-auto p-8 w-full max-w-5xl" style={{paddingBottom:"400px"}}>
-          <h1 className="text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl">
+          <h1 className="text-3xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl">
             {t("matrixEditForm.updateMatrix")}
           </h1>
           <div className="bg-white p-8 rounded-lg shadow-md">
@@ -115,7 +115,7 @@ export default function MatrixEditForm() {
             </div>
 
             {/* Definitions Section */}
-            <h2 className="text-2xl font-semibold text-gray-800 bg-[#CDA03D] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9">
+            <h2 className="text-2xl font-semibold text-white bg-[#CDA03D] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9">
               {t("matrixEditForm.definitions")}
             </h2>
             <div className="bg-white p-4 md:p-8 rounded-lg shadow-md">
@@ -159,7 +159,7 @@ export default function MatrixEditForm() {
             {isPopupVisible && (
               <div style={popupStyles}>
                 <div style={popupContentStyles}>
-                  <p>{t("matrixEditForm.successMessage")}</p>
+                  <p>{t("matrixForm.alert")}</p>
                   <button
                     onClick={() => {
                       setIsPopupVisible(false);

@@ -58,11 +58,11 @@ export default function MatrixForm() {
   };
 
   return (
-    <div className="flex flex-col items-center p-4">
+    <div className="flex flex-col items-center p-4 mt-7 z-[100]">
       <div className="w-full max-w-5xl p-4 md:p-8">
         <h1
           dir={direction}
-          className=" text-2xl md:text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-4 md:p-5 rounded-t-xl"
+          className=" text-2xl md:text-3xl font-semibold text-white bg-[#CDA03D] p-4 md:p-5 rounded-t-xl"
         >
           {t("matrixForm.addNewMatrix")}
         </h1>
@@ -180,7 +180,7 @@ export default function MatrixForm() {
         {/* قسم التعريفات */}
         <h2
           dir={direction}
-          className=" text-2xl md:text-2xl font-semibold text-gray-800 bg-[#CDA03D] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
+          className=" text-2xl md:text-2xl font-semibold text-white bg-[#CDA03D] p-4 md:p-5 rounded-t-xl mt-6 md:mt-9"
         >
           {t("matrixForm.definitions")}
         </h2>
@@ -258,16 +258,16 @@ export default function MatrixForm() {
         {isPopupVisible && (
           <div style={popupStyles}>
             <div style={popupContentStyles}>
-              <p>تم حفظ البيانات بنجاح!</p>
+            <p>{t("matrixForm.alert")}</p>
               <button
-                onClick={() => {
-                  setIsPopupVisible(false);
-                  navigation(-1);
-                }}
-                className="text-red-600"
-              >
-                إغلاق
-              </button>
+                    onClick={() => {
+                      setIsPopupVisible(false);
+                      navigation(-1);
+                    }}
+                    className="text-red-600"
+                  >
+                    {t("text.close")}
+                  </button>
             </div>
           </div>
         )}

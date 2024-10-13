@@ -381,11 +381,11 @@ export default function SubjectForm() {
   }, [relatedMatrix]);
 
   return (
-    <div className="flex lg:w-[900px] md:w-[500px]">
+    <div className="flex lg:w-[900px] md:w-[500px] mt-10">
       <div className="mx-auto xs:py-8 xs:px-0 sm:p-8 w-full max-w-5xl">
         <h1
           dir={direction}
-          className=" text-3xl font-semibold text-gray-800 bg-[#CDA03D] p-5 rounded-t-xl"
+          className=" text-3xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl"
         >
           {t("subjectEditForm.addSubject")}
         </h1>
@@ -634,7 +634,7 @@ export default function SubjectForm() {
             {isPopupVisible && (
               <div style={popupStyles}>
                 <div style={popupContentStyles}>
-                  <p>تم حفظ البيانات بنجاح!</p>
+                <p>{t("matrixForm.alert")}</p>
                   <button
                     onClick={() => {
                       setIsPopupVisible(false);
@@ -642,7 +642,7 @@ export default function SubjectForm() {
                     }}
                     className="text-red-600"
                   >
-                    إغلاق
+                       {t("text.close")}
                   </button>
                 </div>
               </div>

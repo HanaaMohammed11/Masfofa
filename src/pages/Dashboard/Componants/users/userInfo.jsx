@@ -67,7 +67,7 @@ export default function AdminUserInfo() {
     try {
       await deleteDoc(doc(db, "employees", user.id));
       console.log(`Deleted user with ID: ${user.employeeId}`);
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error deleting user: ", error);
       alert("فشل حذف المستخدم. حاول مرة أخرى.");
@@ -100,11 +100,14 @@ export default function AdminUserInfo() {
      
         <Card className="w-[900px] " >
           <div className="flex flex-col items-center pb-10">
-            <img
-              alt="User Avatar"
-              src={user.profileImage ||"https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
-              className="mb-3 rounded-full shadow-lg w-60 h-60"
-            />
+          <div style={profileContainerStyle}>
+              <img
+                alt={`${user.employeeName} image`}
+                src={user.profileImage || "https://www.lightsong.net/wp-content/uploads/2020/12/blank-profile-circle.png"}
+                style={imageStyle}
+              />
+            </div>
+
             <div className="mt-4 w-full">
               <table className="min-w-full border-collapse">
                 <tbody className="text-gray-700">
@@ -243,3 +246,29 @@ export default function AdminUserInfo() {
     </div>
   );
 }
+
+const profileContainerStyle = {
+  margin: 'auto',
+  width: '250px',
+  height: '250px',
+  position: 'relative',
+  borderRadius: '50%',
+  border: '15px solid transparent', 
+  background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #FFD700 10%, #DAA520 10%, #C0C0C0 100%) border-box', // الخلفية الذهبية
+
+};
+
+// أنماط الصورة
+const imageStyle = {
+  width: '100%',
+  height: '100%',
+  borderRadius: '50%', 
+  display: 'block',
+};
+
+// يمكنك إضافة أنماط CSS أدناه
+const style = `
+
+  }
+`;
+document.head.insertAdjacentHTML("beforeend", `<style>${style}</style>`);
