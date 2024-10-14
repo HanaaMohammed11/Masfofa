@@ -91,13 +91,13 @@ export default function MatrixCard({ searchQuery}) {
             {filteredMatrix.map((card, index) => (
               <tr
                 key={card.id}
-                className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700 transition-all`}
+                className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b text-xl transition-all`}
               >
                 {/* العنوان */}
-                <td className="px-4 py-2 md:px-6 md:py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap text-sm md:text-base">
+                <td className="px-4 py-2 md:px-6 md:py-4 font-semibold  dark:text-white whitespace-nowrap ">
                   {card.title}
                 </td>
-                <td className="px-4 py-2 md:px-6 md:py-4 text-sm md:text-base">{card.companyName}</td>
+                <td className="px-4 py-2 md:px-6 md:py-4  ">{card.companyName}</td>
                 <td className="py-2 px-4 text-center">
                   <div className="flex justify-center space-x-2 md:space-x-4">
                     {/* أيقونة العرض */}

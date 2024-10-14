@@ -83,9 +83,9 @@ export default function SubjctCard({ searchTerm }) {
             </thead>
             <tbody className="">
               {filteredSubjects.map((subjectItem, index) => (
-                <tr key={subjectItem.id} className={`border-b ${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"}`}>
-                  <td className="px-4 py-2 font-semibold text-center">{subjectItem.subjectTitle}</td>
-                  <td className="px-4 py-2 font-semibold text-center">{subjectItem.subjectNum}</td>
+                <tr key={subjectItem.id} className={`border-b twxt-xl  ${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"}`}>
+                  <td className="px-4 py-2 font-semibold text-center text-xl">{subjectItem.subjectTitle}</td>
+                  <td className="px-4 py-2 font-semibold text-center text-xl">{subjectItem.subjectNum}</td>
                   <td className="px-4 py-2 font-semibold text-center flex justify-center space-x-3">
                   <button onClick={() => handleShowInfo(subjectItem)} className="text-blue-500 ml-3">
                       <AiFillEye size={20} />

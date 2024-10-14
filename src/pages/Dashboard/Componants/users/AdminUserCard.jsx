@@ -25,12 +25,12 @@ export default function AdminUserCard({ user, index }) {
               style={imageStyle}
             />
           </div>
-          <span className="mr-4 truncate font-semibold  ml-4">{user.employeeName}</span>
+          <span className="mr-4 truncate font-semibold text-xl ml-4">{user.employeeName}</span>
         </div>
       </td>
 
-      <td className="px-6 font-semibold py-4">{user.jobTitle}</td>
-      <td className="px-6 font-semibold py-4">{user.phoneNumber}</td>
+      <td className="px-6 font-semibold py-4 text-xl">{user.jobTitle}</td>
+      <td className="px-6 font-semibold py-4 text-xl">{user.phoneNumber}</td>
       <td className="px-6 font-semibold py-4">
         <button className="text-blue-500">       <AiFillEye size={20} /></button>
       </td>

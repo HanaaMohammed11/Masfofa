@@ -40,14 +40,14 @@ export default function MatrixTable(props) {
               key={item.id}
               className={`${
                 index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"
-              } border-b dark:bg-gray-800 dark:border-gray-700  transition-all`}
+              } border-b text-xl font-semibold  transition-all`}
             >
               {/* Role */}
-              <td className="px-6 py-4  font-semibold dark:text-white whitespace-nowrap">
+              <td className="px-6 py-4  font-semibold text-xl dark:text-white whitespace-nowrap">
                 {item.title}
               </td>
 
-              <td className="px-6 py-4 font-semibold">{item.companyName}</td>
+              <td className="px-6 py-4 text-xl font-semibold">{item.companyName}</td>
 
               {/* Actions */}
               <td className="px-6 py-4 ">

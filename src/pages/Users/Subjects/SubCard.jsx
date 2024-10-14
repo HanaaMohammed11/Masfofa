@@ -98,7 +98,7 @@ export default function SubTable({ searchTerm }) {
         </thead>
         <tbody>
           {filteredSubjects.map((item, index) => (
-            <tr key={item.id} className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700`}>
+            <tr key={item.id} className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b text-xl font-semibold`}>
               <td className="px-4 py-3 font-semibold  dark:text-white whitespace-nowrap">
                 {item.subjectTitle}
               </td>

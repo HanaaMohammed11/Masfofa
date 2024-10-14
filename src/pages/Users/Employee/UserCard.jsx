@@ -21,7 +21,7 @@ function UserTable({ users }) {
 
   return (
     <div className="overflow-x-auto w-full mx-14  my-10 shadow-2xl">
-      <table className="w-full text-center t dark:text-gray-400" dir={direction}>
+      <table className="w-full text-center text-xl font-semibold" dir={direction}>
         <thead className="text-center text-lg bg-white">
           <tr>
             <th scope="col" className="px-6 py-3">{t("userInfo.employeeName")}</th>

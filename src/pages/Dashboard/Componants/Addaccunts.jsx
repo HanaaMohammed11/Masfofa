@@ -424,7 +424,7 @@ export default function AddAccounts() {
                 <th className="px-2 md:px-4 py-2">{t("subjectInfo.action")}</th>
               </tr>
             </thead>
-            <tbody className="text-gray-700 text-center">
+            <tbody className="text-xl font-semibold text-center">
               {filteredEmployees.length > 0 ? (
                 filteredEmployees.map((employee) => (
                   <tr key={employee.ID} className="border-t hover:bg-gray-100">
