@@ -95,7 +95,7 @@ const EditTheme = () => {
   const handleImageUpload = async (file, storagePath, oldUrl) => {
     try {
       const fullStoragePath = `banners/${storagePath}`;
-      
+      let isUploaded = false;
       if (oldUrl) {
         // حذف الصورة القديمة
         await deleteOldImage(fullStoragePath);
@@ -113,10 +113,15 @@ const EditTheme = () => {
       // تحديث Firestore برابط الصورة الجديدة
       await setDoc(doc(db, 'banners', storagePath), { imageUrl }, { merge: true });
        
+      if (file && imageUrl) {
+        setIsPopupVisible(true);
+      }
+      if (!isUploaded && file && imageUrl) {
+        isUploaded = true;
+        setIsPopupVisible(true); 
+        console.log("Navigating to dashboard...");
+      }
   
-      setIsPopupVisible(true);
-      console.log("Navigating to dashboard...");
-
       
     } catch (error) {
       console.error('Error uploading image:', error);

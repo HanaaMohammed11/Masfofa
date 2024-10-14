@@ -152,9 +152,10 @@ export default function MatrixEditForm() {
               </div>
             </div>
             <div className="mt-8 flex justify-center">
-              <Button onClick={handleSave} className="bg-[#CDA03D]">
-                {t("matrixEditForm.save")}
-              </Button>
+              <div onClick={handleSave}            className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
+              >
+              <span className="aux-text"> {t("matrixEditForm.save")}</span> 
+              </div>
             </div>
             {isPopupVisible && (
               <div style={popupStyles}>

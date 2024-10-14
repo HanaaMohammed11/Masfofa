@@ -53,9 +53,20 @@ export default function SubTable({ searchTerm }) {
     navigate("/subjectInfo", { state: { subject } });
   };
 
-  const filteredSubjects = matrixItems.filter((item) =>
-    item.subjectTitle.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+
+
+  const filteredSubjects = matrixItems.filter((subject) => {
+    const searchText = searchTerm.toLowerCase().replace(/\s+/g, "");
+    return (
+      subject.subjectTitle.toLowerCase().replace(/\s+/g, "").includes(searchText) ||
+      subject.subjectNum.toString().toLowerCase().replace(/\s+/g, "").includes(searchText) ||
+      subject.subjectContent.toString().toLowerCase().replace(/\s+/g, "").includes(searchText) ||
+      subject.subjectField.toString().toLowerCase().replace(/\s+/g, "").includes(searchText) ||
+      subject.ownerAdmin.toLowerCase().replace(/\s+/g, "").includes(searchText)
+    );
+  });
+  
 
   if (loading) {
     return (
