@@ -9,7 +9,7 @@ export default function MatrixTable(props) {
 
   if (props.matrices.length === 0) {
     return (
-      <div className="text-center text-gray-500 mt-44">
+      <div className="text-center text-xl font-semibold mt-44">
         {t("matrixCardDashboard.noMatrix")}
       </div>
     );
@@ -18,10 +18,10 @@ export default function MatrixTable(props) {
   return (
     <div className={`overflow-x-auto mx-14 shadow-2xl  mb-9 mt-9 ${direction}`}>
       <table
-        className="w-full text-center text-gray-500 dark:text-gray-400 shadow-lg"
+        className="w-full text-center   shadow-lg"
         dir={direction}
       >
-        <thead className="text-مل text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className=" text-xl font-semibold uppercase bg-gray-50 ">
           <tr>
             <th scope="col" className="px-6 py-3">
               {t("matrixinfo.name")}
@@ -43,16 +43,16 @@ export default function MatrixTable(props) {
               } border-b dark:bg-gray-800 dark:border-gray-700  transition-all`}
             >
               {/* Role */}
-              <td className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+              <td className="px-6 py-4  font-semibold dark:text-white whitespace-nowrap">
                 {item.title}
               </td>
 
-              <td className="px-6 py-4">{item.companyName}</td>
+              <td className="px-6 py-4 font-semibold">{item.companyName}</td>
 
               {/* Actions */}
               <td className="px-6 py-4 ">
                 <button
-                  className={`font-semibold hover:underline  text-gray-600`}
+                  className={`font-semibold hover:underline `}
                   onClick={() => {
                     navigate("/MatrixInfo", { state: { item } });
                   }}

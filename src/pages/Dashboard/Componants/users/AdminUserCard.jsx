@@ -15,8 +15,8 @@ export default function AdminUserCard({ user, index }) {
   const rowColor = index % 2 === 0 ? 'bg-[#DEBA9A]' : 'bg-white';
 
   return (
-    <tr className={`${rowColor} cursor-pointer`} onClick={handleCardClick}>
-      <td className="px-6 py-4  dark:text-white w-44">
+    <tr className={`${rowColor} cursor-pointer  font-semibold`} onClick={handleCardClick}>
+      <td className="px-6 py-4 w-44">
         <div className="flex items-center">
           <div style={profileContainerStyle}>
             <img
@@ -25,13 +25,13 @@ export default function AdminUserCard({ user, index }) {
               style={imageStyle}
             />
           </div>
-          <span className="mr-4 truncate ml-4">{user.employeeName}</span>
+          <span className="mr-4 truncate font-semibold  ml-4">{user.employeeName}</span>
         </div>
       </td>
 
-      <td className="px-6 py-4">{user.jobTitle}</td>
-      <td className="px-6 py-4">{user.phoneNumber}</td>
-      <td className="px-6 py-4">
+      <td className="px-6 font-semibold py-4">{user.jobTitle}</td>
+      <td className="px-6 font-semibold py-4">{user.phoneNumber}</td>
+      <td className="px-6 font-semibold py-4">
         <button className="text-blue-500">       <AiFillEye size={20} /></button>
       </td>
     </tr>

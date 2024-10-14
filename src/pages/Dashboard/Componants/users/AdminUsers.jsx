@@ -90,25 +90,25 @@ export default function AdminUsers() {
           ) : filteredUsers.length > 0 ? (
             <div className="overflow-x-auto w-full mx-9 mt-32  mb-96 shadow-2xl" >
               <table className="w-full text-center " dir={direction}>
-                <thead className="text-center text-lg bg-white">
-                  <tr>
-                    <th scope="col" className="px-6 py-3">
+                <thead className="text-center text-xl font-semibold bg-white">
+                  <tr> 
+                    <th scope="col" className="px-6 text-xl font-semibold py-3">
                       {t("userInfo.employeeName")}
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 text-xl font-semibold py-3">
                       {t("job.jobTitle")}
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 text-xl font-semibold py-3">
                       {t("job.phoneNumber")}
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 text-xl font-semibold py-3">
                       {t("EmpCard.details")}
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-xl font-semibold">
                   {filteredUsers.map((user, index) => (
-                    <AdminUserCard
+                    <AdminUserCard 
                       key={user.employeeId}
                       user={user}
                       index={index}

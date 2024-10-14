@@ -79,7 +79,7 @@ export default function SubTable({ searchTerm }) {
   if (filteredSubjects.length === 0) {
     return (
       <div className={`flex justify-center mt-44 items-center h-full ${direction}`}>
-        <p className="text-xl text-gray-500">{t("articels.noResults")}</p>
+        <p className="text-xl  font-semibold">{t("articels.noResults")}</p>
       </div>
     );
   }
@@ -88,9 +88,9 @@ export default function SubTable({ searchTerm }) {
 
   return (
     <div className={`p-4 overflow-x-auto mx-14     mt-9 ${direction}`}>
-      <table className="table-auto w-full text-sm text-center text-gray-500 dark:text-gray-400 shadow-lg rounded-xl" dir={direction}
+      <table className="table-auto w-full text-sm text-center  dark:text-gray-400 shadow-lg rounded-xl" dir={direction}
       >
-        <thead className=" text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className=" text-center text-xl font-semibold uppercase bg-gray-50 ">
           <tr className="text-center ml-9">
             <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.subjectTitle")}</th>
             <th className="px-4 py-2  text-center">          {t("subjectCardDashboard.subjectNum")} </th>            <th scope="col" className="px-4 py-2 text-lg">{t("subjectInfo.action")}</th>
@@ -99,14 +99,14 @@ export default function SubTable({ searchTerm }) {
         <tbody>
           {filteredSubjects.map((item, index) => (
             <tr key={item.id} className={`${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"} border-b dark:bg-gray-800 dark:border-gray-700`}>
-              <td className="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+              <td className="px-4 py-3 font-semibold  dark:text-white whitespace-nowrap">
                 {item.subjectTitle}
               </td>
-              <td className="px-4 py-2 text-center">
+              <td className="px-4 py-2 text-center font-semibold">
         {t("subjectCardDashboard.subjectNum")}: {item.subjectNum}
       </td>
               <td className="px-4 py-3">
-                <button className={`font-semibold hover:underline  text-gray-600`} onClick={() => handleButtonClick(item)}>
+                <button className={` hover:underline  font-semibold`} onClick={() => handleButtonClick(item)}>
                   {t("articels.details")}
                 </button>
               </td>

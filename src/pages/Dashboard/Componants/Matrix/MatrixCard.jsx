@@ -73,8 +73,8 @@ export default function MatrixCard({ searchQuery}) {
         </div>
       ) : filteredMatrix.length > 0 ? (
         <div className={`overflow-x-auto overflow-y-auto mx-4 md:mx-14 shadow-2xl mb-9 mt-3 ${direction} }`}>
-        <table className="min-w-full text-center text-gray-500 dark:text-gray-400 shadow-lg " dir={direction}>
-          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="min-w-full text-center text-xl font-semibold  shadow-lg " dir={direction}>
+          <thead className=" uppercase bg-gray-50 text-xl font-semibold ">
             <tr>
               <th scope="col" className="px-4 py-2 md:px-6 md:py-3">
                 {t("matrixinfo.name")}
