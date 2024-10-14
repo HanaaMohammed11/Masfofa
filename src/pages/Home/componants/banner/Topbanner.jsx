@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import db, { auth } from "../../../../config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import Planet from "../planet/Planet";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -52,25 +52,23 @@ export default function Topbanner() {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const topBannerDoc = await getDoc(doc(db, "banners", "topBanner"));
-        const logoDoc = await getDoc(doc(db, "banners", "logo"));
 
-        if (topBannerDoc.exists()) {
-          setTopBannerUrl(topBannerDoc.data().imageUrl);
-        }
-
-        if (logoDoc.exists()) {
-          setLogoUrl(logoDoc.data().imageUrl);
-        }
-      } catch (error) {
-        console.error("حدث خطأ أثناء جلب الصور:", error);
+    const unsubscribeTopBanner = onSnapshot(doc(db, "banners", "topBanner"), (doc) => {
+      if (doc.exists()) {
+        setTopBannerUrl(doc.data().imageUrl);
       }
-    };
+    });   const unsubscribeLogo = onSnapshot(doc(db, "banners", "logo"), (doc) => {
+      if (doc.exists()) {
+        setLogoUrl(doc.data().imageUrl);
+      }
+    });
 
-    fetchImages();
+    return () => {
+      unsubscribeTopBanner();
+      unsubscribeLogo();
+    };
   }, []);
+
 
   const handleLanguageSelect = (lang) => {
     setSelectedLanguage(lang);

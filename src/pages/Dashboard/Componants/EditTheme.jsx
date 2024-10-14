@@ -116,7 +116,7 @@ const EditTheme = () => {
   
       setIsPopupVisible(true);
       console.log("Navigating to dashboard...");
-      navigate("/");
+
       
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -131,7 +131,7 @@ const EditTheme = () => {
       if (logo) await handleImageUpload(logo, 'logo', logoUrl);
       if (homeElements) await handleImageUpload(homeElements, 'homeElements', homeElementsUrl);
       
-      navigate("/dashboard");
+
     } catch (error) {
       console.log('Error saving, please try again.', error);
     }
