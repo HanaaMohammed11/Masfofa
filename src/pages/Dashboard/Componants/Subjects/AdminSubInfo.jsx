@@ -3,7 +3,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Card } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import html2canvas from "html2canvas";
@@ -14,8 +20,6 @@ import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 
 export default function AdminSubjectInfo() {
   const pdfRef = useRef();
-
-
 
   const downloadPDF = () => {
     const input = pdfRef.current;
@@ -43,9 +47,21 @@ export default function AdminSubjectInfo() {
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const location = useLocation();
   const navigate = useNavigate();
-  const subject = location.state?.subject ;
+  const subject = location.state?.subject;
   const [employees, setEmployees] = useState([]);
+  const [matrices, setMatrices] = useState([]);
+  useEffect(() => {
+    const qUser = query(collection(db, "matrix"), where("title", "!=", 0));
+    const unsubscribe = onSnapshot(qUser, (snapshot) => {
+      const matrix = [];
+      snapshot.forEach((doc) => {
+        matrix.push({ docId: doc.id, ...doc.data() });
+      });
+      setMatrices(matrix);
+    });
 
+    return () => unsubscribe();
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -77,15 +93,16 @@ export default function AdminSubjectInfo() {
 
   return (
     <div>
-       <Topbanner />
-      <div dir={direction} >
+      <Topbanner />
+      <div dir={direction}>
         <button
-        style={{marginTop:"400px"}}
+          style={{ marginTop: "400px" }}
           className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
         >
           <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
-        </button></div>
+        </button>
+      </div>
       <div className="mt-28 justify-center mb-[30%] flex subjects-center">
         <Card className="w-[1200px]">
           <div className="flex justify-end px-4 pt-4"></div>
@@ -129,7 +146,26 @@ export default function AdminSubjectInfo() {
                       {subject.subjectContent}
                     </td>
                   </tr>
+                  <tr
+                    className="cursor-pointer hover:bg-[#fce8ca]"
+                    onClick={() => {
+                      const matrix = matrices.find(
+                        (item) => item.title === subject.relatedMatrix.title
+                      );
+                      console.log(matrix);
 
+                      navigate("/MatrixInfo", {
+                        state: { matrix },
+                      });
+                    }}
+                  >
+                    <td className="px-4 py-2 font-bold w-1/2">
+                      {t("subjectEditForm.relatedMatrix")}
+                    </td>
+                    <td className="px-4 py-2 break-words w-1/2 overflow-hidden ">
+                      {subject.relatedMatrix.title}
+                    </td>
+                  </tr>
                   <tr className="bg-[#fce8ca]">
                     <td className="px-4 py-2 font-bold w-1/2">
                       {t("subjectInfo.authorizedEmployee")}
@@ -198,7 +234,8 @@ export default function AdminSubjectInfo() {
             </div>
           </div>
         </Card>
-      </div><Bottombanner/>
+      </div>
+      <Bottombanner />
     </div>
   );
 }

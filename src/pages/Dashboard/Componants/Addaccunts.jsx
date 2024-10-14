@@ -450,7 +450,7 @@ export default function AddAccounts() {
                           </button>
                         </td>
                         <Modal
-                        className="pt-[30%] pb-[50%]"
+                          className="pt-[30%] pb-[50%]"
                           show={openEditModal}
                           size="md"
                           popup
