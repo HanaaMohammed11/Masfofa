@@ -112,7 +112,7 @@ export default function Topbanner() {
       <Navbar
         fluid={true}
         rounded={true}
-        className="bg-gray-500 text-white mb-1"
+        className="bg-gray-500 text-white "
       >
         <Navbar.Toggle className="bg-red text-yellow-50" />
 
