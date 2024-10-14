@@ -403,7 +403,6 @@ const EditTheme = () => {
               <button
                 onClick={() => {
                   setIsPopupVisible(false);
-                  navigate("/");
                 }}
                 className="text-red-600"
               >
