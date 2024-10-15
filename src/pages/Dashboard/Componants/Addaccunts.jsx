@@ -402,13 +402,12 @@ export default function AddAccounts() {
       </Modal>
 
       {/* Employees Table */}
-      <div className="overflow-x-auto flex flex-col items-center w-full ">
+      <div className="overflow-x-auto flex flex-col items-center w-full " >
         <div
           dir={direction}
           className="overflow-x-auto w-full p-4 rounded-lg shadow-lg mt-10"
         >
           <table
-            dir="rtl"
             className="table-auto w-full min-w-[300px] bg-[#D3A17A] text-sm md:text-base lg:mt-9 md:mt-9 mt-16 sm:mt-14 "
           >
             <thead dir={direction}>
