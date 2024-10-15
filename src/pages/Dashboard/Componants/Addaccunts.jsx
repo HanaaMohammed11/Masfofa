@@ -374,7 +374,7 @@ export default function AddAccounts() {
                     >
                       {user.length > 0 &&
                         user[0].accountType === "superAdmin" && (
-                          <option value="admin">
+                          <option value="superAdmin">
                             {t("addaccount.superAdmin")}
                           </option>
                         )}
