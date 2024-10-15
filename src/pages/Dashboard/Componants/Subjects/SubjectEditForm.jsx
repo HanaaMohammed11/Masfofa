@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   collection,
   doc,
+  getDoc,
   onSnapshot,
   query,
   updateDoc,
@@ -72,13 +73,42 @@ export default function SubjectEditForm() {
   };
 
   // Save updated subject data
-  const handleSave = async () => {
+  const handleSave = async (docID) => {
     const subjectRef = doc(db, "subjects", subject.id);
 
     try {
       await updateDoc(subjectRef, subjectData);
       // navigate("/dashboard");
       setIsPopupVisible(true);
+      const matrixDocRef = doc(db, "matrix", docID);
+
+      // Fetch the legislation document snapshot
+      const matrixDocSnapshot = await getDoc(matrixDocRef);
+
+      // Check if the legislation document exists
+      if (matrixDocSnapshot.exists()) {
+        const matrixData = matrixDocSnapshot.data();
+        const subjectsArray = matrixData.subjects || [];
+
+        // Find the index of the existing subject in the array
+        const subjectIndex = subjectsArray.indexOf(subject.subjectTitle);
+
+        if (subjectIndex !== -1) {
+          // If the subject is found, update it with the new title
+          subjectsArray[subjectIndex] = subjectData.subjectTitle;
+        } else {
+          // If the subject is not found, add it to the array
+          subjectsArray.push(subjectData.subjectTitle);
+        }
+
+        // Update the 'subjects' array in the legislation document
+        await updateDoc(matrixDocRef, {
+          subjects: subjectsArray, // Replace the entire array with the updated one
+        });
+
+        // Optional: You can navigate to a different page after a successful update
+        // navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Error updating subject:", error);
     }
@@ -370,7 +400,13 @@ export default function SubjectEditForm() {
             {/* Save Button */}
             <div className="mt-6 flex justify-center">
               <div
-                onClick={handleSave}
+                onClick={() => {
+                  const legislation = matrix.find(
+                    (item) => item.title === subjectData.relatedMatrix.title
+                  );
+
+                  handleSave(legislation.id);
+                }}
                 className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
               >
                 <span className="flex items-center space-x-4 aux-text">
@@ -381,7 +417,7 @@ export default function SubjectEditForm() {
             {isPopupVisible && (
               <div style={popupStyles}>
                 <div style={popupContentStyles}>
-                <p>{t("matrixForm.alert")}</p>
+                  <p>{t("matrixForm.alert")}</p>
                   <button
                     onClick={() => {
                       setIsPopupVisible(false);
@@ -389,7 +425,7 @@ export default function SubjectEditForm() {
                     }}
                     className="text-red-600"
                   >
-                       {t("text.close")}
+                    {t("text.close")}
                   </button>
                 </div>
               </div>

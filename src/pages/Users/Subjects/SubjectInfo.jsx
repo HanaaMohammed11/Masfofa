@@ -103,8 +103,7 @@ export default function SubjectInfo() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction} style={{  marginTop: "400px",marginLeft:20
-        }}>
+      <div dir={direction} style={{ marginTop: "400px", marginLeft: 20 }}>
         <button
           className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
@@ -113,8 +112,10 @@ export default function SubjectInfo() {
           <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
         </button>
       </div>
-      <div className=" justify-center flex items-center" style={{  paddingTop: "2px",
-      paddingBottom: "440px"}}>
+      <div
+        className=" justify-center flex items-center"
+        style={{ paddingTop: "2px", paddingBottom: "440px" }}
+      >
         <Card className="w-[1200px] ">
           <div className=" w-full" dir={direction}>
             <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">
@@ -157,8 +158,6 @@ export default function SubjectInfo() {
                   <tr
                     className="cursor-pointer hover:bg-[#fce8ca]"
                     onClick={() => {
-                      console.log(matrices);
-
                       const matrix = matrices.find(
                         (item) =>
                           item.title === clickedSubject.relatedMatrix.title
