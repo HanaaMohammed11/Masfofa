@@ -76,16 +76,18 @@ export default function SubjctCard({ searchTerm }) {
           <table className="min-w-full border-collapse" dir={direction}>
             <thead className=" uppercase bg-gray-50" dir={direction}>
               <tr>
+              <th className="px-4 py-2  text-xl font-semibold r">{t("subjectCardDashboard.subjectNum")}</th>
+
                 <th className="px-4 py-2 text-xl font-semibold ">{t("subjectInfo.subjectTitle")}</th>
-                <th className="px-4 py-2  text-xl font-semibold r">{t("subjectCardDashboard.subjectNum")}</th>
                 <th className="px-4 py-2  text-xl font-semibold texnter">{t("subjectInfo.action")}</th>
               </tr>
             </thead>
             <tbody className="">
               {filteredSubjects.map((subjectItem, index) => (
                 <tr key={subjectItem.id} className={`border-b twxt-xl  ${index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"}`}>
+                                  <td className="px-4 py-2 font-semibold text-center text-xl">{subjectItem.subjectNum}</td>
+
                   <td className="px-4 py-2 font-semibold text-center text-xl">{subjectItem.subjectTitle}</td>
-                  <td className="px-4 py-2 font-semibold text-center text-xl">{subjectItem.subjectNum}</td>
                   <td className="px-4 py-2 font-semibold text-center flex justify-center space-x-3">
                   <button onClick={() => handleShowInfo(subjectItem)} className="text-blue-500 ml-3">
                       <AiFillEye size={20} />

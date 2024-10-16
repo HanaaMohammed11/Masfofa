@@ -115,10 +115,10 @@ export default function EditProxyrForm() {
       dir={direction}
       
     >
-        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <button className="text-center bg-[#CDA03D] fixed py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
         <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
             </button></div>
-    <div className="flex justify-center items-center pb-[200px]" >
+    <div className="flex justify-center items-center pb-[200px] mt-[400px]" >
     <div className="bg-white p-8 rounded-lg shadow-md  w-full max-w-5xl ">
       <form onSubmit={handleSave}>
       <div className="flex flex-col items-center mb-6 ">

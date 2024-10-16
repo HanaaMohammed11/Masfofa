@@ -79,8 +79,8 @@ export default function AdminMatrixInfo() {
       <Topbanner />
       <div dir={direction}>
         <button
-          style={{ marginTop: "400px" }}
-          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+   
+          className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
         >
           <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
@@ -88,7 +88,7 @@ export default function AdminMatrixInfo() {
       </div>
 
       <div
-        className="min-h-screen  justify-center flex items-center"
+        className="min-h-screen  justify-center flex items-center mt-[400px]"
         dir={direction}
       >
         {loading ? (

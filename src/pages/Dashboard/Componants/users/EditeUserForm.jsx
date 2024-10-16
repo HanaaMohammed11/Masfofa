@@ -112,11 +112,11 @@ export default function EditUserForm() {
       dir={direction}
       
     >
-        <button className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <button className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
         <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
             </button></div>
       <div
-        className="  justify-center flex"
+        className="  justify-center flex mt-[400px]"
   
       >
         <div className=" p-8 w-full max-w-5xl  " style={{paddingBottom:"400px"}}>

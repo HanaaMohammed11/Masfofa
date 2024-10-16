@@ -85,10 +85,10 @@ export default function Proxyemployeeinfo() {
       dir={direction}
       
     >
-        <button className="text-center bg-[#CDA03D] py-2 px-9  shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} style={{marginTop:"400px"}}>
+        <button className="text-center bg-[#CDA03D] py-2 px-9  shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 fixed" onClick={handleBack} dir={direction} >
         <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
             </button></div>
-      <div className=" justify-center flex items-center pb-[200px]"   dir={direction}>
+      <div className=" justify-center flex items-center pb-[200px] mt-[400px]"   dir={direction}>
         <Card className="w-[900px] h-auto "  dir={direction}>
           <div className="flex flex-col items-center pb-10"  >
           <div style={profileContainerStyle}>

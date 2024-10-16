@@ -103,17 +103,17 @@ export default function SubjectInfo() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction} style={{  marginTop: "400px",marginLeft:20
-        }}>
+      <div dir={direction} 
+      >
         <button
-          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl m-9 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
           dir={direction}
         >
           <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
         </button>
       </div>
-      <div className=" justify-center flex items-center" style={{  paddingTop: "2px",
+      <div className=" mt-[400px] justify-center flex items-center" style={{  paddingTop: "2px",
       paddingBottom: "440px"}}>
         <Card className="w-[1200px] ">
           <div className=" w-full" dir={direction}>
