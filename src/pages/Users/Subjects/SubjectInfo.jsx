@@ -157,8 +157,6 @@ export default function SubjectInfo() {
                   <tr
                     className="cursor-pointer hover:bg-[#fce8ca]"
                     onClick={() => {
-                      console.log(matrices);
-
                       const matrix = matrices.find(
                         (item) =>
                           item.title === clickedSubject.relatedMatrix.title
