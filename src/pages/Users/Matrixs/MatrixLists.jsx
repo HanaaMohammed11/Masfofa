@@ -18,7 +18,7 @@ export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
-
+  const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchBy, setSearchBy] = useState("");
   const [filteredMatrices, setFilteredMatrices] = useState([]);
@@ -138,89 +138,77 @@ export default function MatrixLists() {
   }, [user]);
 
   const handleSearch = async () => {
-    if (searchBy === "MainEmployees" && searchQuery) {
-      const matchedEmployees = employees.filter((emp) =>
-        emp.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      if (matchedEmployees.length > 0) {
-        const results = matrix.filter((matrixItem) => {
-          const mainEmployees = matrixItem.MainEmployees || [];
-          return (
-            Array.isArray(mainEmployees) &&
-            matchedEmployees.some((emp) =>
-              mainEmployees.includes(emp.employeeId)
-            )
-          );
-        });
-
-        setFilteredMatrices(results);
-      } else {
-        setFilteredMatrices([]);
-      }
-    } else if (searchBy === "jobTitle" && searchQuery) {
-      const matchedEmployeesByJobTitle = employees.filter((emp) =>
-        emp.jobTitle.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      if (matchedEmployeesByJobTitle.length > 0) {
-        const results = matrix.filter((matrixItem) => {
-          const mainEmployees = matrixItem.MainEmployees || [];
-          return (
-            Array.isArray(mainEmployees) &&
-            matchedEmployeesByJobTitle.some((emp) =>
-              mainEmployees.includes(emp.employeeId)
-            )
-          );
-        });
-
-        setFilteredMatrices(results);
-      } else {
-        setFilteredMatrices([]);
-      }
-    } else if (searchBy === "subjectContent" && searchQuery) {
-      try {
-        const subjectTitles = await searchSubjectContent(searchQuery); // Get matching subjectTitles
-
-        if (subjectTitles.length > 0) {
-          console.log(`Matching subjectTitles: ${subjectTitles}`);
-
-          const results = matrix.filter((matrixItem) => {
-            const matrixSubjects = matrixItem.subjects || []; // Ensure subjects field exists
-            console.log(`Matrix item subjects: ${matrixSubjects}`);
-
-            // Check if any of the matrix subjects match the fetched subject titles
-            return matrixSubjects.some((subjectTitle) =>
-              subjectTitles.includes(subjectTitle)
+    let results = []; 
+  
+    if (tempSearchQuery) {
+      if (searchBy === "MainEmployees") {
+        const matchedEmployees = employees.filter((emp) =>
+          emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
+        );
+  
+        if (matchedEmployees.length > 0) {
+          results = matrix.filter((matrixItem) => {
+            const mainEmployees = matrixItem.MainEmployees || [];
+            return (
+              Array.isArray(mainEmployees) &&
+              matchedEmployees.some((emp) =>
+                mainEmployees.includes(emp.employeeId)
+              )
             );
           });
-
-          console.log("Filtered matrices:", results); // Add this to check the filtered matrices
-          setFilteredMatrices(results);
-        } else {
-          setFilteredMatrices([]); // No matches found
         }
-      } catch (error) {
-        console.error("Error fetching subjects:", error);
-        setFilteredMatrices([]); // Handle error by clearing results
+      } else if (searchBy === "jobTitle") {
+        const matchedEmployeesByJobTitle = employees.filter((emp) =>
+          emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
+        );
+  
+        if (matchedEmployeesByJobTitle.length > 0) {
+          results = matrix.filter((matrixItem) => {
+            const mainEmployees = matrixItem.MainEmployees || [];
+            return (
+              Array.isArray(mainEmployees) &&
+              matchedEmployeesByJobTitle.some((emp) =>
+                mainEmployees.includes(emp.employeeId)
+              )
+            );
+          });
+        }
+      } else if (searchBy === "subjectContent") {
+        try {
+          const subjectTitles = await searchSubjectContent(tempSearchQuery);
+  
+          if (subjectTitles.length > 0) {
+            results = matrix.filter((matrixItem) => {
+              const matrixSubjects = matrixItem.subjects || [];
+              return matrixSubjects.some((subjectTitle) =>
+                subjectTitles.includes(subjectTitle)
+              );
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching subjects:", error);
+        }
+      } else if (searchBy) {
+        results = matrix.filter((matrixItem) => {
+          const value = matrixItem[searchBy];
+  
+          if (Array.isArray(value)) {
+            return value.some((item) =>
+              item.toLowerCase().includes(tempSearchQuery.toLowerCase())
+            );
+          } else if (typeof value === "string") {
+            return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
+          }
+          return false;
+        });
       }
-    } else if (searchBy && searchQuery) {
-      const results = matrix.filter((matrixItem) => {
-        const value = matrixItem[searchBy];
-
-        if (Array.isArray(value)) {
-          return value.some((item) =>
-            item.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-        } else if (typeof value === "string") {
-          return value.toLowerCase().includes(searchQuery.toLowerCase());
-        }
-        return false;
-      });
-
-      setFilteredMatrices(results);
     }
+  
+    setFilteredMatrices(results); 
+    console.log(results);
   };
+  
+
 
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
@@ -268,12 +256,15 @@ export default function MatrixLists() {
           placeholder={t("matrix.searchButton")}
           className="xs:w-72 sm:w-96 rounded-full ml-4"
           dir={direction}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={tempSearchQuery}
+          onChange={(e) => setTempSearchQuery(e.target.value)}
           disabled={!searchBy}
         />
         <button
-          onClick={handleSearch}
+          onClick={() => {
+            setSearchQuery(tempSearchQuery);
+            handleSearch();
+          }}
           className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
         >
           {t("matrix.searchButton")}
@@ -285,16 +276,36 @@ export default function MatrixLists() {
           {t("matrix.clearFilters")}
         </button>
       </div>
+    
 
       {loading ? (
-        <div className="flex justify-center items-center  m-44">
+        <div className="flex justify-center items-center m-44">
           <Loader />
         </div>
       ) : (
         <div className="flex-grow">
-          <MatrixTable matrices={filteredMatrices} />
+          {user.accountType === "employee" ? (
+            searchQuery && filteredMatrices.length > 0 ? (
+              // عرض نتائج البحث فقط إذا كانت هناك نتائج
+              <MatrixTable matrices={filteredMatrices} />
+            ) : searchQuery ? (
+              // عرض رسالة إذا لم يتم العثور على نتائج
+              <div className="flex justify-center items-center m-44">
+                <p>{t("matrixCardDashboard.noMatrix")}</p>
+              </div>
+            ) : (
+              // عرض رسالة إذا لم يتم إدخال أي استعلام بحث
+              <div className="flex justify-center items-center m-44">
+                <p>{t("matrixCardDashboard.noMatrix")}</p>
+              </div>
+            )
+          ) : (
+            // عرض جميع الجداول للمستخدمين غير الموظفين
+            <MatrixTable matrices={filteredMatrices} />
+          )}
         </div>
       )}
+
       <div className="mt-auto">
         <Bottombanner />
       </div>
