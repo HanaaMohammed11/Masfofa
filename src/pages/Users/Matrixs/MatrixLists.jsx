@@ -45,11 +45,13 @@ export default function MatrixLists() {
 
     return () => unsubscribe();
   }, []); // Keep this as is
+  // console.log(user[0]);
 
   useEffect(() => {
     if (user.length > 0) {
       let qmatrix;
-      if (user.ownerAdmin) {
+      if (user[0]?.ownerAdmin) {
+        // You missed the array indexing here, should be user[0]
         qmatrix = query(
           collection(db, "matrix"),
           where("ownerAdmin", "==", user[0]?.ownerAdmin)
@@ -60,6 +62,7 @@ export default function MatrixLists() {
           where("ownerAdmin", "==", user[0]?.ID)
         );
       }
+
       const unsubscribe = onSnapshot(qmatrix, (snapshot) => {
         const matrixData = [];
         snapshot.forEach((doc) => {
@@ -67,6 +70,10 @@ export default function MatrixLists() {
         });
         setMatrix(matrixData);
         setFilteredMatrices(matrixData);
+
+        // Log data after it has been fetched and state is updated
+        console.log("Fetched Matrix Data:", matrixData);
+        console.log("Filtered Matrices:", matrixData);
       });
 
       return () => unsubscribe();
@@ -138,14 +145,14 @@ export default function MatrixLists() {
   }, [user]);
 
   const handleSearch = async () => {
-    let results = []; 
-  
+    let results = [];
+
     if (tempSearchQuery) {
       if (searchBy === "MainEmployees") {
         const matchedEmployees = employees.filter((emp) =>
           emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
         );
-  
+
         if (matchedEmployees.length > 0) {
           results = matrix.filter((matrixItem) => {
             const mainEmployees = matrixItem.MainEmployees || [];
@@ -161,7 +168,7 @@ export default function MatrixLists() {
         const matchedEmployeesByJobTitle = employees.filter((emp) =>
           emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
         );
-  
+
         if (matchedEmployeesByJobTitle.length > 0) {
           results = matrix.filter((matrixItem) => {
             const mainEmployees = matrixItem.MainEmployees || [];
@@ -176,7 +183,7 @@ export default function MatrixLists() {
       } else if (searchBy === "subjectContent") {
         try {
           const subjectTitles = await searchSubjectContent(tempSearchQuery);
-  
+
           if (subjectTitles.length > 0) {
             results = matrix.filter((matrixItem) => {
               const matrixSubjects = matrixItem.subjects || [];
@@ -191,7 +198,7 @@ export default function MatrixLists() {
       } else if (searchBy) {
         results = matrix.filter((matrixItem) => {
           const value = matrixItem[searchBy];
-  
+
           if (Array.isArray(value)) {
             return value.some((item) =>
               item.toLowerCase().includes(tempSearchQuery.toLowerCase())
@@ -203,12 +210,11 @@ export default function MatrixLists() {
         });
       }
     }
-  
-    setFilteredMatrices(results); 
-    console.log(results);
-  };
-  
 
+    setFilteredMatrices(results);
+    // console.log(results);
+    // console.log(filteredMatrices);
+  };
 
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
@@ -219,6 +225,7 @@ export default function MatrixLists() {
     setSearchBy("");
     setFilteredMatrices(matrix);
   };
+  // console.log(matrix);
 
   return (
     <div
@@ -238,7 +245,6 @@ export default function MatrixLists() {
           className="w-40 p-2 rounded-md text-gray-700"
         >
           <option value="" disabled>
-            {t("matrix.selectSearchCriterion")}
             {t("matrix.selectSearchCriterion")}
           </option>
           <option value="title">{t("matrix.searchByMatrix")}</option>
@@ -276,7 +282,6 @@ export default function MatrixLists() {
           {t("matrix.clearFilters")}
         </button>
       </div>
-    
 
       {loading ? (
         <div className="flex justify-center items-center m-44">
@@ -284,7 +289,7 @@ export default function MatrixLists() {
         </div>
       ) : (
         <div className="flex-grow">
-          {user.accountType === "employee" ? (
+          {user[0].accountType === "employee" ? (
             searchQuery && filteredMatrices.length > 0 ? (
               // عرض نتائج البحث فقط إذا كانت هناك نتائج
               <MatrixTable matrices={filteredMatrices} />
