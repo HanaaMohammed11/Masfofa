@@ -13,10 +13,11 @@ import {
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
+import { useNavigate } from "react-router-dom";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
-
+  const nav = useNavigate();
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,11 +46,13 @@ export default function MatrixLists() {
 
     return () => unsubscribe();
   }, []); // Keep this as is
+  // console.log(user[0]);
 
   useEffect(() => {
     if (user.length > 0) {
       let qmatrix;
-      if (user.ownerAdmin) {
+      if (user[0]?.ownerAdmin) {
+        // You missed the array indexing here, should be user[0]
         qmatrix = query(
           collection(db, "matrix"),
           where("ownerAdmin", "==", user[0]?.ownerAdmin)
@@ -60,6 +63,7 @@ export default function MatrixLists() {
           where("ownerAdmin", "==", user[0]?.ID)
         );
       }
+
       const unsubscribe = onSnapshot(qmatrix, (snapshot) => {
         const matrixData = [];
         snapshot.forEach((doc) => {
@@ -67,6 +71,10 @@ export default function MatrixLists() {
         });
         setMatrix(matrixData);
         setFilteredMatrices(matrixData);
+
+        // Log data after it has been fetched and state is updated
+        console.log("Fetched Matrix Data:", matrixData);
+        console.log("Filtered Matrices:", matrixData);
       });
 
       return () => unsubscribe();
@@ -139,6 +147,7 @@ export default function MatrixLists() {
 const handleSearch = async () => {
   let results = [];
 
+<<<<<<< HEAD
   // عرض بيانات الموظفين للتحقق
   console.log("Employees Data:", employees);
 
@@ -185,6 +194,92 @@ const handleSearch = async () => {
               mainEmployees.includes(emp.employeeId)
             )
           );
+=======
+  const handleSearch = async () => {
+    let results = [];
+
+    if (tempSearchQuery) {
+      if (searchBy === "MainEmployees") {
+        const matchedEmployees = employees.filter((emp) =>
+          emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
+        );
+
+        if (matchedEmployees.length > 0) {
+          results = matrix.filter((matrixItem) => {
+            const mainEmployees = matrixItem.MainEmployees || [];
+            return (
+              Array.isArray(mainEmployees) &&
+              matchedEmployees.some((emp) =>
+                mainEmployees.includes(emp.employeeId)
+              )
+            );
+          });
+        }
+      } else if (searchBy === "jobTitle") {
+        const matchedEmployeesByJobTitle = employees.filter((emp) =>
+          emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
+        );
+
+        if (matchedEmployeesByJobTitle.length > 0) {
+          results = matrix.filter((matrixItem) => {
+            const mainEmployees = matrixItem.MainEmployees || [];
+            return (
+              Array.isArray(mainEmployees) &&
+              matchedEmployeesByJobTitle.some((emp) =>
+                mainEmployees.includes(emp.employeeId)
+              )
+            );
+          });
+        }
+      } else if (searchBy === "subjectContent") {
+        try {
+          const subjectTitles = await searchSubjectContent(tempSearchQuery);
+
+          if (subjectTitles.length > 0) {
+            results = matrix.filter((matrixItem) => {
+              const matrixSubjects = matrixItem.subjects || [];
+              return matrixSubjects.some((subjectTitle) =>
+                subjectTitles.includes(subjectTitle)
+              );
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching subjects:", error);
+        }
+        // try {
+        //   const subjectTitles = await searchSubjectContent(tempSearchQuery);
+
+        //   if (subjectTitles.length > 0) {
+        //     results = matrix.filter((matrixItem) => {
+        //       const matrixSubjects = matrixItem.subjects || [];
+        //       return matrixSubjects.some((subjectTitle) =>
+        //         subjectTitles.includes(subjectTitle)
+        //       );
+        //     });
+
+        //     // Navigate to the new page with the filtered matrix results
+        //     if (results.length > 0) {
+        //       nav("/subjects", { state: { filteredMatrices: results } });
+        //     } else {
+        //       console.log("No matching matrices found");
+        //     }
+        //   }
+        // } catch (error) {
+        //   console.error("Error fetching subjects:", error);
+        // }
+      } else if (searchBy) {
+        results = matrix.filter((matrixItem) => {
+          const value = matrixItem[searchBy];
+
+          if (Array.isArray(value)) {
+            return value.some((item) =>
+              item.toLowerCase().includes(tempSearchQuery.toLowerCase())
+            );
+          } else if (typeof value === "string") {
+            return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
+          }
+          return false;
+>>>>>>> 2f0eab78d8010cd37ec79dce623299b0af6d7139
         });
       }
     } else if (searchBy === "subjectContent") {
@@ -217,6 +312,7 @@ const handleSearch = async () => {
         return false;
       });
     }
+<<<<<<< HEAD
   }
 
   // عرض النتائج النهائية للتحقق
@@ -225,7 +321,13 @@ const handleSearch = async () => {
   setFilteredMatrices(results);
 };
 
+=======
+>>>>>>> 2f0eab78d8010cd37ec79dce623299b0af6d7139
 
+    setFilteredMatrices(results);
+    // console.log(results);
+    // console.log(filteredMatrices);
+  };
 
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
@@ -236,6 +338,7 @@ const handleSearch = async () => {
     setSearchBy("");
     setFilteredMatrices(matrix);
   };
+  // console.log(matrix);
 
   return (
     <div
@@ -255,7 +358,6 @@ const handleSearch = async () => {
           className="w-40 p-2 rounded-md text-gray-700"
         >
           <option value="" disabled>
-            {t("matrix.selectSearchCriterion")}
             {t("matrix.selectSearchCriterion")}
           </option>
           <option value="title">{t("matrix.searchByMatrix")}</option>
@@ -293,7 +395,6 @@ const handleSearch = async () => {
           {t("matrix.clearFilters")}
         </button>
       </div>
-    
 
       {loading ? (
         <div className="flex justify-center items-center m-44">
@@ -301,7 +402,7 @@ const handleSearch = async () => {
         </div>
       ) : (
         <div className="flex-grow">
-          {user.accountType === "employee" ? (
+          {user[0].accountType === "employee" ? (
             searchQuery && filteredMatrices.length > 0 ? (
               // عرض نتائج البحث فقط إذا كانت هناك نتائج
               <MatrixTable matrices={filteredMatrices} />
