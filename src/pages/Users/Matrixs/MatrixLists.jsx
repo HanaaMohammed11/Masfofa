@@ -136,78 +136,95 @@ export default function MatrixLists() {
       return () => unsubscribe();
     }
   }, [user]);
+const handleSearch = async () => {
+  let results = [];
 
-  const handleSearch = async () => {
-    let results = []; 
-  
-    if (tempSearchQuery) {
-      if (searchBy === "MainEmployees") {
-        const matchedEmployees = employees.filter((emp) =>
-          emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
-        );
-  
-        if (matchedEmployees.length > 0) {
-          results = matrix.filter((matrixItem) => {
-            const mainEmployees = matrixItem.MainEmployees || [];
-            return (
-              Array.isArray(mainEmployees) &&
-              matchedEmployees.some((emp) =>
-                mainEmployees.includes(emp.employeeId)
-              )
-            );
-          });
-        }
-      } else if (searchBy === "jobTitle") {
-        const matchedEmployeesByJobTitle = employees.filter((emp) =>
-          emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
-        );
-  
-        if (matchedEmployeesByJobTitle.length > 0) {
-          results = matrix.filter((matrixItem) => {
-            const mainEmployees = matrixItem.MainEmployees || [];
-            return (
-              Array.isArray(mainEmployees) &&
-              matchedEmployeesByJobTitle.some((emp) =>
-                mainEmployees.includes(emp.employeeId)
-              )
-            );
-          });
-        }
-      } else if (searchBy === "subjectContent") {
-        try {
-          const subjectTitles = await searchSubjectContent(tempSearchQuery);
-  
-          if (subjectTitles.length > 0) {
-            results = matrix.filter((matrixItem) => {
-              const matrixSubjects = matrixItem.subjects || [];
-              return matrixSubjects.some((subjectTitle) =>
-                subjectTitles.includes(subjectTitle)
-              );
-            });
-          }
-        } catch (error) {
-          console.error("Error fetching subjects:", error);
-        }
-      } else if (searchBy) {
+  // عرض بيانات الموظفين للتحقق
+  console.log("Employees Data:", employees);
+
+  if (tempSearchQuery) {
+    if (searchBy === "MainEmployees") {
+      const matchedEmployees = employees.filter((emp) =>
+        emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
+      );
+
+      // عرض الموظفين المطابقين للتحقق
+      console.log("Matched Employees:", matchedEmployees);
+
+      if (matchedEmployees.length > 0) {
         results = matrix.filter((matrixItem) => {
-          const value = matrixItem[searchBy];
-  
-          if (Array.isArray(value)) {
-            return value.some((item) =>
-              item.toLowerCase().includes(tempSearchQuery.toLowerCase())
-            );
-          } else if (typeof value === "string") {
-            return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
-          }
-          return false;
+          const mainEmployees = matrixItem.MainEmployees || [];
+
+          // عرض MainEmployees للتحقق
+          console.log("Main Employees for Matrix Item:", mainEmployees);
+
+          return (
+            Array.isArray(mainEmployees) &&
+            matchedEmployees.some((emp) =>
+              mainEmployees.includes(emp.employeeId)
+            )
+          );
+        });
+
+        // عرض النتائج للتحقق
+        console.log("Search Results by MainEmployees:", results);
+      }
+    } else if (searchBy === "jobTitle") {
+      const matchedEmployeesByJobTitle = employees.filter((emp) =>
+        emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
+      );
+
+      console.log("Matched Employees by Job Title:", matchedEmployeesByJobTitle);
+
+      if (matchedEmployeesByJobTitle.length > 0) {
+        results = matrix.filter((matrixItem) => {
+          const mainEmployees = matrixItem.MainEmployees || [];
+          return (
+            Array.isArray(mainEmployees) &&
+            matchedEmployeesByJobTitle.some((emp) =>
+              mainEmployees.includes(emp.employeeId)
+            )
+          );
         });
       }
+    } else if (searchBy === "subjectContent") {
+      try {
+        const subjectTitles = await searchSubjectContent(tempSearchQuery);
+        console.log("Matched Subjects:", subjectTitles);
+
+        if (subjectTitles.length > 0) {
+          results = matrix.filter((matrixItem) => {
+            const matrixSubjects = matrixItem.subjects || [];
+            return matrixSubjects.some((subjectTitle) =>
+              subjectTitles.includes(subjectTitle)
+            );
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+      }
+    } else if (searchBy) {
+      results = matrix.filter((matrixItem) => {
+        const value = matrixItem[searchBy];
+
+        if (Array.isArray(value)) {
+          return value.some((item) =>
+            item.toLowerCase().includes(tempSearchQuery.toLowerCase())
+          );
+        } else if (typeof value === "string") {
+          return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
+        }
+        return false;
+      });
     }
-  
-    setFilteredMatrices(results); 
-    console.log(results);
-  };
-  
+  }
+
+  // عرض النتائج النهائية للتحقق
+  console.log("Final Search Results:", results);
+
+  setFilteredMatrices(results);
+};
+
 
 
   const handleSearchByChange = (e) => {
