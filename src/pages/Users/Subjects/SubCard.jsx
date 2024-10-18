@@ -79,7 +79,7 @@ export default function SubTable({ searchTerm }) {
   if (filteredSubjects.length === 0) {
     return (
       <div className={`flex justify-center mt-44 items-center h-full ${direction}`}>
-        <p className="text-xl  font-semibold">{t("articels.noResults")}</p>
+        <p className=" text-gray-600 ">{t("articels.noResults")}</p>
       </div>
     );
   }

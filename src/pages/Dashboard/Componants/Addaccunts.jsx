@@ -144,23 +144,6 @@ export default function AddAccounts() {
       (employee?.email && employee.email.includes(searchQuery))
   );
 
-  // async function deleteUserByUid(uid) {
-  //   setRefresh(true)
-  //   try {
-  //     const response = await axios.delete(`https://delete-user-node-js.vercel.app/delete-user/${uid}`);
-  //
-
-  //     if (response.status == 200) {
-  //       console.log(response.data.message);
-  //     } else {
-  //       console.log(response.data.message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }finally{
-  //     setRefresh(false)
-  //   }
-  // }
 
   async function deleteUserByUid(uid, employeeId) {
     setRefresh(true);
