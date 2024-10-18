@@ -14,6 +14,7 @@ import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 import { useNavigate } from "react-router-dom";
+import { IoSearch } from "react-icons/io5";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
@@ -144,57 +145,7 @@ export default function MatrixLists() {
       return () => unsubscribe();
     }
   }, [user]);
-const handleSearch = async () => {
-  let results = [];
 
-<<<<<<< HEAD
-  // عرض بيانات الموظفين للتحقق
-  console.log("Employees Data:", employees);
-
-  if (tempSearchQuery) {
-    if (searchBy === "MainEmployees") {
-      const matchedEmployees = employees.filter((emp) =>
-        emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
-      );
-
-      // عرض الموظفين المطابقين للتحقق
-      console.log("Matched Employees:", matchedEmployees);
-
-      if (matchedEmployees.length > 0) {
-        results = matrix.filter((matrixItem) => {
-          const mainEmployees = matrixItem.MainEmployees || [];
-
-          // عرض MainEmployees للتحقق
-          console.log("Main Employees for Matrix Item:", mainEmployees);
-
-          return (
-            Array.isArray(mainEmployees) &&
-            matchedEmployees.some((emp) =>
-              mainEmployees.includes(emp.employeeId)
-            )
-          );
-        });
-
-        // عرض النتائج للتحقق
-        console.log("Search Results by MainEmployees:", results);
-      }
-    } else if (searchBy === "jobTitle") {
-      const matchedEmployeesByJobTitle = employees.filter((emp) =>
-        emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
-      );
-
-      console.log("Matched Employees by Job Title:", matchedEmployeesByJobTitle);
-
-      if (matchedEmployeesByJobTitle.length > 0) {
-        results = matrix.filter((matrixItem) => {
-          const mainEmployees = matrixItem.MainEmployees || [];
-          return (
-            Array.isArray(mainEmployees) &&
-            matchedEmployeesByJobTitle.some((emp) =>
-              mainEmployees.includes(emp.employeeId)
-            )
-          );
-=======
   const handleSearch = async () => {
     let results = [];
 
@@ -246,27 +197,7 @@ const handleSearch = async () => {
         } catch (error) {
           console.error("Error fetching subjects:", error);
         }
-        // try {
-        //   const subjectTitles = await searchSubjectContent(tempSearchQuery);
-
-        //   if (subjectTitles.length > 0) {
-        //     results = matrix.filter((matrixItem) => {
-        //       const matrixSubjects = matrixItem.subjects || [];
-        //       return matrixSubjects.some((subjectTitle) =>
-        //         subjectTitles.includes(subjectTitle)
-        //       );
-        //     });
-
-        //     // Navigate to the new page with the filtered matrix results
-        //     if (results.length > 0) {
-        //       nav("/subjects", { state: { filteredMatrices: results } });
-        //     } else {
-        //       console.log("No matching matrices found");
-        //     }
-        //   }
-        // } catch (error) {
-        //   console.error("Error fetching subjects:", error);
-        // }
+      
       } else if (searchBy) {
         results = matrix.filter((matrixItem) => {
           const value = matrixItem[searchBy];
@@ -279,54 +210,12 @@ const handleSearch = async () => {
             return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
           }
           return false;
->>>>>>> 2f0eab78d8010cd37ec79dce623299b0af6d7139
         });
       }
-    } else if (searchBy === "subjectContent") {
-      try {
-        const subjectTitles = await searchSubjectContent(tempSearchQuery);
-        console.log("Matched Subjects:", subjectTitles);
-
-        if (subjectTitles.length > 0) {
-          results = matrix.filter((matrixItem) => {
-            const matrixSubjects = matrixItem.subjects || [];
-            return matrixSubjects.some((subjectTitle) =>
-              subjectTitles.includes(subjectTitle)
-            );
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching subjects:", error);
-      }
-    } else if (searchBy) {
-      results = matrix.filter((matrixItem) => {
-        const value = matrixItem[searchBy];
-
-        if (Array.isArray(value)) {
-          return value.some((item) =>
-            item.toLowerCase().includes(tempSearchQuery.toLowerCase())
-          );
-        } else if (typeof value === "string") {
-          return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
-        }
-        return false;
-      });
     }
-<<<<<<< HEAD
-  }
-
-  // عرض النتائج النهائية للتحقق
-  console.log("Final Search Results:", results);
-
-  setFilteredMatrices(results);
-};
-
-=======
->>>>>>> 2f0eab78d8010cd37ec79dce623299b0af6d7139
 
     setFilteredMatrices(results);
-    // console.log(results);
-    // console.log(filteredMatrices);
+
   };
 
   const handleSearchByChange = (e) => {
@@ -338,7 +227,6 @@ const handleSearch = async () => {
     setSearchBy("");
     setFilteredMatrices(matrix);
   };
-  // console.log(matrix);
 
   return (
     <div
@@ -404,18 +292,16 @@ const handleSearch = async () => {
         <div className="flex-grow">
           {user[0].accountType === "employee" ? (
             searchQuery && filteredMatrices.length > 0 ? (
-              // عرض نتائج البحث فقط إذا كانت هناك نتائج
               <MatrixTable matrices={filteredMatrices} />
             ) : searchQuery ? (
-              // عرض رسالة إذا لم يتم العثور على نتائج
               <div className="flex justify-center items-center m-44">
                 <p>{t("matrixCardDashboard.noMatrix")}</p>
               </div>
             ) : (
               // عرض رسالة إذا لم يتم إدخال أي استعلام بحث
               <div className="flex justify-center items-center m-44">
-                <p>{t("matrixCardDashboard.noMatrix")}</p>
-              </div>
+<IoSearch color="gray"  size={30}/>     
+       </div>
             )
           ) : (
             // عرض جميع الجداول للمستخدمين غير الموظفين

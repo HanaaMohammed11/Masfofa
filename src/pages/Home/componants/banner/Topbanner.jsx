@@ -114,7 +114,8 @@ export default function Topbanner() {
         rounded={true}
         className="bg-gray-500 text-white "
       >
-        <Navbar.Toggle className="bg-red text-yellow-50" />
+             {user.accountType !== "employee" && (
+        <Navbar.Toggle className="bg-red text-yellow-50" />)}
 
         <div className="flex">
           {/* Logout Button */}
@@ -172,8 +173,9 @@ export default function Topbanner() {
         {/* Navbar Items */}
 
         {/* Navbar Items */}
+        {user.accountType !== "employee" && (
         <Navbar.Collapse>
-          {user.accountType !== "employee" && (
+
             <div
               className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group bg-slate-900 hover:bg-[#CDA03D] px-9 "
               onClick={() => navigate("/dashboard")}
@@ -185,7 +187,7 @@ export default function Topbanner() {
               
               {/* الخطوط الجانبية */}
             </div>
-          )}
+    
 
           <div
             className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group bg-slate-900 hover:bg-[#CDA03D] px-9 "
@@ -230,6 +232,7 @@ export default function Topbanner() {
             {/* الخطوط الجانبية */}
           </div>
         </Navbar.Collapse>
+      )}
       </Navbar>
 
       {/* Banner section */}
