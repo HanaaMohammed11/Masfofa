@@ -13,10 +13,11 @@ import {
 import db from "../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
+import { useNavigate } from "react-router-dom";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
-
+  const nav = useNavigate();
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -195,6 +196,27 @@ export default function MatrixLists() {
         } catch (error) {
           console.error("Error fetching subjects:", error);
         }
+        // try {
+        //   const subjectTitles = await searchSubjectContent(tempSearchQuery);
+
+        //   if (subjectTitles.length > 0) {
+        //     results = matrix.filter((matrixItem) => {
+        //       const matrixSubjects = matrixItem.subjects || [];
+        //       return matrixSubjects.some((subjectTitle) =>
+        //         subjectTitles.includes(subjectTitle)
+        //       );
+        //     });
+
+        //     // Navigate to the new page with the filtered matrix results
+        //     if (results.length > 0) {
+        //       nav("/subjects", { state: { filteredMatrices: results } });
+        //     } else {
+        //       console.log("No matching matrices found");
+        //     }
+        //   }
+        // } catch (error) {
+        //   console.error("Error fetching subjects:", error);
+        // }
       } else if (searchBy) {
         results = matrix.filter((matrixItem) => {
           const value = matrixItem[searchBy];
