@@ -75,7 +75,9 @@ export default function AddAccounts() {
       const user = userCredential.user;
 
       const docRef = await addDoc(usersCollection, {
-        ownerAdmin: localStorage.getItem("id"),
+        ...(accountType === "employee" && {
+          ownerAdmin: localStorage.getItem("id"),
+        }),
         firstname: firstName,
         lastname: lastName,
         email: email,
@@ -143,7 +145,6 @@ export default function AddAccounts() {
       (employee?.firstname && employee.firstname.includes(searchQuery)) ||
       (employee?.email && employee.email.includes(searchQuery))
   );
-
 
   async function deleteUserByUid(uid, employeeId) {
     setRefresh(true);
@@ -385,14 +386,12 @@ export default function AddAccounts() {
       </Modal>
 
       {/* Employees Table */}
-      <div className="overflow-x-auto flex flex-col items-center w-full " >
+      <div className="overflow-x-auto flex flex-col items-center w-full ">
         <div
           dir={direction}
           className="overflow-x-auto w-full p-4 rounded-lg shadow-lg mt-10"
         >
-          <table
-            className="table-auto w-full min-w-[300px] bg-[#D3A17A] text-sm md:text-base lg:mt-9 md:mt-9 mt-16 sm:mt-14 "
-          >
+          <table className="table-auto w-full min-w-[300px] bg-[#D3A17A] text-sm md:text-base lg:mt-9 md:mt-9 mt-16 sm:mt-14 ">
             <thead dir={direction}>
               <tr dir={direction} className="bg-[#D3A17A] text-white">
                 <th className="px-2 md:px-4 py-2">

@@ -52,13 +52,17 @@ export default function MatrixLists() {
   useEffect(() => {
     if (user.length > 0) {
       let qmatrix;
-      if (user[0]?.ownerAdmin) {
+      if (user[0].ownerAdmin) {
         // You missed the array indexing here, should be user[0]
+        console.log("inside first if");
+
         qmatrix = query(
           collection(db, "matrix"),
           where("ownerAdmin", "==", user[0]?.ownerAdmin)
         );
       } else {
+        console.log("inside 2nd if");
+
         qmatrix = query(
           collection(db, "matrix"),
           where("ownerAdmin", "==", user[0]?.ID)
@@ -197,7 +201,6 @@ export default function MatrixLists() {
         } catch (error) {
           console.error("Error fetching subjects:", error);
         }
-      
       } else if (searchBy) {
         results = matrix.filter((matrixItem) => {
           const value = matrixItem[searchBy];
@@ -215,7 +218,6 @@ export default function MatrixLists() {
     }
 
     setFilteredMatrices(results);
-
   };
 
   const handleSearchByChange = (e) => {
@@ -227,6 +229,10 @@ export default function MatrixLists() {
     setSearchBy("");
     setFilteredMatrices(matrix);
   };
+  console.log(matrix);
+  // console.log(filteredMatrices);
+  console.log(user[0]);
+  // console.log(employees);
 
   return (
     <div
@@ -300,8 +306,8 @@ export default function MatrixLists() {
             ) : (
               // عرض رسالة إذا لم يتم إدخال أي استعلام بحث
               <div className="flex justify-center items-center m-44">
-<IoSearch color="gray"  size={30}/>     
-       </div>
+                <IoSearch color="gray" size={30} />
+              </div>
             )
           ) : (
             // عرض جميع الجداول للمستخدمين غير الموظفين

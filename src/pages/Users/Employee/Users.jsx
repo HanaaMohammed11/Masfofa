@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useTranslation } from "react-i18next";
-import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../../../config/firebase";
-import Loader from "../../Login/loader"; 
+import Loader from "../../Login/loader";
 import { useNavigate } from "react-router-dom";
 import UserTable from "./UserCard";
 
@@ -13,7 +19,7 @@ export default function Users() {
   const [searchTerm, setSearchTerm] = useState("");
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([]);
-  
+
   const { t, i18n } = useTranslation("global");
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -65,8 +71,10 @@ export default function Users() {
   );
 
   return (
-    <div className="flex flex-col  " style={{  paddingTop: "270px",
-      paddingBottom: "440px"}}>
+    <div
+      className="flex flex-col  "
+      style={{ paddingTop: "270px", paddingBottom: "440px" }}
+    >
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
       </div>
