@@ -63,9 +63,9 @@ export default function SubTable({ searchTerm, searchType }) {
   };
 
   const filteredSubjects = matrixItems.filter((subject) => {
-    const searchText = searchTerm.toLowerCase().replace(/\s+/g, "");
-    
-    return subject[searchType]?.toLowerCase().replace(/\s+/g, "").includes(searchText);
+    if (!searchType) return true; // عرض جميع النتائج إذا لم يكن هناك نوع بحث محدد
+    const searchText = searchTerm.toLowerCase().trim();
+    return subject[searchType]?.toLowerCase().trim().includes(searchText);
   });
 
   if (loading) {

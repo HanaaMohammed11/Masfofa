@@ -16,9 +16,9 @@ import UserTable from "./UserCard";
 
 export default function Users() {
   const navigate = useNavigate();
-  const [tempSearchTerm, setTempSearchTerm] = useState(""); // للبحث المؤقت
-  const [searchTerm, setSearchTerm] = useState(""); // للبحث الفعلي بعد الضغط على الزر
-  const [searchType, setSearchType] = useState("employeeName"); // نوع البحث الافتراضي هو الاسم
+  const [tempSearchTerm, setTempSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchType, setSearchType] = useState(""); 
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([]);
 
@@ -26,7 +26,6 @@ export default function Users() {
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
-  // Fetch current user data
   useEffect(() => {
     const qUser = query(
       collection(db, "users"),
@@ -44,7 +43,6 @@ export default function Users() {
     return () => unsubscribe();
   }, []);
 
-  // Fetch employees based on the current user's ownerAdmin
   useEffect(() => {
     const getSubjects = async () => {
       if (user.length > 0) {

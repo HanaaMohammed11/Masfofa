@@ -13,7 +13,7 @@ export default function SubjectsLists() {
   
   const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchType, setSearchType] = useState("subjectTitle"); 
+  const [searchType, setSearchType] = useState(""); 
   
   const handleSearch = () => {
     if (tempSearchQuery === "") {
