@@ -146,13 +146,15 @@ export default function MatrixLists() {
 
   const handleSearch = async () => {
     let results = [];
-
+  
     if (tempSearchQuery) {
+      const cleanedQuery = tempSearchQuery.replace(/\s+/g, "").toLowerCase(); 
+  
       if (searchBy === "MainEmployees") {
         const matchedEmployees = employees.filter((emp) =>
-          emp.employeeName.toLowerCase().includes(tempSearchQuery.toLowerCase())
+          emp.employeeName.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery)
         );
-
+  
         if (matchedEmployees.length > 0) {
           results = matrix.filter((matrixItem) => {
             const mainEmployees = matrixItem.MainEmployees || [];
@@ -166,9 +168,9 @@ export default function MatrixLists() {
         }
       } else if (searchBy === "jobTitle") {
         const matchedEmployeesByJobTitle = employees.filter((emp) =>
-          emp.jobTitle.toLowerCase().includes(tempSearchQuery.toLowerCase())
+          emp.jobTitle.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery)
         );
-
+  
         if (matchedEmployeesByJobTitle.length > 0) {
           results = matrix.filter((matrixItem) => {
             const mainEmployees = matrixItem.MainEmployees || [];
@@ -182,13 +184,13 @@ export default function MatrixLists() {
         }
       } else if (searchBy === "subjectContent") {
         try {
-          const subjectTitles = await searchSubjectContent(tempSearchQuery);
-
+          const subjectTitles = await searchSubjectContent(cleanedQuery);
+  
           if (subjectTitles.length > 0) {
             results = matrix.filter((matrixItem) => {
               const matrixSubjects = matrixItem.subjects || [];
               return matrixSubjects.some((subjectTitle) =>
-                subjectTitles.includes(subjectTitle)
+                subjectTitles.includes(subjectTitle.replace(/\s+/g, ""))
               );
             });
           }
@@ -198,21 +200,22 @@ export default function MatrixLists() {
       } else if (searchBy) {
         results = matrix.filter((matrixItem) => {
           const value = matrixItem[searchBy];
-
+  
           if (Array.isArray(value)) {
             return value.some((item) =>
-              item.toLowerCase().includes(tempSearchQuery.toLowerCase())
+              item.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery)
             );
           } else if (typeof value === "string") {
-            return value.toLowerCase().includes(tempSearchQuery.toLowerCase());
+            return value.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery);
           }
           return false;
         });
       }
     }
-
+  
     setFilteredMatrices(results);
   };
+  
 
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
