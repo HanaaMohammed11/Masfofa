@@ -62,7 +62,7 @@ export default function SubjectsLists() {
         </button>
       </div>
 
-      <div className="flex-grow">
+      <div className="flex-grow ">
         <SubTable searchTerm={searchTerm} searchType={searchType} />
       </div>
 

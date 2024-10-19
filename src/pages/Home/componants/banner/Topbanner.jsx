@@ -38,6 +38,8 @@ export default function Topbanner() {
         const userData = querySnapshot.docs.map((doc) => doc.data());
         if (userData.length > 0) {
           setUser(userData[0]);
+          // احفظ نوع الحساب في localStorage بحيث يكون متاحًا عند التنقل
+          localStorage.setItem("accountType", userData[0].accountType);
         } else {
           console.log("No matching user found");
         }
@@ -45,9 +47,10 @@ export default function Topbanner() {
         console.error("Error fetching user data: ", error);
       }
     };
-
+  
     fetchUser();
   }, []);
+  
 
   const dropdownRef = useRef(null);
 
@@ -173,7 +176,7 @@ export default function Topbanner() {
 
         {/* Navbar Items */}
         <Navbar.Collapse>
-       {user && user.accountType !== "employee" && (
+        {(localStorage.getItem("accountType") === "admin" || localStorage.getItem("accountType") === "superAdmin") && (
             <div
               className="relative cursor-pointer text-xl  rounded-full transition-all duration-300 group bg-slate-900 hover:bg-[#CDA03D] px-9 "
               onClick={() => navigate("/dashboard")}
