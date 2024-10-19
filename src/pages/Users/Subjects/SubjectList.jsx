@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
@@ -11,12 +10,18 @@ export default function SubjectsLists() {
   const location = useLocation();
   const { filteredMatrices } = location.state || [];
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
+  
+  const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  // console.log(filteredMatrices);
+  const [searchType, setSearchType] = useState("subjectTitle"); 
+  
+  const handleSearch = () => {
+    setSearchTerm(tempSearchQuery);
+  };
 
   return (
     <div
-      className="flex flex-col  "
+      className="flex flex-col"
       style={{ paddingTop: "270px", paddingBottom: "44px" }}
     >
       <div className="relative flex justify-center items-center text-center">
@@ -24,18 +29,37 @@ export default function SubjectsLists() {
       </div>
 
       <div className="search flex justify-center mt-9">
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          className="mr-2 rounded-md p-2"
+        >
+         <option value="" disabled>{t("subjectEditForm.search")}</option>
+         <option value="subjectTitle">{t("search.subjectTitle")}</option>
+          <option value="subjectNum">{t("search.subjectNum")}</option>
+          <option value="subjectContent">{t("search.subjectContent")}</option>
+        </select>
+
+        {/* حقل الإدخال للبحث */}
         <input
           type="text"
           placeholder={t("articels.searchPlaceholder")}
           className="xs:w-72 sm:w-96 rounded-full"
           dir={direction}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={tempSearchQuery}
+          onChange={(e) => setTempSearchQuery(e.target.value)}
         />
+        
+        <button
+          onClick={handleSearch}
+          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
+        >
+          {t("matrix.searchButton")}
+        </button>
       </div>
 
       <div className="flex-grow">
-        <SubTable searchTerm={searchTerm} />
+        <SubTable searchTerm={searchTerm} searchType={searchType} />
       </div>
 
       <div className="mt-auto">

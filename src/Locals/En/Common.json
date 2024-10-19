@@ -30,6 +30,9 @@
   },
   "search": {
     "searchEmployees": "Search "
+    ,"subjectTitle":"Article Title ",
+    "subjectContent":"Article Content",
+    "subjectNum":"Article Number"
   },
   "employees": {
     "title": "Employees"
@@ -214,7 +217,7 @@
   "subjectEditForm": {
     "editSubject": "Edit Article",
     "addSubject": "Add New Article",
-    "search": "Search ",
+    "search": "Search for Article",
     "field": "Field",
     "subjectNum": "Article Number",
     "subjectTitle": "Article Title",
