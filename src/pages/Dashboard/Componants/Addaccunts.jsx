@@ -179,14 +179,14 @@ export default function AddAccounts() {
     firstname: "",
     lastname: "",
     accountType: "",
-    docId: "", // Assuming you also need the document ID to update it
+    docId: "",
   });
   const handleEditClick = (selectedEmployee) => {
     setEmployeeData({
       firstname: selectedEmployee.firstname,
       lastname: selectedEmployee.lastname,
       accountType: selectedEmployee.accountType,
-      docId: selectedEmployee.docId, // Assuming docId is a part of the employee data
+      docId: selectedEmployee.docId, 
     });
     setOpenEditModal(true);
   };
@@ -198,7 +198,6 @@ export default function AddAccounts() {
         accountType: values.accountType,
       });
       console.log("Account updated successfully!");
-      // Optionally handle success, e.g., show a success message
     } catch (error) {
       console.error("Error updating account: ", error);
       setError("Failed to update account");
@@ -206,7 +205,6 @@ export default function AddAccounts() {
   };
 
   const handleEditSubmit = async (values) => {
-    // Update the employee data based on the form input
     setEmployeeData((prev) => ({
       ...prev,
       firstname: values.firstName,
@@ -415,8 +413,11 @@ export default function AddAccounts() {
                     <td className="px-2 md:px-4 py-2">{employee.email}</td>
                     <td className="px-2 md:px-4 py-2">{employee.password}</td>
                     <td className="px-2 md:px-4 py-2">
-                      {employee.accountType}
-                    </td>
+  {employee.accountType === "superAdmin" && t("addaccount.superAdmin")}
+  {employee.accountType === "admin" && t("addaccount.admin")}
+  {employee.accountType === "employee" && t("addaccount.emp")}
+</td>
+
                     {user[0].accountType === "superAdmin" && (
                       <td className="px-2 md:px-4 py-2 flex justify-center space-x-2">
                         <AiFillDelete
@@ -460,7 +461,7 @@ export default function AddAccounts() {
                                 await updateAcc(employeeData.docId, values);
                                 setSubmitting(false);
                                 setOpenEditModal(false);
-                                setRefresh(true); // Refresh to get the updated list
+                                setRefresh(true); 
                               }}
                             >
                               {({ isSubmitting }) => (
@@ -528,7 +529,7 @@ export default function AddAccounts() {
                                         {user.length > 0 &&
                                           user[0].accountType ===
                                             "superAdmin" && (
-                                            <option value="admin">
+                                            <option value="superAdmin">
                                               {t("addaccount.superAdmin")}
                                             </option>
                                           )}

@@ -138,8 +138,8 @@
     "update": "تعديل",
     "accType": "نوع الحساب",
     "emp": "موظف",
-    "admin": "أدمن",
-    "superAdmin": "سوبر أدمن",
+    "admin": "مشرف",
+    "superAdmin": " مشرف متميز",
     "noUsers": "لا يوجد مستخدمين"
   },
   "userform": {
