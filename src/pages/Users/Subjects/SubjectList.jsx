@@ -16,7 +16,11 @@ export default function SubjectsLists() {
   const [searchType, setSearchType] = useState("subjectTitle"); 
   
   const handleSearch = () => {
-    setSearchTerm(tempSearchQuery);
+    if (tempSearchQuery === "") {
+      setSearchTerm("");
+    } else {
+      setSearchTerm(tempSearchQuery);
+    }
   };
 
   return (
@@ -34,8 +38,8 @@ export default function SubjectsLists() {
           onChange={(e) => setSearchType(e.target.value)}
           className="mr-2 rounded-md p-2"
         >
-         <option value="" disabled>{t("subjectEditForm.search")}</option>
-         <option value="subjectTitle">{t("search.subjectTitle")}</option>
+          <option value="" disabled>{t("subjectEditForm.search")}</option>
+          <option value="subjectTitle">{t("search.subjectTitle")}</option>
           <option value="subjectNum">{t("search.subjectNum")}</option>
           <option value="subjectContent">{t("search.subjectContent")}</option>
         </select>

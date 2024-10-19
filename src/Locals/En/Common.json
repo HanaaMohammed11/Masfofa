@@ -32,7 +32,8 @@
     "searchEmployees": "Search "
     ,"subjectTitle":"Article Title ",
     "subjectContent":"Article Content",
-    "subjectNum":"Article Number"
+    "subjectNum":"Article Number",
+    "searchEmp":"Search for employee"
   },
   "employees": {
     "title": "Employees"

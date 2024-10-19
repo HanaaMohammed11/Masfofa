@@ -29,9 +29,10 @@
   },
   "search": {
     "searchEmployees": "بحث  "
-    ,"subjectTitle":"عنوان المادة",
+    ,"subjectTitle":"موضوع المادة ",
     "subjectContent":"نص المادة",
-    "subjectNum":"رقم المادة"
+    "subjectNum":"رقم المادة",
+     "searchEmp":"البحث عن موظف"
   },
   "employees": {
     "title": "الموظفين"

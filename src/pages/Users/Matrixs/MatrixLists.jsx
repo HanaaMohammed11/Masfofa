@@ -138,13 +138,7 @@ export default function MatrixLists() {
       });
       const employeesCollectionRef = collection(db, "employees");
 
-      // const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
-      //   const employeeList = [];
-      //   snapshot.forEach((doc) => {
-      //     employeeList.push({ id: doc.id, ...doc.data() });
-      //   });
-      //   setEmployees(employeeList);
-      // });
+  
 
       return () => unsubscribe();
     }
@@ -296,23 +290,9 @@ export default function MatrixLists() {
         </div>
       ) : (
         <div className="flex-grow">
-          {user[0].accountType === "employee" ? (
-            searchQuery && filteredMatrices.length > 0 ? (
-              <MatrixTable matrices={filteredMatrices} />
-            ) : searchQuery ? (
-              <div className="flex justify-center items-center m-44">
-                <p>{t("matrixCardDashboard.noMatrix")}</p>
-              </div>
-            ) : (
-              // عرض رسالة إذا لم يتم إدخال أي استعلام بحث
-              <div className="flex justify-center items-center m-44">
-                <IoSearch color="gray" size={30} />
-              </div>
-            )
-          ) : (
-            // عرض جميع الجداول للمستخدمين غير الموظفين
+   
             <MatrixTable matrices={filteredMatrices} />
-          )}
+        
         </div>
       )}
 

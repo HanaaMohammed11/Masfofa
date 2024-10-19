@@ -16,7 +16,9 @@ import UserTable from "./UserCard";
 
 export default function Users() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [tempSearchTerm, setTempSearchTerm] = useState(""); // للبحث المؤقت
+  const [searchTerm, setSearchTerm] = useState(""); // للبحث الفعلي بعد الضغط على الزر
+  const [searchType, setSearchType] = useState("employeeName"); // نوع البحث الافتراضي هو الاسم
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([]);
 
@@ -66,29 +68,71 @@ export default function Users() {
     getSubjects();
   }, [user]);
 
-  const filteredUsers = usersData.filter((user) =>
-    user.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredUsers = usersData.filter((user) => {
+    const trimmedSearchTerm = searchTerm.trim().toLowerCase().replace(/\s+/g, ' ');
+  
+    if (!trimmedSearchTerm) return true;
+  
+    switch (searchType) {
+      case "employeeName":
+        return (
+          user.employeeName &&
+          user.employeeName.toLowerCase().includes(trimmedSearchTerm)
+        );
+      case "jobTitle":
+        return (
+          user.jobTitle &&
+          user.jobTitle.toLowerCase().includes(trimmedSearchTerm)
+        );
+    
+     
+      default:
+        return true;
+    }
+  });
+  
+  const handleSearch = () => {
+    setSearchTerm(tempSearchTerm);
+  };
 
   return (
     <div
-      className="flex flex-col  "
+      className="flex flex-col"
       style={{ paddingTop: "270px", paddingBottom: "440px" }}
     >
       <div className="relative flex justify-center items-center text-center">
         <Topbanner />
       </div>
 
-      {/* Search bar */}
       <div className="search flex justify-center mt-9">
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          className="mr-2 p-2 rounded-md"
+        >
+                    <option value="" disabled>{t("search.searchEmp")}</option>
+          <option value="employeeName">{t("userInfo.employeeName")}</option>
+          <option value="jobTitle">{t("job.jobTitle")} :</option>
+
+   
+        </select>
+
+        {/* حقل الإدخال للبحث */}
         <input
           type="text"
           placeholder={t("search.searchEmployees")}
           className="xs:w-72 sm:w-96 rounded-full"
           dir={direction}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={tempSearchTerm}
+          onChange={(e) => setTempSearchTerm(e.target.value)}
         />
+
+        <button
+          onClick={handleSearch}
+          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
+        >
+          {t("matrix.searchButton")}
+        </button>
       </div>
 
       {/* User Cards section */}
