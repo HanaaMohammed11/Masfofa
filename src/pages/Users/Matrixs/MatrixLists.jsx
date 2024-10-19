@@ -118,7 +118,7 @@ export default function MatrixLists() {
   useEffect(() => {
     if (user.length > 0) {
       let qEmps;
-      if (user.ownerAdmin) {
+      if (user[0].ownerAdmin) {
         qEmps = query(
           collection(db, "employees"),
           where("ownerAdmin", "==", user[0]?.ownerAdmin)
@@ -138,23 +138,24 @@ export default function MatrixLists() {
       });
       const employeesCollectionRef = collection(db, "employees");
 
-  
-
       return () => unsubscribe();
     }
   }, [user]);
 
   const handleSearch = async () => {
     let results = [];
-  
+
     if (tempSearchQuery) {
-      const cleanedQuery = tempSearchQuery.replace(/\s+/g, "").toLowerCase(); 
-  
+      const cleanedQuery = tempSearchQuery.replace(/\s+/g, "").toLowerCase();
+
       if (searchBy === "MainEmployees") {
         const matchedEmployees = employees.filter((emp) =>
-          emp.employeeName.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery)
+          emp.employeeName
+            .replace(/\s+/g, "")
+            .toLowerCase()
+            .includes(cleanedQuery)
         );
-  
+
         if (matchedEmployees.length > 0) {
           results = matrix.filter((matrixItem) => {
             const mainEmployees = matrixItem.MainEmployees || [];
@@ -170,7 +171,7 @@ export default function MatrixLists() {
         const matchedEmployeesByJobTitle = employees.filter((emp) =>
           emp.jobTitle.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery)
         );
-  
+
         if (matchedEmployeesByJobTitle.length > 0) {
           results = matrix.filter((matrixItem) => {
             const mainEmployees = matrixItem.MainEmployees || [];
@@ -185,7 +186,7 @@ export default function MatrixLists() {
       } else if (searchBy === "subjectContent") {
         try {
           const subjectTitles = await searchSubjectContent(cleanedQuery);
-  
+
           if (subjectTitles.length > 0) {
             results = matrix.filter((matrixItem) => {
               const matrixSubjects = matrixItem.subjects || [];
@@ -200,22 +201,24 @@ export default function MatrixLists() {
       } else if (searchBy) {
         results = matrix.filter((matrixItem) => {
           const value = matrixItem[searchBy];
-  
+
           if (Array.isArray(value)) {
             return value.some((item) =>
               item.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery)
             );
           } else if (typeof value === "string") {
-            return value.replace(/\s+/g, "").toLowerCase().includes(cleanedQuery);
+            return value
+              .replace(/\s+/g, "")
+              .toLowerCase()
+              .includes(cleanedQuery);
           }
           return false;
         });
       }
     }
-  
+
     setFilteredMatrices(results);
   };
-  
 
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
@@ -226,10 +229,10 @@ export default function MatrixLists() {
     setSearchBy("");
     setFilteredMatrices(matrix);
   };
-  console.log(matrix);
+  // console.log(matrix);
   // console.log(filteredMatrices);
-  console.log(user[0]);
-  // console.log(employees);
+  // console.log(user[0]);
+  console.log(employees);
 
   return (
     <div
@@ -293,9 +296,7 @@ export default function MatrixLists() {
         </div>
       ) : (
         <div className="flex-grow">
-   
-            <MatrixTable matrices={filteredMatrices} />
-        
+          <MatrixTable matrices={filteredMatrices} />
         </div>
       )}
 
