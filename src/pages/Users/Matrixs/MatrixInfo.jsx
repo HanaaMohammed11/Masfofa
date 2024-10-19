@@ -78,7 +78,7 @@ export default function MatrixInfo() {
       <Topbanner />
       <div dir={direction} >
         <button
-          className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+          className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 ml-14 mr-14"
           onClick={handleBack}
           dir={direction}
         >
