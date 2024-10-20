@@ -1,7 +1,14 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Label, TextInput, Textarea } from "flowbite-react";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import { IoArrowBack } from "react-icons/io5";
@@ -46,33 +53,68 @@ export default function MatrixEditForm() {
   const handleAddDefinition = () => {
     setMatrixData({
       ...matrixData,
-      definitions: [...matrixData.definitions, { term: "", interpretation: "" }],
+      definitions: [
+        ...matrixData.definitions,
+        { term: "", interpretation: "" },
+      ],
     });
   };
 
   const handleSave = async () => {
     const matrixRef = doc(db, "matrix", matrix.id);
+
+    const subjectsQuery = query(
+      collection(db, "subjects"),
+      where("relatedMatrix.id", "==", matrix.id)
+    );
+
     try {
+      // Update the legislation document
       await updateDoc(matrixRef, matrixData);
-      setIsPopupVisible(true);
+
+      // Update the relatedLegislation field in the subjects collection
+      const querySnapshot = await getDocs(subjectsQuery);
+      querySnapshot.forEach(async (docSnapshot) => {
+        const subjectRef = docSnapshot.ref;
+        const subjectData = docSnapshot.data();
+
+        // If the relatedLegislation is an object, directly update the relevant properties
+        if (
+          subjectData.relatedMatrix &&
+          subjectData.relatedMatrix.id === matrix.id
+        ) {
+          const updatedRelatedMatrix = {
+            ...subjectData.relatedMatrix,
+            ...matrixData, // Update with new matrix data
+          };
+
+          await updateDoc(subjectRef, {
+            relatedMatrix: updatedRelatedMatrix,
+          });
+        }
+      });
+
+      setIsPopupVisible(true); // Show success popup
     } catch (error) {
-      console.error("Error updating matrix:", error);
-      alert(t("matrixEditForm.errorUpdating")); // Inform the user about the error
+      console.error("Error updating matrix and relatedLegislation:", error);
+      alert(t("legislationEditForm.errorUpdating"));
     }
   };
 
   return (
     <div>
       <Topbanner />
-      <div dir={direction} >
+      <div dir={direction}>
         <button
-   
           className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl ml-14 mr-14 rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
           onClick={handleBack}
         >
           <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
         </button>
-        <div className="mx-auto mt-[400px] p-8 w-full max-w-5xl" style={{paddingBottom:"400px"}}>
+        <div
+          className="mx-auto mt-[400px] p-8 w-full max-w-5xl"
+          style={{ paddingBottom: "400px" }}
+        >
           <h1 className="text-3xl font-semibold text-white bg-[#CDA03D] p-5 rounded-t-xl">
             {t("matrixEditForm.updateMatrix")}
           </h1>
@@ -95,7 +137,10 @@ export default function MatrixEditForm() {
                 </div>
               ))}
               <div className="col-span-2">
-                <Label htmlFor="intro" value={t("matrixEditForm.Introduction")} />
+                <Label
+                  htmlFor="intro"
+                  value={t("matrixEditForm.Introduction")}
+                />
                 <Textarea
                   id="intro"
                   rows={4}
@@ -122,7 +167,10 @@ export default function MatrixEditForm() {
               {matrixData.definitions.map((definition, index) => (
                 <div key={index} className="grid grid-cols-1 gap-4 mb-4 w-full">
                   <div className="col-span-2 w-full">
-                    <Label htmlFor={`term-${index}`} value={t("matrixEditForm.term")} />
+                    <Label
+                      htmlFor={`term-${index}`}
+                      value={t("matrixEditForm.term")}
+                    />
                     <TextInput
                       id={`term-${index}`}
                       type="text"
@@ -133,13 +181,20 @@ export default function MatrixEditForm() {
                     />
                   </div>
                   <div className="col-span-2 w-full">
-                    <Label htmlFor={`interpretation-${index}`} value={t("matrixEditForm.interpretation")} />
+                    <Label
+                      htmlFor={`interpretation-${index}`}
+                      value={t("matrixEditForm.interpretation")}
+                    />
                     <Textarea
                       id={`interpretation-${index}`}
                       rows={4}
                       value={definition.interpretation}
                       onChange={(e) =>
-                        handleDefinitionChange(index, "interpretation", e.target.value)
+                        handleDefinitionChange(
+                          index,
+                          "interpretation",
+                          e.target.value
+                        )
                       }
                     />
                   </div>
@@ -152,9 +207,11 @@ export default function MatrixEditForm() {
               </div>
             </div>
             <div className="mt-8 flex justify-center">
-              <div onClick={handleSave}            className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
+              <div
+                onClick={handleSave}
+                className={`aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
               >
-              <span className="aux-text"> {t("matrixEditForm.save")}</span> 
+                <span className="aux-text"> {t("matrixEditForm.save")}</span>
               </div>
             </div>
             {isPopupVisible && (
