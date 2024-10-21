@@ -48,7 +48,7 @@ export default function Cards({ setSelectedContent }) {
   }, []);
 
   return (
-    <div className="flex flex-col  min-h-screen  bg-white">
+    <div className="flex flex-col  min-h-screen  bg-white " >
       <div className="flex flex-col  items-center sm:p-4 flex-wrap justify-center">
         <img src={logo} alt="" />
              {/* Sidebar Item 3 */}

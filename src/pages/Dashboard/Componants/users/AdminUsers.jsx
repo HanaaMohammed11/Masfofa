@@ -57,8 +57,8 @@ export default function AdminUsers() {
    
 
  
-   <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9 z-10  sticky lg:fixed md:fixed sm:sticky xs:sticky`}>
-          <div
+   <div className={`flex flex-col justify-center  w-full  items-center gap-4 md:gap-9 z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky `}>
+   <div
     className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
             onClick={() => setShowUserForm(!showUserForm)}
             >
@@ -69,8 +69,10 @@ export default function AdminUsers() {
     </div>
 
           {/* Search Input */}
-    <div className="search flex justify-center items-center">
-            <input
+   
+       </div>
+       <div className="search flex  w-full  items-center z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky mt-20">
+       <input
               type="text"
               className="rounded-full text-right h-9 px-4"  
               placeholder={t("matrixForm.search")}
@@ -78,8 +80,6 @@ export default function AdminUsers() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-       </div>
-     
         <div className="flex flex-wrap justify-center w-full">
           {showUserForm ? (
             <UserForm  onClose={handleFormClose}/>

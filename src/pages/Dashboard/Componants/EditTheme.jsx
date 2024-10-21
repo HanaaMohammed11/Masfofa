@@ -337,7 +337,7 @@ const EditTheme = () => {
           </Label>
 
           {/* Home Elements */}
-          <Label
+          {/* <Label
             htmlFor="home-elements"
             className="relative flex h-64 w-full md:w-96 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
           >
@@ -392,7 +392,7 @@ const EditTheme = () => {
             >
               ❌
             </button>
-          </Label>
+          </Label> */}
         </div>
       </div>
       <div>
@@ -414,10 +414,10 @@ const EditTheme = () => {
       </div>
 
       {/* Save button */}
-      <div className="w-full flex justify-center mt-5">
+      <div className="w-full flex justify-center mt-16">
         <button
           onClick={handleSave}
-          className={`-mt-6 aux-button aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
+          className={`mt-6 aux-button py-2 aux-curve aux-gold flex items-center justify-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 `}
         >
           <span className="flex items-center space-x-4 aux-text">
             {t("matrixForm.save")}

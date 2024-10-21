@@ -105,7 +105,7 @@ export default function Topbanner() {
 
   return (
     <div className="w-full  "  style={{ 
-
+zIndex:"1000",
       position: "fixed", 
       top: 0, 
     }}>
@@ -174,7 +174,7 @@ export default function Topbanner() {
 
       {/* Banner section */}
       <div
-  className="Topbaner w-[86%] h-32 rounded-xl bg-cover bg-center flex justify-between items-center"
+  className="Topbaner  h-32 rounded-xl bg-cover bg-center flex justify-between items-center"
   style={{ 
     backgroundImage: `url(${topBannerUrl})`,
      
@@ -192,7 +192,7 @@ export default function Topbanner() {
             >
               <TbLogout2 size={30} />
             </div>
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative  " ref={dropdownRef}>
             <button
               className="p-2  bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
               onClick={() => setIsOpen((prev) => !prev)}
@@ -204,7 +204,7 @@ export default function Topbanner() {
               />
             </button>
             {isOpen && (
-              <div className="absolute bg-white shadow-lg  mt-2 w-full z-10">
+              <div className="absolute   bg-white shadow-lg   w-full">
                 <div
                   onClick={() => handleLanguageSelect("en")}
                   className="p-2 flex items-center cursor-pointer hover:bg-gray-100"

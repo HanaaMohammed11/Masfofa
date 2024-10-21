@@ -130,7 +130,7 @@
     "homeElements": "Home Elements image"
   },
   "addaccount": {
-    "createAccount": "Create User Account",
+    "createAccount": "Add User ",
     "searchPlaceholder": "Search ",
     "firstName": " Name",
     "lastName": "Last Name",
@@ -195,7 +195,7 @@
   },
   "matrixForm": {
     "alert": "Data has been save successfully",
-    "addNewMatrix": "Add New Matrix",
+    "addNewMatrix": "Add  Matrix",
     "companyName": "Company name",
     "matrixName": "Matrix Name",
     "updateDate": "Amendment Date",
@@ -217,7 +217,7 @@
   },
   "subjectEditForm": {
     "editSubject": "Edit Article",
-    "addSubject": "Add New Article",
+    "addSubject": "Add  Article",
     "search": "Search for Article",
     "field": "Field",
     "subjectNum": "Article Number",

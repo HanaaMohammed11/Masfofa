@@ -106,15 +106,15 @@ function SideBar() {
             : "translate-x-full"
         } lg:translate-x-0 lg:block md:hidden hidden z-50`}
       >
-        <div className=" flex gap-9 text-center justify-center top-0 ml-9 z-50" >
+        <div className=" flex gap-4 text-center   z-50" >
           {items.map(({ name, icon, content }) => (
             <button
               key={name}
               onClick={() => handleItemClick(content)}
-              className={`btn-button text-center btn-curve btn-gold flex items-center  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300`}
+              className={`btn-button text-center btn-curve btn-gold flex  text-lg font-semibold    hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300`}
               aria-label={`Navigate to ${name}`}
             >
-              <span className="flex items-center space-x-4 btn-text text-center">
+              <span className="flex items-center btn-text text-center">
         
                 <span className="whitespace-nowrap text-center">{name}</span>
              

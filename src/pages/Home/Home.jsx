@@ -35,35 +35,43 @@ export default function Home() {
   };
 
   return (
-    <div className="relative flex h-screen bg-[#F5F5F5]" dir={direction}>
-           {/* Hamburger Icon - visible only on small screens */}
-           <div className="sm:hidden absolute p-4 z-50">
-        <button onClick={toggleSidebar}>
-          {isSidebarOpen ? (
-            <FaTimes size={24} className="text-red-700" />
-          ) : (
-            <FaBars size={24} className="text-gray-700" /> 
-          )}
-        </button>
-      </div>
-      {/* Sidebar */}
-      <div className={`         ${isSidebarOpen ? "" : ""}
- h-full flex-shrink-0 fixed top-0 w-64 z-50 bg-white shadow-lg lg:block md:hidden sm:hidden hidden`} > 
-        <Cards setSelectedContent={setSelectedContent} />
-      </div>
+<div className="relative flex h-screen bg-[#F5F5F5] w-full" dir={direction}>
+  {/* Hamburger Icon - visible only on small screens */}
+  <div className="sm:hidden absolute p-4 z-50">
+    <button onClick={toggleSidebar}>
+      {isSidebarOpen ? (
+        <FaTimes size={24} className="text-red-700" />
+      ) : (
+        <FaBars size={24} className="text-gray-700" />
+      )}
+    </button>
+  </div>
 
-      {/* Main Content Area */}
-      <div className={`w-full flex flex-col  ${isRTL ? "mr-[14%]" : "ml-[14%]"} `}>
+  {/* Sidebar */}
+  <div
+    className={`${
+      isSidebarOpen ? "" : ""
+    } h-full flex-shrink-0 fixed top-0 w-64 z-50 bg-white shadow-lg lg:block md:hidden sm:hidden hidden`}
+  >
+    <Cards setSelectedContent={setSelectedContent} />
+  </div>
+
+  {/* Main Content Area */}
+  <div className={`w-full flex flex-col ${isRTL ? "mr-[14.3%]" : "ml-[14.3%]"}`}>
+    {/* Top Banner with 86% width */}
+    <div className="w-[86%] ">
       <Topbanner />
-
-        {/* Main content */}
-        <div className=" ">{renderContent()}</div>
-
-        {/* Bottom banner */}
-        <div className="mt-auto">
-          <Bottombanner />
-        </div>
-      </div>
     </div>
+
+    {/* Main content */}
+    <div className="">{renderContent()}</div>
+
+    {/* Bottom Banner with 86% width */}
+    <div className="mt-auto w-[8%] ">
+      <Bottombanner  />
+    </div>
+  </div>
+</div>
+
   );
 }

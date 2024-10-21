@@ -24,7 +24,7 @@ export default function SubjectList() {
         {/* Header Section */}
  
 
-        <div className={`flex flex-col md:flex-row w-full justify-end items-center gap-4 md:gap-9  sticky lg:fixed md:fixed sm:sticky xs:sticky`}>
+        <div className={`flex flex-col justify-center  w-full  items-center gap-4 md:gap-9 z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky `}>
   
   <div
     className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
@@ -36,8 +36,11 @@ export default function SubjectList() {
   </div>
   
   {/* Search Input */}
-  <div className="search flex justify-center items-center">
-    <input
+  
+  
+</div>
+<div className="search flex  w-full  items-center z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky mt-20">
+<input
       type="text"
       className="rounded-full text-right h-9 px-4"  
       placeholder={t("matrixForm.search")}
@@ -45,9 +48,6 @@ export default function SubjectList() {
       onChange={(e) => setSearchTerm(e.target.value)}
     />
   </div>
-  
-</div>
-  
         {/* Content Section */}
         <div className="flex flex-wrap justify-center mb-96">
           {showSubForm ? (

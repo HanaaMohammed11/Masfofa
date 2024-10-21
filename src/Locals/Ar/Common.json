@@ -127,7 +127,7 @@
     "homeElements": "عناصر الصفحة الرئيسية"
   },
   "addaccount": {
-    "createAccount": "إنشاء حساب مستخدم",
+    "createAccount": "اضافة مستخدم ",
     "searchPlaceholder": "بحث",
     "firstName": "الاسم ",
     "lastName": "الاسم الأخير",
@@ -191,7 +191,7 @@
   },
   "matrixForm": {
     "alert": "تم حفظ البيانات بنجاح",
-    "addNewMatrix": "إضافة مصفوفة جديدة",
+    "addNewMatrix": "إضافة مصفوفة ",
     "companyName": "الجهة المُنشئة",
     "matrixName": "اسم المصفوفة",
     "updateDate": "تاريخ التعديل",
@@ -213,7 +213,7 @@
   },
   "subjectEditForm": {
     "editSubject": "تعديل المادة",
-    "addSubject": "إضافة مادة جديدة",
+    "addSubject": "إضافة مادة ",
     "search": "بحث عن مادة",
     "field": "الحقل",
     "subjectNum": "رقم المادة",

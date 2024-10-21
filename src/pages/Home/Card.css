@@ -11,6 +11,7 @@
     cursor: pointer;
     overflow: hidden; 
     width: 190px;
+    padding: 7px;
     transition: color 0.4s ease;
 }
 
