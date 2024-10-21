@@ -1,22 +1,18 @@
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"; // استيراد getDoc لجلب دوكيومنت فردي
-import { getDownloadURL, ref } from "firebase/storage"; // Firebase Storage functions
-import { Card } from "flowbite-react";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage"; 
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom"; 
-import db, { storage } from "../../config/firebase"; // Firebase config
+import db, { storage } from "../../config/firebase";
 import "./Card.css";
-
-export default function Cards() {
+import logo from "../../assets/logo-4 1.png"
+export default function Cards({ setSelectedContent }) {
   const { t } = useTranslation("global");
   const [user, setUser] = useState("");
-  const [bannerUrl, setBannerUrl] = useState(""); // رابط صورة البانر
-  const navigate = useNavigate();
+  const [bannerUrl, setBannerUrl] = useState(""); 
 
   useEffect(() => {
     const fetchUserAndBanner = async () => {
       try {
-        // Fetch user information
         const q = query(
           collection(db, "users"),
           where("ID", "==", localStorage.getItem("id"))
@@ -27,8 +23,7 @@ export default function Cards() {
         if (userData.length > 0) {
           setUser(userData[0]);
 
-          // Fetch the single banner image from banners collection
-          const bannerDocRef = doc(db, "banners", "homeElements"); // استبدلي yourDocumentId بالـ ID الخاص بالدوكيومنت
+          const bannerDocRef = doc(db, "banners", "homeElements");
           const bannerDoc = await getDoc(bannerDocRef);
           
           if (bannerDoc.exists()) {
@@ -36,7 +31,7 @@ export default function Cards() {
             if (bannerData.imageUrl) {
               const imageRef = ref(storage, bannerData.imageUrl);
               const url = await getDownloadURL(imageRef);
-              setBannerUrl(url); // Set URL to state
+              setBannerUrl(url); 
             }
           } else {
             console.log("No banner document found");
@@ -53,80 +48,48 @@ export default function Cards() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-96 ">
-      <div className="flex gap-4 items-center sm:p-4 flex-wrap justify-center">
-        
-        {/* Card 1 */}
-        <div className="p-4 text-center relative bg-transparent w-64 card-container card-1"> 
-          <img
-            src={bannerUrl || "default-image-url"}  // Use the same image in all cards
-            alt="Banner"
-            className="inset-0 w-full h-full object-contain"
-            style={{ animation: "spin 10s linear infinite" }}
-          />
-          <button
-            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase "
-            onClick={() => navigate("/users")}
-          >
-            <h1 className="aux-text">
-              {t("text.Employees")}
-            </h1>
-          </button>
-        </div>
-
-        {/* Card 2 */}
-        <div className="p-4 text-center relative bg-transparent w-64 card-container card-2"> 
-          <img
-            src={bannerUrl || "default-image-url"}  // Use the same image in all cards
-            alt="Banner"
-            className="inset-0 w-full h-full object-contain"
-            style={{ animation: "spin 10s linear infinite" }}
-          />
+    <div className="flex flex-col  min-h-screen  bg-white">
+      <div className="flex flex-col  items-center sm:p-4 flex-wrap justify-center">
+        <img src={logo} alt="" />
+             {/* Sidebar Item 3 */}
+             <div className="p-4 text-center relative bg-transparent w-64 card-container card-3">
           <button
             className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
-            onClick={() => navigate("/subjects")}
+            onClick={() => setSelectedContent("matrices")}
           >
-            <h1 className="aux-text">
-              {t("text.Articles")}
-            </h1>
+            <h1 className="aux-text">{t("text.Matrices")}</h1>
           </button>
         </div>
 
-        {/* Card 3 */}
+
+        {/* Sidebar Item 2 */}
+        <div className="p-4 text-center relative bg-transparent w-64 card-container card-2">
+          <button
+            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
+            onClick={() => setSelectedContent("articles")}
+          >
+            <h1 className="aux-text">{t("text.Articles")}</h1>
+          </button>
+        </div>
+
    
-        <div className="p-4 text-center relative bg-transparent w-64 card-container card-3"> 
-          <img
-            src={bannerUrl || "default-image-url"}  // Use the same image in all cards
-            alt="Banner"
-            className="inset-0 w-full h-full object-contain"
-            style={{ animation: "spin 10s linear infinite" }}
-          />
+        {/* Sidebar Item 1 */}
+        <div className="p-4 text-center relative bg-transparent  card-container card-1">
           <button
             className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
-            onClick={() => navigate("/Matrix")}
+            onClick={() => setSelectedContent("employees")}
           >
-            <h1 className="aux-text">
-              {t("text.Matrices")}
-            </h1>
+            <h1 className="aux-text">{t("text.Employees")}</h1>
           </button>
         </div>
-
-        {/* Card 4 (Visible for admin only) */}
+        {/* Admin-only Sidebar Item */}
         {(user.accountType === "admin" || user.accountType === "superAdmin") && (
-          <div className="p-4 text-center relative bg-transparent w-64 card-container card-4"> 
-            <img
-              src={bannerUrl || "default-image-url"}  // Use the same image in all cards
-              alt="Banner"
-              className="inset-0 w-full h-full object-contain"
-              style={{ animation: "spin 10s linear infinite" }}
-            />
+          <div className="p-4 text-center relative bg-transparent w-64 card-container card-4">
             <button
               className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => setSelectedContent("dashboard")}
             >
-              <h1 className="aux-text">
-                {t("text.DashBoard")}
-              </h1>
+              <h1 className="aux-text">{t("text.DashBoard")}</h1>
             </button>
           </div>
         )}

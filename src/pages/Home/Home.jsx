@@ -1,37 +1,68 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-import Topbanner from "./componants/banner/Topbanner";
-import Bottombanner from "./componants/banner/Bottombanner";
+import React, { useState } from "react";
+import Topbanner from "./../Home/componants/banner/Topbanner";
+import Bottombanner from "./../Home/componants/banner/Bottombanner";
 import Cards from "./Card";
+import MatrixLists from "../Users/Matrixs/MatrixLists";
 import { useTranslation } from "react-i18next";
+import SubjectsLists from "../Users/Subjects/SubjectList";
+import AdminDashboard from "../Dashboard/AdminDashboard";
+import Users from "../Users/Employee/Users";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Home() {
-  const { t } = useTranslation("global");
+  const { t, i18n } = useTranslation("global");
+  const direction = i18n.language === "ar" ? "rtl" : "ltr";
+  const [selectedContent, setSelectedContent] = useState("matrices");
+  const isRTL = i18n.language === "ar"; 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const renderContent = () => {
+    switch (selectedContent) {
+      case "employees":
+        return <Users />;
+      case "articles":
+        return <SubjectsLists />;
+      case "matrices":
+        return <MatrixLists />;
+      case "dashboard":
+        return <AdminDashboard />; 
+      default:
+        return <div>Select a category from the sidebar</div>;
+    }
+  };
+
   return (
-    <div
-      className="relative flex flex-col h-screen "
-      style={{
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="flex justify-center items-center text-center  inset-0   ">
-        <Topbanner />
-       
+    <div className="relative flex h-screen bg-[#F5F5F5]" dir={direction}>
+           {/* Hamburger Icon - visible only on small screens */}
+           <div className="sm:hidden absolute p-4 z-50">
+        <button onClick={toggleSidebar}>
+          {isSidebarOpen ? (
+            <FaTimes size={24} className="text-red-700" />
+          ) : (
+            <FaBars size={24} className="text-gray-700" /> 
+          )}
+        </button>
+      </div>
+      {/* Sidebar */}
+      <div className={`         ${isSidebarOpen ? "" : ""}
+ h-full flex-shrink-0 fixed top-0 w-64 z-50 bg-white shadow-lg lg:block md:hidden sm:hidden hidden`} > 
+        <Cards setSelectedContent={setSelectedContent} />
       </div>
 
-<div className=" " style={{  paddingTop: "250px",/* Adjust according to the height of Topbanner */
-paddingBottom: "200px"}} >
+      {/* Main Content Area */}
+      <div className={`w-full flex flex-col  ${isRTL ? "mr-[14%]" : "ml-[14%]"} `}>
+      <Topbanner />
 
+        {/* Main content */}
+        <div className=" ">{renderContent()}</div>
 
-<Cards />
-
-</div>
-     
-
-      <div className='mt-auto'>
-        <Bottombanner />
+        {/* Bottom banner */}
+        <div className="mt-auto">
+          <Bottombanner />
+        </div>
       </div>
     </div>
   );

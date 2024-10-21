@@ -224,6 +224,7 @@ export default function MatrixLists() {
   const handleClearFilters = () => {
     setSearchQuery("");
     setSearchBy("");
+    setTempSearchQuery("")
     setFilteredMatrices(matrix);
   };
   console.log(matrix);
@@ -234,11 +235,9 @@ export default function MatrixLists() {
   return (
     <div
       className="flex flex-col  "
-      style={{ paddingTop: "270px", paddingBottom: "44px" }}
+      style={{ paddingTop: "120px", paddingBottom: "44px" }}
     >
-      <div className="relative flex justify-center items-center text-center">
-        <Topbanner />
-      </div>
+  
 
       {/* Input search section */}
       <div className="search flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
@@ -246,7 +245,7 @@ export default function MatrixLists() {
         <select
           value={searchBy}
           onChange={handleSearchByChange}
-          className="w-40 p-2 rounded-md text-gray-700"
+          className="w-40 p-2 ml-2 mr-2 rounded-md text-gray-700"
         >
           <option value="" disabled>
             {t("matrix.selectSearchCriterion")}
@@ -299,9 +298,6 @@ export default function MatrixLists() {
         </div>
       )}
 
-      <div className="mt-auto">
-        <Bottombanner />
-      </div>
     </div>
   );
 }

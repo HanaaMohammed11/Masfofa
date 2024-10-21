@@ -251,5 +251,9 @@
       "minLength": "Password must be at least 6 characters",
       "required": "Password is required"
     }
-  }
+  },
+  "pagination":{
+     "of": "of",
+      "page": "Page"
+ }
 }

@@ -96,17 +96,15 @@ export default function Users() {
   return (
     <div
       className="flex flex-col"
-      style={{ paddingTop: "270px", paddingBottom: "440px" }}
+      style={{ paddingTop: "120px", paddingBottom: "440px" }}
     >
-      <div className="relative flex justify-center items-center text-center">
-        <Topbanner />
-      </div>
+   
 
       <div className="search flex justify-center mt-9">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
-          className="mr-2 p-2 rounded-md"
+          className="ml-2 mr-2  p-2 rounded-md"
         >
                     <option value="" disabled>{t("search.searchEmp")}</option>
           <option value="employeeName">{t("userInfo.employeeName")}</option>
@@ -127,7 +125,7 @@ export default function Users() {
 
         <button
           onClick={handleSearch}
-          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
+          className="ml-2 mr-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
         >
           {t("matrix.searchButton")}
         </button>
@@ -135,7 +133,7 @@ export default function Users() {
 
       {/* User Cards section */}
       {loading ? (
-        <div className="flex justify-center items-center min-h-[300px]">
+        <div className="flex justify-center items-center mt-44">
           <Loader />
         </div>
       ) : (
@@ -150,9 +148,6 @@ export default function Users() {
         </div>
       )}
 
-      <div className="mt-auto">
-        <Bottombanner />
-      </div>
     </div>
   );
 }

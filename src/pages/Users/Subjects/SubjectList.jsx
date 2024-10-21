@@ -26,17 +26,15 @@ export default function SubjectsLists() {
   return (
     <div
       className="flex flex-col"
-      style={{ paddingTop: "270px", paddingBottom: "44px" }}
+      style={{ paddingTop: "120px", paddingBottom: "44px" }}
     >
-      <div className="relative flex justify-center items-center text-center">
-        <Topbanner />
-      </div>
+
 
       <div className="search flex justify-center mt-9">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
-          className="mr-2 rounded-md p-2"
+          className=" rounded-md  ml-2 mr-2  p-2"
         >
           <option value="" disabled>{t("subjectEditForm.search")}</option>
           <option value="subjectTitle">{t("search.subjectTitle")}</option>
@@ -56,7 +54,7 @@ export default function SubjectsLists() {
         
         <button
           onClick={handleSearch}
-          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
+          className="  ml-2 mr-2  px-4 py-2 rounded-full bg-[#CDA03D] text-white"
         >
           {t("matrix.searchButton")}
         </button>
@@ -66,9 +64,7 @@ export default function SubjectsLists() {
         <SubTable searchTerm={searchTerm} searchType={searchType} />
       </div>
 
-      <div className="mt-auto">
-        <Bottombanner />
-      </div>
+    
     </div>
   );
 }
