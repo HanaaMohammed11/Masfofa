@@ -174,7 +174,7 @@ zIndex:"1000",
 
       {/* Banner section */}
       <div
-  className="Topbaner  h-32 rounded-xl bg-cover bg-center flex justify-between items-center"
+  className="Topbaner  h-36 rounded-xl bg-cover bg-center flex justify-between items-center"
   style={{ 
     backgroundImage: `url(${topBannerUrl})`,
      

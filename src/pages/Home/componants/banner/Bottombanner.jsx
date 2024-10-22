@@ -19,7 +19,7 @@ export default function Bottombanner() {
 
   return (
     <div
-      className="BottomBaner w-full h-32 rounded-xl  bg-cover bg-center"
+      className="BottomBaner w-full  h-36 rounded-xl  bg-cover bg-center"
       style={{
         backgroundImage: `url(${BottomBannerUrl})`,
         zIndex:"1000",

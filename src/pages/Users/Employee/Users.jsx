@@ -148,7 +148,7 @@ export default function Users() {
       {/* User Cards section */}
 
       {loading ? (
-  <div className="flex justify-center items-center m-96">
+  <div className="flex justify-center items-center my-44">
     <Loader />
   </div>
 ) : (
@@ -157,7 +157,7 @@ export default function Users() {
       filteredUsers.length > 0 ? (
         <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
       ) : (
-        <p className="text-center text-gray-500 m-44">
+        <p className="text-center text-gray-500 mt-44 ">
           {t("EmpCard.noEmp")}
         </p>
       )

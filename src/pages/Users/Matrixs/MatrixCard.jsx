@@ -17,7 +17,7 @@ export default function MatrixTable({matrices ,onMatrixClick }) {
 
   if (matrices.length === 0) {
     return (
-      <div className="text-center text-gray-600 m-96">
+      <div className="text-center text-gray-600 flex justify-center items-center my-44">
         {t("matrixCardDashboard.noMatrix")}
       </div>
     );

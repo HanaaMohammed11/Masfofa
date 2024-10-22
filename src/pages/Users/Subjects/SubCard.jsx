@@ -75,7 +75,7 @@ export default function SubTable({ searchTerm, searchType ,onSubjectClick }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center m-96">
+      <div className="flex justify-center items-center my-44">
         <Loader />
       </div>
     );
@@ -83,7 +83,7 @@ export default function SubTable({ searchTerm, searchType ,onSubjectClick }) {
 
   if (filteredSubjects.length === 0) {
     return (
-      <div className={`flex justify-center m-96 items-center h-full ${direction}`}>
+      <div className="text-center text-gray-600 flex justify-center items-center my-44">
         <p className="text-gray-600">{t("articels.noResults")}</p>
       </div>
     );

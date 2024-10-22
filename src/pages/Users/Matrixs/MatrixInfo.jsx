@@ -90,7 +90,7 @@ export default function MatrixInfo({ matrix, onBack }) {
         dir={direction}
       >
         {loading ? (
-          <div className="m-96">   <Loader /></div>
+          <div className="my-44">   <Loader /></div>
        
         ) : (
           <Card className="w-[900px] h-auto mb-44">

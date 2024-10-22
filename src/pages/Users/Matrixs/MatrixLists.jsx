@@ -294,7 +294,7 @@ export default function MatrixLists() {
       </div>
 
       {loading ? (
-  <div className="flex justify-center items-center m-96">
+  <div className="flex justify-center items-center my-44">
     <Loader />
   </div>
 ) : (
