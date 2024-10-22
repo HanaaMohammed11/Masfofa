@@ -13,6 +13,7 @@ import db from "../../../config/firebase";
 import Loader from "../../Login/loader";
 import { useNavigate } from "react-router-dom";
 import UserTable from "./UserCard";
+import UserInfo from "./UserInfo";
 
 export default function Users() {
   const navigate = useNavigate();
@@ -21,11 +22,18 @@ export default function Users() {
   const [searchType, setSearchType] = useState(""); 
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([]);
-
+  const [selectedEmp, setSelectedEmp] = useState(null); 
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSearchType("");
+    setTempSearchTerm("")
+  };
   const { t, i18n } = useTranslation("global");
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
-
+  const handleEmpClick = (user) => {
+    setSelectedEmp(user);
+  };
   useEffect(() => {
     const qUser = query(
       collection(db, "users"),
@@ -129,24 +137,35 @@ export default function Users() {
         >
           {t("matrix.searchButton")}
         </button>
+        <button
+          onClick={handleClearFilters}
+          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
+        >
+          {t("matrix.clearFilters")}
+        </button>
       </div>
 
       {/* User Cards section */}
+
       {loading ? (
-        <div className="flex justify-center items-center mt-44">
-          <Loader />
-        </div>
+  <div className="flex justify-center items-center m-96">
+    <Loader />
+  </div>
+) : (
+  <div className="flex-grow">
+    {!selectedEmp ? ( 
+      filteredUsers.length > 0 ? (
+        <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
       ) : (
-        <div className="flex flex-wrap justify-center">
-          {filteredUsers.length > 0 ? (
-            <UserTable users={filteredUsers} />
-          ) : (
-            <p className="text-center text-gray-500 m-44">
-              {t("EmpCard.noEmp")}
-            </p>
-          )}
-        </div>
-      )}
+        <p className="text-center text-gray-500 m-44">
+          {t("EmpCard.noEmp")}
+        </p>
+      )
+    ) : (
+      <UserInfo user={selectedEmp} onBack={() => setSelectedEmp(null)} />
+    )}
+  </div>
+)}
 
     </div>
   );

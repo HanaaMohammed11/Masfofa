@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 import { useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
+import MatrixInfo from "./MatrixInfo";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
@@ -28,7 +29,10 @@ export default function MatrixLists() {
   const [user, setUser] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [selectedMatrix, setselectedMatrix] = useState(null); 
+  const handleMatrixctClick = (Matrix) => {
+    setselectedMatrix(Matrix);
+  };
   useEffect(() => {
     const qUser = query(
       collection(db, "users"),
@@ -290,15 +294,18 @@ export default function MatrixLists() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center m-44">
-          <Loader />
-        </div>
-      ) : (
-        <div className="flex-grow">
-          <MatrixTable matrices={filteredMatrices} />
-        </div>
-      )}
+  <div className="flex justify-center items-center m-96">
+    <Loader />
+  </div>
+) : (
+  !selectedMatrix ? (
+    <MatrixTable matrices={filteredMatrices} onMatrixClick={handleMatrixctClick} />
+  ) : (
+    <MatrixInfo matrix={selectedMatrix} onBack={() => setselectedMatrix(null)} />
+  )
+)}
 
+ 
     </div>
   );
 }

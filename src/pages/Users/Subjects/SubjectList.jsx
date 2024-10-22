@@ -4,6 +4,7 @@ import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import SubTable from "./SubCard";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import SubjectInfo from "./SubjectInfo";
 
 export default function SubjectsLists() {
   const { t, i18n } = useTranslation("global");
@@ -14,7 +15,13 @@ export default function SubjectsLists() {
   const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState(""); 
-  
+  const [selectedSubject, setSelectedSubject] = useState(null); 
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSearchType("");
+    setTempSearchQuery("")
+    setTempSearchQuery("");
+  };
   const handleSearch = () => {
     if (tempSearchQuery === "") {
       setSearchTerm("");
@@ -22,7 +29,9 @@ export default function SubjectsLists() {
       setSearchTerm(tempSearchQuery);
     }
   };
-
+  const handleSubjectClick = (subject) => {
+    setSelectedSubject(subject);
+  };
   return (
     <div
       className="flex flex-col"
@@ -58,10 +67,20 @@ export default function SubjectsLists() {
         >
           {t("matrix.searchButton")}
         </button>
+        <button
+          onClick={handleClearFilters}
+          className="ml-2 px-4 py-2 rounded-full bg-[#CDA03D] text-white"
+        >
+          {t("matrix.clearFilters")}
+        </button>
       </div>
 
-      <div className="flex-grow ">
-        <SubTable searchTerm={searchTerm} searchType={searchType} />
+      <div className="flex-grow">
+        {!selectedSubject ? (
+          <SubTable searchTerm={searchTerm} searchType={searchType} onSubjectClick={handleSubjectClick} />
+        ) : (
+          <SubjectInfo subject={selectedSubject} onBack={() => setSelectedSubject(null)} />
+        )}
       </div>
 
     

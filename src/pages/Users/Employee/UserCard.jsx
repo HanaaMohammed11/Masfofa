@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react'; // Import useState for managing pagination state
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-function UserTable({ users }) {
+function UserTable({ users ,onEmpClick}) {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -29,7 +29,7 @@ function UserTable({ users }) {
   }
 
   return (
-    <div className="overflow-x-auto w-full mx-14 mt-9">
+    <div className="overflow-x-auto mx-14  mb-44 mt-9">
       <table className="w-full text-center text-xl font-semibold " dir={direction}>
         <thead className="text-center text-lg bg-white">
           <tr>
@@ -65,7 +65,7 @@ function UserTable({ users }) {
                 {user.phoneNumber}
               </td>
               <td className="px-6 py-4">
-                <button onClick={() => handleDetailsClick(user)}>
+                <button onClick={() => onEmpClick(user)}>
                   {t("EmpCard.details")}
                 </button>
               </td>

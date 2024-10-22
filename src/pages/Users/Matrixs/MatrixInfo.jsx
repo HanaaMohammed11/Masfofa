@@ -11,7 +11,7 @@ import Loader from "../../Login/loader";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { IoArrowBack } from "react-icons/io5";
-export default function MatrixInfo() {
+export default function MatrixInfo({ matrix, onBack }) {
   const pdfRef = useRef();
 
   const downloadPDF = () => {
@@ -41,7 +41,7 @@ export default function MatrixInfo() {
   const location = useLocation();
   const navigate = useNavigate();
   const [relatedsubjects, setRelatedsubjectss] = useState([]);
-  const matrix = location.state.item || location.state.matrix;
+  // const matrix = location.state.item || location.state.matrix;
   console.log(matrix.subjects);
 
   useEffect(() => {
@@ -69,34 +69,33 @@ export default function MatrixInfo() {
       setLoading(false);
     }
   }, [matrix]);
-  const handleBack = () => {
-    navigate(-1);
-  };
+
 
   return (
     <div>
-      <div className="w-full "> <Topbanner /></div>
+      <div className="w-full "></div>
      
       <div dir={direction} >
         <button
-          className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 ml-14 mr-14"
-          onClick={handleBack}
+          className="text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 ml-14 mr-14"
+          onClick={onBack}
           dir={direction}
         >
-          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
+          <IoArrowBack className="" />
         </button>
       </div>
       <div
-        className="  justify-center flex items-center mt-[400px]" 
-        style={{ paddingTop: "2px", paddingBottom: "440px" }}
+        className="   justify-center flex items-center mt-[40px] pb-96 " 
+  
         dir={direction}
       >
         {loading ? (
-          <Loader />
+          <div className="m-96">   <Loader /></div>
+       
         ) : (
-          <Card className="w-[900px] h-auto ">
+          <Card className="w-[900px] h-auto mb-44">
             <div className="flex justify-end px-4 pt-4 "></div>
-            <div className="flex flex-col items-center pb-10 ">
+            <div className="flex flex-col items-center ">
               <div className="mt-4 w-full">
                 <Button
                   onClick={downloadPDF}
@@ -218,7 +217,6 @@ export default function MatrixInfo() {
           </Card>
         )}
       </div>
-      <Bottombanner />
     </div>
   );
 }

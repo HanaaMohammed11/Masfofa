@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 
-export default function SubTable({ searchTerm, searchType }) {
+export default function SubTable({ searchTerm, searchType ,onSubjectClick }) {
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [matrixItems, setMatrixItems] = useState([]);
@@ -75,7 +75,7 @@ export default function SubTable({ searchTerm, searchType }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center m-44">
+      <div className="flex justify-center items-center m-96">
         <Loader />
       </div>
     );
@@ -83,7 +83,7 @@ export default function SubTable({ searchTerm, searchType }) {
 
   if (filteredSubjects.length === 0) {
     return (
-      <div className={`flex justify-center mt-44 items-center h-full ${direction}`}>
+      <div className={`flex justify-center m-96 items-center h-full ${direction}`}>
         <p className="text-gray-600">{t("articels.noResults")}</p>
       </div>
     );
@@ -105,7 +105,7 @@ export default function SubTable({ searchTerm, searchType }) {
               <td className="px-4 py-2 font-semibold"> {item.subjectNum}</td>
               <td className="px-4 py-3 font-semibold dark:text-white whitespace-nowrap">{item.subjectTitle}</td>
               <td className="px-4 py-3">
-                <button className="hover:underline font-semibold" onClick={() => handleButtonClick(item)}>
+                <button className="hover:underline font-semibold"    onClick={() => onSubjectClick(item)}>
                   {t("articels.details")}
                 </button>
               </td>

@@ -19,9 +19,10 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { IoArrowBack } from "react-icons/io5";
 import { nav } from "framer-motion/client";
-export default function SubjectInfo() {
+export default function SubjectInfo({ subject, onBack }) {
   const { t, i18n } = useTranslation("global");
   const pdfRef = useRef();
+  const isRtl = i18n.language === "ar";
 
   const downloadPDF = () => {
     const input = pdfRef.current;
@@ -48,11 +49,9 @@ export default function SubjectInfo() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [subject, setSubject] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [matrices, setMatrices] = useState([]);
-  const clickedSubject = location.state?.subject;
-  console.log(clickedSubject.relatedMatrix.title);
+  console.log(subject.relatedMatrix.title);
   useEffect(() => {
     const qUser = query(collection(db, "matrix"), where("title", "!=", 0));
     const unsubscribe = onSnapshot(qUser, (snapshot) => {
@@ -68,7 +67,7 @@ export default function SubjectInfo() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!clickedSubject) {
+        if (!subject) {
           console.error("No subject data found in location state");
           return;
         }
@@ -81,40 +80,36 @@ export default function SubjectInfo() {
 
         setEmployees(employeesList);
 
-        setSubject(clickedSubject);
+        setSubject(subject);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [clickedSubject]);
+  }, [subject]);
 
   const emp1 = employees.find(
-    (emp) => emp.employeeId === clickedSubject.emp1Id
+    (emp) => emp.employeeId === subject.emp1Id
   );
   const emp2 = employees.find(
-    (emp) => emp.employeeId === clickedSubject.emp2Id
+    (emp) => emp.employeeId === subject.emp2Id
   );
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   return (
     <div>
-      <Topbanner />
-      <div dir={direction} 
-      >
-        <button
-          className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl m rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 ml-14 mr-14"
-          onClick={handleBack}
-          dir={direction}
-        >
-          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
-        </button>
-      </div>
-      <div className=" mt-[400px] justify-center flex items-center" style={{  paddingTop: "2px",
-      paddingBottom: "440px"}}>
+      <div className={`flex     ${isRtl ? "items-left" : "items-right"}`}>
+  <button
+    className={`text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 
+    ${isRtl ? 'mr-14' : 'ml-14'}`}
+    onClick={onBack}
+  >
+    <IoArrowBack className="" /> 
+  </button>
+</div>
+
+      <div className=" mt-[40px] justify-center flex items-center mb-44" style={{ 
+    }}>
         <Card className="w-[1200px] ">
           <div className=" w-full" dir={direction}>
             <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">
@@ -135,7 +130,7 @@ export default function SubjectInfo() {
                       {t("subjectEditForm.subjectNum")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.subjectNum}
+                      {subject.subjectNum}
                     </td>
                   </tr>
                   <tr className="bg-[#fce8ca]">
@@ -143,7 +138,7 @@ export default function SubjectInfo() {
                       {t("subjectEditForm.subjectTitle")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.subjectTitle}
+                      {subject.subjectTitle}
                     </td>
                   </tr>
                   <tr>
@@ -151,17 +146,17 @@ export default function SubjectInfo() {
                       {t("subjectEditForm.subjectContent")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {clickedSubject.subjectContent}
+                      {subject.subjectContent}
                     </td>
                   </tr>
                   <tr
                     className="cursor-pointer hover:bg-[#fce8ca]"
                     onClick={() => {
-                      const matrix = matrices.find(
+                      const matrix = matrix.find(
                         (item) =>
-                          item.title === clickedSubject.relatedMatrix.title
+                          item.title === subject.relatedMatrix.title
                       );
-                      console.log(matrix);
+                 
 
                       navigate("/MatrixInfo", {
                         state: { matrix },
@@ -172,7 +167,7 @@ export default function SubjectInfo() {
                       {t("subjectEditForm.relatedMatrix")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden ">
-                      {clickedSubject.relatedMatrix.title}
+                      {subject.relatedMatrix.title}
                     </td>
                   </tr>
                   <tr className="bg-[#fce8ca]">
@@ -180,8 +175,8 @@ export default function SubjectInfo() {
                       {t("subjectInfo.authorizedEmployee")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.emp1.employeeName} -{" "}
-                      {clickedSubject.emp1.jobTitle}{" "}
+                      {subject.emp1.employeeName} -{" "}
+                      {subject.emp1.jobTitle}{" "}
                     </td>
                   </tr>
                   <tr>
@@ -192,8 +187,8 @@ export default function SubjectInfo() {
                       {emp2?.employeeName} - {emp2?.role}
                     </td>
                   </tr>
-                  {clickedSubject.sharedEmployees.length > 0 ? (
-                    clickedSubject.sharedEmployees.map((emp) => {
+                  {subject.sharedEmployees.length > 0 ? (
+                    subject.sharedEmployees.map((emp) => {
                       const user = employees.find(
                         (empl) => empl.employeeId === emp.empId
                       );
@@ -238,7 +233,7 @@ export default function SubjectInfo() {
                       {t("subjectEditForm.negotiationLimit")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {clickedSubject.negotiationLimit}
+                      {subject.negotiationLimit}
                     </td>
                   </tr>
                   <tr>
@@ -246,7 +241,7 @@ export default function SubjectInfo() {
                       {t("subjectInfo.notes")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2 overflow-hidden">
-                      {clickedSubject.notes}
+                      {subject.notes}
                     </td>
                   </tr>
                 </tbody>
@@ -255,7 +250,6 @@ export default function SubjectInfo() {
           </div>
         </Card>
       </div>
-      <Bottombanner />
     </div>
   );
 }

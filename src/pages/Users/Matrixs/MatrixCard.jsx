@@ -3,21 +3,21 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import {  MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 
-export default function MatrixTable(props) {
+export default function MatrixTable({matrices ,onMatrixClick }) {
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const navigate = useNavigate();
   const isArabic = i18n.language === 'ar'; 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8; 
-  const totalPages = Math.ceil(props.matrices.length / itemsPerPage);
+  const totalPages = Math.ceil(matrices.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentMatrices = props.matrices.slice(startIndex, startIndex + itemsPerPage);
+  const currentMatrices = matrices.slice(startIndex, startIndex + itemsPerPage);
 
-  if (props.matrices.length === 0) {
+  if (matrices.length === 0) {
     return (
-      <div className="text-center text-gray-600 mt-44">
+      <div className="text-center text-gray-600 m-96">
         {t("matrixCardDashboard.noMatrix")}
       </div>
     );
@@ -58,9 +58,7 @@ export default function MatrixTable(props) {
               <td className="px-6 py-4 ">
                 <button
                   className={`hover:underline`}
-                  onClick={() => {
-                    navigate("/MatrixInfo", { state: { item } });
-                  }}
+                  onClick={() => onMatrixClick(item)}
                 >
                   {t("matrix.details")}
                 </button>

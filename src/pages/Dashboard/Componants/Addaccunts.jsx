@@ -9,7 +9,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import db from "../../../config/firebase";
 import axios from "axios";
 import "../../Dashboard/btns.css";
-
+import { auth } from '../../../config/firebase';
 import {
   addDoc,
   collection,
@@ -152,9 +152,8 @@ export default function AddAccounts() {
       const response = await axios.delete(
         `https://delete-user-node-js.vercel.app/delete-user/${uid}`
       );
-
+  
       try {
-        // Make sure employeeId is defined and valid
         if (employeeId) {
           await deleteDoc(doc(db, "users", employeeId));
           console.log("Employee deleted successfully!");
@@ -164,8 +163,12 @@ export default function AddAccounts() {
       } catch (error) {
         console.error("Error deleting employee: ", error);
       }
+  
       if (response.status === 200) {
         console.log(response.data.message);
+        
+        await auth.signOut();
+        console.log("User logged out successfully.");
       } else {
         console.log(response.data.message);
       }

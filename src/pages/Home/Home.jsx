@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   return (
-<div className="relative flex h-screen bg-[#F5F5F5] w-full" dir={direction}>
+<div className="relative flex bg-[#F5F5F5] w-full" dir={direction}>
   {/* Hamburger Icon - visible only on small screens */}
   <div className="sm:hidden absolute p-4 z-50">
     <button onClick={toggleSidebar}>
