@@ -148,7 +148,7 @@ export default function Users() {
       {/* User Cards section */}
 
       {loading ? (
-  <div className="flex justify-center items-center my-44">
+  <div className="flex justify-center items-center mt-44">
     <Loader />
   </div>
 ) : (

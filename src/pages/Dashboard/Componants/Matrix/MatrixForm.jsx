@@ -59,7 +59,7 @@ export default function MatrixForm({ onClose }) {
   };
 
   return (
-    <div className="flex flex-col items-center \ p-4  lg:mt-10 md:mt-10 mt-44 sm:mt-44  mb-44">
+    <div className="flex flex-col items-center h-screen p-4  lg:mt-10 md:mt-10 mt-44 sm:mt-44  mb-44">
       <div className="w-full max-w-5xl p-4 md:p-8">
         <h1
           dir={direction}
