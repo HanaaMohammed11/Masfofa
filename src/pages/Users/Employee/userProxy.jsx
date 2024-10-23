@@ -34,10 +34,10 @@ export default function UerProxy() {
   return (
     <div>
       <Topbanner />
-      <div dir={direction}>  <button className="fixed text-center bg-[#CDA03D] py-2 px-9 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
-        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+      <div dir={direction}>  <button className="fixed text-center bg-[#CDA03D] py-2 px-3 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
+        <IoArrowBack className="" /> 
             </button></div>
-      <div className="min-h-screen flex items-center justify-center mt-[400px]" dir={direction} style={{  paddingTop: "2px",
+      <div className="min-h-screen flex items-center justify-center mt-[200px]" dir={direction} style={{  paddingTop: "2px",
       paddingBottom: "400px"}}>
    
   <Card className="w-full max-w-[900px] h-auto my-12"   >
