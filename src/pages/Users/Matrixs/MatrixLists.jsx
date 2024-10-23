@@ -247,7 +247,7 @@ export default function MatrixLists() {
   
 
       {/* Input search section */}
-      <div className="search flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
+      <div className="search flex-col flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
         {/* Select what to search by */}
         <select
           value={searchBy}
