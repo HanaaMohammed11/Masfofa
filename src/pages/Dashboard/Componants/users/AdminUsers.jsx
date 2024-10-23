@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 import SubjectInfo from "../../../Users/Subjects/SubjectInfo";
 import UserInfo from "./userInfo";
+import AdminUserInfo from "./userInfo";
+import Proxyemployeeinfo from "./proxyemployeeinfo";
 
 export default function AdminUsers() {
   const { t, i18n } = useTranslation("global");
@@ -19,6 +21,8 @@ export default function AdminUsers() {
   const [loading, setLoading] = useState(true);
   const [selectedEmp, setSelectedEmp] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [showProxy, setShowProxy] = useState(null);
+
   const handleEmpClick = (user) => {
     setSelectedSubject(null);
     setSelectedEmp(user);
@@ -27,7 +31,9 @@ export default function AdminUsers() {
     setSelectedEmp(null);
     setSelectedSubject(subject);
   };
-
+  const handleProxyEmpClick = (user) => {
+    setShowProxy(user);
+  };
   useEffect(() => {
     const fetchUsers = async () => {
       const qEmps = query(
@@ -154,19 +160,16 @@ export default function AdminUsers() {
               {t("EmpCard.noEmp")}
             </p>
           )
-        ) : !selectedEmp && selectedSubject ? (
-          <SubjectInfo
-            subject={selectedSubject}
-            onBack={() => setSelectedSubject(null)}
-            onEmpClick={handleEmpClick}
-          />
-        ) : (
-          <UserInfo
+        )    : selectedEmp && !showProxy ? (
+          <AdminUserInfo
             onSubjectClick={handleSubjectClick}
             user={selectedEmp}
             onBack={() => setSelectedEmp(null)}
+            onShowProxy={handleProxyEmpClick}
           />
-        )}
+        ) : showProxy ? (
+          <Proxyemployeeinfo user={showProxy} onBack={() => setShowProxy(null)} />
+        ) : null}
       </div>
     </div>
   );

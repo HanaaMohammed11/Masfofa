@@ -204,7 +204,7 @@ export default function EditUserForm() {
                 <button
                   onClick={() => {
                     setIsPopupVisible(false);
-                    navigate(-1);
+                    navigate("/");
                   }}
                   className="text-red-600"
                 >

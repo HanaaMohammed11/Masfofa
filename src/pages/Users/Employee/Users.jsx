@@ -190,7 +190,8 @@ export default function Users() {
           />
         ) : (
           <UserProxy user={showProxy} onBack={() => setShowProxy(null)} /> 
-        )}
+        )
+        }
       </div>
       
       )}

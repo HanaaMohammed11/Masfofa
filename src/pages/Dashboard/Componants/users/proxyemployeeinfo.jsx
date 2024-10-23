@@ -8,14 +8,14 @@ import { useTranslation } from "react-i18next";
 import SideBar from "../../SideBar";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function Proxyemployeeinfo() {
+export default function Proxyemployeeinfo({onBack,user}) {
   const location = useLocation();
   const navigate = useNavigate();
-  const user = location.state.user;
-  const mainUserId = location.state.mainUser;
+  // const user = location.state.user;
+  // const mainUserId = location.state.mainUser;
 
   const [refresh, setRefresh] = useState(false);
-  console.log(mainUserId);
+  // console.log(mainUserId);
 
   const { t, i18n } = useTranslation("global");
 
@@ -39,7 +39,7 @@ export default function Proxyemployeeinfo() {
       await deleteDoc(proxyEmployeeDocRef);
       console.log(`م حذف وثيقة الموظف البديل بنجاح من مجموعة proxyEmployees`);
 
-      const employeeDocRef = doc(db, "employees", mainUserId);
+      const employeeDocRef = doc(db, "employees", user.id);
       const employeeDocSnap = await getDoc(employeeDocRef);
 
       if (employeeDocSnap.exists()) {
@@ -59,7 +59,7 @@ export default function Proxyemployeeinfo() {
         setProxyEmployees(updatedProxyEmployeesIds);
       
           setRefresh(false);
-     
+  
 
       } else {
         console.log("لا يوجد مستند للموظف في مجموعة employees");

@@ -25,6 +25,7 @@ export default function MatrixEditForm() {
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedMatrix, setselectedMatrix] = useState(null);
   const [matrixData, setMatrixData] = useState({
     title: matrix.title || "",
     companyName: matrix.companyName || "",

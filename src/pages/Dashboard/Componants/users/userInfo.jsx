@@ -15,7 +15,7 @@ import SubjectList from "../Subjects/SubjectList";
 import AddAccounts from "../Addaccunts";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function AdminUserInfo({ user, onBack, onSubjectClick }) {
+export default function AdminUserInfo({ user, onBack, onSubjectClick ,onShowProxy }) {
   const location = useLocation();
   const navigate = useNavigate();
   // const userData = location.state.user;
@@ -83,7 +83,7 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick }) {
       <div className="mt-32   " dir={direction}>
         <button
           className="text-center bg-[#CDA03D] py-2 px-3 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 fixed"
-          onClick={handleBack}
+          onClick={onBack}
           dir={direction}
         >
           <IoArrowBack className="" /> 
@@ -190,7 +190,7 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick }) {
                       <React.Fragment key={index}>
                         <tr
                           className={index % 2 === 0 ? "bg-[#fce8ca]" : ""}
-                          onClick={() => handleCardClick(proxyEmployee)}
+                          onClick={() => onShowProxy(proxyEmployee)}
                         >
                           <td className="px-4 py-2 font-bold">
                             {" "}
@@ -202,7 +202,7 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick }) {
                         </tr>
                         <tr
                           className={index % 2 === 0 ? "bg-[#fce8ca]" : ""}
-                          onClick={() => handleCardClick(proxyEmployee)}
+                          onClick={() => onShowProxy(proxyEmployee)}
                         >
                           <td className="px-4 py-2 font-bold">
                             {t("userInfo.proxyPhoneNumber")}
