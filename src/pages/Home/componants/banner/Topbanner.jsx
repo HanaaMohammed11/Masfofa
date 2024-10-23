@@ -104,7 +104,7 @@ export default function Topbanner() {
   }, []);
 
   return (
-    <div className="w-full  "  style={{ 
+    <div className="w-[86%]  "  style={{ 
 zIndex:"1000",
       position: "fixed", 
       top: 0, 

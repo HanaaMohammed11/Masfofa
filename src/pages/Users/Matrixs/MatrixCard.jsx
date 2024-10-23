@@ -25,7 +25,7 @@ export default function MatrixTable({matrices ,onMatrixClick }) {
 
   return (
     <div className={`overflow-x-auto mx-14  mb-44 mt-9 ${direction}`}>
-      <table className="w-full text-center shadow-lg" dir={direction}>
+      <table className="w-full text-center font-semibold shadow-lg" dir={direction}>
         <thead className="text-xl font-semibold uppercase bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-3">
