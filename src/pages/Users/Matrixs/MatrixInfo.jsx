@@ -89,7 +89,7 @@ export default function MatrixInfo({ matrix, onBack, onSubjectClick }) {
         dir={direction}
       >
         {loading ? (
-          <div className="m-96">
+          <div className="my-44">
             {" "}
             <Loader />
           </div>

@@ -154,21 +154,24 @@ export default function AddAccounts() {
       );
   
       try {
+        // تأكدي أن employeeId معرف وصحيح
         if (employeeId) {
           await deleteDoc(doc(db, "users", employeeId));
-          console.log("Employee deleted successfully!");
+          console.log("تم حذف الموظف بنجاح!");
         } else {
-          console.error("Invalid employeeId");
+          console.error("employeeId غير صالح");
         }
       } catch (error) {
-        console.error("Error deleting employee: ", error);
+        console.error("خطأ في حذف الموظف: ", error);
       }
   
       if (response.status === 200) {
         console.log(response.data.message);
         
+      
         await auth.signOut();
-        console.log("User logged out successfully.");
+        console.log("تم تسجيل الخروج بنجاح.");
+  
       } else {
         console.log(response.data.message);
       }
@@ -374,7 +377,7 @@ className={`flex flex-col justify-center  w-full  items-center gap-4 md:gap-9 z-
                     />
                   </div>
                   <div className="w-full">
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isSubmitting} className="bg-[#CDA03D]">
                       {isSubmitting
                         ? t("addaccount.registering")
                         : t("addaccount.register")}
@@ -549,6 +552,8 @@ className={`flex flex-col justify-center  w-full  items-center gap-4 md:gap-9 z-
                                       <Button
                                         type="submit"
                                         disabled={isSubmitting}
+
+                                        className="bg-[#CDA03D]"
                                       >
                                         {isSubmitting
                                           ? t("addaccount.update")

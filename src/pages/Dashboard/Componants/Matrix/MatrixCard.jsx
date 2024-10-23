@@ -143,7 +143,7 @@ export default function MatrixCard({ searchQuery, onMatrixClick }) {
           </table>
         </div>
       ) : (
-        <div className="text-center">{t("matrixCardDashboard.noMatrix")}</div>
+        <div className="text-center mt-44">{t("matrixCardDashboard.noMatrix")}</div>
       )}
     </div>
   );

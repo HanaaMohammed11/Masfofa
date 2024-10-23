@@ -115,7 +115,7 @@ export default function Users() {
       className="flex flex-col"
       style={{ paddingTop: "120px", paddingBottom: "440px" }}
     >
-      <div className="search flex justify-center mt-9">
+      <div className="search flex-col flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
@@ -155,31 +155,21 @@ export default function Users() {
       {/* User Cards section */}
 
       {loading ? (
-        <div className="flex justify-center items-center m-96">
+        <div className="flex justify-center items-center mt-44">
           <Loader />
         </div>
       ) : (
         <div className="flex-grow">
-          {!selectedEmp && !selectedSubject ? (
+          {!selectedEmp ? (
             filteredUsers.length > 0 ? (
               <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
             ) : (
-              <p className="text-center text-gray-500 m-44">
+              <p className="text-center text-gray-500 mt-44 ">
                 {t("EmpCard.noEmp")}
               </p>
             )
-          ) : !selectedEmp && selectedSubject ? (
-            <SubjectInfo
-              subject={selectedSubject}
-              onBack={() => setSelectedSubject(null)}
-              onEmpClick={handleEmpClick}
-            />
           ) : (
-            <UserInfo
-              onSubjectClick={handleSubjectClick}
-              user={selectedEmp}
-              onBack={() => setSelectedEmp(null)}
-            />
+            <UserInfo user={selectedEmp} onBack={() => setSelectedEmp(null)} />
           )}
         </div>
       )}

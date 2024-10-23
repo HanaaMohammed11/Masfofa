@@ -53,7 +53,7 @@ export default function SubjectsLists() {
       className="flex flex-col"
       style={{ paddingTop: "120px", paddingBottom: "44px" }}
     >
-      <div className="search flex justify-center mt-9">
+      <div className="search flex-col flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}

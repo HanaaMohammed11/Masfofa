@@ -142,7 +142,7 @@ export default function Form() {
 
                   <Button
                     type="submit"
-                    style={{ backgroundColor: "#1B8895", marginTop: 20 }}
+                    style={{ backgroundColor: "#CDA03D", marginTop: 20 }}
                   >
                     {t("login.loginButton")}
                   </Button>

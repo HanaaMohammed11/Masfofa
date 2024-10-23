@@ -17,7 +17,7 @@ export default function MatrixTable({matrices ,onMatrixClick }) {
 
   if (matrices.length === 0) {
     return (
-      <div className="text-center text-gray-600 m-96">
+      <div className="text-center text-gray-600 flex justify-center items-center my-44">
         {t("matrixCardDashboard.noMatrix")}
       </div>
     );
@@ -25,7 +25,7 @@ export default function MatrixTable({matrices ,onMatrixClick }) {
 
   return (
     <div className={`overflow-x-auto mx-14  mb-44 mt-9 ${direction}`}>
-      <table className="w-full text-center shadow-lg" dir={direction}>
+      <table className="w-full text-center font-semibold shadow-lg" dir={direction}>
         <thead className="text-xl font-semibold uppercase bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-3">

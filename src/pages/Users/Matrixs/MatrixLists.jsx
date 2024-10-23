@@ -252,7 +252,7 @@ export default function MatrixLists() {
       style={{ paddingTop: "120px", paddingBottom: "44px" }}
     >
       {/* Input search section */}
-      <div className="search flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
+      <div className="search flex-col flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
         {/* Select what to search by */}
         <select
           value={searchBy}
@@ -299,24 +299,17 @@ export default function MatrixLists() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center m-96">
+        <div className="flex justify-center items-center my-44">
           <Loader />
         </div>
-      ) : !selectedMatrix && !selectedSubject ? (
+      ) : !selectedMatrix ? (
         <MatrixTable
           matrices={filteredMatrices}
           onMatrixClick={handleMatrixctClick}
         />
-      ) : !selectedMatrix && selectedSubject ? (
-        <SubjectInfo
-          subject={selectedSubject}
-          onMatrixClick={handleMatrixctClick}
-          onBack={() => setselectedSubject(null)}
-        />
       ) : (
         <MatrixInfo
           matrix={selectedMatrix}
-          onSubjectClick={handleSubjectClick}
           onBack={() => setselectedMatrix(null)}
         />
       )}

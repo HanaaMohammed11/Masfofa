@@ -4,7 +4,9 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"; 
+import  db  from "./config/firebase";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 import MatrixList from "./pages/Dashboard/Componants/Matrix/MatrixList";
 import MatrixEditForm from "./pages/Dashboard/Componants/Matrix/MatrixEditForm";
@@ -33,18 +35,42 @@ import AdminMatrixInfo from "./pages/Dashboard/Componants/Matrix/MatrixInfo";
 import AdminSubjectInfo from "./pages/Dashboard/Componants/Subjects/AdminSubInfo";
 
 export default function App() {
-  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const checkUserInFirestore = async (userId) => {
+      try {
+        const q = query(collection(db, "users"), where("ID", "==", userId));  // Query by field "ID"
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          console.log("User found in Firestore:", querySnapshot.docs[0].data());
+          setIsLoggedIn(true);
+          navigate("/");
+        } else {
+          console.log("User not found in Firestore with ID:", userId);
+          setIsLoggedIn(false);
+          navigate("/login");
+        }
+      } catch (error) {
+        console.error("Error checking Firestore: ", error);
+        setIsLoggedIn(false);
+        navigate("/login");
+      }
+    };
+  
     const userId = localStorage.getItem("id");
     if (userId) {
-      setIsLoggedIn(true);
+      console.log("User ID found: ", userId);
+      checkUserInFirestore(userId);
     } else {
       setIsLoggedIn(false);
       navigate("/login");
     }
   }, [navigate]);
+  
+console.log(isLoggedIn);
 
   return (
     <Routes>

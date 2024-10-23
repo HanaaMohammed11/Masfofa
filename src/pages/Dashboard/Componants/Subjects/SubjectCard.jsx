@@ -159,7 +159,7 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
           </table>
         </div>
       ) : (
-        <div className="p-4 text-center text-neutral-600">
+        <div className=" text-center text-neutral-600 mt-44">
           {t("subjectCardDashboard.nosubjects")}
         </div>
       )}

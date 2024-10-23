@@ -22,14 +22,14 @@ function UserTable({ users ,onEmpClick}) {
 
   if (!users || users.length === 0) {
     return (
-      <p className="text-center text-gray-500">
+      <p className="text-center text-gray-500 ">
         {t("EmpCard.noEmp")}
       </p>
     );
   }
 
   return (
-    <div className="overflow-x-auto mx-14  mb-44 mt-9">
+    <div className="overflow-x-auto mx-14   mt-9">
       <table className="w-full text-center text-xl font-semibold " dir={direction}>
         <thead className="text-center text-lg bg-white">
           <tr>
