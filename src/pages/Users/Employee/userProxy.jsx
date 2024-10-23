@@ -8,16 +8,16 @@ import Bottombanner from "../../Home/componants/banner/Bottombanner";
 import { useTranslation } from "react-i18next";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function UerProxy() {
+export default function UserProxy({user,onBack}) {
   const location = useLocation();
   const navigate = useNavigate();
-  const user = location.state.user;
-  const mainUserId = location.state.mainUser;
+  // const user = location.state.user;
+  // const mainUserId = location.state.mainUser;
   const { t, i18n } = useTranslation("global");
 
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
 
-  console.log(mainUserId);
+  // console.log(mainUserId);
 
 
 
@@ -26,21 +26,18 @@ export default function UerProxy() {
   
 
 
-  const handleBack = () => {
-    navigate(-1);
-  };
 
 
   return (
     <div>
       <Topbanner />
-      <div dir={direction}>  <button className="fixed text-center bg-[#CDA03D] py-2 px-3 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
+      <div dir={direction}>  <button className="fixed text-center bg-[#CDA03D] py-2 px-3 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={onBack} dir={direction} >
         <IoArrowBack className="" /> 
             </button></div>
-      <div className="min-h-screen flex items-center justify-center mt-[200px]" dir={direction} style={{  paddingTop: "2px",
+      <div className="min-h-screen flex items-center justify-center mt-[60px]" dir={direction} style={{  paddingTop: "2px",
       paddingBottom: "400px"}}>
    
-  <Card className="w-full max-w-[900px] h-auto my-12"   >
+  <Card className="w-full max-w-[900px] h-auto"   >
     <div className="flex flex-col items-center pb-10">
     <div style={profileContainerStyle}>
       <img

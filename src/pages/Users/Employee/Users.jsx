@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import UserTable from "./UserCard";
 import UserInfo from "./UserInfo";
 import SubjectInfo from "../Subjects/SubjectInfo";
+import UserProxy from "./userProxy";
 export default function Users() {
   const navigate = useNavigate();
   const [tempSearchTerm, setTempSearchTerm] = useState("");
@@ -25,7 +26,8 @@ export default function Users() {
   const [user, setUser] = useState([]);
   const [selectedEmp, setSelectedEmp] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const handleClearFilters = () => {
+  const [showProxy, setShowProxy] = useState(null);
+    const handleClearFilters = () => {
     setSearchTerm("");
     setSearchType("");
     setTempSearchTerm("");
@@ -37,6 +39,11 @@ export default function Users() {
     setSelectedSubject(null);
     setSelectedEmp(user);
   };
+
+  const handleProxyEmpClick = (user) => {
+    setShowProxy(user);
+  };
+
   const handleSubjectClick = (subject) => {
     setSelectedEmp(null);
     setSelectedSubject(subject);
@@ -160,28 +167,32 @@ export default function Users() {
         </div>
       ) : (
         <div className="flex-grow">
-          {!selectedEmp && !selectedSubject ? (
-            filteredUsers.length > 0 ? (
-              <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
-            ) : (
-              <p className="text-center text-gray-500 mt-44 ">
-                {t("EmpCard.noEmp")}
-              </p>
-            )
-          ) : !selectedEmp && selectedSubject ? (
-            <SubjectInfo
-              subject={selectedSubject}
-              onBack={() => setSelectedSubject(null)}
-              onEmpClick={handleEmpClick}
-            />
+        {!selectedEmp && !selectedSubject ? (
+          filteredUsers.length > 0 ? (
+            <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
           ) : (
-            <UserInfo
-              onSubjectClick={handleSubjectClick}
-              user={selectedEmp}
-              onBack={() => setSelectedEmp(null)}
-            />
-          )}
-        </div>
+            <p className="text-center text-gray-500 mt-44 ">
+              {t("EmpCard.noEmp")}
+            </p>
+          )
+        ) : !selectedEmp && selectedSubject ? (
+          <SubjectInfo
+            subject={selectedSubject}
+            onBack={() => setSelectedSubject(null)}
+            onEmpClick={handleEmpClick}
+          />
+        ) : selectedEmp && !showProxy ? ( 
+          <UserInfo
+            onSubjectClick={handleSubjectClick}
+            user={selectedEmp}
+            onBack={() => setSelectedEmp(null)}
+            onShowProxy={handleProxyEmpClick} 
+          />
+        ) : (
+          <UserProxy user={showProxy} onBack={() => setShowProxy(null)} /> 
+        )}
+      </div>
+      
       )}
     </div>
   );

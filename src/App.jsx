@@ -34,12 +34,12 @@ import AdminUserInfo from "./pages/Dashboard/Componants/users/userInfo";
 import Proxyemployeeinfo from "./pages/Dashboard/Componants/users/proxyemployeeinfo";
 import AddAccounts from "./pages/Dashboard/Componants/Addaccunts";
 import EditProxyrForm from "./pages/Dashboard/Componants/users/editProxy";
-import UerProxy from "./pages/Users/Employee/userProxy";
 import EditTheme from "./pages/Dashboard/Componants/EditTheme";
 import SubjectsList from "./pages/Dashboard/Componants/Subjects/SubjectList";
 import SubjectsLists from "./pages/Users/Subjects/SubjectList";
 import AdminMatrixInfo from "./pages/Dashboard/Componants/Matrix/MatrixInfo";
 import AdminSubjectInfo from "./pages/Dashboard/Componants/Subjects/AdminSubInfo";
+import UserProxy from "./pages/Users/Employee/userProxy";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -88,7 +88,7 @@ export default function App() {
           <Route path="/Matrix" element={<MatrixLists />} />
           <Route path="/subjects" element={<SubjectsLists />} />
           <Route path="/MatrixInfo" element={<MatrixInfo />} />
-          <Route path="/userProxy" element={<UerProxy />} />
+          <Route path="/userProxy" element={<UserProxy />} />
           <Route path="/subjectInfo" element={<SubjectInfo />} />
           <Route path="/AdminSubjectInfo" element={<AdminSubjectInfo />} />
           <Route path="/admin-subjects" element={<SubjectsList />} />

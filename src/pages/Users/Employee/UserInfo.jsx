@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function UserInfo({ user, onBack, onSubjectClick }) {
+export default function UserInfo({ user, onBack, onSubjectClick ,onShowProxy}) {
   const location = useLocation();
   const navigate = useNavigate();
   const [proxyEmployees, setProxyEmployees] = useState([]);
@@ -187,7 +187,7 @@ export default function UserInfo({ user, onBack, onSubjectClick }) {
                           <React.Fragment key={index}>
                             <tr
                               className={index % 2 === 0 ? "bg-[#DEBA9A]" : ""}
-                              onClick={() => handleCardClick(proxyEmployee)}
+                              onClick={() => onShowProxy(proxyEmployee)}
                             >
                               <td className="px-4 py-2 font-bold">
                                 {t("userInfo.proxyEmployeeName")}
@@ -198,7 +198,7 @@ export default function UserInfo({ user, onBack, onSubjectClick }) {
                             </tr>
                             <tr
                               className={index % 2 === 0 ? "bg-[#DEBA9A]" : ""}
-                              onClick={() => handleCardClick(proxyEmployee)}
+                              onClick={() => onShowProxy(proxyEmployee)}
                             >
                               <td className="px-4 py-2 font-bold">
                                 {t("userInfo.proxyPhoneNumber")}

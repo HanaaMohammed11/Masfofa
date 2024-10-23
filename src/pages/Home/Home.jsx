@@ -59,15 +59,15 @@ export default function Home() {
 
       {/* Main Content Area */}
       <div className={`w-full flex flex-col ${isRTL ? "sm:mr-64" : "sm:ml-64"}`}>
-        <div className="w-full">
+        <div className="">
           <Topbanner />
         </div>
 
         {/* Main content */}
         <div className="flex-grow p-4">{renderContent()}</div>
 
-        <div className="mt-auto">
-          <Bottombanner />
+        <div className="mt-auto ">
+          <Bottombanner  />
         </div>
       </div>
     </div>
