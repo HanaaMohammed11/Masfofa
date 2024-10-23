@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Label, TextInput, Textarea } from "flowbite-react";
