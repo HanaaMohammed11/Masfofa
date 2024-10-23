@@ -117,7 +117,7 @@ export default function EditUserForm() {
         <IoArrowBack className="" />  
             </button></div>
       <div
-        className="  justify-center flex mt-[400px]"
+        className="  justify-center flex mt-[300px]"
   
       >
         <div className=" p-8 w-full max-w-5xl  " style={{paddingBottom:"400px"}}>

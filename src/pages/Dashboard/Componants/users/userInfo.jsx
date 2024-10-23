@@ -60,7 +60,7 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick ,onShowProx
   const handleDelete = async () => {
     try {
       await deleteDoc(doc(db, "employees", user.id));
-      navigate("/");
+    onBack();
       console.log(`Deleted user with ID: ${user.employeeId}`);
 
     } catch (error) {

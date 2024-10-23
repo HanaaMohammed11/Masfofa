@@ -11,6 +11,7 @@ import SubjectInfo from "../../../Users/Subjects/SubjectInfo";
 import UserInfo from "./userInfo";
 import AdminUserInfo from "./userInfo";
 import Proxyemployeeinfo from "./proxyemployeeinfo";
+import EditUserForm from "./EditeUserForm";
 
 export default function AdminUsers() {
   const { t, i18n } = useTranslation("global");
@@ -169,7 +170,7 @@ export default function AdminUsers() {
           />
         ) : showProxy ? (
           <Proxyemployeeinfo user={showProxy} onBack={() => setShowProxy(null)} />
-        ) : null}
+        ):<EditUserForm  />}
       </div>
     </div>
   );

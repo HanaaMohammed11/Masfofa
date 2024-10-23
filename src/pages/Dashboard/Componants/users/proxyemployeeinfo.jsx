@@ -57,8 +57,8 @@ export default function Proxyemployeeinfo({onBack,user}) {
         console.log("تم تحديث قائمة الموظفين البدلاء بنجاح في مجموعة employees");
 
         setProxyEmployees(updatedProxyEmployeesIds);
-        navigate("/");
-          setRefresh(false);
+       onBack();
+   
 
 
       } else {
@@ -178,7 +178,11 @@ export default function Proxyemployeeinfo({onBack,user}) {
                     {t("userInfo.edituser")}
               </Button>
               <Button
-                onClick={() => handleDeleteProxyEmployee(user.id)}
+              onClick={() => {
+                handleDeleteProxyEmployee(user.id);
+                onBack();
+              }}
+         
                 className="bg-red-600 hover:bg-red-700 "
               >
                {t("userInfo.delete")}
