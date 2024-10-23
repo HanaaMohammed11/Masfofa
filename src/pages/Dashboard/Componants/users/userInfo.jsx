@@ -60,8 +60,9 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick ,onShowProx
   const handleDelete = async () => {
     try {
       await deleteDoc(doc(db, "employees", user.id));
+      navigate("/");
       console.log(`Deleted user with ID: ${user.employeeId}`);
-      navigate("/dashboard");
+
     } catch (error) {
       console.error("Error deleting user: ", error);
       alert("فشل حذف المستخدم. حاول مرة أخرى.");

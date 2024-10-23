@@ -57,9 +57,9 @@ export default function Proxyemployeeinfo({onBack,user}) {
         console.log("تم تحديث قائمة الموظفين البدلاء بنجاح في مجموعة employees");
 
         setProxyEmployees(updatedProxyEmployeesIds);
-      
+        navigate("/");
           setRefresh(false);
-  
+
 
       } else {
         console.log("لا يوجد مستند للموظف في مجموعة employees");
@@ -79,16 +79,16 @@ export default function Proxyemployeeinfo({onBack,user}) {
 
   return (
     <div>
-      <Topbanner />
+
       <div
-      className="   "
+      className="mt-36   "
       dir={direction}
       
     >
-        <button className="text-center bg-[#CDA03D] py-2 px-3  shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 fixed" onClick={handleBack} dir={direction} >
+        <button className="text-center bg-[#CDA03D] py-2 px-3  shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 fixed" onClick={onBack} dir={direction} >
         <IoArrowBack className="" />  
             </button></div>
-      <div className=" justify-center flex items-center pb-[200px] mt-[400px]"   dir={direction}>
+      <div className=" justify-center flex items-center pb-[200px] mt-[200px]"   dir={direction}>
         <Card className="w-[900px] h-auto "  dir={direction}>
           <div className="flex flex-col items-center pb-10"  >
           <div style={profileContainerStyle}>
@@ -179,7 +179,7 @@ export default function Proxyemployeeinfo({onBack,user}) {
               </Button>
               <Button
                 onClick={() => handleDeleteProxyEmployee(user.id)}
-                className="bg-red-600 hover:bg-red-700"
+                className="bg-red-600 hover:bg-red-700 "
               >
                {t("userInfo.delete")}
               </Button>
@@ -187,7 +187,7 @@ export default function Proxyemployeeinfo({onBack,user}) {
           </div>
         </Card>
       </div>
-      <Bottombanner />
+  
     </div>
   );
 }
