@@ -75,8 +75,8 @@ export default function AdminMatrixInfo() {
   }, [matrix]);
 
   return (
-    <div>
-      <Topbanner />
+    <div className="">
+    
       <div dir={direction}>
         <button
    
@@ -88,13 +88,13 @@ export default function AdminMatrixInfo() {
       </div>
 
       <div
-        className="min-h-screen  justify-center flex items-center mt-[400px]"
+        className="min-h-screen  flex justify-center items-center mt-[400px]"
         dir={direction}
       >
         {loading ? (
           <Loader />
         ) : (
-          <Card className="w-[900px] h-auto mt-16 mb-[30%]">
+          <Card className="w-[900px] flex justfy-c  h-auto mt-[1000px] ">
             <div className="mt-4 w-full">
               <Button
                 className="bg-[#d4af37] rounded-full"
@@ -106,7 +106,7 @@ export default function AdminMatrixInfo() {
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center pb-10 " ref={pdfRef}>
               {/* الجدول */}
-              <div className="mt-4 w-full ">
+              <div className=" w-full  ">
                 <table className="min-w-full border-collapse">
                   <tbody className="text-gray-700">
                     <tr>
@@ -210,7 +210,7 @@ export default function AdminMatrixInfo() {
           </Card>
         )}
       </div>
-      <Bottombanner />
+
     </div>
   );
 }

@@ -11,6 +11,7 @@ import Bottombanner from "../../../Home/componants/banner/Bottombanner";
 import "../../../Home/Card.css";
 import SideBar from "../../SideBar";
 import { IoArrowBack } from "react-icons/io5";
+import Cards from "../../../Home/Card";
 export default function EditUserForm() {
   const { t, i18n } = useTranslation("global");
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
@@ -112,8 +113,8 @@ export default function EditUserForm() {
       dir={direction}
       
     >
-        <button className="text-center fixed bg-[#CDA03D] py-2 px-9 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
-        <IoArrowBack className="mt-1 mr-3" />  {t("text.back")}
+        <button className="text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300" onClick={handleBack} dir={direction} >
+        <IoArrowBack className="" />  
             </button></div>
       <div
         className="  justify-center flex mt-[400px]"

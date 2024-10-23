@@ -58,28 +58,34 @@ export default function MatrixList() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      <div className="flex flex-wrap justify-center mb-96">
-        {showMatrixForm ? (
-          <MatrixForm onClose={handleFormClose} />
-        ) : !selectedMatrix && !selectedSubject ? (
-          <MatrixCard
-            onMatrixClick={handleMatrixctClick}
-            searchQuery={searchQuery}
-          />
-        ) : !selectedMatrix && selectedSubject ? (
-          <SubjectInfo
-            subject={selectedSubject}
-            onMatrixClick={handleMatrixctClick}
-            onBack={() => setselectedSubject(null)}
-          />
-        ) : (
-          <MatrixInfo
-            matrix={selectedMatrix}
-            onSubjectClick={handleSubjectClick}
-            onBack={() => setselectedMatrix(null)}
-          />
-        )}
-      </div>
+      <div className="flex mb-96 justify-center items-center"> 
+  {showMatrixForm ? (
+    <MatrixForm onClose={handleFormClose} />
+  ) : !selectedMatrix && !selectedSubject ? (
+    <MatrixCard
+      onMatrixClick={handleMatrixctClick}
+      searchQuery={searchQuery}
+    />
+  ) : !selectedMatrix && selectedSubject ? (
+    <div className="mt-32 flex justify-center items-center w-full"> 
+
+    <SubjectInfo
+      subject={selectedSubject}
+      onMatrixClick={handleMatrixctClick}
+      onBack={() => setselectedSubject(null)}
+    />
+    </div>
+  ) : (
+    <div className="mt-32 flex justify-center items-center w-full"> 
+      <MatrixInfo
+        matrix={selectedMatrix}
+        onSubjectClick={handleSubjectClick}
+        onBack={() => setselectedMatrix(null)}
+      />
+    </div>
+  )}
+</div>
+
     </>
   );
 }

@@ -80,19 +80,18 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick }) {
 
   return (
     <div>
-      <Topbanner />
-      <div className="   " dir={direction}>
+      <div className="mt-32   " dir={direction}>
         <button
-          className="text-center bg-[#CDA03D] py-2 px-9 shadow-xl ml-14 mr-14 rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 fixed"
+          className="text-center bg-[#CDA03D] py-2 px-3 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 fixed"
           onClick={handleBack}
           dir={direction}
         >
-          <IoArrowBack className="mt-1 mr-3" /> {t("text.back")}
+          <IoArrowBack className="" /> 
         </button>
       </div>
       <div className="w-64"></div>
       <div
-        className=" justify-center flex items-center mt-[400px]"
+        className=" justify-center flex items-center mt-[200px]"
         style={{ paddingBottom: "400px" }}
         dir={direction}
       >
@@ -241,7 +240,6 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick }) {
           </div>
         </Card>
       </div>
-      <Bottombanner />
     </div>
   );
 }

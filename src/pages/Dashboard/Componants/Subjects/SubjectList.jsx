@@ -7,6 +7,7 @@ import "../../../Dashboard/btns.css";
 import MatrixInfo from "../../../Users/Matrixs/MatrixInfo";
 import UserInfo from "../../../Users/Employee/UserInfo";
 import SubjectInfo from "../../../Users/Subjects/SubjectInfo";
+import AdminUserInfo from "../users/userInfo";
 
 export default function SubjectList() {
   const [showSubForm, setShowSubForm] = useState(false);
@@ -81,27 +82,33 @@ export default function SubjectList() {
               searchTerm={searchTerm}
             />
           ) : !selectedSubject && !selectedEmp && selectedMatrix ? (
+            <div className="mt-32 flex justify-center items-center w-full"> 
             <MatrixInfo
               matrix={selectedMatrix}
               onEmpClick={handleEmpClick}
               onSubjectClick={handleSubjectClick}
               onBack={() => setSelectedMatrix(null)}
             />
+               </div>
           ) : !selectedSubject && selectedEmp && !selectedMatrix ? (
-            <UserInfo
+            <AdminUserInfo
               user={selectedEmp}
               onBack={() => setSelectedEmp(null)}
               onSubjectClick={handleSubjectClick}
               onEmpClick={handleEmpClick}
             />
           ) : (
+            <div className="mt-32 flex justify-center items-center w-full"> 
+
             <SubjectInfo
               subject={selectedSubject}
               onEmpClick={handleEmpClick}
               onMatrixClick={handleMatrixClick}
               onBack={() => setSelectedSubject(null)}
             />
+              </div>
           )}
+     
         </div>
       </div>
     </div>

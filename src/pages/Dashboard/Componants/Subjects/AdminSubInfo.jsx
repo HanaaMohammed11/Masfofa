@@ -92,8 +92,7 @@ export default function AdminSubjectInfo() {
   };
 
   return (
-    <div>
-      <Topbanner />
+    <div >
       <div dir={direction}>
         <button
   
@@ -235,7 +234,6 @@ export default function AdminSubjectInfo() {
           </div>
         </Card>
       </div>
-      <Bottombanner />
     </div>
   );
 }
