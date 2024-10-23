@@ -5,8 +5,15 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"; 
-import  db  from "./config/firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import db from "./config/firebase";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 import MatrixList from "./pages/Dashboard/Componants/Matrix/MatrixList";
 import MatrixEditForm from "./pages/Dashboard/Componants/Matrix/MatrixEditForm";
@@ -41,9 +48,9 @@ export default function App() {
   useEffect(() => {
     const checkUserInFirestore = async (userId) => {
       try {
-        const q = query(collection(db, "users"), where("ID", "==", userId));  // Query by field "ID"
+        const q = query(collection(db, "users"), where("ID", "==", userId)); // Query by field "ID"
         const querySnapshot = await getDocs(q);
-        
+
         if (!querySnapshot.empty) {
           console.log("User found in Firestore:", querySnapshot.docs[0].data());
           setIsLoggedIn(true);
@@ -58,7 +65,7 @@ export default function App() {
         navigate("/login");
       }
     };
-  
+
     const userId = localStorage.getItem("id");
     if (userId) {
       console.log("User ID found: ", userId);
@@ -68,14 +75,13 @@ export default function App() {
       navigate("/login");
     }
   }, [navigate]);
-  
-console.log(isLoggedIn);
+
+  console.log(isLoggedIn);
 
   return (
     <Routes>
       {isLoggedIn ? (
         <>
-          
           <Route path="/" element={<Home />} />
           <Route path="/userinfo" element={<UserInfo />} />
           <Route path="/users" element={<Users />} />
@@ -84,7 +90,7 @@ console.log(isLoggedIn);
           <Route path="/MatrixInfo" element={<MatrixInfo />} />
           <Route path="/userProxy" element={<UerProxy />} />
           <Route path="/subjectInfo" element={<SubjectInfo />} />
-          <Route path="/AdminSubjectInfo" element={<AdminSubjectInfo  />} />
+          <Route path="/AdminSubjectInfo" element={<AdminSubjectInfo />} />
           <Route path="/admin-subjects" element={<SubjectsList />} />
           <Route path="/editproxy" element={<EditProxyrForm />} />
           <Route path="/acc" element={<AddAccounts />} />
@@ -97,13 +103,11 @@ console.log(isLoggedIn);
           <Route path="/AdminUserCard" element={<AdminUserCard />} />
           <Route path="/AdminMtrixInfo" element={<AdminMatrixInfo />} />
 
-
           <Route path="/edit-Theme" element={<EditTheme />} />
           <Route path="/AdminUsers" element={<AdminUsers />} />
           <Route path="/MatrixList" element={<MatrixList />} />
           <Route path="/MatrixEditForm" element={<MatrixEditForm />} />
           <Route path="/MatrixForm" element={<MatrixForm />} />
-        
         </>
       ) : (
         <Route path="/login" element={<Form />} />

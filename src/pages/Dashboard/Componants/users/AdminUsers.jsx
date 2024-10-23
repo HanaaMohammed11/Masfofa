@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import AdminUserCard from "./AdminUserCard";
@@ -7,7 +8,7 @@ import db from "../../../../config/firebase";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 import SubjectInfo from "../../../Users/Subjects/SubjectInfo";
-import UserInfo from "../../../Users/Employee/UserInfo";
+import UserInfo from "./userInfo";
 
 export default function AdminUsers() {
   const { t, i18n } = useTranslation("global");

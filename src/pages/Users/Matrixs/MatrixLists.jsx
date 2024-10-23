@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import MatrixInfo from "./MatrixInfo";
 import SubjectInfo from "../Subjects/SubjectInfo";
+import UserInfo from "../Employee/UserInfo";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
@@ -32,6 +33,7 @@ export default function MatrixLists() {
   const [loading, setLoading] = useState(true);
   const [selectedMatrix, setselectedMatrix] = useState(null);
   const [selectedSubject, setselectedSubject] = useState(null);
+  const [selectedEmp, setSelectedEmp] = useState(null);
   const handleMatrixctClick = (Matrix) => {
     setselectedSubject(null);
     setselectedMatrix(Matrix);
@@ -39,7 +41,17 @@ export default function MatrixLists() {
   const handleSubjectClick = (subject) => {
     setselectedMatrix(null);
     setselectedSubject(subject);
+
   };
+
+  
+
+  const handleEmpClick = (emp) => {
+    setselectedSubject(null);
+    setselectedMatrix(null);
+    setSelectedEmp(emp);
+  };
+
   useEffect(() => {
     const qUser = query(
       collection(db, "users"),
@@ -246,6 +258,7 @@ export default function MatrixLists() {
   // console.log(user[0]);
   // console.log(employees);
 
+
   return (
     <div
       className="flex flex-col  "
@@ -299,20 +312,36 @@ export default function MatrixLists() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center my-44">
-          <Loader />
-        </div>
-      ) : !selectedMatrix ? (
-        <MatrixTable
-          matrices={filteredMatrices}
-          onMatrixClick={handleMatrixctClick}
-        />
-      ) : (
-        <MatrixInfo
-          matrix={selectedMatrix}
-          onBack={() => setselectedMatrix(null)}
-        />
-      )}
+  <div className="flex justify-center items-center my-44">
+    <Loader />
+  </div>
+) : selectedMatrix ? (
+  <MatrixInfo
+    matrix={selectedMatrix}
+    onSubjectClick={handleSubjectClick}
+    onBack={() => setselectedMatrix(null)}
+  />
+) : selectedSubject ? (
+  <SubjectInfo
+    subject={selectedSubject}
+    onEmpClick={handleEmpClick}
+    onMatrixClick={handleMatrixctClick}
+    onBack={() => setselectedSubject(null)}
+  />
+) : selectedEmp ? ( // Added condition for selectedEmp
+  <UserInfo
+    user={selectedEmp}
+    onBack={() => setSelectedEmp(null)}
+    onSubjectClick={handleSubjectClick}
+    onEmpClick={handleEmpClick}
+  />
+) : ( // Default case
+  <MatrixTable
+    matrices={filteredMatrices}
+    onMatrixClick={handleMatrixctClick}
+  />
+)}
+
     </div>
   );
 }
