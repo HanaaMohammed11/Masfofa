@@ -182,17 +182,8 @@ export default function Topbanner() {
   }}
 >
   <div className="flex">
-  <div
-              className="ml-8 font-semibold text-xl flex items-center justify-center text-gray-500  cursor-pointer hover:bg-gray-600 p-2 "
-              onClick={handleLogout}
-              style={{
-                marginRight: 30,
-                marginBottom: "10px",
-              }}
-            >
-              <TbLogout2 size={30} />
-            </div>
-            <div className="relative  " ref={dropdownRef}>
+
+            <div className="relative mr-9 ml-9 " ref={dropdownRef}>
             <button
               className="p-2  bg-slate-400 border-yellow-400 border-2 text-white flex items-center hover:bg-slate-500"
               onClick={() => setIsOpen((prev) => !prev)}
@@ -224,6 +215,15 @@ export default function Topbanner() {
               </div>
             )}
           </div>
+          <div
+              className="ml- font-semibold text-xl flex items-center justify-center text-gray-500  cursor-pointer hover:text-red-600 p-2 "
+              onClick={handleLogout}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <TbLogout2 size={30} />
+            </div>
   </div>
 
   {/* Logo */}

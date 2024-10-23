@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next";
 import db, { storage } from "../../config/firebase";
 import "./Card.css";
 import logo from "../../assets/logo-4 1.png"
+import { HiMenu, HiX } from "react-icons/hi";
 export default function Cards({ setSelectedContent }) {
   const { t } = useTranslation("global");
   const [user, setUser] = useState("");
   const [bannerUrl, setBannerUrl] = useState(""); 
-
+  const [isOpen, setIsOpen] = useState(false); 
   useEffect(() => {
     const fetchUserAndBanner = async () => {
       try {
@@ -49,6 +50,13 @@ export default function Cards({ setSelectedContent }) {
 
   return (
     <div className="flex flex-col  min-h-screen  bg-white " >
+          <button 
+        className="text-2xl mb-4 sm:hidden" 
+        onClick={() => setIsOpen(!isOpen)} 
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+      >
+        {isOpen ? <HiX /> : <HiMenu />} {/* تغيير الأيقونة بناءً على حالة القائمة */}
+      </button>
       <div className="flex flex-col  items-center sm:p-4 flex-wrap justify-center">
         <img src={logo} alt="" />
              {/* Sidebar Item 3 */}
