@@ -175,7 +175,7 @@ export default function Topbanner() {
   className="Topbaner w-full sm:w-[86%]  h-36 rounded-xl bg-cover bg-center flex justify-between items-center"
   style={{ 
     backgroundImage: `url(${topBannerUrl})`,
-    zIndex:"1000",
+    zIndex:"10",
     position: "fixed", 
     top: 0, 
 

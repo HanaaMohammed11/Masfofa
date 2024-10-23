@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "flowbite-react";
@@ -11,7 +12,7 @@ import Loader from "../../Login/loader";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { IoArrowBack } from "react-icons/io5";
-export default function MatrixInfo({ matrix, onBack }) {
+export default function MatrixInfo({ matrix, onBack, onSubjectClick }) {
   const pdfRef = useRef();
 
   const downloadPDF = () => {
@@ -70,12 +71,11 @@ export default function MatrixInfo({ matrix, onBack }) {
     }
   }, [matrix]);
 
-
   return (
     <div>
       <div className="w-full "></div>
-     
-      <div dir={direction} >
+
+      <div dir={direction}>
         <button
           className="text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 ml-14 mr-14"
           onClick={onBack}
@@ -85,13 +85,14 @@ export default function MatrixInfo({ matrix, onBack }) {
         </button>
       </div>
       <div
-        className="   justify-center flex items-center mt-[40px] pb-96 " 
-  
+        className="   justify-center flex items-center mt-[40px] pb-96 "
         dir={direction}
       >
         {loading ? (
-          <div className="my-44">   <Loader /></div>
-       
+          <div className="my-44">
+            {" "}
+            <Loader />
+          </div>
         ) : (
           <Card className="w-[900px] h-auto mb-44">
             <div className="flex justify-end px-4 pt-4 "></div>
@@ -182,7 +183,8 @@ export default function MatrixInfo({ matrix, onBack }) {
                         <tr
                           className="border cursor-pointer hover:bg-gray-100"
                           onClick={() => {
-                            navigate("/subjectInfo", { state: { subject } });
+                            onSubjectClick(subject);
+                            // navigate("/subjectInfo", { state: { subject } });
                           }}
                           key={subject.id}
                         >

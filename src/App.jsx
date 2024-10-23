@@ -47,7 +47,6 @@ export default function App() {
         if (!querySnapshot.empty) {
           console.log("User found in Firestore:", querySnapshot.docs[0].data());
           setIsLoggedIn(true);
-          navigate("/");
         } else {
           console.log("User not found in Firestore with ID:", userId);
           setIsLoggedIn(false);

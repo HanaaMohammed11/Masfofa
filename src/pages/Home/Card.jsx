@@ -6,11 +6,13 @@ import db, { storage } from "../../config/firebase";
 import "./Card.css";
 import logo from "../../assets/logo-4 1.png"
 import { HiMenu, HiX } from "react-icons/hi";
+
 export default function Cards({ setSelectedContent }) {
   const { t } = useTranslation("global");
   const [user, setUser] = useState("");
   const [bannerUrl, setBannerUrl] = useState(""); 
   const [isOpen, setIsOpen] = useState(false); 
+
   useEffect(() => {
     const fetchUserAndBanner = async () => {
       try {
@@ -49,52 +51,53 @@ export default function Cards({ setSelectedContent }) {
   }, []);
 
   return (
-    <div className="flex flex-col  min-h-screen  bg-white " >
-          <button 
-        className="text-2xl mb-4 sm:hidden" 
+    <div className="flex flex-col min-h-screen bg-white relative">
+ 
+      {/* Toggle Menu Button */}
+      <button 
+        className="absolute top-4 right-4 text-2xl z-50" // Adjust position as needed
         onClick={() => setIsOpen(!isOpen)} 
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-        {isOpen ? <HiX /> : <HiMenu />} {/* تغيير الأيقونة بناءً على حالة القائمة */}
+        {isOpen ? <HiX /> : <HiMenu />}
       </button>
-      <div className="flex flex-col  items-center sm:p-4 flex-wrap justify-center">
-        <img src={logo} alt="" />
-             {/* Sidebar Item 3 */}
-             <div className="p-4 text-center relative bg-transparent w-64 card-container card-3">
+      
+      <div className={`flex flex-col items-center sm:p-4 justify-center ${isOpen ? 'block' : 'hidden'} sm:flex`}>
+        <img src={logo} alt="Logo" className="mb-4" />
+        
+        {/* Cards with responsive styling */}
+        <div className="p-4 text-center w-full max-w-xs card-container">
           <button
-            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
+            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase w-full"
             onClick={() => setSelectedContent("matrices")}
           >
             <h1 className="aux-text">{t("text.Matrices")}</h1>
           </button>
         </div>
 
-
-        {/* Sidebar Item 2 */}
-        <div className="p-4 text-center relative bg-transparent w-64 card-container card-2">
+        <div className="p-4 text-center w-full max-w-xs card-container">
           <button
-            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
+            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase w-full"
             onClick={() => setSelectedContent("articles")}
           >
             <h1 className="aux-text">{t("text.Articles")}</h1>
           </button>
         </div>
 
-   
-        {/* Sidebar Item 1 */}
-        <div className="p-4 text-center relative bg-transparent  card-container card-1">
+        <div className="p-4 text-center w-full max-w-xs card-container">
           <button
-            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
+            className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase w-full"
             onClick={() => setSelectedContent("employees")}
           >
             <h1 className="aux-text">{t("text.Employees")}</h1>
           </button>
         </div>
+
         {/* Admin-only Sidebar Item */}
         {(user.accountType === "admin" || user.accountType === "superAdmin") && (
-          <div className="p-4 text-center relative bg-transparent w-64 card-container card-4">
+          <div className="p-4 text-center w-full max-w-xs card-container">
             <button
-              className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase"
+              className="aux-button aux-medium aux-carmine-pink aux-curve aux-none aux-uppercase w-full"
               onClick={() => setSelectedContent("dashboard")}
             >
               <h1 className="aux-text">{t("text.DashBoard")}</h1>

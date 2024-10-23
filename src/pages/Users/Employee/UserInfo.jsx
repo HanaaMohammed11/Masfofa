@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card } from "flowbite-react";
@@ -16,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../Login/loader";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function UserInfo({ user, onBack }) {
+export default function UserInfo({ user, onBack, onSubjectClick }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [proxyEmployees, setProxyEmployees] = useState([]);
@@ -73,7 +75,7 @@ export default function UserInfo({ user, onBack }) {
 
   return (
     <>
-                     <div dir={direction} >
+      <div dir={direction}>
         <button
           className="text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl  rounded-full text-white flex  text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 ml-14 mr-14"
           onClick={onBack}
@@ -83,7 +85,10 @@ export default function UserInfo({ user, onBack }) {
         </button>
       </div>
 
-      <div className="  mt-[40px] justify-center flex items-center mb-44" dir={direction}>
+      <div
+        className="  mt-[40px] justify-center flex items-center mb-44"
+        dir={direction}
+      >
         {loading ? (
           <div className="m-96">
             <Loader />
@@ -229,8 +234,9 @@ export default function UserInfo({ user, onBack }) {
                     <div
                       key={subject.id}
                       className="cursor-pointer hover:bg-gray-100 p-2 border-b"
-                      onClick={() =>
-                        navigate("/subjectInfo", { state: { subject } })
+                      onClick={
+                        () => onSubjectClick(subject)
+                        // navigate("/subjectInfo", { state: { subject } })
                       }
                     >
                       {subject.subjectTitle}

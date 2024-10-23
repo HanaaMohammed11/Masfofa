@@ -52,7 +52,7 @@ export default function Home() {
       <div
         className={`${
           isSidebarOpen ? "block" : "hidden"
-        } sm:block h-full flex-shrink-0 fixed top-0 w-64 z-50 bg-white shadow-lg`}
+        } sm:block h-full flex-shrink-0 fixed top-0 w-64 z-50 shadow-lg`}
       >
         <Cards setSelectedContent={setSelectedContent} />
       </div>

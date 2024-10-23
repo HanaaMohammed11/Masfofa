@@ -16,6 +16,7 @@ import Loader from "../../Login/loader";
 import { useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import MatrixInfo from "./MatrixInfo";
+import SubjectInfo from "../Subjects/SubjectInfo";
 
 export default function MatrixLists() {
   const { t, i18n } = useTranslation("global");
@@ -29,9 +30,15 @@ export default function MatrixLists() {
   const [user, setUser] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedMatrix, setselectedMatrix] = useState(null); 
+  const [selectedMatrix, setselectedMatrix] = useState(null);
+  const [selectedSubject, setselectedSubject] = useState(null);
   const handleMatrixctClick = (Matrix) => {
+    setselectedSubject(null);
     setselectedMatrix(Matrix);
+  };
+  const handleSubjectClick = (subject) => {
+    setselectedMatrix(null);
+    setselectedSubject(subject);
   };
   useEffect(() => {
     const qUser = query(
@@ -231,21 +238,19 @@ export default function MatrixLists() {
   const handleClearFilters = () => {
     setSearchQuery("");
     setSearchBy("");
-    setTempSearchQuery("")
+    setTempSearchQuery("");
     setFilteredMatrices(matrix);
   };
   // console.log(matrix);
   // console.log(filteredMatrices);
   // console.log(user[0]);
-  console.log(employees);
+  // console.log(employees);
 
   return (
     <div
       className="flex flex-col  "
       style={{ paddingTop: "120px", paddingBottom: "44px" }}
     >
-  
-
       {/* Input search section */}
       <div className="search flex-col flex xs:flex-col md:flex-row xs:items-center xs:gap-y-4 md:gap-y-0 justify-center mt-9">
         {/* Select what to search by */}
@@ -294,18 +299,20 @@ export default function MatrixLists() {
       </div>
 
       {loading ? (
-  <div className="flex justify-center items-center my-44">
-    <Loader />
-  </div>
-) : (
-  !selectedMatrix ? (
-    <MatrixTable matrices={filteredMatrices} onMatrixClick={handleMatrixctClick} />
-  ) : (
-    <MatrixInfo matrix={selectedMatrix} onBack={() => setselectedMatrix(null)} />
-  )
-)}
-
- 
+        <div className="flex justify-center items-center my-44">
+          <Loader />
+        </div>
+      ) : !selectedMatrix ? (
+        <MatrixTable
+          matrices={filteredMatrices}
+          onMatrixClick={handleMatrixctClick}
+        />
+      ) : (
+        <MatrixInfo
+          matrix={selectedMatrix}
+          onBack={() => setselectedMatrix(null)}
+        />
+      )}
     </div>
   );
 }
