@@ -54,13 +54,13 @@ export default function Cards({ setSelectedContent }) {
     <div className="flex flex-col min-h-screen bg-white relative">
  
       {/* Toggle Menu Button */}
-      <button 
+      {/* <button 
         className="absolute top-4 right-4 text-2xl z-50" // Adjust position as needed
         onClick={() => setIsOpen(!isOpen)} 
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <HiX /> : <HiMenu />}
-      </button>
+      </button> */}
       
       <div className={`flex flex-col items-center sm:p-4 justify-center ${isOpen ? 'block' : 'hidden'} sm:flex`}>
         <img src={logo} alt="Logo" className="mb-4" />

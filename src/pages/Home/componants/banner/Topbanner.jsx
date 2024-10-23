@@ -172,7 +172,7 @@ export default function Topbanner() {
 
       {/* Banner section */}
       <div
-  className="Topbaner w-full sm:w-[86%]  h-36 rounded-xl bg-cover bg-center flex justify-between items-center"
+  className="Topbaner w-full   h-36 rounded-xl bg-cover bg-center flex justify-between items-center"
   style={{ 
     backgroundImage: `url(${topBannerUrl})`,
     zIndex:"10",
