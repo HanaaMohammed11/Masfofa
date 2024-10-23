@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "flowbite-react";
@@ -19,7 +20,12 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { IoArrowBack } from "react-icons/io5";
 import { nav } from "framer-motion/client";
-export default function SubjectInfo({ subject, onBack }) {
+export default function SubjectInfo({
+  subject,
+  onBack,
+  onMatrixClick,
+  onEmpClick,
+}) {
   const { t, i18n } = useTranslation("global");
   const pdfRef = useRef();
   const isRtl = i18n.language === "ar";
@@ -51,7 +57,7 @@ export default function SubjectInfo({ subject, onBack }) {
 
   const [employees, setEmployees] = useState([]);
   const [matrices, setMatrices] = useState([]);
-  console.log(subject.relatedMatrix.title);
+  console.log(subject.relatedMatrix);
   useEffect(() => {
     const qUser = query(collection(db, "matrix"), where("title", "!=", 0));
     const unsubscribe = onSnapshot(qUser, (snapshot) => {
@@ -89,27 +95,25 @@ export default function SubjectInfo({ subject, onBack }) {
     fetchData();
   }, [subject]);
 
-  const emp1 = employees.find(
-    (emp) => emp.employeeId === subject.emp1Id
-  );
-  const emp2 = employees.find(
-    (emp) => emp.employeeId === subject.emp2Id
-  );
+  const emp1 = employees.find((emp) => emp.employeeId === subject.emp1Id);
+  const emp2 = employees.find((emp) => emp.employeeId === subject.emp2Id);
 
   return (
     <div>
-      <div className={`flex     ${isRtl ? "items-left" : "items-right"}`}>
-  <button
-    className={`text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 
-    ${isRtl ? 'mr-14' : 'ml-14'}`}
-    onClick={onBack}
-  >
-    <IoArrowBack className="" /> 
-  </button>
-</div>
+      <div className={`flex ${isRtl ? "items-left" : "items-right"}`}>
+        <button
+          className={`text-center fixed bg-[#CDA03D] py-2 px-3 shadow-xl rounded-full text-white flex text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300 
+    ${isRtl ? "mr-14" : "ml-14"}`}
+          onClick={onBack}
+        >
+          <IoArrowBack className="" />
+        </button>
+      </div>
 
-      <div className=" mt-[40px] justify-center flex items-center mb-44" style={{ 
-    }}>
+      <div
+        className=" mt-[40px] justify-center flex items-center mb-44"
+        style={{}}
+      >
         <Card className="w-[1200px] ">
           <div className=" w-full" dir={direction}>
             <Button onClick={downloadPDF} className="bg-[#d4af37] rounded-full">
@@ -152,15 +156,13 @@ export default function SubjectInfo({ subject, onBack }) {
                   <tr
                     className="cursor-pointer hover:bg-[#fce8ca]"
                     onClick={() => {
-                      const matrix = matrix.find(
-                        (item) =>
-                          item.title === subject.relatedMatrix.title
+                      const matrix = matrices.find(
+                        (item) => item.title === subject.relatedMatrix.title
                       );
-                 
-
-                      navigate("/MatrixInfo", {
-                        state: { matrix },
-                      });
+                      onMatrixClick(matrix);
+                      // navigate("/MatrixInfo", {
+                      //   state: { matrix },
+                      // });
                     }}
                   >
                     <td className="px-4 py-2 font-bold w-1/2">
@@ -175,8 +177,7 @@ export default function SubjectInfo({ subject, onBack }) {
                       {t("subjectInfo.authorizedEmployee")}
                     </td>
                     <td className="px-4 py-2 break-words w-1/2">
-                      {subject.emp1.employeeName} -{" "}
-                      {subject.emp1.jobTitle}{" "}
+                      {subject.emp1.employeeName} - {subject.emp1.jobTitle}{" "}
                     </td>
                   </tr>
                   <tr>
@@ -198,7 +199,8 @@ export default function SubjectInfo({ subject, onBack }) {
                           className="cursor-pointer hover:bg-[#fce8ca]"
                           onClick={() => {
                             if (user) {
-                              navigate("/userinfo", { state: { user } });
+                              onEmpClick(user);
+                              // navigate("/userinfo", { state: { user } });
                             } else {
                               console.log(
                                 "No user found for empId:",

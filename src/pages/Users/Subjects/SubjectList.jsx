@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
@@ -5,21 +6,24 @@ import SubTable from "./SubCard";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import SubjectInfo from "./SubjectInfo";
-
+import MatrixInfo from "../Matrixs/MatrixInfo";
+import UserInfo from "../Employee/UserInfo";
 export default function SubjectsLists() {
   const { t, i18n } = useTranslation("global");
   const location = useLocation();
   const { filteredMatrices } = location.state || [];
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
-  
+
   const [tempSearchQuery, setTempSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchType, setSearchType] = useState(""); 
-  const [selectedSubject, setSelectedSubject] = useState(null); 
+  const [searchType, setSearchType] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedMatrix, setSelectedMatrix] = useState(null);
+  const [selectedEmp, setSelectedEmp] = useState(null);
   const handleClearFilters = () => {
     setSearchTerm("");
     setSearchType("");
-    setTempSearchQuery("")
+    setTempSearchQuery("");
     setTempSearchQuery("");
   };
   const handleSearch = () => {
@@ -30,22 +34,34 @@ export default function SubjectsLists() {
     }
   };
   const handleSubjectClick = (subject) => {
+    setSelectedMatrix(null);
+    setSelectedEmp(null);
     setSelectedSubject(subject);
+  };
+  const handleMatrixClick = (matrix) => {
+    setSelectedEmp(null);
+    setSelectedSubject(null);
+    setSelectedMatrix(matrix);
+  };
+  const handleEmpClick = (emp) => {
+    setSelectedSubject(null);
+    setSelectedMatrix(null);
+    setSelectedEmp(emp);
   };
   return (
     <div
       className="flex flex-col"
       style={{ paddingTop: "120px", paddingBottom: "44px" }}
     >
-
-
       <div className="search flex justify-center mt-9">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
           className=" rounded-md  ml-2 mr-2  p-2"
         >
-          <option value="" disabled>{t("subjectEditForm.search")}</option>
+          <option value="" disabled>
+            {t("subjectEditForm.search")}
+          </option>
           <option value="subjectTitle">{t("search.subjectTitle")}</option>
           <option value="subjectNum">{t("search.subjectNum")}</option>
           <option value="subjectContent">{t("search.subjectContent")}</option>
@@ -60,7 +76,7 @@ export default function SubjectsLists() {
           value={tempSearchQuery}
           onChange={(e) => setTempSearchQuery(e.target.value)}
         />
-        
+
         <button
           onClick={handleSearch}
           className="  ml-2 mr-2  px-4 py-2 rounded-full bg-[#CDA03D] text-white"
@@ -76,14 +92,36 @@ export default function SubjectsLists() {
       </div>
 
       <div className="flex-grow">
-        {!selectedSubject ? (
-          <SubTable searchTerm={searchTerm} searchType={searchType} onSubjectClick={handleSubjectClick} />
+        {!selectedSubject && !selectedMatrix && !selectedEmp ? (
+          <SubTable
+            searchTerm={searchTerm}
+            searchType={searchType}
+            onSubjectClick={handleSubjectClick}
+            onEmpClick={handleEmpClick}
+          />
+        ) : !selectedSubject && !selectedEmp && selectedMatrix ? (
+          <MatrixInfo
+            matrix={selectedMatrix}
+            onEmpClick={handleEmpClick}
+            onSubjectClick={handleSubjectClick}
+            onBack={() => setSelectedMatrix(null)}
+          />
+        ) : !selectedSubject && selectedEmp && !selectedMatrix ? (
+          <UserInfo
+            user={selectedEmp}
+            onBack={() => setSelectedEmp(null)}
+            onSubjectClick={handleSubjectClick}
+            onEmpClick={handleEmpClick}
+          />
         ) : (
-          <SubjectInfo subject={selectedSubject} onBack={() => setSelectedSubject(null)} />
+          <SubjectInfo
+            subject={selectedSubject}
+            onEmpClick={handleEmpClick}
+            onMatrixClick={handleMatrixClick}
+            onBack={() => setSelectedSubject(null)}
+          />
         )}
       </div>
-
-    
     </div>
   );
 }

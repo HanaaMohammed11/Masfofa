@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Topbanner from "../../Home/componants/banner/Topbanner";
 import Bottombanner from "../../Home/componants/banner/Bottombanner";
@@ -14,25 +15,31 @@ import Loader from "../../Login/loader";
 import { useNavigate } from "react-router-dom";
 import UserTable from "./UserCard";
 import UserInfo from "./UserInfo";
-
+import SubjectInfo from "../Subjects/SubjectInfo";
 export default function Users() {
   const navigate = useNavigate();
-  const [tempSearchTerm, setTempSearchTerm] = useState(""); 
-  const [searchTerm, setSearchTerm] = useState(""); 
-  const [searchType, setSearchType] = useState(""); 
+  const [tempSearchTerm, setTempSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchType, setSearchType] = useState("");
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([]);
-  const [selectedEmp, setSelectedEmp] = useState(null); 
+  const [selectedEmp, setSelectedEmp] = useState(null);
+  const [selectedSubject, setSelectedSubject] = useState(null);
   const handleClearFilters = () => {
     setSearchTerm("");
     setSearchType("");
-    setTempSearchTerm("")
+    setTempSearchTerm("");
   };
   const { t, i18n } = useTranslation("global");
   const [loading, setLoading] = useState(true);
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const handleEmpClick = (user) => {
+    setSelectedSubject(null);
     setSelectedEmp(user);
+  };
+  const handleSubjectClick = (subject) => {
+    setSelectedEmp(null);
+    setSelectedSubject(subject);
   };
   useEffect(() => {
     const qUser = query(
@@ -75,10 +82,13 @@ export default function Users() {
   }, [user]);
 
   const filteredUsers = usersData.filter((user) => {
-    const trimmedSearchTerm = searchTerm.trim().toLowerCase().replace(/\s+/g, ' ');
-  
+    const trimmedSearchTerm = searchTerm
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+
     if (!trimmedSearchTerm) return true;
-  
+
     switch (searchType) {
       case "employeeName":
         return (
@@ -90,13 +100,12 @@ export default function Users() {
           user.jobTitle &&
           user.jobTitle.toLowerCase().includes(trimmedSearchTerm)
         );
-    
-     
+
       default:
         return true;
     }
   });
-  
+
   const handleSearch = () => {
     setSearchTerm(tempSearchTerm);
   };
@@ -106,19 +115,17 @@ export default function Users() {
       className="flex flex-col"
       style={{ paddingTop: "120px", paddingBottom: "440px" }}
     >
-   
-
       <div className="search flex justify-center mt-9">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
           className="ml-2 mr-2  p-2 rounded-md"
         >
-                    <option value="" disabled>{t("search.searchEmp")}</option>
+          <option value="" disabled>
+            {t("search.searchEmp")}
+          </option>
           <option value="employeeName">{t("userInfo.employeeName")}</option>
           <option value="jobTitle">{t("job.jobTitle")} :</option>
-
-   
         </select>
 
         {/* حقل الإدخال للبحث */}
@@ -148,25 +155,34 @@ export default function Users() {
       {/* User Cards section */}
 
       {loading ? (
-  <div className="flex justify-center items-center m-96">
-    <Loader />
-  </div>
-) : (
-  <div className="flex-grow">
-    {!selectedEmp ? ( 
-      filteredUsers.length > 0 ? (
-        <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
+        <div className="flex justify-center items-center m-96">
+          <Loader />
+        </div>
       ) : (
-        <p className="text-center text-gray-500 m-44">
-          {t("EmpCard.noEmp")}
-        </p>
-      )
-    ) : (
-      <UserInfo user={selectedEmp} onBack={() => setSelectedEmp(null)} />
-    )}
-  </div>
-)}
-
+        <div className="flex-grow">
+          {!selectedEmp && !selectedSubject ? (
+            filteredUsers.length > 0 ? (
+              <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
+            ) : (
+              <p className="text-center text-gray-500 m-44">
+                {t("EmpCard.noEmp")}
+              </p>
+            )
+          ) : !selectedEmp && selectedSubject ? (
+            <SubjectInfo
+              subject={selectedSubject}
+              onBack={() => setSelectedSubject(null)}
+              onEmpClick={handleEmpClick}
+            />
+          ) : (
+            <UserInfo
+              onSubjectClick={handleSubjectClick}
+              user={selectedEmp}
+              onBack={() => setSelectedEmp(null)}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
