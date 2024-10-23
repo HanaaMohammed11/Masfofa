@@ -160,7 +160,7 @@ export default function Users() {
         </div>
       ) : (
         <div className="flex-grow">
-          {!selectedEmp ? (
+          {!selectedEmp && !selectedSubject ? (
             filteredUsers.length > 0 ? (
               <UserTable users={filteredUsers} onEmpClick={handleEmpClick} />
             ) : (
@@ -168,8 +168,18 @@ export default function Users() {
                 {t("EmpCard.noEmp")}
               </p>
             )
+          ) : !selectedEmp && selectedSubject ? (
+            <SubjectInfo
+              subject={selectedSubject}
+              onBack={() => setSelectedSubject(null)}
+              onEmpClick={handleEmpClick}
+            />
           ) : (
-            <UserInfo user={selectedEmp} onBack={() => setSelectedEmp(null)} />
+            <UserInfo
+              onSubjectClick={handleSubjectClick}
+              user={selectedEmp}
+              onBack={() => setSelectedEmp(null)}
+            />
           )}
         </div>
       )}
