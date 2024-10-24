@@ -227,7 +227,7 @@ export default function Topbanner() {
   </div>
 
   {/* Logo */}
-  <div className="w-60 pr-5 pt-9 mb-12 logo">
+  <div className="w-60 pr-5 pt-12 mb-12 ml-[300px] mr-[300px] logo">
     <Link to="/" className="ml-4">
       <img src={logoUrl} alt="Logo" />
     </Link>

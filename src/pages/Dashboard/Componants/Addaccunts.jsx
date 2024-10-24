@@ -391,7 +391,7 @@ className={`flex flex-col justify-center  w-full  items-center gap-4 md:gap-9 z-
       </Modal>
 
       {/* Employees Table */}
-      <div className="overflow-x-auto flex flex-col items-center w-full ">
+      <div className="overflow-x-auto flex flex-col items-center w-full mb-44">
         <div
           dir={direction}
           className="overflow-x-auto w-full p-4 rounded-lg shadow-lg mt-20"
