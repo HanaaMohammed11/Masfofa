@@ -58,9 +58,9 @@ export default function Home() {
 
       {/* Main Content Area */}
       <div
-        className={`w-full flex flex-col ${
-          isRTL ? (isSidebarOpen ? "sm:mr-64" : "sm:mr-0") : (isSidebarOpen ? "sm:ml-64" : "sm:ml-0")
-        } transition-all duration-300 ease-in-out`}
+        className={`w-full flex flex-col 
+ 
+       transition-all duration-300 ease-in-out`}
       >
         <Topbanner />
         <div className="flex-grow p-4">{renderContent()}</div>
