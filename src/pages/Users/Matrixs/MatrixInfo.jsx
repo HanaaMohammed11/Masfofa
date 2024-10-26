@@ -73,7 +73,7 @@ export default function MatrixInfo({ matrix, onBack, onSubjectClick }) {
 
   return (
     <div>
-      <div className="w-full "></div>
+      <div className=" "></div>
 
       <div dir={direction}>
         <button
@@ -94,7 +94,7 @@ export default function MatrixInfo({ matrix, onBack, onSubjectClick }) {
             <Loader />
           </div>
         ) : (
-          <Card className="w-[900px] h-auto mb-44">
+          <Card className="lg:w-[900px] h-auto mb-44">
             <div className="flex justify-end px-4 pt-4 "></div>
             <div className="flex flex-col items-center ">
               <div className="mt-4 w-full">

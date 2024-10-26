@@ -96,7 +96,7 @@ export default function AdminUserInfo({ user, onBack, onSubjectClick ,onShowProx
         style={{ paddingBottom: "400px" }}
         dir={direction}
       >
-        <Card className="w-[900px] ">
+        <Card className="lg:w-[900px] ">
           <div className="flex flex-col items-center pb-10">
             <div style={profileContainerStyle}>
               <img

@@ -89,7 +89,7 @@ export default function Proxyemployeeinfo({onBack,user}) {
         <IoArrowBack className="" />  
             </button></div>
       <div className=" justify-center flex items-center pb-[200px] mt-[200px]"   dir={direction}>
-        <Card className="w-[900px] h-auto "  dir={direction}>
+        <Card className="lg:w-[900px] h-auto "  dir={direction}>
           <div className="flex flex-col items-center pb-10"  >
           <div style={profileContainerStyle}>
             <img

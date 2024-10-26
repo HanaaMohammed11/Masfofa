@@ -94,7 +94,7 @@ export default function UserInfo({ user, onBack, onSubjectClick ,onShowProxy}) {
             <Loader />
           </div>
         ) : (
-          <div className="flex flex-col r md:flex-row w-[1100px] p-4 overflow-hidden">
+          <div className="flex flex-col r md:flex-row lg:w-[1100px] p-4 overflow-hidden">
             {/* Left Side: User Info */}
             <Card className="w-full  p-6">
               <div className="flex flex-col items-center pb-10">

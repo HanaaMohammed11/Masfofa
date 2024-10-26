@@ -94,7 +94,7 @@ export default function AdminMatrixInfo() {
         {loading ? (
           <Loader />
         ) : (
-          <Card className="w-[900px] flex justfy-c  h-auto mt-[1000px] ">
+          <Card className="lg:w-[900px] flex justfy-c  h-auto mt-[1000px] ">
             <div className="mt-4 w-full">
               <Button
                 className="bg-[#d4af37] rounded-full"
