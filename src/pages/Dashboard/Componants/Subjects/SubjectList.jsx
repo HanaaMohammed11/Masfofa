@@ -47,7 +47,7 @@ export default function SubjectList() {
         {/* Header Section */}
 
         <div
-          className={`flex flex-col justify-center  w-full  items-center gap-4 md:gap-9 z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky `}
+          className={`flex flex-col lg:justify-center  lg:w-full  md:items-center md:justify-center  md:w-full  lg:items-center gap-4 md:gap-9 z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky `}
         >
           <div
             className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
