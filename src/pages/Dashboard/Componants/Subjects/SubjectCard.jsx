@@ -8,6 +8,8 @@ import {
   onSnapshot,
   query,
   where,
+  updateDoc,
+  arrayRemove,
 } from "firebase/firestore";
 import db from "../../../../config/firebase";
 import React, { useEffect, useState } from "react";
@@ -16,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../../Login/loader";
 import { AiOutlineEdit, AiOutlineDelete, AiFillEye } from "react-icons/ai";
 
-export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
+export default function SubjectCard({ searchTerm, onSubjectClick, onEmpClick }) {
   const navigate = useNavigate();
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,15 +26,20 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
   const direction = i18n.language === "ar" ? "rtl" : "ltr";
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const deleteSubject = async (subjectId) => {
+  const deleteSubject = async (subjectId, relatedMatrixId, subjectName) => {
     const subjectRef = doc(db, "subjects", subjectId);
+    const matrixRef = doc(db, "matrix", relatedMatrixId);
     try {
       await deleteDoc(subjectRef);
+      await updateDoc(matrixRef, {
+        subjects: arrayRemove(subjectName),
+      });
+      console.log("Subject deleted successfully from both collections.");
     } catch (error) {
       console.error("Error deleting subject: ", error);
     }
   };
-
+  
   const handleEdit = (subjectItem) => {
     navigate("/editsubject", { state: { subject: subjectItem } });
   };
@@ -85,7 +92,7 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
   });
 
   return (
-    <div className={`mx-4  mt-32 mb-9 w-full ${direction} `}>
+    <div className={`mx-4 mt-32 mb-9 w-full ${direction} `}>
       {loading ? (
         <div className="flex justify-center items-center min-h-[300px]">
           <Loader />
@@ -93,32 +100,30 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
       ) : filteredSubjects.length > 0 ? (
         <div className="overflow-x-auto flex justify-center items-center">
           <table className="min-w-full border-collapse" dir={direction}>
-            <thead className=" uppercase bg-gray-50" dir={direction}>
+            <thead className="uppercase bg-gray-50" dir={direction}>
               <tr>
-                <th className="px-4 py-2  text-xl font-semibold r">
+                <th className="px-4 py-2 text-xl font-semibold">
                   {t("subjectCardDashboard.subjectNum")}
                 </th>
-
-                <th className="px-4 py-2 text-xl font-semibold ">
+                <th className="px-4 py-2 text-xl font-semibold">
                   {t("subjectInfo.subjectTitle")}
                 </th>
-                <th className="px-4 py-2  text-xl font-semibold texnter">
+                <th className="px-4 py-2 text-xl font-semibold text-center">
                   {t("subjectInfo.action")}
                 </th>
               </tr>
             </thead>
-            <tbody className="">
+            <tbody>
               {filteredSubjects.map((subjectItem, index) => (
                 <tr
                   key={subjectItem.id}
-                  className={`border-b twxt-xl  ${
+                  className={`border-b text-xl ${
                     index % 2 === 0 ? "bg-[#DEBA9A]" : "bg-white"
                   }`}
                 >
                   <td className="px-4 py-2 font-semibold text-center text-xl">
                     {subjectItem.subjectNum}
                   </td>
-
                   <td className="px-4 py-2 font-semibold text-center text-xl">
                     {subjectItem.subjectTitle}
                   </td>
@@ -126,7 +131,6 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
                     <button
                       onClick={() => {
                         onSubjectClick(subjectItem);
-                        // handleShowInfo(subjectItem);
                       }}
                       className="text-blue-500 ml-3"
                     >
@@ -143,7 +147,14 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
                       />
                     </button>
                     <button
-                      onClick={() => deleteSubject(subjectItem.id)}
+                      onClick={() =>
+                        deleteSubject(
+                          subjectItem.id,
+                          subjectItem.relatedMatrix.id
+                          , 
+                          subjectItem.subjectTitle
+                        )
+                      }
                       className="bg-transparent border-0"
                     >
                       <AiOutlineDelete
@@ -159,7 +170,7 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
           </table>
         </div>
       ) : (
-        <div className=" text-center text-neutral-600 mt-44">
+        <div className="text-center text-neutral-600 mt-44">
           {t("subjectCardDashboard.nosubjects")}
         </div>
       )}

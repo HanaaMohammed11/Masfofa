@@ -328,7 +328,7 @@ export default function MatrixLists() {
     onMatrixClick={handleMatrixctClick}
     onBack={() => setselectedSubject(null)}
   />
-) : selectedEmp ? ( // Added condition for selectedEmp
+) : selectedEmp ? ( 
   <UserInfo
     user={selectedEmp}
     onBack={() => setSelectedEmp(null)}

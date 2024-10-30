@@ -195,7 +195,7 @@ export default function Topbanner() {
               />
             </button>
             {isOpen && (
-              <div className="absolute   bg-white shadow-lg   w-full">
+              <div className="absolute  z-[2200] bg-white shadow-lg   w-full">
                 <div
                   onClick={() => handleLanguageSelect("en")}
                   className="p-2 flex items-center cursor-pointer hover:bg-gray-100"

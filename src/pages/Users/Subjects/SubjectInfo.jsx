@@ -57,7 +57,7 @@ export default function SubjectInfo({
 
   const [employees, setEmployees] = useState([]);
   const [matrices, setMatrices] = useState([]);
-  console.log(subject.relatedMatrix);
+
   useEffect(() => {
     const qUser = query(collection(db, "matrix"), where("title", "!=", 0));
     const unsubscribe = onSnapshot(qUser, (snapshot) => {
@@ -94,7 +94,7 @@ export default function SubjectInfo({
 
     fetchData();
   }, [subject]);
-
+  console.log("سببببببببببببب",subject);
   const emp1 = employees.find((emp) => emp.employeeId === subject.emp1Id);
   const emp2 = employees.find((emp) => emp.employeeId === subject.emp2Id);
 
