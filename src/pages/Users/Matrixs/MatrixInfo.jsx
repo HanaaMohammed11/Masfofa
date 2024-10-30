@@ -42,7 +42,8 @@ export default function MatrixInfo({ matrix, onBack, onSubjectClick }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [relatedsubjects, setRelatedsubjectss] = useState([]);
-
+  // const matrix = location.state.item || location.state.matrix;
+  console.log(matrix.subjects);
 
   useEffect(() => {
     const usersCollectionRef = collection(db, "subjects");
@@ -69,8 +70,6 @@ export default function MatrixInfo({ matrix, onBack, onSubjectClick }) {
       setLoading(false);
     }
   }, [matrix]);
-
-  console.log(matrix);
 
   return (
     <div>
