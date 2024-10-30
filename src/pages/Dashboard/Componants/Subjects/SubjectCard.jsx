@@ -83,6 +83,7 @@ export default function SubjctCard({ searchTerm, onSubjectClick, onEmpClick }) {
       subject.ownerAdmin.toLowerCase().replace(/\s+/g, "").includes(searchText)
     );
   });
+  console.log(subjects);
 
   return (
     <div className={`mx-4  mt-32 mb-9 w-full ${direction} `}>

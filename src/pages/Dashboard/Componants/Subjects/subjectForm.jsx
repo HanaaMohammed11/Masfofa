@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Button, Label, Textarea, TextInput, Select } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
@@ -57,12 +56,12 @@ export default function SubjectForm({ onClose }) {
       setIsPopupVisible(true);
       onClose();
       const matrixDocRef = doc(db, "matrix", relatedMatrix.id);
-  
+
       const matrixDocSnapshot = await getDoc(matrixDocRef);
       if (matrixDocSnapshot.exists()) {
         await updateDoc(matrixDocRef, {
           subjects: arrayUnion(data.subjectTitle),
-          MainEmployees: arrayUnion(emp1.employeeId),
+          MainEmployees: arrayUnion(emp1.employeeId || ""),
         });
 
         // navigate("/dashboard");
