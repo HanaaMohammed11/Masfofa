@@ -41,15 +41,17 @@ import AdminMatrixInfo from "./pages/Dashboard/Componants/Matrix/MatrixInfo";
 import AdminSubjectInfo from "./pages/Dashboard/Componants/Subjects/AdminSubInfo";
 import UserProxy from "./pages/Users/Employee/userProxy";
 import IntroPage from "./pages/Login/introPage";
+import Loader from "./pages/Login/loader";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkUserInFirestore = async (userId) => {
       try {
-        const q = query(collection(db, "users"), where("ID", "==", userId)); // Query by field "ID"
+        const q = query(collection(db, "users"), where("ID", "==", userId));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
@@ -62,6 +64,8 @@ export default function App() {
       } catch (error) {
         console.error("Error checking Firestore: ", error);
         setIsLoggedIn(false);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -71,10 +75,13 @@ export default function App() {
       checkUserInFirestore(userId);
     } else {
       setIsLoggedIn(false);
+      setLoading(false); 
     }
   }, [navigate]);
 
-  console.log(isLoggedIn);
+  if (loading) {
+    return <div className="flex justify-center mt-96 items-center" > <Loader/></div>; 
+  }
 
   return (
     <Routes>
@@ -100,20 +107,18 @@ export default function App() {
           <Route path="/AdminUserInfo" element={<AdminUserInfo />} />
           <Route path="/AdminUserCard" element={<AdminUserCard />} />
           <Route path="/AdminMtrixInfo" element={<AdminMatrixInfo />} />
-
           <Route path="/edit-Theme" element={<EditTheme />} />
           <Route path="/AdminUsers" element={<AdminUsers />} />
           <Route path="/MatrixList" element={<MatrixList />} />
           <Route path="/MatrixEditForm" element={<MatrixEditForm />} />
           <Route path="/MatrixForm" element={<MatrixForm />} />
+          <Route path="*" element={<Home />} /> 
         </>
       ) : (
         <>
-             <Route path="/mycorgov" element={<IntroPage />} />
-        <Route path="/login" element={<Form />} />
-        <Route path="*" element={<IntroPage />} />
-
-   
+          <Route path="/mycorgov" element={<IntroPage />} />
+          <Route path="/login" element={<Form />} />
+          <Route path="*" element={<IntroPage />} /> 
         </>
       )}
     </Routes>
