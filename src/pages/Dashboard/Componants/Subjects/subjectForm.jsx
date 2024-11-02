@@ -271,14 +271,14 @@ export default function SubjectForm({ onClose }) {
               <Select
                 id="emp1"
                 className="mt-2"
-                value={emp1?.employeeName || ""} // Ensure emp1 is defined
+                value={emp1?.employeeName || ""} 
                 onChange={(e) => {
                   const selectedEmployee = employees.find(
                     (item) => item.employeeName === e.target.value
                   );
                   setEmp1({
-                    ...emp1, // Retain current emp1 properties if needed
-                    ...selectedEmployee, // Update with selected employee details
+                    ...emp1, 
+                    ...selectedEmployee,
                   });
                 }}
               >
