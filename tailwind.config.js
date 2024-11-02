@@ -10,7 +10,9 @@ export default {
     extend: {
       screens: {
         'xs': '360px', 
-      }
+
+      },
+      
     },
   },
   plugins: [   

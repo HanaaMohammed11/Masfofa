@@ -126,7 +126,7 @@ export default function Users() {
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
-          className="ml-2 mr-2  p-2 rounded-md"
+          className="ml-2 mr-2  p-2 w-40 rounded-md"
         >
           <option value="" disabled>
             {t("search.searchEmp")}

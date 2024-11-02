@@ -57,7 +57,7 @@ export default function SubjectsLists() {
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
-          className=" rounded-md  ml-2 mr-2  p-2"
+          className="w-32 rounded-md  ml-2 mr-2  p-2"
         >
           <option value="" disabled>
             {t("subjectEditForm.search")}

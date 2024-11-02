@@ -154,7 +154,6 @@ export default function AddAccounts() {
       );
   
       try {
-        // تأكدي أن employeeId معرف وصحيح
         if (employeeId) {
           await deleteDoc(doc(db, "users", employeeId));
           console.log("تم حذف الموظف بنجاح!");

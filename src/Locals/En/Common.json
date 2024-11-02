@@ -255,5 +255,8 @@
   "pagination":{
      "of": "of",
       "page": "Page"
- }
+ },"intropage":{
+  "header":"MYMATRIX",
+  "content":"MYMATRIX simplifies task management by offering a structured framework to prioritize, organize, and track goals while effectively coordinating authorities within your organization, ensuring efficient progress and enhanced productivity."
+   }
 }

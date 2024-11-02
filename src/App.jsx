@@ -40,6 +40,7 @@ import SubjectsLists from "./pages/Users/Subjects/SubjectList";
 import AdminMatrixInfo from "./pages/Dashboard/Componants/Matrix/MatrixInfo";
 import AdminSubjectInfo from "./pages/Dashboard/Componants/Subjects/AdminSubInfo";
 import UserProxy from "./pages/Users/Employee/userProxy";
+import IntroPage from "./pages/Login/introPage";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,12 +58,10 @@ export default function App() {
         } else {
           console.log("User not found in Firestore with ID:", userId);
           setIsLoggedIn(false);
-          navigate("/login");
         }
       } catch (error) {
         console.error("Error checking Firestore: ", error);
         setIsLoggedIn(false);
-        navigate("/login");
       }
     };
 
@@ -72,7 +71,6 @@ export default function App() {
       checkUserInFirestore(userId);
     } else {
       setIsLoggedIn(false);
-      navigate("/login");
     }
   }, [navigate]);
 
@@ -110,7 +108,13 @@ export default function App() {
           <Route path="/MatrixForm" element={<MatrixForm />} />
         </>
       ) : (
+        <>
+             <Route path="/mycorgov" element={<IntroPage />} />
         <Route path="/login" element={<Form />} />
+        <Route path="*" element={<IntroPage />} />
+
+   
+        </>
       )}
     </Routes>
   );
