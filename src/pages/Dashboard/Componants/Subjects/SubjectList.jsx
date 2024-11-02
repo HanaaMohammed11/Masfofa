@@ -41,6 +41,7 @@ export default function SubjectList() {
   const handleFormClose = () => {
     setShowSubForm(false);
   };
+  const isRtl = i18n.language === "ar";
   return (
     <div className="">
       <div className="">
@@ -50,7 +51,7 @@ export default function SubjectList() {
           className={`flex flex-col lg:justify-center  lg:w-full  md:items-center md:justify-center  md:w-full  lg:items-center gap-4 md:gap-9 z-10 sticky lg:fixed md:fixed sm:sticky xs:sticky `}
         >
           <div
-            className="btn-button text-center btn-curve btn-gold flex items-center text-lg font-bold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300"
+            className={` ${isRtl?"lg:mr-[500px]":"lg:ml-[500px] "} btn-button  text-center btn-curve btn-gold flex items-center text-lg font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-transform duration-300`}
             onClick={handleClick}
           >
             <span className="whitespace-nowrap flex items-center space-x-2 btn-text">
